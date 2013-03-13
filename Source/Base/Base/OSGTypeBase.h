@@ -173,10 +173,11 @@ class OSG_BASE_DLLMAPPING TypeBase
 
     TypeBase(const TypeBase &source);
 
-    virtual bool initialize(void);
     virtual void terminate (void);
 
   public :
+	//MYCHANGE: made public
+    virtual bool initialize(void);
 
     //-----------------------------------------------------------------------
     //   class functions

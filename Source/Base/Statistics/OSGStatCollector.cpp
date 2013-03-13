@@ -61,6 +61,11 @@ OSG_BEGIN_NAMESPACE
     The StatCollector is responsible for managing a set of OSG::StatElem
     elements, see \ref PageSystemStatistics for details.
 */
+/***************************************************************************\
+ *                            Class Members                                *
+\***************************************************************************/
+
+StatCollector* StatCollector::_pGlobalCollector = NULL;
 
 /***************************************************************************\
  *                         Instance methods                                *
