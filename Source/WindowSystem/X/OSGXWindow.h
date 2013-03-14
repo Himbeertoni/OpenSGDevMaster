@@ -43,6 +43,11 @@
 #endif
 
 #include "OSGXWindowBase.h"
+#include "OSGThreadManager.h"
+
+union _XEvent;
+typedef _XEvent XEvent;
+typedef unsigned long  KeySym;
 
 OSG_BEGIN_NAMESPACE
 
@@ -88,9 +93,124 @@ class OSG_WINDOWX_DLLMAPPING XWindow : public XWindowBase
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
+    virtual Window* initWindow(void);
+
+    virtual bool attachWindow(void);
+
+    virtual void openWindow(const Pnt2f& ScreenPosition,
+            const Vec2f& Size,
+            const std::string& WindowName);
+
+    virtual void closeWindow(void);
+
+    virtual void mainLoop(void);
+
+    //Set the Window Position
+    virtual void setPosition(Pnt2f Pos);
+    //Set the Window Position
+    virtual Pnt2f getPosition(void) const;
+
+    //Set the Window size
+    virtual void setSize(Vec2us Size);
+
+    void setSize        (UInt16 width,
+            UInt16 height) 
+    {
+        Window::setSize(width, height);
+    }
+
+    //Get the Window size
+    virtual Vec2f getSize(void) const;
+
+    //Focused
+    //Set the Window Focus
+    virtual void setFocused(bool Focused);
+
+    //Get the Window Focus
+    virtual bool getFocused(void) const;
+
+    //Visible / Iconify / Normal
+    //Set the Window Visible
+    virtual void setVisible(bool Visible);
+
+    //Get the Window Visible
+    virtual bool getVisible(void) const;
+
+    //Set the Window Iconify
+    virtual void setIconify(bool Iconify);
+
+    //Get the Window Iconify
+    virtual bool getIconify(void) const;
+
+    //Fullscreen
+    virtual void setFullscreen(bool Fullscreen);
+
+    //Get the Window Fullscreen
+    virtual bool getFullscreen(void) const;
+
+    virtual void setShowCursor(bool showCursor);
+
+    virtual bool getShowCursor(void) const;
+
+    virtual void setAttachMouseToCursor(bool attach);
+
+    virtual bool getAttachMouseToCursor(void) const;
+
+    //Set the text on the Title bar of the window
+    virtual void setTitle(const std::string& TitleText);
+
+    //Get the text of the Title bar of the window
+    virtual std::string getTitle(void);
+
+    //Set the window to allow or not allow Resizing
+    virtual void setRisizable(bool IsResizable);
+
+    //Get whether or not the window allows resizing
+    virtual bool getRisizable(void);
+
+    //Set the window to draw or not draw it's border
+    virtual void setDrawBorder(bool DrawBorder);
+
+    //Get wether or not the window is drawing a border
+    virtual bool getDrawBorder(void);
+
+    virtual UInt32 getKeyModifiers(void) const;
+
+    virtual KeyEventDetails::KeyState getKeyState(KeyEventDetails::Key TheKey) const;
+
+    virtual Pnt2f getMousePosition(void) const;
+
+    virtual std::string getClipboard(void) const;
+
+    virtual void putClipboard(const std::string Value);
+
+    void handleEvent(XEvent& Event);
+
+
+    virtual void draw(void);
+    virtual void update(void);
+
+    virtual Vec2f getDesktopSize(void) const;
+
+    virtual std::vector<BoostPath> openFileDialog(const std::string& WindowTitle,
+            const std::vector<FileDialogFilter>& Filters,
+            const BoostPath& InitialDir,
+            bool AllowMultiSelect);
+
+    virtual BoostPath saveFileDialog(const std::string& DialogTitle,
+            const std::vector<FileDialogFilter>& Filters,
+            const std::string& InitialFile,
+            const BoostPath& InitialDirectory,
+            bool PromptForOverwrite
+            );	
     /*=========================  PROTECTED  ===============================*/
 
   protected:
+  
+    static int wait_for_map_notify(Display *, XEvent *event, char *arg);
+    static KeyEventDetails::Key determineKey(const KeySym& XKeySym);
+    
+    static UInt32 determineKeyModifiers(const unsigned int state);
 
     // Variables should all be in XWindowBase.
 
@@ -112,9 +232,9 @@ class OSG_WINDOWX_DLLMAPPING XWindow : public XWindowBase
     /*---------------------------------------------------------------------*/
     /*! \name                      Init                                    */
     /*! \{                                                                 */
-
+#if 0
     virtual void onDestroy(UInt32 uiContainerId);
-
+#endif
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Init                                   */
@@ -131,6 +251,15 @@ class OSG_WINDOWX_DLLMAPPING XWindow : public XWindowBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                MT Construction                               */
+    /*! \{                                                                 */
+
+           void onCreate       (const XWindow *source = NULL);
+
+           void onDestroy      (      UInt32  uiContainerId);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/	
     /*! \name      Window system implementation functions                  */
     /*! \{                                                                 */
 
@@ -141,6 +270,10 @@ class OSG_WINDOWX_DLLMAPPING XWindow : public XWindowBase
     virtual bool hasContext  (void);
 
     /*! \}                                                                 */
+	virtual void setCursor(void);
+    
+    unsigned int _LastKeyboardMouseButtonMask;
+    Pnt2f _LastMousePosition;	
     /*==========================  PRIVATE  ================================*/
 
   private:
