@@ -46,7 +46,9 @@
 #include "OSGConfig.h"
 
 #include "OSGReflexiveContainer.h"
+#ifdef OSG_TB_SIGNALS
 #include "OSGActivity.h"
+#endif
 #include <boost/bind.hpp>
 
 /*!\fn bool isEventConnectable(void) const
@@ -110,10 +112,10 @@ ReflexiveContainer::TypeObject ReflexiveContainer::_type(
     NULL,
     false,
     0);
-
+#ifdef OSG_TB_SIGNALS
 EventProducerType ReflexiveContainer::_producerType(
     "Invalid");
-
+#endif
 ReflexiveContainer::TypeObject &ReflexiveContainer::getType(void)
 {
     return _type;
@@ -149,7 +151,7 @@ GetFieldHandlePtr ReflexiveContainer::invalidGetField(void) const
 {
     return GetFieldHandlePtr();
 }
-
+#ifdef OSG_TB_SIGNALS
 GetEventHandlePtr ReflexiveContainer::invalidGetEvent (void) const
 {
     return GetEventHandlePtr();
@@ -223,7 +225,7 @@ ReflexiveContainer::connectToEvent(EventDescription const * eventDesc,
     //By default no events can be connected to a ReflexiveContainer
     return boost::signals2::connection();
 }
-
+#endif
 #ifdef OSG_ENABLE_MEMORY_DEBUGGING
 bool ReflexiveContainer::_check_is_deleted()
 {

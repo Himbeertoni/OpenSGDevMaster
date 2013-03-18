@@ -57,7 +57,7 @@
 
 
 
-#include "OSGGLUTWindow.h"              // FuckEverything Class
+#include "OSGWindow.h"                  // MyTest Class
 
 #include "OSGTBQT4WindowBase.h"
 #include "OSGTBQT4Window.h"
@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var GLUTWindow *    TBQT4WindowBase::_sfFuckEverything
+/*! \var Window *        TBQT4WindowBase::_sfMyTest
     
 */
 
@@ -122,15 +122,15 @@ void TBQT4WindowBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFWeakGLUTWindowPtr::Description(
-        SFWeakGLUTWindowPtr::getClassType(),
-        "FuckEverything",
+    pDesc = new SFUnrecWindowPtr::Description(
+        SFUnrecWindowPtr::getClassType(),
+        "MyTest",
         "",
-        FuckEverythingFieldId, FuckEverythingFieldMask,
+        MyTestFieldId, MyTestFieldMask,
         true,
         (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&TBQT4Window::editHandleFuckEverything),
-        static_cast<FieldGetMethodSig >(&TBQT4Window::getHandleFuckEverything));
+        static_cast<FieldEditMethodSig>(&TBQT4Window::editHandleMyTest),
+        static_cast<FieldGetMethodSig >(&TBQT4Window::getHandleMyTest));
 
     oType.addInitialDesc(pDesc);
 
@@ -172,9 +172,9 @@ TBQT4WindowBase::TypeObject TBQT4WindowBase::_type(
     "\tisNodeCore=\"false\"\n"
     "    >\n"
     "    <Field\n"
-    "        name=\"FuckEverything\"\n"
-    "        type=\"GLUTWindow\"\n"
-    "\t\tcategory=\"weakpointer\"\n"
+    "        name=\"MyTest\"\n"
+    "        type=\"Window\"\n"
+    "\t\tcategory=\"pointer\"\n"
     "        cardinality=\"single\"\n"
     "        visibility=\"internal\"\n"
     "        defaultValue=\"NULL\"\n"
@@ -217,17 +217,17 @@ UInt32 TBQT4WindowBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
-//! Get the TBQT4Window::_sfFuckEverything field.
-const SFWeakGLUTWindowPtr *TBQT4WindowBase::getSFFuckEverything(void) const
+//! Get the TBQT4Window::_sfMyTest field.
+const SFUnrecWindowPtr *TBQT4WindowBase::getSFMyTest(void) const
 {
-    return &_sfFuckEverything;
+    return &_sfMyTest;
 }
 
-SFWeakGLUTWindowPtr *TBQT4WindowBase::editSFFuckEverything (void)
+SFUnrecWindowPtr    *TBQT4WindowBase::editSFMyTest         (void)
 {
-    editSField(FuckEverythingFieldMask);
+    editSField(MyTestFieldMask);
 
-    return &_sfFuckEverything;
+    return &_sfMyTest;
 }
 
 SFTBQGLWidgetP *TBQT4WindowBase::editSFTBQGLWidget(void)
@@ -253,9 +253,9 @@ SizeT TBQT4WindowBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (FuckEverythingFieldMask & whichField))
+    if(FieldBits::NoField != (MyTestFieldMask & whichField))
     {
-        returnValue += _sfFuckEverything.getBinSize();
+        returnValue += _sfMyTest.getBinSize();
     }
     if(FieldBits::NoField != (TBQGLWidgetFieldMask & whichField))
     {
@@ -270,9 +270,9 @@ void TBQT4WindowBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (FuckEverythingFieldMask & whichField))
+    if(FieldBits::NoField != (MyTestFieldMask & whichField))
     {
-        _sfFuckEverything.copyToBin(pMem);
+        _sfMyTest.copyToBin(pMem);
     }
     if(FieldBits::NoField != (TBQGLWidgetFieldMask & whichField))
     {
@@ -285,10 +285,10 @@ void TBQT4WindowBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (FuckEverythingFieldMask & whichField))
+    if(FieldBits::NoField != (MyTestFieldMask & whichField))
     {
-        editSField(FuckEverythingFieldMask);
-        _sfFuckEverything.copyFromBin(pMem);
+        editSField(MyTestFieldMask);
+        _sfMyTest.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TBQGLWidgetFieldMask & whichField))
     {
@@ -420,14 +420,14 @@ FieldContainerTransitPtr TBQT4WindowBase::shallowCopy(void) const
 
 TBQT4WindowBase::TBQT4WindowBase(void) :
     Inherited(),
-    _sfFuckEverything         (NULL),
+    _sfMyTest                 (NULL),
     _sfTBQGLWidget            (TBQGLWidgetP(NULL))
 {
 }
 
 TBQT4WindowBase::TBQT4WindowBase(const TBQT4WindowBase &source) :
     Inherited(source),
-    _sfFuckEverything         (NULL),
+    _sfMyTest                 (NULL),
     _sfTBQGLWidget            (source._sfTBQGLWidget            )
 {
 }
@@ -447,34 +447,34 @@ void TBQT4WindowBase::onCreate(const TBQT4Window *source)
     {
         TBQT4Window *pThis = static_cast<TBQT4Window *>(this);
 
-        pThis->setFuckEverything(source->getFuckEverything());
+        pThis->setMyTest(source->getMyTest());
     }
 }
 
-GetFieldHandlePtr TBQT4WindowBase::getHandleFuckEverything  (void) const
+GetFieldHandlePtr TBQT4WindowBase::getHandleMyTest          (void) const
 {
-    SFWeakGLUTWindowPtr::GetHandlePtr returnValue(
-        new  SFWeakGLUTWindowPtr::GetHandle(
-             &_sfFuckEverything,
-             this->getType().getFieldDesc(FuckEverythingFieldId),
+    SFUnrecWindowPtr::GetHandlePtr returnValue(
+        new  SFUnrecWindowPtr::GetHandle(
+             &_sfMyTest,
+             this->getType().getFieldDesc(MyTestFieldId),
              const_cast<TBQT4WindowBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr TBQT4WindowBase::editHandleFuckEverything (void)
+EditFieldHandlePtr TBQT4WindowBase::editHandleMyTest         (void)
 {
-    SFWeakGLUTWindowPtr::EditHandlePtr returnValue(
-        new  SFWeakGLUTWindowPtr::EditHandle(
-             &_sfFuckEverything,
-             this->getType().getFieldDesc(FuckEverythingFieldId),
+    SFUnrecWindowPtr::EditHandlePtr returnValue(
+        new  SFUnrecWindowPtr::EditHandle(
+             &_sfMyTest,
+             this->getType().getFieldDesc(MyTestFieldId),
              this));
 
     returnValue->setSetMethod(
-        boost::bind(&TBQT4Window::setFuckEverything,
+        boost::bind(&TBQT4Window::setMyTest,
                     static_cast<TBQT4Window *>(this), _1));
 
-    editSField(FuckEverythingFieldMask);
+    editSField(MyTestFieldMask);
 
     return returnValue;
 }
@@ -541,7 +541,7 @@ void TBQT4WindowBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<TBQT4Window *>(this)->setFuckEverything(NULL);
+    static_cast<TBQT4Window *>(this)->setMyTest(NULL);
 
 
 }

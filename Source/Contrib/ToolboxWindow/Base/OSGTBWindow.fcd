@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="TBWindow"
+    parent="Window"
+    library="System"
+    pointerfieldtypes="both"
+	structure="abstract"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+>
+    <Field
+        name="WindowEventProducer"
+        type="WindowEventProducerPtr"
+        cardinality="single"
+        visibility="external"
+        access="public"
+		defaultValue="nullptr"
+		fieldHeader="OSGWindowEventProducerFields.h"
+    >
+    </Field>
+</FieldContainer>

@@ -1,0 +1,85 @@
+
+OSG_ADD_PROJECT("OSGContribToolboxFileIO")
+OSG_SELECT_PROJECT()
+
+##############################################################################
+# Version and revision values
+##############################################################################
+
+FILE(STRINGS ${CMAKE_CURRENT_SOURCE_DIR}/VERSION VersionFile)
+STRING(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+).*" VersionMatch ${VersionFile})
+
+SET(${PROJECT_NAME}_MAJOR_VERSION ${CMAKE_MATCH_1})
+SET(${PROJECT_NAME}_MINOR_VERSION ${CMAKE_MATCH_2})
+SET(${PROJECT_NAME}_PATCH_VERSION ${CMAKE_MATCH_3})
+SET(${PROJECT_NAME}_VERSION ${CMAKE_MATCH_0})
+
+FILE(STRINGS ${CMAKE_CURRENT_SOURCE_DIR}/REVISION RevisionFile)
+SET(${PROJECT_NAME}_REVISION ${RevisionFile})
+
+##############################################################################
+# dependencies
+##############################################################################
+
+##############################################################################
+# simplify the tests below by setting local variables
+
+##############################################################################
+# depdencies start here
+
+SET(${PROJECT_NAME}_DEP_OSG_LIB OSGDynamics OSGFileIO OSGContribToolbox)
+#SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGEffectGroups OSGImageFileIO)
+
+SET(${PROJECT_NAME}_CXXFLAGS ${OSG_ADD_CXX_FLAGS})
+
+IF(COLLADA_FOUND)
+    SET(${PROJECT_NAME}_DEP_INCDIR COLLADA_DAE_INCLUDE_DIR
+                                   COLLADA_DOM_INCLUDE_DIR
+                                   CG_INCLUDE_DIR    )
+                                   
+    SET(${PROJECT_NAME}_DEP_LIB    OSG_COLLADA_LIBS 
+                       OSG_BOOST_LIBS 
+                       CG_LIBRARIES        )
+ENDIF(COLLADA_FOUND)
+
+OSG_STORE_PROJECT_DEPENDENCIES()
+
+##############################################################################
+# collect sources
+##############################################################################
+
+OSG_ADD_DIRECTORY("${CMAKE_CURRENT_SOURCE_DIR}")
+OSG_ADD_DIRECTORY("Utils")
+OSG_ADD_DIRECTORY("XML")
+
+IF(COLLADA_FOUND)
+    OSG_ADD_DIRECTORY("Collada")
+ENDIF(COLLADA_FOUND)
+
+IF(${OSG_CMAKE_PASS} STREQUAL "OSGSETUP")
+  INSTALL(FILES 
+          XML/rapidxml.hpp XML/rapidxml_iterators.hpp XML/rapidxml_print.hpp
+          XML/rapidxml_utils.hpp XML/rapidxml-license.txt
+          DESTINATION include/OpenSG
+          PERMISSIONS OWNER_WRITE OWNER_READ
+                      GROUP_READ
+                      WORLD_READ)
+ENDIF(${OSG_CMAKE_PASS} STREQUAL "OSGSETUP")
+
+#Library def source
+CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}Def.cpp.in"
+               "${CMAKE_BINARY_DIR}/Source/${PROJECT_NAME}/${PROJECT_NAME}Def.cpp")
+OSG_ADD_DIRECTORY("${CMAKE_BINARY_DIR}/Source/${PROJECT_NAME}")
+
+##############################################################################
+# setup build
+##############################################################################
+
+OSG_SETUP_PROJECT("OSG_COMPILECONTRIBTOOLBOXFILEIOLIB")
+
+##############################################################################
+# setup documentation
+##############################################################################
+SET(OSG_${PROJECT_NAME}_DOXY_EXAMPLES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../Examples/Tutorial/Native)
+
+SET(OSG_${PROJECT_NAME}_DOXY_EXTERNAL_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/../../../Doc/Include/${PROJECT_NAME}.include)

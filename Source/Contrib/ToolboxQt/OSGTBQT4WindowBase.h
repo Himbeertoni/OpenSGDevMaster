@@ -65,7 +65,7 @@
 
 #include "OSGWindow.h" // Parent
 
-#include "OSGGLUTWindowFields.h"        // FuckEverything type
+#include "OSGWindowFields.h"            // MyTest type
 #include "OSGTBQT4WindowDataFields.h"   // TBQGLWidget type
 
 #include "OSGTBQT4WindowFields.h"
@@ -95,19 +95,19 @@ class OSG_CONTRIBTOOLBOXQT_DLLMAPPING TBQT4WindowBase : public Window
 
     enum
     {
-        FuckEverythingFieldId = Inherited::NextFieldId,
-        TBQGLWidgetFieldId = FuckEverythingFieldId + 1,
+        MyTestFieldId = Inherited::NextFieldId,
+        TBQGLWidgetFieldId = MyTestFieldId + 1,
         NextFieldId = TBQGLWidgetFieldId + 1
     };
 
-    static const OSG::BitVector FuckEverythingFieldMask =
-        (TypeTraits<BitVector>::One << FuckEverythingFieldId);
+    static const OSG::BitVector MyTestFieldMask =
+        (TypeTraits<BitVector>::One << MyTestFieldId);
     static const OSG::BitVector TBQGLWidgetFieldMask =
         (TypeTraits<BitVector>::One << TBQGLWidgetFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFWeakGLUTWindowPtr SFFuckEverythingType;
+    typedef SFUnrecWindowPtr  SFMyTestType;
     typedef SFTBQGLWidgetP    SFTBQGLWidgetType;
 
     /*---------------------------------------------------------------------*/
@@ -133,14 +133,14 @@ class OSG_CONTRIBTOOLBOXQT_DLLMAPPING TBQT4WindowBase : public Window
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFWeakGLUTWindowPtr *getSFFuckEverything (void) const;
-                  SFWeakGLUTWindowPtr *editSFFuckEverything (void);
+            const SFUnrecWindowPtr    *getSFMyTest         (void) const;
+                  SFUnrecWindowPtr    *editSFMyTest         (void);
 
                   SFTBQGLWidgetP      *editSFTBQGLWidget    (void);
             const SFTBQGLWidgetP      *getSFTBQGLWidget     (void) const;
 
 
-                  GLUTWindow * getFuckEverything (void) const;
+                  Window * getMyTest         (void) const;
 
                   TBQGLWidgetP        &editTBQGLWidget    (void);
             const TBQGLWidgetP        &getTBQGLWidget     (void) const;
@@ -150,7 +150,7 @@ class OSG_CONTRIBTOOLBOXQT_DLLMAPPING TBQT4WindowBase : public Window
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setFuckEverything (GLUTWindow * const value);
+            void setMyTest         (Window * const value);
             void setTBQGLWidget    (const TBQGLWidgetP &value);
 
     /*! \}                                                                 */
@@ -216,7 +216,7 @@ class OSG_CONTRIBTOOLBOXQT_DLLMAPPING TBQT4WindowBase : public Window
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFWeakGLUTWindowPtr _sfFuckEverything;
+    SFUnrecWindowPtr  _sfMyTest;
     SFTBQGLWidgetP    _sfTBQGLWidget;
 
     /*! \}                                                                 */
@@ -246,8 +246,8 @@ class OSG_CONTRIBTOOLBOXQT_DLLMAPPING TBQT4WindowBase : public Window
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleFuckEverything  (void) const;
-    EditFieldHandlePtr editHandleFuckEverything (void);
+    GetFieldHandlePtr  getHandleMyTest          (void) const;
+    EditFieldHandlePtr editHandleMyTest         (void);
     GetFieldHandlePtr  getHandleTBQGLWidget     (void) const;
     EditFieldHandlePtr editHandleTBQGLWidget    (void);
 

@@ -219,7 +219,7 @@ GetFieldHandlePtr ReflexiveContainer::getField(const Char8 *fieldName) const
 
     return (desc != NULL) ? desc->getField(*this) : GetFieldHandlePtr();
 }
-
+#ifdef OSG_TB_SIGNALS
 inline
 UInt32 ReflexiveContainer::getNumEvents(      void            ) const
 {
@@ -298,7 +298,7 @@ EventDescription const * ReflexiveContainer::getEventDescription(const Char8 *ev
 {
     return getProducerType().findEventDescription(eventName);
 }
-
+#endif
 #if 0
 inline
 EditFieldHandle ReflexiveContainer::editHandledField(UInt32 fieldId)
@@ -385,7 +385,7 @@ UInt32 ReflexiveContainer::getId(void) const
 {
     return (_uiContainerId & ContainerIdMask);
 }
-
+#ifdef OSG_TB_SIGNALS
 inline
 bool ReflexiveContainer::isEventProducer(void) const
 {
@@ -397,5 +397,5 @@ bool ReflexiveContainer::isEventConnectable(void) const
 {
     return getConnectableEvents().size() == 0;
 }
-
+#endif
 OSG_END_NAMESPACE

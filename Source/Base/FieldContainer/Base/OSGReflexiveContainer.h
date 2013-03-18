@@ -51,10 +51,11 @@
 #include "OSGThread.h"
 #include "OSGChangeList.h"
 #include "OSGFieldHandle.h"
+#ifdef OSG_TB_SIGNALS
 #include "OSGEventHandle.h"
 #include "OSGEventProducerType.h"
 #include <boost/signals2.hpp>
-
+#endif
 OSG_BEGIN_NAMESPACE
 
 //---------------------------------------------------------------------------
@@ -130,10 +131,10 @@ class ReflexiveContainer
 
     OSG_BASE_DLLMAPPING 
             const Char8      *getTypeName(void) const;
-
+#ifdef OSG_TB_SIGNALS
     OSG_BASE_DLLMAPPING 
     virtual const EventProducerType &getProducerType(void) const;
-
+#endif
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name        General Fieldcontainer Declaration                    */
@@ -173,6 +174,7 @@ class ReflexiveContainer
     
     OSG_BASE_DLLMAPPING 
     virtual GetFieldHandlePtr  getField    (const Char8  *fieldName) const;
+#ifdef OSG_TB_SIGNALS
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Get Events                                 */
@@ -225,6 +227,7 @@ class ReflexiveContainer
 
     OSG_BASE_DLLMAPPING
     virtual void   disconnectAll(void);
+#endif
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Get Field                                   */
@@ -257,7 +260,7 @@ class ReflexiveContainer
     virtual FieldDescriptionBase *
                            getFieldDescription(const Char8 *fieldName) const;
 
-
+#ifdef OSG_TB_SIGNALS
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                 Get Event Description                       */
@@ -303,7 +306,7 @@ class ReflexiveContainer
     OSG_BASE_DLLMAPPING 
     bool validateConnectable(EventDescription const * eventDesc,
                              ReflexiveContainer* const eventProducer) const;
-
+#endif
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
@@ -360,10 +363,10 @@ class ReflexiveContainer
 
     OSG_BASE_DLLMAPPING 
     GetFieldHandlePtr invalidGetField (void) const;
-
+#ifdef OSG_TB_SIGNALS
     OSG_BASE_DLLMAPPING 
     GetEventHandlePtr invalidGetEvent (void) const;
-
+#endif
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
@@ -387,8 +390,9 @@ class ReflexiveContainer
     /*! \{                                                                 */
 
     static TypeObject _type;
+#ifdef OSG_TB_SIGNALS
     static EventProducerType _producerType;
-
+#endif
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Fields                                  */
@@ -487,8 +491,9 @@ class ReflexiveContainer
 
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const ReflexiveContainer &source);
-
+#ifdef OSG_TB_SIGNALS
     std::list<std::pair<boost::signals2::connection, Activity*> > _ConnectedActivities;
+#endif
 };
 
 #define OSG_RC_FIRST_FIELD_DECL(OSG_ELEMNAME)                                 \

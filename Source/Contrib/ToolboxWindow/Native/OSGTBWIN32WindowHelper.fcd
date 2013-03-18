@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="TBWIN32WindowHelper"
+    parent="WIN32Window"
+    library="Window"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    docGroupBase="GrpWindowWIN32"
+    >
+</FieldContainer>

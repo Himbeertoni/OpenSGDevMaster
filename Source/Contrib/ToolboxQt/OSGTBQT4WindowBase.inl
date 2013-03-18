@@ -75,20 +75,20 @@ OSG::UInt16 TBQT4WindowBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the TBQT4Window::_sfFuckEverything field.
+//! Get the value of the TBQT4Window::_sfMyTest field.
 inline
-GLUTWindow * TBQT4WindowBase::getFuckEverything(void) const
+Window * TBQT4WindowBase::getMyTest(void) const
 {
-    return _sfFuckEverything.getValue();
+    return _sfMyTest.getValue();
 }
 
-//! Set the value of the TBQT4Window::_sfFuckEverything field.
+//! Set the value of the TBQT4Window::_sfMyTest field.
 inline
-void TBQT4WindowBase::setFuckEverything(GLUTWindow * const value)
+void TBQT4WindowBase::setMyTest(Window * const value)
 {
-    editSField(FuckEverythingFieldMask);
+    editSField(MyTestFieldMask);
 
-    _sfFuckEverything.setValue(value);
+    _sfMyTest.setValue(value);
 }
 //! Get the value of the TBQT4Window::_sfTBQGLWidget field.
 
@@ -127,8 +127,8 @@ void TBQT4WindowBase::execSync (      TBQT4WindowBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (FuckEverythingFieldMask & whichField))
-        _sfFuckEverything.syncWith(pFrom->_sfFuckEverything);
+    if(FieldBits::NoField != (MyTestFieldMask & whichField))
+        _sfMyTest.syncWith(pFrom->_sfMyTest);
 
     if(FieldBits::NoField != (TBQGLWidgetFieldMask & whichField))
         _sfTBQGLWidget.syncWith(pFrom->_sfTBQGLWidget);

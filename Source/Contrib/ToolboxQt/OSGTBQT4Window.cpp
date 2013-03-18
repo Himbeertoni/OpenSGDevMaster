@@ -100,32 +100,34 @@ TBQT4Window::~TBQT4Window(void)
 
 void TBQT4Window::init(GLInitFunctor oFunc)
 {
-	getFuckEverything()->init( oFunc );
+//	getMyTest()->init( oFunc );
 }
 
 void TBQT4Window::terminate()
 {
-	getFuckEverything()->terminate();
+	//getMyTest()->terminate();
 }
 
 void TBQT4Window::doActivate  (void)
 {
-	getFuckEverything()->doActivate();
+	//getMyTest()->doActivate();
 }
 
 void TBQT4Window::doDeactivate(void)
 {
-	getFuckEverything()->doDeactivate();
+	//getMyTest()->doDeactivate();
 }
 
 bool TBQT4Window::doSwap      (void)
 {
-	return getFuckEverything()->doSwap();
+	//return getMyTest()->doSwap();
+	return false;
 }
 
 bool TBQT4Window::hasContext  (void)
 {
-	return getFuckEverything()->hasContext();
+	//return getMyTest()->hasContext();
+	return false;
 }
 
 /*----------------------------- class specific ----------------------------*/

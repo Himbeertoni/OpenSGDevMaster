@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="ToggleButton"
+    parent="Button"
+    library="ContribUserInterface"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="false"
+    authors="David Kabala (djkabala@gmail.com)"
+    parentProducer="Button"
+>
+A UI Toggle Button.
+    <ProducedEvent
+        name="ButtonSelected"
+        detailsType="ButtonSelectedEventDetails"
+        consumable="true"
+    >
+    </ProducedEvent>
+    <ProducedEvent
+        name="ButtonDeselected"
+        detailsType="ButtonSelectedEventDetails"
+        consumable="true"
+    >
+    </ProducedEvent>
+</FieldContainer>

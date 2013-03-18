@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
 /*! \brief TBQT4Window class. See \ref
            PageWindowTBQT4Window for a description.
 */
-#define CPP11_OVERRIDE override
+#define CPP11_OVERRIDE 
 
 class OSG_CONTRIBTOOLBOXQT_DLLMAPPING TBQT4Window : public TBQT4WindowBase
 {

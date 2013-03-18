@@ -11,9 +11,9 @@
 	isNodeCore="false"
     >
     <Field
-        name="FuckEverything"
-        type="GLUTWindow"
-		category="weakpointer"
+        name="MyTest"
+        type="Window"
+		category="pointer"
         cardinality="single"
         visibility="internal"
         defaultValue="NULL"
