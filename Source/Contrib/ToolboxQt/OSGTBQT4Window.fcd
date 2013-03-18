@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="TBQT4Window"
+    parent="Window"
+    library="ContribToolboxQt"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+	isNodeCore="false"
+    >
+    <Field
+        name="FuckEverything"
+        type="GLUTWindow"
+		category="weakpointer"
+        cardinality="single"
+        visibility="internal"
+        defaultValue="NULL"
+        access="public"
+		fieldFlags="FClusterLocal"
+        >
+    </Field>
+    <Field
+	    name="TBQGLWidget"
+	    type="TBQGLWidgetP"
+	    cardinality="single"
+	    visibility="internal"
+	    defaultValue="NULL"
+	    fieldHeader="OSGTBQT4WindowDataFields.h"
+	    access="public"
+		fieldFlags="FClusterLocal"
+	>
+    </Field>	
+</FieldContainer>
