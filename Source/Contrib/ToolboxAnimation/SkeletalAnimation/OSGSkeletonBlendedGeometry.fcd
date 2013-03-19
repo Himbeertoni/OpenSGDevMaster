@@ -3,7 +3,7 @@
 <FieldContainer
     name="SkeletonBlendedGeometry"
     parent="Geometry"
-    library="TBAnimation"
+    library="ContribToolboxAnimation"
     pointerfieldtypes="both"
     structure="concrete"
     systemcomponent="true"
@@ -103,10 +103,21 @@ After that, the artist is allowed to hand-modify the weights, usually by paintin
         access="public"
     >
     </Field>
+    <Field
+        name="EventSource"
+        type="SkeletonBlendedGeometryEventSource"
+        category="pointer"
+        cardinality="single"
+        visibility="external"
+        access="public"
+    >
+    </Field>    
+<!--
     <ProducedEvent
         name="SkeletonChanged"
         detailsType="SkeletonEventDetails"
         consumable="true"
     >
     </ProducedEvent>
+-->
 </FieldContainer>

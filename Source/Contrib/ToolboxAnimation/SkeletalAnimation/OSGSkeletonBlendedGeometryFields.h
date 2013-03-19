@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -65,24 +65,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SkeletonBlendedGeometry;
 
 OSG_GEN_CONTAINERPTR(SkeletonBlendedGeometry);
-
-/*! \ingroup GrpTBAnimationFieldTraits
-    \ingroup GrpLibOSGTBAnimation
+/*! \ingroup GrpContribToolboxAnimationFieldTraits
+    \ingroup GrpLibOSGContribToolboxAnimation
  */
 template <>
-struct FieldTraits<SkeletonBlendedGeometry *> :
-    public FieldTraitsFCPtrBase<SkeletonBlendedGeometry *>
+struct FieldTraits<SkeletonBlendedGeometry *, nsOSG> :
+    public FieldTraitsFCPtrBase<SkeletonBlendedGeometry *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<SkeletonBlendedGeometry *>  Self;
+    typedef FieldTraits<SkeletonBlendedGeometry *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -91,126 +91,124 @@ struct FieldTraits<SkeletonBlendedGeometry *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFSkeletonBlendedGeometryPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFSkeletonBlendedGeometryPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<SkeletonBlendedGeometry *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonBlendedGeometry *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecSkeletonBlendedGeometryPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkeletonBlendedGeometry *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonBlendedGeometry *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecSkeletonBlendedGeometryPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkeletonBlendedGeometry *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonBlendedGeometry *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakSkeletonBlendedGeometryPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkeletonBlendedGeometry *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonBlendedGeometry *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdSkeletonBlendedGeometryPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkeletonBlendedGeometry *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonBlendedGeometry *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecSkeletonBlendedGeometryPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkeletonBlendedGeometry *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonBlendedGeometry *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecSkeletonBlendedGeometryPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkeletonBlendedGeometry *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonBlendedGeometry *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakSkeletonBlendedGeometryPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SkeletonBlendedGeometry *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SkeletonBlendedGeometry *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdSkeletonBlendedGeometryPtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpTBAnimationFieldSFields */
+/*! \ingroup GrpContribToolboxAnimationFieldSFields */
 typedef PointerSField<SkeletonBlendedGeometry *,
-                      RecordedRefCountPolicy  > SFRecSkeletonBlendedGeometryPtr;
-/*! \ingroup GrpTBAnimationFieldSFields */
+                      RecordedRefCountPolicy, nsOSG  > SFRecSkeletonBlendedGeometryPtr;
+/*! \ingroup GrpContribToolboxAnimationFieldSFields */
 typedef PointerSField<SkeletonBlendedGeometry *,
-                      UnrecordedRefCountPolicy> SFUnrecSkeletonBlendedGeometryPtr;
-/*! \ingroup GrpTBAnimationFieldSFields */
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecSkeletonBlendedGeometryPtr;
+/*! \ingroup GrpContribToolboxAnimationFieldSFields */
 typedef PointerSField<SkeletonBlendedGeometry *,
-                      WeakRefCountPolicy      > SFWeakSkeletonBlendedGeometryPtr;
-/*! \ingroup GrpTBAnimationFieldSFields */
+                      WeakRefCountPolicy, nsOSG      > SFWeakSkeletonBlendedGeometryPtr;
+/*! \ingroup GrpContribToolboxAnimationFieldSFields */
 typedef PointerSField<SkeletonBlendedGeometry *,
-                      NoRefCountPolicy        > SFUncountedSkeletonBlendedGeometryPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedSkeletonBlendedGeometryPtr;
 
 
-/*! \ingroup GrpTBAnimationFieldMFields */
+/*! \ingroup GrpContribToolboxAnimationFieldMFields */
 typedef PointerMField<SkeletonBlendedGeometry *,
-                      RecordedRefCountPolicy  > MFRecSkeletonBlendedGeometryPtr;
-/*! \ingroup GrpTBAnimationFieldMFields */
+                      RecordedRefCountPolicy, nsOSG  > MFRecSkeletonBlendedGeometryPtr;
+/*! \ingroup GrpContribToolboxAnimationFieldMFields */
 typedef PointerMField<SkeletonBlendedGeometry *,
-                      UnrecordedRefCountPolicy> MFUnrecSkeletonBlendedGeometryPtr;
-/*! \ingroup GrpTBAnimationFieldMFields */
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecSkeletonBlendedGeometryPtr;
+/*! \ingroup GrpContribToolboxAnimationFieldMFields */
 typedef PointerMField<SkeletonBlendedGeometry *,
-                      WeakRefCountPolicy      > MFWeakSkeletonBlendedGeometryPtr;
-/*! \ingroup GrpTBAnimationFieldMFields */
+                      WeakRefCountPolicy, nsOSG      > MFWeakSkeletonBlendedGeometryPtr;
+/*! \ingroup GrpContribToolboxAnimationFieldMFields */
 typedef PointerMField<SkeletonBlendedGeometry *,
-                      NoRefCountPolicy        > MFUncountedSkeletonBlendedGeometryPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedSkeletonBlendedGeometryPtr;
 
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpTBAnimationFieldSFields \ingroup GrpLibOSGTBAnimation */
+/*! \ingroup GrpContribToolboxAnimationFieldSFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct SFRecSkeletonBlendedGeometryPtr : 
     public PointerSField<SkeletonBlendedGeometry *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpTBAnimationFieldSFields \ingroup GrpLibOSGTBAnimation */
+/*! \ingroup GrpContribToolboxAnimationFieldSFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct SFUnrecSkeletonBlendedGeometryPtr : 
     public PointerSField<SkeletonBlendedGeometry *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpTBAnimationFieldSFields \ingroup GrpLibOSGTBAnimation */
+/*! \ingroup GrpContribToolboxAnimationFieldSFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct SFWeakSkeletonBlendedGeometryPtr :
     public PointerSField<SkeletonBlendedGeometry *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpTBAnimationFieldSFields \ingroup GrpLibOSGTBAnimation */
+/*! \ingroup GrpContribToolboxAnimationFieldSFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct SFUncountedSkeletonBlendedGeometryPtr :
     public PointerSField<SkeletonBlendedGeometry *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpTBAnimationFieldMFields \ingroup GrpLibOSGTBAnimation */
+/*! \ingroup GrpContribToolboxAnimationFieldMFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct MFRecSkeletonBlendedGeometryPtr :
     public PointerMField<SkeletonBlendedGeometry *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpTBAnimationFieldMFields \ingroup GrpLibOSGTBAnimation */
+/*! \ingroup GrpContribToolboxAnimationFieldMFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct MFUnrecSkeletonBlendedGeometryPtr :
     public PointerMField<SkeletonBlendedGeometry *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpTBAnimationFieldMFields \ingroup GrpLibOSGTBAnimation */
+/*! \ingroup GrpContribToolboxAnimationFieldMFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct MFWeakSkeletonBlendedGeometryPtr :
     public PointerMField<SkeletonBlendedGeometry *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpTBAnimationFieldMFields \ingroup GrpLibOSGTBAnimation */
+/*! \ingroup GrpContribToolboxAnimationFieldMFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct MFUncountedSkeletonBlendedGeometryPtr :
     public PointerMField<SkeletonBlendedGeometry *,
                          NoRefCountPolicy        > {};

@@ -40,14 +40,14 @@
 #define _OSGCONSUMABLEEVENTCOMBINER_H_
 
 #include "OSGConfig.h"
-#include "OSGBaseDef.h"
+#include "OSGContribToolboxDef.h"
 
 #include "OSGEventDetails.h"
 
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_BASE_DLLMAPPING ConsumableEventCombiner
+class OSG_CONTRIBTOOLBOX_DLLMAPPING ConsumableEventCombiner
 {
 private:
     mutable EventDetails const * _pDetails;

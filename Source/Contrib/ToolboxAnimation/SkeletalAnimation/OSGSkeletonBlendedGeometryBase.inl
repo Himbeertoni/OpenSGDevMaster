@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  * contact: David Kabala (djkabala@gmail.com)                                *
  *          David Naylor                                                     *
@@ -49,9 +49,8 @@
  *****************************************************************************
 \*****************************************************************************/
 
-#include "OSGSkeletonEventDetails.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 
 //! access the type of the class
@@ -66,19 +65,6 @@ inline
 OSG::UInt32 SkeletonBlendedGeometryBase::getClassTypeId(void)
 {
     return _type.getId();
-}
-//! access the producer type of the class
-inline
-const EventProducerType &SkeletonBlendedGeometryBase::getProducerClassType(void)
-{
-    return _producerType;
-}
-
-//! access the producer type id of the class
-inline
-UInt32 SkeletonBlendedGeometryBase::getProducerClassTypeId(void)
-{
-    return _producerType.getId();
 }
 
 inline
@@ -163,6 +149,22 @@ void SkeletonBlendedGeometryBase::setBindTransformation(const Matrix &value)
     _sfBindTransformation.setValue(value);
 }
 
+//! Get the value of the SkeletonBlendedGeometry::_sfEventSource field.
+inline
+SkeletonBlendedGeometryEventSource * SkeletonBlendedGeometryBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the SkeletonBlendedGeometry::_sfEventSource field.
+inline
+void SkeletonBlendedGeometryBase::setEventSource(SkeletonBlendedGeometryEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
+
 //! Get the value of the \a index element the SkeletonBlendedGeometry::_mfInternalJoints field.
 inline
 Node * SkeletonBlendedGeometryBase::getInternalJoints(const UInt32 index) const
@@ -220,6 +222,9 @@ void SkeletonBlendedGeometryBase::execSync (      SkeletonBlendedGeometryBase *p
 
     if(FieldBits::NoField != (BindTransformationFieldMask & whichField))
         _sfBindTransformation.syncWith(pFrom->_sfBindTransformation);
+
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+        _sfEventSource.syncWith(pFrom->_sfEventSource);
 }
 #endif
 
@@ -229,75 +234,6 @@ const Char8 *SkeletonBlendedGeometryBase::getClassname(void)
 {
     return "SkeletonBlendedGeometry";
 }
-
-inline
-UInt32 SkeletonBlendedGeometryBase::getNumProducedEvents(void) const
-{
-    return getProducerType().getNumEventDescs();
-}
-
-inline
-const EventDescription *SkeletonBlendedGeometryBase::getProducedEventDescription(const std::string &ProducedEventName) const
-{
-    return getProducerType().findEventDescription(ProducedEventName);
-}
-
-inline
-const EventDescription *SkeletonBlendedGeometryBase::getProducedEventDescription(UInt32 ProducedEventId) const
-{
-    return getProducerType().getEventDescription(ProducedEventId);
-}
-
-inline
-UInt32 SkeletonBlendedGeometryBase::getProducedEventId(const std::string &ProducedEventName) const
-{
-    return getProducerType().getProducedEventId(ProducedEventName);
-}
-
-inline
-boost::signals2::connection  SkeletonBlendedGeometryBase::connectSkeletonChanged(const SkeletonChangedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _SkeletonChangedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  SkeletonBlendedGeometryBase::connectSkeletonChanged(const SkeletonChangedEventType::group_type &group,
-                                                    const SkeletonChangedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _SkeletonChangedEvent.connect(group, listener, at);
-}
-
-inline
-void  SkeletonBlendedGeometryBase::disconnectSkeletonChanged(const SkeletonChangedEventType::group_type &group)
-{
-    _SkeletonChangedEvent.disconnect(group);
-}
-
-inline
-void  SkeletonBlendedGeometryBase::disconnectAllSlotsSkeletonChanged(void)
-{
-    _SkeletonChangedEvent.disconnect_all_slots();
-}
-
-inline
-bool  SkeletonBlendedGeometryBase::isEmptySkeletonChanged(void) const
-{
-    return _SkeletonChangedEvent.empty();
-}
-
-inline
-UInt32  SkeletonBlendedGeometryBase::numSlotsSkeletonChanged(void) const
-{
-    return _SkeletonChangedEvent.num_slots();
-}
-
-inline
-void SkeletonBlendedGeometryBase::produceSkeletonChanged(SkeletonChangedEventDetailsType* const e)
-{
-    produceEvent(SkeletonChangedEventId, e);
-}
-
 OSG_GEN_CONTAINERPTR(SkeletonBlendedGeometry);
 
 OSG_END_NAMESPACE

@@ -122,7 +122,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TBAnimation *>::_type("TBAnimationPtr", "AttachmentContainerPtr");
+DataType FieldTraits<TBAnimation *>::_type("TBAnimationPtr", "EventContainerPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(TBAnimation *)
@@ -221,7 +221,7 @@ TBAnimationBase::TypeObject TBAnimationBase::_type(
     "\n"
     "<FieldContainer\n"
     "\tname=\"Animation\"\n"
-    "\tparent=\"AttachmentContainer\"\n"
+    "\tparent=\"EventContainer\"\n"
     "    library=\"TBAnimation\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tstructure=\"abstract\"\n"

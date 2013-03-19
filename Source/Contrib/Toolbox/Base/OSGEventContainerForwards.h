@@ -10,6 +10,7 @@
 OSG_BEGIN_NAMESPACE
 
 class ReflexiveContainer;
+class EventContainer;
 
 class GetFieldHandle;
 class EditFieldHandle;
@@ -33,7 +34,7 @@ typedef boost::shared_ptr<GetEventHandle > GetEventHandlePtr;
 
 class Activity;
 
-typedef GetEventHandlePtr(ReflexiveContainer::*EventGetMethod)(void) const;
+typedef GetEventHandlePtr(EventContainer::*EventGetMethod)(void) const;
 
 OSG_END_NAMESPACE
 

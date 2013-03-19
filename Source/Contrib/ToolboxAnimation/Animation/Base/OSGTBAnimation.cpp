@@ -359,7 +359,7 @@ bool TBAnimation::update(const Time& ElapsedTime)
  *
  * @param[in] Producer A ReflexiveContainer that can produce an UpdateEvent.
  */
-void TBAnimation::attachUpdateProducer(ReflexiveContainer* const producer)
+void TBAnimation::attachUpdateProducer( EventContainer* const producer )
 {
     const EventDescription* Desc(producer->getProducerType().findEventDescription("Update"));
 
@@ -426,13 +426,17 @@ TBAnimation::disconnectFromEvent(EventDescription const * eventDesc) const
 
 boost::signals2::connection 
 TBAnimation::connectToEvent(EventDescription const * eventDesc,
-                          ReflexiveContainer* const eventProducer) const
+                            EventContainer* const eventProducer) const
 {
     //Validate the EventDescription and producer
-    EventDescription const * LocalDesc(eventProducer->getEventDescription(eventDesc->getName().c_str()));
-    if(validateConnectable(eventDesc,eventProducer))
+    EventDescription const * localDesc( eventProducer->getEventDescription(eventDesc->getName().c_str()) );
+#if 0
+	if( this->getEventProducer()->validateConnectable(eventDesc,eventProducer))
+#else
+	if ( true )
+#endif
     {
-        return eventProducer->connectEvent(LocalDesc->getEventId(),
+        return eventProducer->connectEvent(localDesc->getEventId(),
                                            boost::bind(&TBAnimation::handleUpdate,
                                                        const_cast<TBAnimation*>(this),
                                                        _1));

@@ -63,7 +63,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGAttachmentContainer.h" // Parent
+#include "OSGEventContainer.h" // Parent
 
 #include "OSGSysFields.h"               // Cycling type
 
@@ -83,12 +83,12 @@ class TBAnimation;
 
 //! \brief Animation Base Class.
 
-class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING TBAnimationBase : public AttachmentContainer
+class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING TBAnimationBase : public EventContainer
 {
   public:
 
-    typedef AttachmentContainer Inherited;
-    typedef AttachmentContainer ParentContainer;
+    typedef EventContainer Inherited;
+    typedef EventContainer ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;

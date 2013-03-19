@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -71,18 +71,12 @@
 #include "OSGGeoVectorPropertyFields.h" // InternalWeights type
 #include "OSGNodeFields.h"              // InternalJoints type
 #include "OSGMathFields.h"              // InternalJointInvBindTransformations type
+#include "OSGSkeletonBlendedGeometryEventSourceFields.h" // EventSource type
 
 #include "OSGSkeletonBlendedGeometryFields.h"
 
-//Event Producer Headers
-#include "OSGActivity.h"
-#include "OSGConsumableEventCombiner.h"
-
-#include "OSGSkeletonEventDetailsFields.h"
-
-#include "OSGEventProducerType.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 class SkeletonBlendedGeometry;
 
@@ -99,12 +93,6 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING SkeletonBlendedGeometryBase : publi
     typedef TypeObject::InitPhase InitPhase;
 
     OSG_GEN_INTERNALPTR(SkeletonBlendedGeometry);
-    
-    
-    typedef SkeletonEventDetails SkeletonChangedEventDetailsType;
-
-    typedef boost::signals2::signal<void (EventDetails* const            , UInt32)> BaseEventType;
-    typedef boost::signals2::signal<void (SkeletonEventDetails* const, UInt32), ConsumableEventCombiner> SkeletonChangedEventType;
 
     /*==========================  PUBLIC  =================================*/
 
@@ -118,7 +106,8 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING SkeletonBlendedGeometryBase : publi
         InternalJointsFieldId = InternalWeightsFieldId + 1,
         InternalJointInvBindTransformationsFieldId = InternalJointsFieldId + 1,
         BindTransformationFieldId = InternalJointInvBindTransformationsFieldId + 1,
-        NextFieldId = BindTransformationFieldId + 1
+        EventSourceFieldId = BindTransformationFieldId + 1,
+        NextFieldId = EventSourceFieldId + 1
     };
 
     static const OSG::BitVector BaseGeometryFieldMask =
@@ -133,6 +122,8 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING SkeletonBlendedGeometryBase : publi
         (TypeTraits<BitVector>::One << InternalJointInvBindTransformationsFieldId);
     static const OSG::BitVector BindTransformationFieldMask =
         (TypeTraits<BitVector>::One << BindTransformationFieldId);
+    static const OSG::BitVector EventSourceFieldMask =
+        (TypeTraits<BitVector>::One << EventSourceFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -142,12 +133,7 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING SkeletonBlendedGeometryBase : publi
     typedef MFUnrecNodePtr    MFInternalJointsType;
     typedef MFMatrix          MFInternalJointInvBindTransformationsType;
     typedef SFMatrix          SFBindTransformationType;
-
-    enum
-    {
-        SkeletonChangedEventId = 1,
-        NextProducedEventId = SkeletonChangedEventId + 1
-    };
+    typedef SFUnrecSkeletonBlendedGeometryEventSourcePtr SFEventSourceType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -156,8 +142,6 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING SkeletonBlendedGeometryBase : publi
     static FieldContainerType &getClassType   (void);
     static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
-    static const  EventProducerType  &getProducerClassType  (void);
-    static        UInt32              getProducerClassTypeId(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -181,6 +165,8 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING SkeletonBlendedGeometryBase : publi
 
                   SFMatrix            *editSFBindTransformation(void);
             const SFMatrix            *getSFBindTransformation (void) const;
+            const SFUnrecSkeletonBlendedGeometryEventSourcePtr *getSFEventSource    (void) const;
+                  SFUnrecSkeletonBlendedGeometryEventSourcePtr *editSFEventSource    (void);
 
 
                   Geometry * getBaseGeometry   (void) const;
@@ -190,6 +176,8 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING SkeletonBlendedGeometryBase : publi
                   Matrix              &editBindTransformation(void);
             const Matrix              &getBindTransformation (void) const;
 
+                  SkeletonBlendedGeometryEventSource * getEventSource    (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -198,6 +186,7 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING SkeletonBlendedGeometryBase : publi
             void setBaseGeometry   (Geometry * const value);
             void setInternalWeights(GeoVectorProperty * const value);
             void setBindTransformation(const Matrix &value);
+            void setEventSource    (SkeletonBlendedGeometryEventSource * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -214,55 +203,13 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING SkeletonBlendedGeometryBase : publi
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual SizeT  getBinSize (ConstFieldMaskArg  whichField);
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
     virtual void   copyFromBin(BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
 
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Event Produced Get                           */
-    /*! \{                                                                 */
-
-    virtual const EventProducerType &getProducerType(void) const; 
-
-    virtual UInt32                   getNumProducedEvents       (void                                ) const;
-    virtual const EventDescription *getProducedEventDescription(const std::string &ProducedEventName) const;
-    virtual const EventDescription *getProducedEventDescription(UInt32 ProducedEventId              ) const;
-    virtual UInt32                   getProducedEventId         (const std::string &ProducedEventName) const;
-    
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-                                              
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::group_type &group,
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-    
-    virtual void   disconnectEvent        (UInt32 eventId, const BaseEventType::group_type &group);
-    virtual void   disconnectAllSlotsEvent(UInt32 eventId);
-    virtual bool   isEmptyEvent           (UInt32 eventId) const;
-    virtual UInt32 numSlotsEvent          (UInt32 eventId) const;
-
-    /*! \}                                                                 */
-    /*! \name                Event Access                                 */
-    /*! \{                                                                 */
-    
-    //SkeletonChanged
-    boost::signals2::connection connectSkeletonChanged(const SkeletonChangedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectSkeletonChanged(const SkeletonChangedEventType::group_type &group,
-                                                       const SkeletonChangedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectSkeletonChanged        (const SkeletonChangedEventType::group_type &group);
-    void   disconnectAllSlotsSkeletonChanged(void);
-    bool   isEmptySkeletonChanged           (void) const;
-    UInt32 numSlotsSkeletonChanged          (void) const;
-    
-    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Construction                               */
@@ -294,13 +241,6 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING SkeletonBlendedGeometryBase : publi
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Produced Event Signals                   */
-    /*! \{                                                                 */
-
-    //Event Event producers
-    SkeletonChangedEventType _SkeletonChangedEvent;
-    /*! \}                                                                 */
 
     static TypeObject _type;
 
@@ -317,6 +257,7 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING SkeletonBlendedGeometryBase : publi
     MFUnrecNodePtr    _mfInternalJoints;
     MFMatrix          _mfInternalJointInvBindTransformations;
     SFMatrix          _sfBindTransformation;
+    SFUnrecSkeletonBlendedGeometryEventSourcePtr _sfEventSource;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -365,13 +306,9 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING SkeletonBlendedGeometryBase : publi
     EditFieldHandlePtr editHandleInternalJointInvBindTransformations(void);
     GetFieldHandlePtr  getHandleBindTransformation (void) const;
     EditFieldHandlePtr editHandleBindTransformation(void);
+    GetFieldHandlePtr  getHandleEventSource     (void) const;
+    EditFieldHandlePtr editHandleEventSource    (void);
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Event Access                     */
-    /*! \{                                                                 */
-
-    GetEventHandlePtr getHandleSkeletonChangedSignal(void) const;
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Get                                 */
@@ -411,14 +348,6 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING SkeletonBlendedGeometryBase : publi
     void removeObjFromInternalJoints(Node * const value   );
     void clearInternalJoints            (void                          );
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Event Producer Firing                    */
-    /*! \{                                                                 */
-
-    virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
-    
-    void produceSkeletonChanged     (SkeletonChangedEventDetailsType* const e);
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
@@ -469,9 +398,6 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING SkeletonBlendedGeometryBase : publi
 
   private:
     /*---------------------------------------------------------------------*/
-    static EventDescription   *_eventDesc[];
-    static EventProducerType _producerType;
-
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SkeletonBlendedGeometryBase &source);

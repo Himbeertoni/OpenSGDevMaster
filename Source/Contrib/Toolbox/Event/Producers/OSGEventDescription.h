@@ -41,6 +41,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/signals2.hpp>
 #include "OSGContainerForwards.h"
+#include "OSGEventContainerForwards.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -89,7 +90,7 @@ class OSG_CONTRIBTOOLBOX_DLLMAPPING EventDescription
           bool         getConsumable       (void) const;
     const TypeBase&    getEventArgumentType(void) const;
 
-    GetEventHandlePtr  getEvent(const ReflexiveContainer &oContainer) const;
+    GetEventHandlePtr  getEvent(const EventContainer *oContainer) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -108,7 +108,7 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING TBAnimation : public TBAnimationBas
     /*! \name                  Event Connectable                           */
     /*! \{                                                                 */
 
-    void attachUpdateProducer(ReflexiveContainer* const producer);
+    void attachUpdateProducer( EventContainer* const producer );
     void detachUpdateProducer(void);
 
     virtual bool
@@ -124,7 +124,7 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING TBAnimation : public TBAnimationBas
 
     boost::signals2::connection 
         connectToEvent(EventDescription const * eventDesc,
-                       ReflexiveContainer* const eventProducer) const;
+                       EventContainer* const eventProducer) const;
     /*! \}                                                                 */
 
     /*=========================  PROTECTED  ===============================*/

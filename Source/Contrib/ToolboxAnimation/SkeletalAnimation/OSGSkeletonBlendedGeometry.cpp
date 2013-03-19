@@ -54,6 +54,7 @@
 #include <boost/bind.hpp>
 
 #include "OSGGeoPropertyUtils.h"
+#include "OSGSkeletonBlendedGeometryEventSource.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -493,9 +494,7 @@ void SkeletonBlendedGeometry::calculatePositions(void)
 
 void SkeletonBlendedGeometry::produceSkeletonChanged(void)
 {
-    SkeletonEventDetailsUnrecPtr Details = SkeletonEventDetails::create(this,getTimeStamp());
-   
-    Inherited::produceSkeletonChanged(Details);
+    getEventSource()->produceSkeletonChanged();
 }
 
 /*------------------------- volume update -------------------------------*/

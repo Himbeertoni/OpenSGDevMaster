@@ -107,7 +107,7 @@ class EditEventHandle;
     \ingroup GrpLibOSGBase
  */
 
-class OSG_BASE_DLLMAPPING GetEventHandle : public EventHandle
+class OSG_CONTRIBTOOLBOX_DLLMAPPING GetEventHandle : public EventHandle
 {
     /*==========================  PRIVATE  ================================*/
 

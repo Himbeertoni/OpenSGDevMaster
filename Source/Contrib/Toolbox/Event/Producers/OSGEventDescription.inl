@@ -125,11 +125,11 @@ bool EventDescription::getConsumable(void)  const
 }
 
 inline
-GetEventHandlePtr EventDescription::getEvent(const ReflexiveContainer &oContainer) const
+GetEventHandlePtr EventDescription::getEvent(const EventContainer *oContainer) const
 {
     if(_fAccessFunctor != 0)
     {
-        return ( (&oContainer)->*_fAccessFunctor) ();
+        return ( oContainer->*_fAccessFunctor) ();
     }
     return GetEventHandlePtr();
 }
