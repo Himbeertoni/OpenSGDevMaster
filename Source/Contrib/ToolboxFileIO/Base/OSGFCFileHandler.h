@@ -48,7 +48,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_SYSTEM_DLLMAPPING FCFileHandlerBase
+class OSG_CONTRIBTOOLBOXFILEIO_DLLMAPPING FCFileHandlerBase
 {
      /*==========================  PUBLIC  =================================*/
    public:
@@ -142,7 +142,7 @@ class OSG_SYSTEM_DLLMAPPING FCFileHandlerBase
     template <class SingletonT>
     friend class SingletonHolder;
     
-     friend class OSG_SYSTEM_DLLMAPPING FCFileType;
+     friend class OSG_CONTRIBTOOLBOXFILEIO_DLLMAPPING FCFileType;
      
      void operator =(const FCFileHandlerBase &source);
  
@@ -169,8 +169,8 @@ class OSG_SYSTEM_DLLMAPPING FCFileHandlerBase
 };
 
 #if defined(WIN32)
-OSG_SYSTEM_EXPIMP_TMPL
-template class OSG_SYSTEM_DLLMAPPING SingletonHolder<FCFileHandlerBase>;
+OSG_CONTRIBTOOLBOXFILEIO_EXPIMP_TMPL
+template class OSG_CONTRIBTOOLBOXFILEIO_DLLMAPPING SingletonHolder<FCFileHandlerBase>;
 #endif
 
 typedef SingletonHolder<FCFileHandlerBase> FCFileHandler;

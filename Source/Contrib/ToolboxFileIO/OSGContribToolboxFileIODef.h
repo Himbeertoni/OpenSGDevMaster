@@ -40,8 +40,8 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#ifndef _OSGTBFILEIODEF_H_
-#define _OSGTBFILEIODEF_H_
+#ifndef _OSGCONTRIBTOOLBOXFILEIODEF_H_
+#define _OSGCONTRIBTOOLBOXFILEIODEF_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -50,16 +50,16 @@
 //  Defines
 //---------------------------------------------------------------------------
 #if defined(WIN32)
-#   ifdef OSG_COMPILETBFILEIOLIB
-#       define OSG_TBFILEIO_DLLMAPPING  __declspec(dllexport)
-#       define OSG_TBFILEIO_EXPIMP_TMPL 
+#   ifdef OSG_COMPILECONTRIBTOOLBOXFILEIOLIB
+#       define OSG_CONTRIBTOOLBOXFILEIO_DLLMAPPING  __declspec(dllexport)
+#       define OSG_CONTRIBTOOLBOXFILEIO_EXPIMP_TMPL 
 #   else
-#       define OSG_TBFILEIO_DLLMAPPING  __declspec(dllimport)
-#       define OSG_TBFILEIO_EXPIMP_TMPL   extern
+#       define OSG_CONTRIBTOOLBOXFILEIO_DLLMAPPING  __declspec(dllimport)
+#       define OSG_CONTRIBTOOLBOXFILEIO_EXPIMP_TMPL   extern
 #   endif
 #else
-#define OSG_TBFILEIO_DLLMAPPING
-#define OSG_TBFILEIO_EXPIMP_TMPL
+#define OSG_CONTRIBTOOLBOXFILEIO_DLLMAPPING
+#define OSG_CONTRIBTOOLBOXFILEIO_EXPIMP_TMPL
 #endif
 
 #endif /* _OSGTBFILEIODEF_H_ */

@@ -85,7 +85,7 @@ struct FieldTraits<UpdateEventDetails *> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_BASE_DLLMAPPING DataType &getType(void);
+    static OSG_CONTRIBTOOLBOX_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);

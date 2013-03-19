@@ -23,7 +23,7 @@
 #define _OPENSG_TOOLBOX_FIELD_CONATINER_GATHER_UTILS_H_
 
 #include "OSGConfig.h"
-#include "OSGTBFileIODef.h"
+#include "OSGContribToolboxFileIODef.h"
 
 #include "OSGFieldContainer.h"
 #include "OSGFCFileType.h"
@@ -34,25 +34,25 @@
 OSG_BEGIN_NAMESPACE
 
 FCFileType::FCPtrStore
-OSG_TBFILEIO_DLLMAPPING getAllDependantFCs(const FCFileType::FCPtrStore& Containers,
+OSG_CONTRIBTOOLBOXFILEIO_DLLMAPPING getAllDependantFCs(const FCFileType::FCPtrStore& Containers,
                                            const FCFileType::FCPtrStore& IgnoreContainers,
                                            const std::vector<const FieldContainerType*>& IgnoreTypes,
                                            bool RecurseFilePathAttachedContainers=false);
 
 FCFileType::FCPtrStore
-OSG_TBFILEIO_DLLMAPPING getAllDependantFCs(const FCFileType::FCPtrStore& Containers,
+OSG_CONTRIBTOOLBOXFILEIO_DLLMAPPING getAllDependantFCs(const FCFileType::FCPtrStore& Containers,
                                            const FCFileType::FCPtrStore& IgnoreContainers,
                                            const std::vector<UInt32>& IgnoreTypes,
                                            bool RecurseFilePathAttachedContainers=false);
 
-void OSG_TBFILEIO_DLLMAPPING getAllDependantFCs(FieldContainer* const TheContainer,
+void OSG_CONTRIBTOOLBOXFILEIO_DLLMAPPING getAllDependantFCs(FieldContainer* const TheContainer,
                                                 const FCFileType::FCPtrStore& Containers,
                                                 FCFileType::FCPtrStore& AllContainers,
                                                 FCFileType::FCPtrStore& IgnoreContainers,
                                                 const std::vector<UInt32>& IgnoreTypes,
                                                 bool RecurseFilePathAttachedContainers);
 
-void OSG_TBFILEIO_DLLMAPPING getAllDependantFCs(const FieldContainerMap& TheContainerMap,
+void OSG_CONTRIBTOOLBOXFILEIO_DLLMAPPING getAllDependantFCs(const FieldContainerMap& TheContainerMap,
                                                 const FCFileType::FCPtrStore& Containers,
                                                 FCFileType::FCPtrStore& AllContainers,
                                                 FCFileType::FCPtrStore& IgnoreContainers,
