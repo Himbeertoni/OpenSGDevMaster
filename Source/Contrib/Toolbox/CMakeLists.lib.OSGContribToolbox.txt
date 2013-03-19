@@ -38,11 +38,10 @@ OSG_STORE_PROJECT_DEPENDENCIES()
 ##############################################################################
 
 OSG_ADD_DIRECTORY("${CMAKE_CURRENT_SOURCE_DIR}")
+OSG_ADD_DIRECTORY("${CMAKE_CURRENT_SOURCE_DIR}/Activity")
 OSG_ADD_DIRECTORY("${CMAKE_CURRENT_SOURCE_DIR}/Base")
-OSG_ADD_DIRECTORY("${CMAKE_CURRENT_SOURCE_DIR}/Base/Activity")
-OSG_ADD_DIRECTORY("${CMAKE_CURRENT_SOURCE_DIR}/Base/Base")
-OSG_ADD_DIRECTORY("${CMAKE_CURRENT_SOURCE_DIR}/Base/Event")
-OSG_ADD_DIRECTORY("${CMAKE_CURRENT_SOURCE_DIR}/Base/Event/Producers")
+OSG_ADD_DIRECTORY("${CMAKE_CURRENT_SOURCE_DIR}/Event")
+OSG_ADD_DIRECTORY("${CMAKE_CURRENT_SOURCE_DIR}/Event/Producers")
 
 ##############################################################################
 # setup python bindings
