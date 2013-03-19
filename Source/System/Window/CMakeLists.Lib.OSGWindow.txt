@@ -20,7 +20,7 @@ SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGDrawable
                                      OSGWindowGLUT)
 
 # dependencies - External
-# SET(${PROJECT_NAME}_DEP_LIB)
+SET(${PROJECT_NAME}_DEP_LIB Comdlg32.lib)
 # SET(${PROJECT_NAME}_DEP_LIBDIR)
 # SET(${PROJECT_NAME}_DEP_INCDIR OSG_GLUT_INC_DIR)
 
