@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceTreeRowMapper for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TreeRowMapper : public TreeRowMapperBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeRowMapper : public TreeRowMapperBase
 {
   protected:
 

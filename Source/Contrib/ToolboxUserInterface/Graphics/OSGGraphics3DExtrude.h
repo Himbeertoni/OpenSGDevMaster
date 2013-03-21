@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceGraphics3DExtrude for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING Graphics3DExtrude : public Graphics3DExtrudeBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Graphics3DExtrude : public Graphics3DExtrudeBase
 {
   protected:
 

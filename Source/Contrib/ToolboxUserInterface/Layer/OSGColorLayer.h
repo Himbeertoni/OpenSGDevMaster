@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceColorLayer for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ColorLayer : public ColorLayerBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ColorLayer : public ColorLayerBase
 {
   protected:
 

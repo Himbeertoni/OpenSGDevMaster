@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceVariableHeightTreeModelLayout for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING VariableHeightTreeModelLayout : public VariableHeightTreeModelLayoutBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING VariableHeightTreeModelLayout : public VariableHeightTreeModelLayoutBase
 {
   protected:
 

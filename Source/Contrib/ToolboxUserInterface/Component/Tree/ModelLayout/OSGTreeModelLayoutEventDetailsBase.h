@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class TreeModelLayoutEventDetails;
 
 //! \brief TreeModelLayoutEventDetails Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TreeModelLayoutEventDetailsBase : public EventDetails
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeModelLayoutEventDetailsBase : public EventDetails
 {
   public:
 

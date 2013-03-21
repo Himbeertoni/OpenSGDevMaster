@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -76,7 +76,7 @@ class ListGeneratedPopupMenu;
 
 //! \brief ListGeneratedPopupMenu Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ListGeneratedPopupMenuBase : public PopupMenu
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListGeneratedPopupMenuBase : public PopupMenu
 {
   public:
 

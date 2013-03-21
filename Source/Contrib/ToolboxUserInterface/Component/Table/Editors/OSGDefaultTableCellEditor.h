@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceDefaultTableCellEditor for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DefaultTableCellEditor : public DefaultTableCellEditorBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DefaultTableCellEditor : public DefaultTableCellEditorBase
 {
   protected:
 

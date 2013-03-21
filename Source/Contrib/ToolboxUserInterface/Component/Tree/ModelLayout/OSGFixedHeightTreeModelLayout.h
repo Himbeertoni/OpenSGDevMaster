@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceFixedHeightTreeModelLayout for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING FixedHeightTreeModelLayout : public FixedHeightTreeModelLayoutBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING FixedHeightTreeModelLayout : public FixedHeightTreeModelLayoutBase
 {
   protected:
 

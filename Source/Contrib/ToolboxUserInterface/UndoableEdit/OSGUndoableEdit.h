@@ -32,7 +32,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 #include <boost/shared_ptr.hpp>
 #include <exception>
@@ -40,7 +40,7 @@
 
 OSG_BEGIN_NAMESPACE
   
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING CannotUndoException : public std::exception
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CannotUndoException : public std::exception
 {
     virtual const char* what() const throw()
     {
@@ -48,7 +48,7 @@ class OSG_CONTRIBUSERINTERFACE_DLLMAPPING CannotUndoException : public std::exce
     }
 };
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING CannotRedoException : public std::exception
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CannotRedoException : public std::exception
 {
     virtual const char* what() const throw()
     {
@@ -59,7 +59,7 @@ class OSG_CONTRIBUSERINTERFACE_DLLMAPPING CannotRedoException : public std::exce
 class UndoableEdit;
 typedef boost::shared_ptr<UndoableEdit> UndoableEditPtr;
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING UndoableEdit
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UndoableEdit
 {
    /*=========================  PUBLIC  ===============================*/
 protected:

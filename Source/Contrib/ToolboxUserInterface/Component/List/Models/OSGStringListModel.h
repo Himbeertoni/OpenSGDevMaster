@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceStringListModel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING StringListModel : public StringListModelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING StringListModel : public StringListModelBase
 {
   protected:
 

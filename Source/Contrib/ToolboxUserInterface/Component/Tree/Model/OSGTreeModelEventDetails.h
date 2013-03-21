@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceTreeModelEventDetails for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TreeModelEventDetails : public TreeModelEventDetailsBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeModelEventDetails : public TreeModelEventDetailsBase
 {
   protected:
 

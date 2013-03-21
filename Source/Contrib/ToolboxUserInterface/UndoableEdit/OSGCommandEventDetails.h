@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceCommandEventDetails for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING CommandEventDetails : public CommandEventDetailsBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CommandEventDetails : public CommandEventDetailsBase
 {
   protected:
 

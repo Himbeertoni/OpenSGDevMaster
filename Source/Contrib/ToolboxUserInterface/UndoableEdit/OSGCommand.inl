@@ -1,5 +1,5 @@
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 OSG_BEGIN_NAMESPACE
 

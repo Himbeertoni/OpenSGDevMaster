@@ -32,7 +32,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 #include <boost/shared_ptr.hpp>
 #include "OSGCommandType.h"
@@ -45,7 +45,7 @@ OSG_BEGIN_NAMESPACE
 class Command;
 typedef boost::shared_ptr<Command> CommandPtr;
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING Command
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Command
 {
    /*=========================  PUBLIC  ===============================*/
 protected:

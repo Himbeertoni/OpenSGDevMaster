@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceImageComponent for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ImageComponent : public ImageComponentBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ImageComponent : public ImageComponentBase
 {
   protected:
 

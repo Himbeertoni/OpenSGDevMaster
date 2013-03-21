@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfacePasswordField for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING PasswordField : public PasswordFieldBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PasswordField : public PasswordFieldBase
 {
   protected:
 

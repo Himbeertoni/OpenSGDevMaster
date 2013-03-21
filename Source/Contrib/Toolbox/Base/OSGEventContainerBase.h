@@ -63,7 +63,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGAttachmentContainer.h" // Parent
+#include "OSGFieldContainer.h" // Parent
 
 
 #include "OSGEventContainerFields.h"
@@ -75,12 +75,12 @@ class EventContainer;
 
 //! \brief EventContainer Base Class.
 
-class OSG_CONTRIBTOOLBOX_DLLMAPPING EventContainerBase : public AttachmentContainer
+class OSG_CONTRIBTOOLBOX_DLLMAPPING EventContainerBase : public FieldContainer
 {
   public:
 
-    typedef AttachmentContainer Inherited;
-    typedef AttachmentContainer ParentContainer;
+    typedef FieldContainer Inherited;
+    typedef FieldContainer ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;

@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageSystemWindowEventDetails for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING WindowEventDetails : public WindowEventDetailsBase
+class OSG_CONTRIBTOOLBOXWINDOW_DLLMAPPING WindowEventDetails : public WindowEventDetailsBase
 {
   protected:
 

@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -78,7 +78,7 @@ class Menu;
 
 //! \brief Menu Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING MenuBase : public MenuItem
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MenuBase : public MenuItem
 {
   public:
 

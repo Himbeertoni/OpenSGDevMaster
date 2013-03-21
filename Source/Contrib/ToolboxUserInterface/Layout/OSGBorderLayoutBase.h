@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class BorderLayout;
 
 //! \brief BorderLayout Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING BorderLayoutBase : public Layout
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING BorderLayoutBase : public Layout
 {
   public:
 

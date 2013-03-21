@@ -64,7 +64,7 @@ OSG_BEGIN_NAMESPACE
            PageSystemWindowEventProducer for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING WindowEventProducer : public WindowEventProducerBase
+class OSG_CONTRIBTOOLBOXWINDOW_DLLMAPPING WindowEventProducer : public WindowEventProducerBase
 {
   protected:
 
@@ -370,6 +370,7 @@ typedef WindowEventProducer *WindowEventProducerP;
 
 OSG_END_NAMESPACE
 
+#include "OSGWindowEventProducerEventSource.h"
 #include "OSGWindowEventProducerBase.inl"
 #include "OSGWindowEventProducer.inl"
 

@@ -118,7 +118,7 @@ SkeletonBlendedGeometryEventSourceBase::TypeObject SkeletonBlendedGeometryEventS
     Inherited::getClassname(),
     "NULL",
     nsOSG, //Namespace
-    NULL,
+    reinterpret_cast<PrototypeCreateF>(&SkeletonBlendedGeometryEventSourceBase::createEmptyLocal),
     SkeletonBlendedGeometryEventSource::initMethod,
     SkeletonBlendedGeometryEventSource::exitMethod,
     reinterpret_cast<InitalInsertDescFunc>(&SkeletonBlendedGeometryEventSource::classDescInserter),
@@ -129,9 +129,9 @@ SkeletonBlendedGeometryEventSourceBase::TypeObject SkeletonBlendedGeometryEventS
     "<FieldContainer\n"
     "    name=\"SkeletonBlendedGeometryEventSource\"\n"
     "    parent=\"EventContainer\"\n"
-    "    library=\"ContribToolbox\"\n"
+    "    library=\"ContribToolboxAnimation\"\n"
     "    pointerfieldtypes=\"both\"\n"
-    "    structure=\"abstract\"\n"
+    "    structure=\"concrete\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"
     "    decoratable=\"false\"\n"
@@ -141,6 +141,24 @@ SkeletonBlendedGeometryEventSourceBase::TypeObject SkeletonBlendedGeometryEventS
     ""
     );
 
+EventDescription *SkeletonBlendedGeometryEventSourceBase::_eventDesc[] =
+{
+    new EventDescription("SkeletonChanged",
+                          "",
+                          SkeletonChangedEventId,
+                          FieldTraits<SkeletonEventDetails *>::getType(),
+                          true,
+                          static_cast<EventGetMethod>(&SkeletonBlendedGeometryEventSourceBase::getHandleSkeletonChangedSignal))
+
+};
+
+EventProducerType SkeletonBlendedGeometryEventSourceBase::_producerType(
+    "SkeletonBlendedGeometryProducerType",
+    "EventProducerType",
+    "",
+    InitEventProducerFunctor(),
+    _eventDesc,
+    sizeof(_eventDesc));
 /*------------------------------ get -----------------------------------*/
 
 FieldContainerType &SkeletonBlendedGeometryEventSourceBase::getType(void)
@@ -158,7 +176,131 @@ UInt32 SkeletonBlendedGeometryEventSourceBase::getContainerSize(void) const
     return sizeof(SkeletonBlendedGeometryEventSource);
 }
 
-/*------------------------- decorator get ------------------------------*/
+
+const EventProducerType &SkeletonBlendedGeometryEventSourceBase::getProducerType(void) const
+{
+    return _producerType;
+}
+
+GetEventHandlePtr SkeletonBlendedGeometryEventSourceBase::getHandleSkeletonChangedSignal(void) const
+{
+    GetEventHandlePtr returnValue(
+        new GetTypedEventHandle<SkeletonChangedEventType>(
+             const_cast<SkeletonChangedEventType *>(&_SkeletonChangedEvent),
+             _producerType.getEventDescription(SkeletonChangedEventId),
+             const_cast<SkeletonBlendedGeometryEventSourceBase *>(this)));
+
+    return returnValue;
+}
+
+
+/*------------------------- event producers ----------------------------------*/
+void SkeletonBlendedGeometryEventSourceBase::produceEvent(UInt32 eventId, EventDetails* const e)
+{
+    switch(eventId)
+    {
+    case SkeletonChangedEventId:
+        OSG_ASSERT(dynamic_cast<SkeletonChangedEventDetailsType* const>(e));
+
+        _SkeletonChangedEvent.set_combiner(ConsumableEventCombiner(e));
+        _SkeletonChangedEvent(dynamic_cast<SkeletonChangedEventDetailsType* const>(e), SkeletonChangedEventId);
+        break;
+    default:
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        break;
+    }
+}
+
+boost::signals2::connection SkeletonBlendedGeometryEventSourceBase::connectEvent(UInt32 eventId,
+                                                             const BaseEventType::slot_type &listener,
+                                                             boost::signals2::connect_position at)
+{
+    switch(eventId)
+    {
+    case SkeletonChangedEventId:
+        return _SkeletonChangedEvent.connect(listener, at);
+        break;
+    default:
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        return boost::signals2::connection();
+        break;
+    }
+
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection SkeletonBlendedGeometryEventSourceBase::connectEvent(UInt32 eventId,
+                                                              const BaseEventType::group_type &group,
+                                                              const BaseEventType::slot_type &listener,
+                                                              boost::signals2::connect_position at)
+{
+    switch(eventId)
+    {
+    case SkeletonChangedEventId:
+        return _SkeletonChangedEvent.connect(group, listener, at);
+        break;
+    default:
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        return boost::signals2::connection();
+        break;
+    }
+
+    return boost::signals2::connection();
+}
+    
+void SkeletonBlendedGeometryEventSourceBase::disconnectEvent(UInt32 eventId, const BaseEventType::group_type &group)
+{
+    switch(eventId)
+    {
+    case SkeletonChangedEventId:
+        _SkeletonChangedEvent.disconnect(group);
+        break;
+    default:
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        break;
+    }
+}
+
+void SkeletonBlendedGeometryEventSourceBase::disconnectAllSlotsEvent(UInt32 eventId)
+{
+    switch(eventId)
+    {
+    case SkeletonChangedEventId:
+        _SkeletonChangedEvent.disconnect_all_slots();
+        break;
+    default:
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        break;
+    }
+}
+
+bool SkeletonBlendedGeometryEventSourceBase::isEmptyEvent(UInt32 eventId) const
+{
+    switch(eventId)
+    {
+    case SkeletonChangedEventId:
+        return _SkeletonChangedEvent.empty();
+        break;
+    default:
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        return true;
+        break;
+    }
+}
+
+UInt32 SkeletonBlendedGeometryEventSourceBase::numSlotsEvent(UInt32 eventId) const
+{
+    switch(eventId)
+    {
+    case SkeletonChangedEventId:
+        return _SkeletonChangedEvent.num_slots();
+        break;
+    default:
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        return 0;
+        break;
+    }
+}
 
 
 
@@ -187,6 +329,122 @@ void SkeletonBlendedGeometryEventSourceBase::copyFromBin(BinaryDataHandler &pMem
 {
     Inherited::copyFromBin(pMem, whichField);
 
+}
+
+//! create a new instance of the class
+SkeletonBlendedGeometryEventSourceTransitPtr SkeletonBlendedGeometryEventSourceBase::createLocal(BitVector bFlags)
+{
+    SkeletonBlendedGeometryEventSourceTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<SkeletonBlendedGeometryEventSource>(tmpPtr);
+    }
+
+    return fc;
+}
+
+//! create a new instance of the class, copy the container flags
+SkeletonBlendedGeometryEventSourceTransitPtr SkeletonBlendedGeometryEventSourceBase::createDependent(BitVector bFlags)
+{
+    SkeletonBlendedGeometryEventSourceTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<SkeletonBlendedGeometryEventSource>(tmpPtr);
+    }
+
+    return fc;
+}
+
+//! create a new instance of the class
+SkeletonBlendedGeometryEventSourceTransitPtr SkeletonBlendedGeometryEventSourceBase::create(void)
+{
+    SkeletonBlendedGeometryEventSourceTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<SkeletonBlendedGeometryEventSource>(tmpPtr);
+    }
+
+    return fc;
+}
+
+SkeletonBlendedGeometryEventSource *SkeletonBlendedGeometryEventSourceBase::createEmptyLocal(BitVector bFlags)
+{
+    SkeletonBlendedGeometryEventSource *returnValue;
+
+    newPtr<SkeletonBlendedGeometryEventSource>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+//! create an empty new instance of the class, do not copy the prototype
+SkeletonBlendedGeometryEventSource *SkeletonBlendedGeometryEventSourceBase::createEmpty(void)
+{
+    SkeletonBlendedGeometryEventSource *returnValue;
+
+    newPtr<SkeletonBlendedGeometryEventSource>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
+
+    return returnValue;
+}
+
+
+FieldContainerTransitPtr SkeletonBlendedGeometryEventSourceBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    SkeletonBlendedGeometryEventSource *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const SkeletonBlendedGeometryEventSource *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SkeletonBlendedGeometryEventSourceBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    SkeletonBlendedGeometryEventSource *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const SkeletonBlendedGeometryEventSource *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr SkeletonBlendedGeometryEventSourceBase::shallowCopy(void) const
+{
+    SkeletonBlendedGeometryEventSource *tmpPtr;
+
+    newPtr(tmpPtr,
+           dynamic_cast<const SkeletonBlendedGeometryEventSource *>(this),
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
 }
 
 
@@ -231,6 +489,19 @@ void SkeletonBlendedGeometryEventSourceBase::execSyncV(      FieldContainer    &
 #endif
 
 
+#ifdef OSG_MT_CPTR_ASPECT
+FieldContainer *SkeletonBlendedGeometryEventSourceBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
+{
+    SkeletonBlendedGeometryEventSource *returnValue;
+
+    newAspectCopy(returnValue,
+                  dynamic_cast<const SkeletonBlendedGeometryEventSource *>(pRefAspect),
+                  dynamic_cast<const SkeletonBlendedGeometryEventSource *>(this));
+
+    return returnValue;
+}
+#endif
 
 void SkeletonBlendedGeometryEventSourceBase::resolveLinks(void)
 {

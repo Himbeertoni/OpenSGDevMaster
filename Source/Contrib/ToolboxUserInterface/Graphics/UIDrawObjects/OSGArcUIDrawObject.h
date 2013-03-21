@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceArcUIDrawObject for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ArcUIDrawObject : public ArcUIDrawObjectBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ArcUIDrawObject : public ArcUIDrawObjectBase
 {
   protected:
 

@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceMaterialLayer for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING MaterialLayer : public MaterialLayerBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MaterialLayer : public MaterialLayerBase
 {
   protected:
 

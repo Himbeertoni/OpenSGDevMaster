@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceLookAndFeel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING LookAndFeel : public LookAndFeelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING LookAndFeel : public LookAndFeelBase
 {
   protected:
 

@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceChangeEventDetails for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ChangeEventDetails : public ChangeEventDetailsBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ChangeEventDetails : public ChangeEventDetailsBase
 {
   protected:
 

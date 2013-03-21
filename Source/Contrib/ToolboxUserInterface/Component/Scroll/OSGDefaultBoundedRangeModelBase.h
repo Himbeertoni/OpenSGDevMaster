@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class DefaultBoundedRangeModel;
 
 //! \brief DefaultBoundedRangeModel Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DefaultBoundedRangeModelBase : public BoundedRangeModel
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DefaultBoundedRangeModelBase : public BoundedRangeModel
 {
   public:
 

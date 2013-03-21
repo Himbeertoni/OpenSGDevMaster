@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceLabel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING Label : public LabelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Label : public LabelBase
 {
   protected:
 

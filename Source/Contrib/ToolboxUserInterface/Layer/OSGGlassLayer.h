@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceGlassLayer for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING GlassLayer : public GlassLayerBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING GlassLayer : public GlassLayerBase
 {
   protected:
 

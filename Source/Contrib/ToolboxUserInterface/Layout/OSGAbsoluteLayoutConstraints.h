@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceAbsoluteLayoutConstraints for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING AbsoluteLayoutConstraints : public AbsoluteLayoutConstraintsBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbsoluteLayoutConstraints : public AbsoluteLayoutConstraintsBase
 {
   protected:
 

@@ -187,7 +187,7 @@ void WindowEventProducer::produceMouseClicked(const MouseEventDetails::MouseButt
    {
        MouseEventDetailsUnrecPtr Details = MouseEventDetails::create(this, t, Button, _ButtonClickCountMap[Button].size(), ViewportLocation, ResultViewport );
        
-       WindowEventProducerBase::produceMouseClicked(Details);
+       getEventSource()->produceMouseClicked(Details);
    }
 }
 
@@ -203,7 +203,7 @@ void WindowEventProducer::produceMouseEntered(const Pnt2f& Location)
    {
        MouseEventDetailsUnrecPtr Details = MouseEventDetails::create(this, getSystemTime(), MouseEventDetails::NO_BUTTON, 0, ViewportLocation, ResultViewport );
 
-       WindowEventProducerBase::produceMouseEntered(Details);
+       getEventSource()->produceMouseEntered(Details);
    }
 }
 
@@ -219,7 +219,7 @@ void WindowEventProducer::produceMouseExited(const Pnt2f& Location)
    {
        MouseEventDetailsUnrecPtr Details = MouseEventDetails::create(this, getSystemTime(), MouseEventDetails::NO_BUTTON, 0, ViewportLocation, ResultViewport );
 
-       WindowEventProducerBase::produceMouseExited(Details);
+       getEventSource()->produceMouseExited(Details);
    }
 }
 
@@ -238,7 +238,7 @@ void WindowEventProducer::produceMousePressed(const MouseEventDetails::MouseButt
    {
        MouseEventDetailsUnrecPtr Details = MouseEventDetails::create(this, t, Button, _ButtonClickCountMap[Button].size(), ViewportLocation, ResultViewport );
 
-       WindowEventProducerBase::produceMousePressed(Details);
+       getEventSource()->produceMousePressed(Details);
    }
 }
 
@@ -261,7 +261,7 @@ void WindowEventProducer::produceMouseReleased(const MouseEventDetails::MouseBut
     {
         MouseEventDetailsUnrecPtr Details = MouseEventDetails::create(this, t, Button, _ButtonClickCountMap[Button].size(), ViewportLocation, ResultViewport );
 
-        WindowEventProducerBase::produceMouseReleased(Details);
+        getEventSource()->produceMouseReleased(Details);
     }
 }
 
@@ -278,7 +278,7 @@ void WindowEventProducer::produceMouseWheelMoved(const Int32& WheelRotation, con
    {
        const MouseWheelEventDetailsUnrecPtr Details = MouseWheelEventDetails::create( this, getSystemTime(), WheelRotation, TheScrollType,MouseWheelEventDetails::SCROLL_ORIENTATION_VERTICAL, ViewportLocation, ResultViewport );
 
-       WindowEventProducerBase::produceMouseWheelMoved(Details);
+       getEventSource()->produceMouseWheelMoved(Details);
    }
 }
 
@@ -294,7 +294,7 @@ void WindowEventProducer::produceMouseMoved(const Pnt2f& Location, const Vec2f& 
    {
        MouseEventDetailsUnrecPtr Details = MouseEventDetails::create(this, getSystemTime(), MouseEventDetails::NO_BUTTON, 0, ViewportLocation, ResultViewport,Delta );
 
-       WindowEventProducerBase::produceMouseMoved(Details);
+       getEventSource()->produceMouseMoved(Details);
    }
 }
 
@@ -310,7 +310,7 @@ void WindowEventProducer::produceMouseDragged(const MouseEventDetails::MouseButt
    {
        MouseEventDetailsUnrecPtr Details = MouseEventDetails::create(this, getSystemTime(), Button, 0, ViewportLocation, ResultViewport,Delta );
 
-       WindowEventProducerBase::produceMouseDragged(Details);
+       getEventSource()->produceMouseDragged(Details);
    }
 }
 
@@ -321,7 +321,7 @@ void WindowEventProducer::produceKeyPressed(const KeyEventDetails::Key& TheKey, 
 
    KeyEventDetailsUnrecPtr Details = KeyEventDetails::create( this, getSystemTime(), TheKey, Modifiers, this );
 
-   WindowEventProducerBase::produceKeyPressed(Details);
+   getEventSource()->produceKeyPressed(Details);
    produceKeyTyped(TheKey, Modifiers);
 }
 
@@ -332,7 +332,7 @@ void WindowEventProducer::produceKeyReleased(const KeyEventDetails::Key& TheKey,
 
    KeyEventDetailsUnrecPtr Details = KeyEventDetails::create( this, getSystemTime(), TheKey, Modifiers, this );
 
-   WindowEventProducerBase::produceKeyReleased(Details);
+   getEventSource()->produceKeyReleased(Details);
 }
 
 void WindowEventProducer::produceKeyTyped(const KeyEventDetails::Key& TheKey, const UInt32& Modifiers)
@@ -342,77 +342,77 @@ void WindowEventProducer::produceKeyTyped(const KeyEventDetails::Key& TheKey, co
 
    KeyEventDetailsUnrecPtr Details = KeyEventDetails::create( this, getSystemTime(), TheKey, Modifiers, this );
 
-   WindowEventProducerBase::produceKeyTyped(Details);
+   getEventSource()->produceKeyTyped(Details);
 }
 
 void WindowEventProducer::produceWindowOpened(void)
 {
    WindowEventDetailsUnrecPtr Details = WindowEventDetails::create(this, getSystemTime());
 
-   WindowEventProducerBase::produceWindowOpened(Details);
+   getEventSource()->produceWindowOpened(Details);
 }
 
 void WindowEventProducer::produceWindowClosing(void)
 {
    WindowEventDetailsUnrecPtr Details = WindowEventDetails::create(this, getSystemTime());
 
-   WindowEventProducerBase::produceWindowClosing(Details);
+   getEventSource()->produceWindowClosing(Details);
 }
 
 void WindowEventProducer::produceWindowClosed(void)
 {
    WindowEventDetailsUnrecPtr Details = WindowEventDetails::create(NULL, getSystemTime());
 
-   WindowEventProducerBase::produceWindowClosed(Details);
+   getEventSource()->produceWindowClosed(Details);
 }
 
 void WindowEventProducer::produceWindowIconified(void)
 {
    WindowEventDetailsUnrecPtr Details = WindowEventDetails::create(this, getSystemTime());
 
-   WindowEventProducerBase::produceWindowIconified(Details);
+   getEventSource()->produceWindowIconified(Details);
 }
 
 void WindowEventProducer::produceWindowDeiconified(void)
 {
    WindowEventDetailsUnrecPtr Details = WindowEventDetails::create(this, getSystemTime());
 
-   WindowEventProducerBase::produceWindowDeiconified(Details);
+   getEventSource()->produceWindowDeiconified(Details);
 }
 
 void WindowEventProducer::produceWindowActivated(void)
 {
    WindowEventDetailsUnrecPtr Details = WindowEventDetails::create(this, getSystemTime());
 
-   WindowEventProducerBase::produceWindowActivated(Details);
+   getEventSource()->produceWindowActivated(Details);
 }
 
 void WindowEventProducer::produceWindowDeactivated(void)
 {
    WindowEventDetailsUnrecPtr Details = WindowEventDetails::create(this, getSystemTime());
 
-   WindowEventProducerBase::produceWindowDeactivated(Details);
+   getEventSource()->produceWindowDeactivated(Details);
 }
 
 void WindowEventProducer::produceWindowEntered(void)
 {
    WindowEventDetailsUnrecPtr Details = WindowEventDetails::create(this, getSystemTime());
 
-   WindowEventProducerBase::produceWindowEntered(Details);
+   getEventSource()->produceWindowEntered(Details);
 }
 
 void WindowEventProducer::produceWindowExited(void)
 {
    WindowEventDetailsUnrecPtr Details = WindowEventDetails::create(this, getSystemTime());
 
-   WindowEventProducerBase::produceWindowExited(Details);
+   getEventSource()->produceWindowExited(Details);
 }
 
 void WindowEventProducer::produceUpdate(const Time& ElapsedTime)
 {
    UpdateEventDetailsUnrecPtr Details = UpdateEventDetails::create( this, getSystemTime(),ElapsedTime);
    
-   WindowEventProducerBase::produceUpdate(Details);
+   getEventSource()->produceUpdate(Details);
 }
 
 

@@ -122,9 +122,9 @@ void GLViewport::mousePressed(MouseEventDetails* const e)
                 _NavMouseReleasedConnection.disconnect();
                 _NavMouseDraggedConnection.disconnect();
                 _NavKeyPressedConnection.disconnect();
-                _NavMouseReleasedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectMouseReleased(boost::bind(&GLViewport::handleNavMouseReleased, this, _1));
-                _NavMouseDraggedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectMouseDragged(boost::bind(&GLViewport::handleNavMouseDragged, this, _1));
-                _NavKeyPressedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectKeyPressed(boost::bind(&GLViewport::handleNavKeyPressed, this, _1));
+                _NavMouseReleasedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectMouseReleased(boost::bind(&GLViewport::handleNavMouseReleased, this, _1));
+                _NavMouseDraggedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectMouseDragged(boost::bind(&GLViewport::handleNavMouseDragged, this, _1));
+                _NavKeyPressedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectKeyPressed(boost::bind(&GLViewport::handleNavKeyPressed, this, _1));
 
                 MouseButtons = 1;
                 break;
@@ -134,9 +134,9 @@ void GLViewport::mousePressed(MouseEventDetails* const e)
                 _NavMouseReleasedConnection.disconnect();
                 _NavMouseDraggedConnection.disconnect();
                 _NavKeyPressedConnection.disconnect();
-                _NavMouseReleasedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectMouseReleased(boost::bind(&GLViewport::handleNavMouseReleased, this, _1));
-                _NavMouseDraggedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectMouseDragged(boost::bind(&GLViewport::handleNavMouseDragged, this, _1));
-                _NavKeyPressedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectKeyPressed(boost::bind(&GLViewport::handleNavKeyPressed, this, _1));
+                _NavMouseReleasedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectMouseReleased(boost::bind(&GLViewport::handleNavMouseReleased, this, _1));
+                _NavMouseDraggedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectMouseDragged(boost::bind(&GLViewport::handleNavMouseDragged, this, _1));
+                _NavKeyPressedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectKeyPressed(boost::bind(&GLViewport::handleNavKeyPressed, this, _1));
                 MouseButtons = 4;
                 break;
             case MouseEventDetails::BUTTON3:
@@ -145,9 +145,9 @@ void GLViewport::mousePressed(MouseEventDetails* const e)
                 _NavMouseReleasedConnection.disconnect();
                 _NavMouseDraggedConnection.disconnect();
                 _NavKeyPressedConnection.disconnect();
-                _NavMouseReleasedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectMouseReleased(boost::bind(&GLViewport::handleNavMouseReleased, this, _1));
-                _NavMouseDraggedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectMouseDragged(boost::bind(&GLViewport::handleNavMouseDragged, this, _1));
-                _NavKeyPressedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectKeyPressed(boost::bind(&GLViewport::handleNavKeyPressed, this, _1));
+                _NavMouseReleasedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectMouseReleased(boost::bind(&GLViewport::handleNavMouseReleased, this, _1));
+                _NavMouseDraggedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectMouseDragged(boost::bind(&GLViewport::handleNavMouseDragged, this, _1));
+                _NavKeyPressedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectKeyPressed(boost::bind(&GLViewport::handleNavKeyPressed, this, _1));
                 MouseButtons = 2;
                 break;
         }

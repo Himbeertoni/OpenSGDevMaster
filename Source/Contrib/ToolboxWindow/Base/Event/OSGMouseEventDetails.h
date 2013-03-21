@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageSystemMouseEventDetails for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING MouseEventDetails : public MouseEventDetailsBase
+class OSG_CONTRIBTOOLBOXWINDOW_DLLMAPPING MouseEventDetails : public MouseEventDetailsBase
 {
   protected:
 

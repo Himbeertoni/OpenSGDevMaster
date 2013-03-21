@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceSplitPanel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING SplitPanel : public SplitPanelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SplitPanel : public SplitPanelBase
 {
   protected:
 

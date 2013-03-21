@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceDefaultColorSelectionModel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DefaultColorSelectionModel : public DefaultColorSelectionModelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DefaultColorSelectionModel : public DefaultColorSelectionModelBase
 {
   protected:
 

@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceScaleLayoutSpring for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ScaleLayoutSpring : public ScaleLayoutSpringBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ScaleLayoutSpring : public ScaleLayoutSpringBase
 {
   protected:
 

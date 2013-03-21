@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -76,7 +76,7 @@ class DerivedFieldContainerComboBoxModel;
 
 //! \brief DerivedFieldContainerComboBoxModel Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DerivedFieldContainerComboBoxModelBase : public AbstractComboBoxModel
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DerivedFieldContainerComboBoxModelBase : public AbstractComboBoxModel
 {
   public:
 

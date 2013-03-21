@@ -218,6 +218,7 @@ typedef SkeletonBlendedGeometry *SkeletonBlendedGeometryP;
 
 OSG_END_NAMESPACE
 
+#include "OSGSkeletonBlendedGeometryEventSource.h"
 #include "OSGSkeletonBlendedGeometryBase.inl"
 #include "OSGSkeletonBlendedGeometry.inl"
 

@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceCaretEventDetails for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING CaretEventDetails : public CaretEventDetailsBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CaretEventDetails : public CaretEventDetailsBase
 {
   protected:
 

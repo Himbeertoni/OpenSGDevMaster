@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -80,7 +80,7 @@ class TabPanel;
 
 //! \brief TabPanel Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TabPanelBase : public ComponentContainer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TabPanelBase : public ComponentContainer
 {
   public:
 

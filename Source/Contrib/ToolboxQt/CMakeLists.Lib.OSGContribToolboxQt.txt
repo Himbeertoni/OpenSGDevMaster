@@ -24,6 +24,7 @@ SET(${PROJECT_NAME}_DEP_OSG_LIB OSGBase
 								OSGWindowGLUT
                                 OSGWindowQT4
                                 OSGContribToolbox
+                                OSGContribToolboxWindow
                                 ${OSG_NATIVE_WINDOW})
 
 SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGDrawable

@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -82,7 +82,7 @@ class ColorSelectionModel;
 
 //! \brief ColorSelectionModel Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ColorSelectionModelBase : public AttachmentContainer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ColorSelectionModelBase : public AttachmentContainer
 {
   public:
 

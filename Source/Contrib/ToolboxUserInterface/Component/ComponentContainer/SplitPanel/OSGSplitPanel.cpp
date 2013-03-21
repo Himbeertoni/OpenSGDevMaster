@@ -444,8 +444,8 @@ void SplitPanel::dividerMousePressed(MouseEventDetails* const e)
         _DragMouseDraggedConnection.disconnect();
         _DragMouseReleasedConnection.disconnect();
 
-        _DragMouseDraggedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectMouseDragged(boost::bind(&SplitPanel::dividerDragMouseDragged, this, _1));
-        _DragMouseReleasedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectMouseReleased(boost::bind(&SplitPanel::dividerDragMouseReleased, this, _1));
+        _DragMouseDraggedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectMouseDragged(boost::bind(&SplitPanel::dividerDragMouseDragged, this, _1));
+        _DragMouseReleasedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectMouseReleased(boost::bind(&SplitPanel::dividerDragMouseReleased, this, _1));
 
         getParentWindow()->getParentDrawingSurface()->getEventProducer()->setLockCursor(true);
     }

@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceLayoutConstraints for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING LayoutConstraints : public LayoutConstraintsBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING LayoutConstraints : public LayoutConstraintsBase
 {
   protected:
 

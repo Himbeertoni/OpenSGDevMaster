@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class AbstractColorChooserPanel;
 
 //! \brief AbstractColorChooserPanel Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING AbstractColorChooserPanelBase : public Panel
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractColorChooserPanelBase : public Panel
 {
   public:
 

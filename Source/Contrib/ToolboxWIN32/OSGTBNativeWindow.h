@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 typedef TBWIN32Window TBNativeWindow;
-OSG_GEN_CONTAINERPTR(TBNativeWindow) 
+
 OSG_END_NAMESPACE
 
 #endif

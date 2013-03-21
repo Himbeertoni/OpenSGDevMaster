@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -76,7 +76,7 @@ class EtchedBorder;
 
 //! \brief EtchedBorder Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING EtchedBorderBase : public Border
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING EtchedBorderBase : public Border
 {
   public:
 

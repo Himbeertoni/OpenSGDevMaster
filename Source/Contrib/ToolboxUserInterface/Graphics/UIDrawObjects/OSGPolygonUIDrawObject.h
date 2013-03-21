@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfacePolygonUIDrawObject for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING PolygonUIDrawObject : public PolygonUIDrawObjectBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PolygonUIDrawObject : public PolygonUIDrawObjectBase
 {
   protected:
 

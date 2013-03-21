@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceInternalWindow for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING InternalWindow : public InternalWindowBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING InternalWindow : public InternalWindowBase
 {
   protected:
 

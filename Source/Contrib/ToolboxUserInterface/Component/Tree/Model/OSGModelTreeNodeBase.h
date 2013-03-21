@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class ModelTreeNode;
 
 //! \brief ModelTreeNode Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ModelTreeNodeBase : public FieldContainer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ModelTreeNodeBase : public FieldContainer
 {
   public:
 

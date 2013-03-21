@@ -57,7 +57,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceGraphics for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING Graphics : public GraphicsBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Graphics : public GraphicsBase
 {
   protected:
 

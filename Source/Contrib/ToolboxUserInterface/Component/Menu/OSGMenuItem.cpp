@@ -357,7 +357,7 @@ void MenuItem::handleAcceleratorTyped(KeyEventDetails* const e)
         TopMenu->setDrawAsThoughSelected(true);
 
         _FlashElps = 0.0;
-        _FlashUpdateConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectUpdate(boost::bind(&MenuItem::handleFlashUpdate, this, _1));
+        _FlashUpdateConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectUpdate(boost::bind(&MenuItem::handleFlashUpdate, this, _1));
     }
     produceActionPerformed();
 }

@@ -45,7 +45,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class TBWIN32Window!
+ **     class ColorSelectionModelEventSource!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -57,10 +57,9 @@
 
 
 
-#include "OSGTBWIN32WindowHelper.h"     // ActualWindow Class
 
-#include "OSGTBWIN32WindowBase.h"
-#include "OSGTBWIN32Window.h"
+#include "OSGColorSelectionModelEventSourceBase.h"
+#include "OSGColorSelectionModelEventSource.h"
 
 #include <boost/bind.hpp>
 
@@ -74,21 +73,13 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::TBWIN32Window
-    The class for TBWIN32 windows.
+/*! \class OSG::ColorSelectionModelEventSource
+    
  */
 
 /***************************************************************************\
  *                        Field Documentation                              *
 \***************************************************************************/
-
-/*! \var TBWIN32WindowHelper * TBWIN32WindowBase::_sfActualWindow
-    
-*/
-
-/*! \var HWND            TBWIN32WindowBase::_sfHwnd
-    
-*/
 
 
 /***************************************************************************\
@@ -96,151 +87,87 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-PointerType FieldTraits<TBWIN32Window *, nsOSG>::_type(
-    "TBWIN32WindowPtr", 
-    "WindowEventProducerPtr", 
-    TBWIN32Window::getClassType(),
+PointerType FieldTraits<ColorSelectionModelEventSource *, nsOSG>::_type(
+    "ColorSelectionModelEventSourcePtr", 
+    "EventContainerPtr", 
+    ColorSelectionModelEventSource::getClassType(),
     nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE_NS(TBWIN32Window *, nsOSG)
+OSG_FIELDTRAITS_GETTYPE_NS(ColorSelectionModelEventSource *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           TBWIN32Window *,
+                           ColorSelectionModelEventSource *,
                            nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           TBWIN32Window *,
+                           ColorSelectionModelEventSource *,
                            nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
 
-void TBWIN32WindowBase::classDescInserter(TypeObject &oType)
+void ColorSelectionModelEventSourceBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL;
-
-
-    pDesc = new SFUnrecTBWIN32WindowHelperPtr::Description(
-        SFUnrecTBWIN32WindowHelperPtr::getClassType(),
-        "ActualWindow",
-        "",
-        ActualWindowFieldId, ActualWindowFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TBWIN32Window::editHandleActualWindow),
-        static_cast<FieldGetMethodSig >(&TBWIN32Window::getHandleActualWindow));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFHWND::Description(
-        SFHWND::getClassType(),
-        "hwnd",
-        "",
-        HwndFieldId, HwndFieldMask,
-        true,
-        (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&TBWIN32Window::editHandleHwnd),
-        static_cast<FieldGetMethodSig >(&TBWIN32Window::getHandleHwnd));
-
-    oType.addInitialDesc(pDesc);
 }
 
 
-TBWIN32WindowBase::TypeObject TBWIN32WindowBase::_type(
-    TBWIN32WindowBase::getClassname(),
+ColorSelectionModelEventSourceBase::TypeObject ColorSelectionModelEventSourceBase::_type(
+    ColorSelectionModelEventSourceBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
     nsOSG, //Namespace
-    reinterpret_cast<PrototypeCreateF>(&TBWIN32WindowBase::createEmptyLocal),
-    TBWIN32Window::initMethod,
-    TBWIN32Window::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&TBWIN32Window::classDescInserter),
+    reinterpret_cast<PrototypeCreateF>(&ColorSelectionModelEventSourceBase::createEmptyLocal),
+    ColorSelectionModelEventSource::initMethod,
+    ColorSelectionModelEventSource::exitMethod,
+    reinterpret_cast<InitalInsertDescFunc>(&ColorSelectionModelEventSource::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "    name=\"TBWIN32Window\"\n"
-    "    parent=\"WindowEventProducer\"\n"
-    "    library=\"Window\"\n"
+    "    name=\"ColorSelectionModelEventSource\"\n"
+    "    parent=\"EventContainer\"\n"
+    "    library=\"ContribToolboxUserInterface\"\n"
     "    pointerfieldtypes=\"both\"\n"
     "    structure=\"concrete\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"
-    "    docGroupBase=\"GrpWindowWIN32\"\n"
+    "    decoratable=\"false\"\n"
+    "    useLocalIncludes=\"false\"\n"
+    "    isNodeCore=\"false\"\n"
+    ">\n"
+    "<!--\n"
+    "    <ProducedEvent\n"
+    "        name=\"StateChanged\"\n"
+    "        detailsType=\"ChangeEventDetails\"\n"
+    "        consumable=\"true\"\n"
     "    >\n"
-    "    The class for TBWIN32 windows.\n"
-    "    <Field\n"
-    "        name=\"ActualWindow\"\n"
-    "        type=\"TBWIN32WindowHelperPtr\"\n"
-    "        cardinality=\"single\"\n"
-    "        visibility=\"external\"\n"
-    "        defaultValue=\"NULL\"\n"
-    "\t\tfieldHeader=\"OSGTBWIN32WindowHelperFields.h\"\n"
-    "        access=\"public\"\n"
-    "        >\n"
-    "    </Field>\n"
-    "    <Field\n"
-    "        name=\"hwnd\"\n"
-    "        type=\"HWND\"\n"
-    "        cardinality=\"single\"\n"
-    "        visibility=\"internal\"\n"
-    "        defaultValue=\"0\"\n"
-    "        fieldHeader=\"OSGWIN32WindowDataFields.h\"\n"
-    "        access=\"public\"\n"
-    "        fieldFlags=\"FClusterLocal\"\n"
-    "        >\n"
-    "    </Field>\t\n"
+    "    </ProducedEvent>\n"
+    "-->\n"
     "</FieldContainer>\n",
-    "The class for TBWIN32 windows.\n"
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &TBWIN32WindowBase::getType(void)
+FieldContainerType &ColorSelectionModelEventSourceBase::getType(void)
 {
     return _type;
 }
 
-const FieldContainerType &TBWIN32WindowBase::getType(void) const
+const FieldContainerType &ColorSelectionModelEventSourceBase::getType(void) const
 {
     return _type;
 }
 
-UInt32 TBWIN32WindowBase::getContainerSize(void) const
+UInt32 ColorSelectionModelEventSourceBase::getContainerSize(void) const
 {
-    return sizeof(TBWIN32Window);
+    return sizeof(ColorSelectionModelEventSource);
 }
 
 /*------------------------- decorator get ------------------------------*/
-
-
-//! Get the TBWIN32Window::_sfActualWindow field.
-const SFUnrecTBWIN32WindowHelperPtr *TBWIN32WindowBase::getSFActualWindow(void) const
-{
-    return &_sfActualWindow;
-}
-
-SFUnrecTBWIN32WindowHelperPtr *TBWIN32WindowBase::editSFActualWindow   (void)
-{
-    editSField(ActualWindowFieldMask);
-
-    return &_sfActualWindow;
-}
-
-SFHWND *TBWIN32WindowBase::editSFHwnd(void)
-{
-    editSField(HwndFieldMask);
-
-    return &_sfHwnd;
-}
-
-const SFHWND *TBWIN32WindowBase::getSFHwnd(void) const
-{
-    return &_sfHwnd;
-}
 
 
 
@@ -249,107 +176,81 @@ const SFHWND *TBWIN32WindowBase::getSFHwnd(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-SizeT TBWIN32WindowBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ColorSelectionModelEventSourceBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (ActualWindowFieldMask & whichField))
-    {
-        returnValue += _sfActualWindow.getBinSize();
-    }
-    if(FieldBits::NoField != (HwndFieldMask & whichField))
-    {
-        returnValue += _sfHwnd.getBinSize();
-    }
 
     return returnValue;
 }
 
-void TBWIN32WindowBase::copyToBin(BinaryDataHandler &pMem,
+void ColorSelectionModelEventSourceBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (ActualWindowFieldMask & whichField))
-    {
-        _sfActualWindow.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (HwndFieldMask & whichField))
-    {
-        _sfHwnd.copyToBin(pMem);
-    }
 }
 
-void TBWIN32WindowBase::copyFromBin(BinaryDataHandler &pMem,
+void ColorSelectionModelEventSourceBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (ActualWindowFieldMask & whichField))
-    {
-        editSField(ActualWindowFieldMask);
-        _sfActualWindow.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (HwndFieldMask & whichField))
-    {
-        editSField(HwndFieldMask);
-        _sfHwnd.copyFromBin(pMem);
-    }
 }
 
 //! create a new instance of the class
-TBWIN32WindowTransitPtr TBWIN32WindowBase::createLocal(BitVector bFlags)
+ColorSelectionModelEventSourceTransitPtr ColorSelectionModelEventSourceBase::createLocal(BitVector bFlags)
 {
-    TBWIN32WindowTransitPtr fc;
+    ColorSelectionModelEventSourceTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
 
-        fc = dynamic_pointer_cast<TBWIN32Window>(tmpPtr);
+        fc = dynamic_pointer_cast<ColorSelectionModelEventSource>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class, copy the container flags
-TBWIN32WindowTransitPtr TBWIN32WindowBase::createDependent(BitVector bFlags)
+ColorSelectionModelEventSourceTransitPtr ColorSelectionModelEventSourceBase::createDependent(BitVector bFlags)
 {
-    TBWIN32WindowTransitPtr fc;
+    ColorSelectionModelEventSourceTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyDependent(bFlags);
 
-        fc = dynamic_pointer_cast<TBWIN32Window>(tmpPtr);
+        fc = dynamic_pointer_cast<ColorSelectionModelEventSource>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class
-TBWIN32WindowTransitPtr TBWIN32WindowBase::create(void)
+ColorSelectionModelEventSourceTransitPtr ColorSelectionModelEventSourceBase::create(void)
 {
-    TBWIN32WindowTransitPtr fc;
+    ColorSelectionModelEventSourceTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
 
-        fc = dynamic_pointer_cast<TBWIN32Window>(tmpPtr);
+        fc = dynamic_pointer_cast<ColorSelectionModelEventSource>(tmpPtr);
     }
 
     return fc;
 }
 
-TBWIN32Window *TBWIN32WindowBase::createEmptyLocal(BitVector bFlags)
+ColorSelectionModelEventSource *ColorSelectionModelEventSourceBase::createEmptyLocal(BitVector bFlags)
 {
-    TBWIN32Window *returnValue;
+    ColorSelectionModelEventSource *returnValue;
 
-    newPtr<TBWIN32Window>(returnValue, bFlags);
+    newPtr<ColorSelectionModelEventSource>(returnValue, bFlags);
 
     returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
@@ -357,11 +258,11 @@ TBWIN32Window *TBWIN32WindowBase::createEmptyLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TBWIN32Window *TBWIN32WindowBase::createEmpty(void)
+ColorSelectionModelEventSource *ColorSelectionModelEventSourceBase::createEmpty(void)
 {
-    TBWIN32Window *returnValue;
+    ColorSelectionModelEventSource *returnValue;
 
-    newPtr<TBWIN32Window>(returnValue, Thread::getCurrentLocalFlags());
+    newPtr<ColorSelectionModelEventSource>(returnValue, Thread::getCurrentLocalFlags());
 
     returnValue->_pFieldFlags->_bNamespaceMask &=
         ~Thread::getCurrentLocalFlags();
@@ -370,12 +271,12 @@ TBWIN32Window *TBWIN32WindowBase::createEmpty(void)
 }
 
 
-FieldContainerTransitPtr TBWIN32WindowBase::shallowCopyLocal(
+FieldContainerTransitPtr ColorSelectionModelEventSourceBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    TBWIN32Window *tmpPtr;
+    ColorSelectionModelEventSource *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const TBWIN32Window *>(this), bFlags);
+    newPtr(tmpPtr, dynamic_cast<const ColorSelectionModelEventSource *>(this), bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -384,12 +285,12 @@ FieldContainerTransitPtr TBWIN32WindowBase::shallowCopyLocal(
     return returnValue;
 }
 
-FieldContainerTransitPtr TBWIN32WindowBase::shallowCopyDependent(
+FieldContainerTransitPtr ColorSelectionModelEventSourceBase::shallowCopyDependent(
     BitVector bFlags) const
 {
-    TBWIN32Window *tmpPtr;
+    ColorSelectionModelEventSource *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const TBWIN32Window *>(this), ~bFlags);
+    newPtr(tmpPtr, dynamic_cast<const ColorSelectionModelEventSource *>(this), ~bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -398,12 +299,12 @@ FieldContainerTransitPtr TBWIN32WindowBase::shallowCopyDependent(
     return returnValue;
 }
 
-FieldContainerTransitPtr TBWIN32WindowBase::shallowCopy(void) const
+FieldContainerTransitPtr ColorSelectionModelEventSourceBase::shallowCopy(void) const
 {
-    TBWIN32Window *tmpPtr;
+    ColorSelectionModelEventSource *tmpPtr;
 
     newPtr(tmpPtr,
-           dynamic_cast<const TBWIN32Window *>(this),
+           dynamic_cast<const ColorSelectionModelEventSource *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -418,103 +319,35 @@ FieldContainerTransitPtr TBWIN32WindowBase::shallowCopy(void) const
 
 /*------------------------- constructors ----------------------------------*/
 
-TBWIN32WindowBase::TBWIN32WindowBase(void) :
-    Inherited(),
-    _sfActualWindow           (NULL),
-    _sfHwnd                   (HWND(0))
+ColorSelectionModelEventSourceBase::ColorSelectionModelEventSourceBase(void) :
+    Inherited()
 {
 }
 
-TBWIN32WindowBase::TBWIN32WindowBase(const TBWIN32WindowBase &source) :
-    Inherited(source),
-    _sfActualWindow           (NULL),
-    _sfHwnd                   (source._sfHwnd                   )
+ColorSelectionModelEventSourceBase::ColorSelectionModelEventSourceBase(const ColorSelectionModelEventSourceBase &source) :
+    Inherited(source)
 {
 }
 
 
 /*-------------------------- destructors ----------------------------------*/
 
-TBWIN32WindowBase::~TBWIN32WindowBase(void)
+ColorSelectionModelEventSourceBase::~ColorSelectionModelEventSourceBase(void)
 {
 }
 
-void TBWIN32WindowBase::onCreate(const TBWIN32Window *source)
-{
-    Inherited::onCreate(source);
-
-    if(source != NULL)
-    {
-        TBWIN32Window *pThis = static_cast<TBWIN32Window *>(this);
-
-        pThis->setActualWindow(source->getActualWindow());
-    }
-}
-
-GetFieldHandlePtr TBWIN32WindowBase::getHandleActualWindow    (void) const
-{
-    SFUnrecTBWIN32WindowHelperPtr::GetHandlePtr returnValue(
-        new  SFUnrecTBWIN32WindowHelperPtr::GetHandle(
-             &_sfActualWindow,
-             this->getType().getFieldDesc(ActualWindowFieldId),
-             const_cast<TBWIN32WindowBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TBWIN32WindowBase::editHandleActualWindow   (void)
-{
-    SFUnrecTBWIN32WindowHelperPtr::EditHandlePtr returnValue(
-        new  SFUnrecTBWIN32WindowHelperPtr::EditHandle(
-             &_sfActualWindow,
-             this->getType().getFieldDesc(ActualWindowFieldId),
-             this));
-
-    returnValue->setSetMethod(
-        boost::bind(&TBWIN32Window::setActualWindow,
-                    static_cast<TBWIN32Window *>(this), _1));
-
-    editSField(ActualWindowFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TBWIN32WindowBase::getHandleHwnd            (void) const
-{
-    SFHWND::GetHandlePtr returnValue(
-        new  SFHWND::GetHandle(
-             &_sfHwnd,
-             this->getType().getFieldDesc(HwndFieldId),
-             const_cast<TBWIN32WindowBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TBWIN32WindowBase::editHandleHwnd           (void)
-{
-    SFHWND::EditHandlePtr returnValue(
-        new  SFHWND::EditHandle(
-             &_sfHwnd,
-             this->getType().getFieldDesc(HwndFieldId),
-             this));
-
-
-    editSField(HwndFieldMask);
-
-    return returnValue;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-void TBWIN32WindowBase::execSyncV(      FieldContainer    &oFrom,
+void ColorSelectionModelEventSourceBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    TBWIN32Window *pThis = static_cast<TBWIN32Window *>(this);
+    ColorSelectionModelEventSource *pThis = static_cast<ColorSelectionModelEventSource *>(this);
 
-    pThis->execSync(static_cast<TBWIN32Window *>(&oFrom),
+    pThis->execSync(static_cast<ColorSelectionModelEventSource *>(&oFrom),
                     whichField,
                     oOffsets,
                     syncMode,
@@ -524,24 +357,22 @@ void TBWIN32WindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *TBWIN32WindowBase::createAspectCopy(
+FieldContainer *ColorSelectionModelEventSourceBase::createAspectCopy(
     const FieldContainer *pRefAspect) const
 {
-    TBWIN32Window *returnValue;
+    ColorSelectionModelEventSource *returnValue;
 
     newAspectCopy(returnValue,
-                  dynamic_cast<const TBWIN32Window *>(pRefAspect),
-                  dynamic_cast<const TBWIN32Window *>(this));
+                  dynamic_cast<const ColorSelectionModelEventSource *>(pRefAspect),
+                  dynamic_cast<const ColorSelectionModelEventSource *>(this));
 
     return returnValue;
 }
 #endif
 
-void TBWIN32WindowBase::resolveLinks(void)
+void ColorSelectionModelEventSourceBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
-
-    static_cast<TBWIN32Window *>(this)->setActualWindow(NULL);
 
 
 }

@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class AdjustmentEventDetails;
 
 //! \brief AdjustmentEventDetails Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING AdjustmentEventDetailsBase : public EventDetails
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AdjustmentEventDetailsBase : public EventDetails
 {
   public:
 

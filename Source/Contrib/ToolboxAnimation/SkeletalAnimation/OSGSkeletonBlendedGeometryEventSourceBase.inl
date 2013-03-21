@@ -71,7 +71,19 @@ OSG::UInt16 SkeletonBlendedGeometryEventSourceBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
+//! access the producer type of the class
+inline
+const EventProducerType &SkeletonBlendedGeometryEventSourceBase::getProducerClassType(void)
+{
+    return _producerType;
+}
 
+//! access the producer type id of the class
+inline
+UInt32 SkeletonBlendedGeometryEventSourceBase::getProducerClassTypeId(void)
+{
+    return _producerType.getId();
+}
 /*------------------------------ get -----------------------------------*/
 
 

@@ -55,7 +55,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceTableHeader for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TableHeader : public TableHeaderBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableHeader : public TableHeaderBase
 {
   protected:
 

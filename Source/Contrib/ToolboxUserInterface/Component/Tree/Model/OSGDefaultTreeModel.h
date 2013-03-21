@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceDefaultTreeModel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DefaultTreeModel : public DefaultTreeModelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DefaultTreeModel : public DefaultTreeModelBase
 {
   protected:
 

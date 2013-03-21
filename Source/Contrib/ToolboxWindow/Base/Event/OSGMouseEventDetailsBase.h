@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGContribToolboxWindowDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -77,7 +77,7 @@ class MouseEventDetails;
 
 //! \brief MouseEventDetails Base Class.
 
-class OSG_SYSTEM_DLLMAPPING MouseEventDetailsBase : public InputEventDetails
+class OSG_CONTRIBTOOLBOXWINDOW_DLLMAPPING MouseEventDetailsBase : public InputEventDetails
 {
   public:
 

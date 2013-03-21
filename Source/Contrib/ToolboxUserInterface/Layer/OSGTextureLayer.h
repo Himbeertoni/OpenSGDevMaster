@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceTextureLayer for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TextureLayer : public TextureLayerBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextureLayer : public TextureLayerBase
 {
   protected:
 

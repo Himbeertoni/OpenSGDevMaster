@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfacePopupMenuEventDetails for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING PopupMenuEventDetails : public PopupMenuEventDetailsBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PopupMenuEventDetails : public PopupMenuEventDetailsBase
 {
   protected:
 

@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceScrollPanel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ScrollPanel : public ScrollPanelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ScrollPanel : public ScrollPanelBase
 {
   protected:
 

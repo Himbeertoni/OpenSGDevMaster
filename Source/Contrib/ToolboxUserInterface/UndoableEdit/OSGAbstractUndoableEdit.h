@@ -43,7 +43,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 #include "OSGUndoableEdit.h"
 
@@ -56,7 +56,7 @@ OSG_BEGIN_NAMESPACE
 class AbstractUndoableEdit;
 typedef boost::shared_ptr<AbstractUndoableEdit> AbstractUndoableEditPtr;
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING AbstractUndoableEdit : public UndoableEdit
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractUndoableEdit : public UndoableEdit
 {
     /*==========================  PUBLIC  =================================*/
   public:

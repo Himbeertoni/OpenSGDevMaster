@@ -225,8 +225,8 @@ void MenuBar::mousePressed(MouseEventDetails* const e)
         if(getChildren(i)->isContained(e->getLocation(), true))
         {
             getSelectionModel()->setSelectedIndex(i);
-            _MouseMovedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectMouseMoved(boost::bind(&MenuBar::handleMenuArmedMouseMoved, this, _1));
-            _MouseDraggedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectMouseDragged(boost::bind(&MenuBar::handleMenuArmedMouseDragged, this, _1));
+            _MouseMovedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectMouseMoved(boost::bind(&MenuBar::handleMenuArmedMouseMoved, this, _1));
+            _MouseDraggedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectMouseDragged(boost::bind(&MenuBar::handleMenuArmedMouseDragged, this, _1));
             break;
         }
         ++i;

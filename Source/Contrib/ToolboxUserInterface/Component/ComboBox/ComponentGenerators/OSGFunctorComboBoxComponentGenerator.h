@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceFunctorComboBoxComponentGenerator for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING FunctorComboBoxComponentGenerator : public FunctorComboBoxComponentGeneratorBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING FunctorComboBoxComponentGenerator : public FunctorComboBoxComponentGeneratorBase
 {
   protected:
 

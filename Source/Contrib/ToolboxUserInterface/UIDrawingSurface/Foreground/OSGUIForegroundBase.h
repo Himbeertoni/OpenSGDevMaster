@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -77,7 +77,7 @@ class UIForeground;
 
 //! \brief UIForeground Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING UIForegroundBase : public Foreground
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIForegroundBase : public Foreground
 {
   public:
 

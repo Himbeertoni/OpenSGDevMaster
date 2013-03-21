@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class TBWIN32Window!
+ **     class SkeletonBlendedGeometryEventSource!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -54,20 +54,20 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &TBWIN32WindowBase::getClassType(void)
+OSG::FieldContainerType &SkeletonBlendedGeometryEventSourceBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 TBWIN32WindowBase::getClassTypeId(void)
+OSG::UInt32 SkeletonBlendedGeometryEventSourceBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 TBWIN32WindowBase::getClassGroupId(void)
+OSG::UInt16 SkeletonBlendedGeometryEventSourceBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
@@ -75,73 +75,26 @@ OSG::UInt16 TBWIN32WindowBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the TBWIN32Window::_sfActualWindow field.
-inline
-TBWIN32WindowHelper * TBWIN32WindowBase::getActualWindow(void) const
-{
-    return _sfActualWindow.getValue();
-}
-
-//! Set the value of the TBWIN32Window::_sfActualWindow field.
-inline
-void TBWIN32WindowBase::setActualWindow(TBWIN32WindowHelper * const value)
-{
-    editSField(ActualWindowFieldMask);
-
-    _sfActualWindow.setValue(value);
-}
-//! Get the value of the TBWIN32Window::_sfHwnd field.
-
-inline
-HWND &TBWIN32WindowBase::editHwnd(void)
-{
-    editSField(HwndFieldMask);
-
-    return _sfHwnd.getValue();
-}
-
-//! Get the value of the TBWIN32Window::_sfHwnd field.
-inline
-const HWND &TBWIN32WindowBase::getHwnd(void) const
-{
-    return _sfHwnd.getValue();
-}
-
-//! Set the value of the TBWIN32Window::_sfHwnd field.
-inline
-void TBWIN32WindowBase::setHwnd(const HWND &value)
-{
-    editSField(HwndFieldMask);
-
-    _sfHwnd.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void TBWIN32WindowBase::execSync (      TBWIN32WindowBase *pFrom,
+void SkeletonBlendedGeometryEventSourceBase::execSync (      SkeletonBlendedGeometryEventSourceBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
-
-    if(FieldBits::NoField != (ActualWindowFieldMask & whichField))
-        _sfActualWindow.syncWith(pFrom->_sfActualWindow);
-
-    if(FieldBits::NoField != (HwndFieldMask & whichField))
-        _sfHwnd.syncWith(pFrom->_sfHwnd);
 }
 #endif
 
 
 inline
-const Char8 *TBWIN32WindowBase::getClassname(void)
+const Char8 *SkeletonBlendedGeometryEventSourceBase::getClassname(void)
 {
-    return "TBWIN32Window";
+    return "SkeletonBlendedGeometryEventSource";
 }
-OSG_GEN_CONTAINERPTR(TBWIN32Window);
+OSG_GEN_CONTAINERPTR(SkeletonBlendedGeometryEventSource);
 
 OSG_END_NAMESPACE
 

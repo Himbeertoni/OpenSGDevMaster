@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class DefaultListSelectionModel;
 
 //! \brief DefaultListSelectionModel Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DefaultListSelectionModelBase : public ListSelectionModel
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DefaultListSelectionModelBase : public ListSelectionModel
 {
   public:
 

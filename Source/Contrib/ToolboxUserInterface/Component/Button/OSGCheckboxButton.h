@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceCheckboxButton for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING CheckboxButton : public CheckboxButtonBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CheckboxButton : public CheckboxButtonBase
 {
   protected:
 

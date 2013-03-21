@@ -32,14 +32,14 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 #include "OSGFactoryBase.h"
 #include "OSGSingletonHolder.h"
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING CommandFactoryBase : public FactoryBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CommandFactoryBase : public FactoryBase
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -73,7 +73,7 @@ class OSG_CONTRIBUSERINTERFACE_DLLMAPPING CommandFactoryBase : public FactoryBas
 
 
 #if defined(WIN32)
-template class OSG_CONTRIBUSERINTERFACE_DLLMAPPING SingletonHolder<CommandFactoryBase>;
+template class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SingletonHolder<CommandFactoryBase>;
 #endif
 
 typedef OSG::SingletonHolder<OSG::CommandFactoryBase> CommandFactory;

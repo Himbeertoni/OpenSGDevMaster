@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceBoxLayout for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING BoxLayout : public BoxLayoutBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING BoxLayout : public BoxLayoutBase
 {
   protected:
 

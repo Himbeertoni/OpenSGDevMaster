@@ -90,7 +90,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ColorSelectionModel *>::_type("ColorSelectionModelPtr", "AttachmentContainerPtr");
+DataType FieldTraits<ColorSelectionModel *>::_type("ColorSelectionModelPtr", "EventContainerPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(ColorSelectionModel *)

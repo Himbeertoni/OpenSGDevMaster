@@ -112,7 +112,7 @@ OSG_BEGIN_NAMESPACE
  * implement drawInternal().
  */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING Component : public ComponentBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Component : public ComponentBase
 {
   protected:
 

@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceMultiColorMatteBorder for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING MultiColorMatteBorder : public MultiColorMatteBorderBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MultiColorMatteBorder : public MultiColorMatteBorderBase
 {
   protected:
 

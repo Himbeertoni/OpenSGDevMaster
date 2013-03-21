@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageSystemTBWindow for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING TBWindow : public TBWindowBase
+class OSG_CONTRIBTOOLBOXWINDOW_DLLMAPPING TBWindow : public TBWindowBase
 {
   protected:
 

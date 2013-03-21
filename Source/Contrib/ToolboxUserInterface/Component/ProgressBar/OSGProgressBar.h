@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceProgressBar for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ProgressBar : public ProgressBarBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ProgressBar : public ProgressBarBase
 {
   protected:
 

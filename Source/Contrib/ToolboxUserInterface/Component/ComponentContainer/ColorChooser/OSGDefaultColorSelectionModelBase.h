@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class DefaultColorSelectionModel;
 
 //! \brief DefaultColorSelectionModel Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DefaultColorSelectionModelBase : public ColorSelectionModel
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DefaultColorSelectionModelBase : public ColorSelectionModel
 {
   public:
 

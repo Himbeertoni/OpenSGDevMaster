@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceMenuButton for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING MenuButton : public MenuButtonBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MenuButton : public MenuButtonBase
 {
   protected:
 

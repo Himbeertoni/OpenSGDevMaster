@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGContribToolboxWindowDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class WindowEventDetails;
 
 //! \brief WindowEventDetails Base Class.
 
-class OSG_SYSTEM_DLLMAPPING WindowEventDetailsBase : public EventDetails
+class OSG_CONTRIBTOOLBOXWINDOW_DLLMAPPING WindowEventDetailsBase : public EventDetails
 {
   public:
 

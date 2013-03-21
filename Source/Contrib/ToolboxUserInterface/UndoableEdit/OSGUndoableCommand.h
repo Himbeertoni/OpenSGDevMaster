@@ -32,7 +32,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 #include "OSGCommand.h"
 #include "OSGAbstractUndoableEdit.h"
@@ -43,7 +43,7 @@ OSG_BEGIN_NAMESPACE
 class UndoableCommand;
 typedef boost::shared_ptr<UndoableCommand> UndoableCommandPtr;
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING UndoableCommand : public Command, public AbstractUndoableEdit
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UndoableCommand : public Command, public AbstractUndoableEdit
 {
 protected:
     typedef Command Inherited1;

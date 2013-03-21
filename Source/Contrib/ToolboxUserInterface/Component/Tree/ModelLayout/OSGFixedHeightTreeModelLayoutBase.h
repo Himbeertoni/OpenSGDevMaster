@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class FixedHeightTreeModelLayout;
 
 //! \brief FixedHeightTreeModelLayout Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING FixedHeightTreeModelLayoutBase : public AbstractTreeModelLayout
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING FixedHeightTreeModelLayoutBase : public AbstractTreeModelLayout
 {
   public:
 

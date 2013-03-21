@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceTitlebar for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING Titlebar : public TitlebarBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Titlebar : public TitlebarBase
 {
   protected:
 

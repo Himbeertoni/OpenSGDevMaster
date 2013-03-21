@@ -54,7 +54,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceUIDrawingSurface for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING UIDrawingSurface : public UIDrawingSurfaceBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIDrawingSurface : public UIDrawingSurfaceBase
 
 {
   protected:

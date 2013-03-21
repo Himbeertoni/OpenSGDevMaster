@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class SumLayoutSpring;
 
 //! \brief SumLayoutSpring Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING SumLayoutSpringBase : public CompoundLayoutSpring
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SumLayoutSpringBase : public CompoundLayoutSpring
 {
   public:
 

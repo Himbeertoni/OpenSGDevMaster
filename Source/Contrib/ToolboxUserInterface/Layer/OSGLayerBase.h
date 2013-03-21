@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class Layer;
 
 //! \brief Layer Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING LayerBase : public AttachmentContainer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING LayerBase : public AttachmentContainer
 {
   public:
 

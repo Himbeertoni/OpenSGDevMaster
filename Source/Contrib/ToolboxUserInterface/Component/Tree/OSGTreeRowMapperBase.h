@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class TreeRowMapper;
 
 //! \brief TreeRowMapper Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TreeRowMapperBase : public FieldContainer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeRowMapperBase : public FieldContainer
 {
   public:
 

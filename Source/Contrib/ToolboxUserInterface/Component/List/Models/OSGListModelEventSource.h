@@ -36,21 +36,21 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGTBWIN32WINDOWHELPER_H_
-#define _OSGTBWIN32WINDOWHELPER_H_
+#ifndef _OSGLISTMODELEVENTSOURCE_H_
+#define _OSGLISTMODELEVENTSOURCE_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGTBWIN32WindowHelperBase.h"
+#include "OSGListModelEventSourceBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief TBWIN32WindowHelper class. See \ref
-           PageWindowTBWIN32WindowHelper for a description.
+/*! \brief ListModelEventSource class. See \ref
+           PageContribToolboxUserInterfaceListModelEventSource for a description.
 */
 
-class OSG_WINDOW_DLLMAPPING TBWIN32WindowHelper : public TBWIN32WindowHelperBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListModelEventSource : public ListModelEventSourceBase
 {
   protected:
 
@@ -58,15 +58,8 @@ class OSG_WINDOW_DLLMAPPING TBWIN32WindowHelper : public TBWIN32WindowHelperBase
 
   public:
 
-    typedef TBWIN32WindowHelperBase Inherited;
-    typedef TBWIN32WindowHelper     Self;
-
-	virtual void terminate(void) override;
-    virtual void doActivate  (void) override;
-    virtual void doDeactivate(void) override;
-    virtual bool doSwap      (void) override;
-
-    virtual bool hasContext  (void) override;
+    typedef ListModelEventSourceBase Inherited;
+    typedef ListModelEventSource     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -88,22 +81,22 @@ class OSG_WINDOW_DLLMAPPING TBWIN32WindowHelper : public TBWIN32WindowHelperBase
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-	  virtual void onDestroy     (      UInt32          uiContainerId     );
-    // Variables should all be in TBWIN32WindowHelperBase.
+
+    // Variables should all be in ListModelEventSourceBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    TBWIN32WindowHelper(void);
-    TBWIN32WindowHelper(const TBWIN32WindowHelper &source);
+    ListModelEventSource(void);
+    ListModelEventSource(const ListModelEventSource &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~TBWIN32WindowHelper(void);
+    virtual ~ListModelEventSource(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -118,17 +111,17 @@ class OSG_WINDOW_DLLMAPPING TBWIN32WindowHelper : public TBWIN32WindowHelperBase
   private:
 
     friend class FieldContainer;
-    friend class TBWIN32WindowHelperBase;
+    friend class ListModelEventSourceBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const TBWIN32WindowHelper &source);
+    void operator =(const ListModelEventSource &source);
 };
 
-typedef TBWIN32WindowHelper *TBWIN32WindowHelperP;
+typedef ListModelEventSource *ListModelEventSourceP;
 
 OSG_END_NAMESPACE
 
-#include "OSGTBWIN32WindowHelperBase.inl"
-#include "OSGTBWIN32WindowHelper.inl"
+#include "OSGListModelEventSourceBase.inl"
+#include "OSGListModelEventSource.inl"
 
-#endif /* _OSGTBWIN32WINDOWHELPER_H_ */
+#endif /* _OSGLISTMODELEVENTSOURCE_H_ */

@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceDataFlavor for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DataFlavor : public DataFlavorBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DataFlavor : public DataFlavorBase
 {
   protected:
 

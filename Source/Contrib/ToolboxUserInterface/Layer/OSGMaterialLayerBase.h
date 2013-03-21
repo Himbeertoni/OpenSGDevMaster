@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -78,7 +78,7 @@ class MaterialLayer;
 
 //! \brief MaterialLayer Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING MaterialLayerBase : public Layer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MaterialLayerBase : public Layer
 {
   public:
 

@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -79,7 +79,7 @@ class TextField;
 
 //! \brief TextField Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TextFieldBase : public EditableTextComponent
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextFieldBase : public EditableTextComponent
 {
   public:
 

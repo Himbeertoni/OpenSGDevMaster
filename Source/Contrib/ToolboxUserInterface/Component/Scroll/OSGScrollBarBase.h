@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -79,7 +79,7 @@ class ScrollBar;
 
 //! \brief ScrollBar Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ScrollBarBase : public ComponentContainer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ScrollBarBase : public ComponentContainer
 {
   public:
 

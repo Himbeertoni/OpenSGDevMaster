@@ -44,7 +44,7 @@
 #endif
  
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 #include <boost/any.hpp>
 #include <boost/shared_ptr.hpp>
 
@@ -57,7 +57,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING IllegalArgumentException : public std::exception
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING IllegalArgumentException : public std::exception
 {
     virtual const char* what() const throw()
     {
@@ -65,7 +65,7 @@ class OSG_CONTRIBUSERINTERFACE_DLLMAPPING IllegalArgumentException : public std:
     }
 };
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING SpinnerModel
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SpinnerModel
 {
   public:
     typedef ChangeEventDetails StateChangedEventDetailsType;
@@ -131,9 +131,9 @@ class OSG_CONTRIBUSERINTERFACE_DLLMAPPING SpinnerModel
 typedef boost::shared_ptr<SpinnerModel> SpinnerModelPtr;
 
 
-SpinnerModelPtr OSG_CONTRIBUSERINTERFACE_DLLMAPPING createDefaultNumberSpinnerModel(const DataType& TheType);
+SpinnerModelPtr OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING createDefaultNumberSpinnerModel(const DataType& TheType);
 
-SpinnerModelPtr OSG_CONTRIBUSERINTERFACE_DLLMAPPING createDefaultNumberSpinnerModel(GetFieldHandlePtr TheFieldHandle);
+SpinnerModelPtr OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING createDefaultNumberSpinnerModel(GetFieldHandlePtr TheFieldHandle);
 
 OSG_END_NAMESPACE
 

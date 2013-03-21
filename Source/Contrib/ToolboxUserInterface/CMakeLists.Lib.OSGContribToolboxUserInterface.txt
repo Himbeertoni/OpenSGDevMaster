@@ -31,6 +31,8 @@ SET(${PROJECT_NAME}_DEP_OSG_LIB OSGDrawable
                                 OSGUtil
                                 OSGContribToolbox
                                 OSGContribToolboxFileIO
+                                OSGContribToolboxAnimation
+                                OSGContribToolboxWindow
                                 OSGState)
 
 SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB )

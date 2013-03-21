@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceTexturedQuadUIDrawObject for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TexturedQuadUIDrawObject : public TexturedQuadUIDrawObjectBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TexturedQuadUIDrawObject : public TexturedQuadUIDrawObjectBase
 {
   protected:
 

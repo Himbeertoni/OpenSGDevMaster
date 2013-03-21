@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceLayoutSpring for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING LayoutSpring : public LayoutSpringBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING LayoutSpring : public LayoutSpringBase
 {
   protected:
 

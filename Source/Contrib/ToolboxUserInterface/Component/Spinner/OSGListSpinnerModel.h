@@ -44,7 +44,7 @@
 #endif
  
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 #include "OSGAbstractSpinnerModel.h"
 
@@ -52,7 +52,7 @@
 
 OSG_BEGIN_NAMESPACE
      
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ListSpinnerModel : public AbstractSpinnerModel
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListSpinnerModel : public AbstractSpinnerModel
 {
 public:
     typedef std::list<boost::any> AnyList;

@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceMaxLayoutSpring for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING MaxLayoutSpring : public MaxLayoutSpringBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MaxLayoutSpring : public MaxLayoutSpringBase
 {
   protected:
 

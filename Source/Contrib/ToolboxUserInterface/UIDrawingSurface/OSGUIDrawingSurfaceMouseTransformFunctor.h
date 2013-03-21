@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceUIDrawingSurfaceMouseTransformFunctor for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING UIDrawingSurfaceMouseTransformFunctor : public UIDrawingSurfaceMouseTransformFunctorBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIDrawingSurfaceMouseTransformFunctor : public UIDrawingSurfaceMouseTransformFunctorBase
 {
   protected:
 

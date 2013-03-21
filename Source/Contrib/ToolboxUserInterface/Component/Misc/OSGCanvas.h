@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceCanvas for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING Canvas : public CanvasBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Canvas : public CanvasBase
 {
   protected:
 

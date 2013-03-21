@@ -57,7 +57,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceGLViewport for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING GLViewport : public GLViewportBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING GLViewport : public GLViewportBase
 {
   protected:
 

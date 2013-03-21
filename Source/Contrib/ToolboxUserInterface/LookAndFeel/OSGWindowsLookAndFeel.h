@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceWindowsLookAndFeel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING WindowsLookAndFeel : public WindowsLookAndFeelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING WindowsLookAndFeel : public WindowsLookAndFeelBase
 {
   protected:
 

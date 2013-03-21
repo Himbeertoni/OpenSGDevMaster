@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceAbstractCellEditor for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING AbstractCellEditor : public AbstractCellEditorBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractCellEditor : public AbstractCellEditorBase
 {
   protected:
 

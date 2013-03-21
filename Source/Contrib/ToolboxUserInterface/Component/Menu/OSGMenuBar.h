@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceMenuBar for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING MenuBar : public MenuBarBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MenuBar : public MenuBarBase
 {
   protected:
 

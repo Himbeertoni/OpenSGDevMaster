@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceTextField for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TextField : public TextFieldBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextField : public TextFieldBase
 {
   protected:
 

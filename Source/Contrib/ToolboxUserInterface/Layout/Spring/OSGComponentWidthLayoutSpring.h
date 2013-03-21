@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceComponentWidthLayoutSpring for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ComponentWidthLayoutSpring : public ComponentWidthLayoutSpringBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentWidthLayoutSpring : public ComponentWidthLayoutSpringBase
 {
   protected:
 

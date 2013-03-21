@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceLineUIDrawObject for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING LineUIDrawObject : public LineUIDrawObjectBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING LineUIDrawObject : public LineUIDrawObjectBase
 {
   protected:
 

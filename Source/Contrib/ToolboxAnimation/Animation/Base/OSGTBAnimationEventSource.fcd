@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="TBAnimationEventSource"
+    parent="EventContainer"
+    library="ContribToolboxAnimation"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    isNodeCore="false"
+>
+<!--    
+    <ProducedEvent
+        name="AnimationStarted"
+        detailsType="AnimationEventDetails"
+        consumable="true"
+    >
+    </ProducedEvent>
+    <ProducedEvent
+        name="AnimationStopped"
+        detailsType="AnimationEventDetails"
+        consumable="true"
+    >
+    </ProducedEvent>
+    <ProducedEvent
+        name="AnimationPaused"
+        detailsType="AnimationEventDetails"
+        consumable="true"
+    >
+    </ProducedEvent>
+    <ProducedEvent
+        name="AnimationUnpaused"
+        detailsType="AnimationEventDetails"
+        consumable="true"
+    >
+    </ProducedEvent>
+    <ProducedEvent
+        name="AnimationEnded"
+        detailsType="AnimationEventDetails"
+        consumable="true"
+    >
+    </ProducedEvent>
+    <ProducedEvent
+        name="AnimationCycled"
+        detailsType="AnimationEventDetails"
+        consumable="true"
+    >
+    </ProducedEvent>
+-->
+</FieldContainer>

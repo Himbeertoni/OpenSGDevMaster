@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class AbstractListModel;
 
 //! \brief AbstractListModel Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING AbstractListModelBase : public ListModel
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractListModelBase : public ListModel
 {
   public:
 

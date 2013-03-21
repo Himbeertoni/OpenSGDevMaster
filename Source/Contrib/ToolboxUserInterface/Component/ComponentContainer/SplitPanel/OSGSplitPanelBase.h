@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -77,7 +77,7 @@ class SplitPanel;
 
 //! \brief SplitPanel Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING SplitPanelBase : public ComponentContainer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SplitPanelBase : public ComponentContainer
 {
   public:
 

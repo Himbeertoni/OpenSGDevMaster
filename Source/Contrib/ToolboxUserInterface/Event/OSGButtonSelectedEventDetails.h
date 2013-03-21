@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceButtonSelectedEventDetails for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ButtonSelectedEventDetails : public ButtonSelectedEventDetailsBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ButtonSelectedEventDetails : public ButtonSelectedEventDetailsBase
 {
   protected:
 

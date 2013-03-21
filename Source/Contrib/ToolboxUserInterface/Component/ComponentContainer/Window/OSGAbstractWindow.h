@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceAbstractWindow for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING AbstractWindow : public AbstractWindowBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindow : public AbstractWindowBase
 {
   protected:
 

@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageSystemKeyEventDetails for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING KeyEventDetails : public KeyEventDetailsBase
+class OSG_CONTRIBTOOLBOXWINDOW_DLLMAPPING KeyEventDetails : public KeyEventDetailsBase
 {
   protected:
 
@@ -342,11 +342,11 @@ class OSG_SYSTEM_DLLMAPPING KeyEventDetails : public KeyEventDetailsBase
 
 typedef KeyEventDetails *KeyEventDetailsP;
 
-bool OSG_SYSTEM_DLLMAPPING isAlphabetKey(KeyEventDetails::Key k);
-bool OSG_SYSTEM_DLLMAPPING isNumericKey(KeyEventDetails::Key k);
-bool OSG_SYSTEM_DLLMAPPING isWordKey(KeyEventDetails::Key k);
-bool OSG_SYSTEM_DLLMAPPING isPunctuationKey(KeyEventDetails::Key k);
-bool OSG_SYSTEM_DLLMAPPING isWhitespaceKey(KeyEventDetails::Key k);
+bool OSG_CONTRIBTOOLBOXWINDOW_DLLMAPPING isAlphabetKey(KeyEventDetails::Key k);
+bool OSG_CONTRIBTOOLBOXWINDOW_DLLMAPPING isNumericKey(KeyEventDetails::Key k);
+bool OSG_CONTRIBTOOLBOXWINDOW_DLLMAPPING isWordKey(KeyEventDetails::Key k);
+bool OSG_CONTRIBTOOLBOXWINDOW_DLLMAPPING isPunctuationKey(KeyEventDetails::Key k);
+bool OSG_CONTRIBTOOLBOXWINDOW_DLLMAPPING isWhitespaceKey(KeyEventDetails::Key k);
 
 OSG_END_NAMESPACE
 

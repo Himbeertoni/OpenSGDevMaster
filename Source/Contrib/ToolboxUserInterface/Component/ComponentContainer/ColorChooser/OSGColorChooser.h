@@ -57,7 +57,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceColorChooser for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ColorChooser : public ColorChooserBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ColorChooser : public ColorChooserBase
 {
   protected:
 

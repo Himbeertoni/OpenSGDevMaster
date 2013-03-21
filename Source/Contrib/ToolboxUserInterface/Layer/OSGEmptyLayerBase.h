@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class EmptyLayer;
 
 //! \brief EmptyLayer Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING EmptyLayerBase : public Layer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING EmptyLayerBase : public Layer
 {
   public:
 

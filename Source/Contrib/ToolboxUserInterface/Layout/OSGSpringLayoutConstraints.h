@@ -54,7 +54,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceSpringLayoutConstraints for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING SpringLayoutConstraints : public SpringLayoutConstraintsBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SpringLayoutConstraints : public SpringLayoutConstraintsBase
 {
   protected:
 

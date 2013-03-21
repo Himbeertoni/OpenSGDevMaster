@@ -45,13 +45,13 @@
 
 #include "OSGConfig.h"
 
-#include "OSGTBWIN32WindowHelper.h"
+#include "OSGComponentEventSourceDecorator.h"
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGTBWIN32WindowHelperBase.cpp file.
-// To modify it, please change the .fcd file (OSGTBWIN32WindowHelper.fcd) and
+// OSGComponentEventSourceDecoratorBase.cpp file.
+// To modify it, please change the .fcd file (OSGComponentEventSourceDecorator.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
@@ -62,7 +62,7 @@ OSG_BEGIN_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void TBWIN32WindowHelper::initMethod(InitPhase ePhase)
+void ComponentEventSourceDecorator::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -75,36 +75,6 @@ void TBWIN32WindowHelper::initMethod(InitPhase ePhase)
 /***************************************************************************\
  *                           Instance methods                              *
 \***************************************************************************/
-void TBWIN32WindowHelper::terminate(void)
-{
-	Inherited::terminate();
-}
-
-void TBWIN32WindowHelper::doActivate  (void)
-{
-	Inherited::doActivate();
-}
-
-void TBWIN32WindowHelper::doDeactivate(void)
-{
-	Inherited::doDeactivate();
-}
-
-bool TBWIN32WindowHelper::doSwap      (void)
-{
-	return Inherited::doSwap();
-}
-
-bool TBWIN32WindowHelper::hasContext  (void)
-{
-	return Inherited::hasContext();
-}
-
-void TBWIN32WindowHelper::onDestroy     (      UInt32          uiContainerId     )
-{
-	Inherited::onDestroy( uiContainerId );
-	printf( "TBWIN32WindowHelper::onDestroy\n");
-}
 
 /*-------------------------------------------------------------------------*\
  -  private                                                                 -
@@ -112,33 +82,33 @@ void TBWIN32WindowHelper::onDestroy     (      UInt32          uiContainerId    
 
 /*----------------------- constructors & destructors ----------------------*/
 
-TBWIN32WindowHelper::TBWIN32WindowHelper(void) :
+ComponentEventSourceDecorator::ComponentEventSourceDecorator(void) :
     Inherited()
 {
 }
 
-TBWIN32WindowHelper::TBWIN32WindowHelper(const TBWIN32WindowHelper &source) :
+ComponentEventSourceDecorator::ComponentEventSourceDecorator(const ComponentEventSourceDecorator &source) :
     Inherited(source)
 {
 }
 
-TBWIN32WindowHelper::~TBWIN32WindowHelper(void)
+ComponentEventSourceDecorator::~ComponentEventSourceDecorator(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void TBWIN32WindowHelper::changed(ConstFieldMaskArg whichField, 
+void ComponentEventSourceDecorator::changed(ConstFieldMaskArg whichField, 
                             UInt32            origin,
                             BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
 
-void TBWIN32WindowHelper::dump(      UInt32    ,
+void ComponentEventSourceDecorator::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump TBWIN32WindowHelper NI" << std::endl;
+    SLOG << "Dump ComponentEventSourceDecorator NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

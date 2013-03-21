@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -76,7 +76,7 @@ class MFieldListModel;
 
 //! \brief MFieldListModel Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING MFieldListModelBase : public AbstractListModel
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MFieldListModelBase : public AbstractListModel
 {
   public:
 

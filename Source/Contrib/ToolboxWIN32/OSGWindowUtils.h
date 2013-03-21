@@ -30,15 +30,15 @@
 #define _OPENSG_WINDOW_UTILS_H_
 
 #include "OSGConfig.h"
-#include "OSGWindowDef.h"
+#include "OSGContribToolboxWIN32Def.h"
 
 #include "OSGWindowEventProducer.h"
 
 OSG_BEGIN_NAMESPACE
 
-WindowEventProducerTransitPtr OSG_WINDOW_DLLMAPPING createNativeWindow(void);
+WindowEventProducerTransitPtr OSG_CONTRIBTOOLBOXWIN32_DLLMAPPING createNativeWindow(void);
 
-FieldContainerType const OSG_WINDOW_DLLMAPPING *getNativeWindowType(void);
+FieldContainerType const OSG_CONTRIBTOOLBOXWIN32_DLLMAPPING *getNativeWindowType(void);
 
 OSG_END_NAMESPACE
 

@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class PasswordField;
 
 //! \brief PasswordField Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING PasswordFieldBase : public TextField
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PasswordFieldBase : public TextField
 {
   public:
 

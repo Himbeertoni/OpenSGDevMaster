@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceComboBoxSelectionEventDetails for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ComboBoxSelectionEventDetails : public ComboBoxSelectionEventDetailsBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxSelectionEventDetails : public ComboBoxSelectionEventDetailsBase
 {
   protected:
 

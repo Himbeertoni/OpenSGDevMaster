@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class AbstractTableModel;
 
 //! \brief AbstractTableModel Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING AbstractTableModelBase : public TableModel
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractTableModelBase : public TableModel
 {
   public:
 

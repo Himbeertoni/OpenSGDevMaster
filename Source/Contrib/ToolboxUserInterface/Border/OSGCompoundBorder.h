@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceCompoundBorder for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING CompoundBorder : public CompoundBorderBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CompoundBorder : public CompoundBorderBase
 {
   protected:
 

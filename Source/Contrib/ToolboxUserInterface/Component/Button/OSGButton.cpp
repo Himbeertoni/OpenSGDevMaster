@@ -556,14 +556,14 @@ void Button::mousePressed(MouseEventDetails* const e)
             if(getParentWindow() != NULL && getParentWindow()->getParentDrawingSurface()!=NULL&& getParentWindow()->getParentDrawingSurface()->getEventProducer() != NULL)
             {
                 _ArmedMouseReleasedConnection.disconnect();
-                _ArmedMouseReleasedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectMouseReleased(boost::bind(&Button::handleArmedMouseReleased, this, _1));
+                _ArmedMouseReleasedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectMouseReleased(boost::bind(&Button::handleArmedMouseReleased, this, _1));
 
                 if(getEnableActionOnMouseDownTime())
                 {
                     produceMousePressedActionPerformed();
                     resetArmed();
                     _ArmedUpdateEventConnection.disconnect();
-                    _ArmedUpdateEventConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectUpdate(boost::bind(&Button::handleArmedUpdate, this, _1));
+                    _ArmedUpdateEventConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectUpdate(boost::bind(&Button::handleArmedUpdate, this, _1));
                 }
             }
         }

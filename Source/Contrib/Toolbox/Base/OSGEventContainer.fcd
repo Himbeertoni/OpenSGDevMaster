@@ -2,7 +2,7 @@
 
 <FieldContainer
     name="EventContainer"
-    parent="AttachmentContainer"
+    parent="FieldContainer"
     library="ContribToolbox"
     pointerfieldtypes="both"
     structure="abstract"

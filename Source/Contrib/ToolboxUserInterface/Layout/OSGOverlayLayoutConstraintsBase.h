@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class OverlayLayoutConstraints;
 
 //! \brief OverlayLayoutConstraints Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING OverlayLayoutConstraintsBase : public LayoutConstraints
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING OverlayLayoutConstraintsBase : public LayoutConstraints
 {
   public:
 

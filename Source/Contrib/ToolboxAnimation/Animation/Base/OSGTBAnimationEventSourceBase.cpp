@@ -45,7 +45,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class TBWIN32WindowHelper!
+ **     class TBAnimationEventSource!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -58,8 +58,8 @@
 
 
 
-#include "OSGTBWIN32WindowHelperBase.h"
-#include "OSGTBWIN32WindowHelper.h"
+#include "OSGTBAnimationEventSourceBase.h"
+#include "OSGTBAnimationEventSource.h"
 
 #include <boost/bind.hpp>
 
@@ -73,7 +73,7 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::TBWIN32WindowHelper
+/*! \class OSG::TBAnimationEventSource
     
  */
 
@@ -87,74 +87,113 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-PointerType FieldTraits<TBWIN32WindowHelper *, nsOSG>::_type(
-    "TBWIN32WindowHelperPtr", 
-    "WIN32WindowPtr", 
-    TBWIN32WindowHelper::getClassType(),
+PointerType FieldTraits<TBAnimationEventSource *, nsOSG>::_type(
+    "TBAnimationEventSourcePtr", 
+    "EventContainerPtr", 
+    TBAnimationEventSource::getClassType(),
     nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE_NS(TBWIN32WindowHelper *, nsOSG)
+OSG_FIELDTRAITS_GETTYPE_NS(TBAnimationEventSource *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           TBWIN32WindowHelper *,
+                           TBAnimationEventSource *,
                            nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           TBWIN32WindowHelper *,
+                           TBAnimationEventSource *,
                            nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
 
-void TBWIN32WindowHelperBase::classDescInserter(TypeObject &oType)
+void TBAnimationEventSourceBase::classDescInserter(TypeObject &oType)
 {
 }
 
 
-TBWIN32WindowHelperBase::TypeObject TBWIN32WindowHelperBase::_type(
-    TBWIN32WindowHelperBase::getClassname(),
+TBAnimationEventSourceBase::TypeObject TBAnimationEventSourceBase::_type(
+    TBAnimationEventSourceBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
     nsOSG, //Namespace
-    reinterpret_cast<PrototypeCreateF>(&TBWIN32WindowHelperBase::createEmptyLocal),
-    TBWIN32WindowHelper::initMethod,
-    TBWIN32WindowHelper::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&TBWIN32WindowHelper::classDescInserter),
+    reinterpret_cast<PrototypeCreateF>(&TBAnimationEventSourceBase::createEmptyLocal),
+    TBAnimationEventSource::initMethod,
+    TBAnimationEventSource::exitMethod,
+    reinterpret_cast<InitalInsertDescFunc>(&TBAnimationEventSource::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "    name=\"TBWIN32WindowHelper\"\n"
-    "    parent=\"WIN32Window\"\n"
-    "    library=\"Window\"\n"
+    "    name=\"TBAnimationEventSource\"\n"
+    "    parent=\"EventContainer\"\n"
+    "    library=\"ContribToolboxAnimation\"\n"
     "    pointerfieldtypes=\"both\"\n"
     "    structure=\"concrete\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"
-    "    docGroupBase=\"GrpWindowWIN32\"\n"
+    "    decoratable=\"false\"\n"
+    "    isNodeCore=\"false\"\n"
+    ">\n"
+    "<!--    \n"
+    "    <ProducedEvent\n"
+    "        name=\"AnimationStarted\"\n"
+    "        detailsType=\"AnimationEventDetails\"\n"
+    "        consumable=\"true\"\n"
     "    >\n"
+    "    </ProducedEvent>\n"
+    "    <ProducedEvent\n"
+    "        name=\"AnimationStopped\"\n"
+    "        detailsType=\"AnimationEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "    <ProducedEvent\n"
+    "        name=\"AnimationPaused\"\n"
+    "        detailsType=\"AnimationEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "    <ProducedEvent\n"
+    "        name=\"AnimationUnpaused\"\n"
+    "        detailsType=\"AnimationEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "    <ProducedEvent\n"
+    "        name=\"AnimationEnded\"\n"
+    "        detailsType=\"AnimationEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "    <ProducedEvent\n"
+    "        name=\"AnimationCycled\"\n"
+    "        detailsType=\"AnimationEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "-->\n"
     "</FieldContainer>\n",
     ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &TBWIN32WindowHelperBase::getType(void)
+FieldContainerType &TBAnimationEventSourceBase::getType(void)
 {
     return _type;
 }
 
-const FieldContainerType &TBWIN32WindowHelperBase::getType(void) const
+const FieldContainerType &TBAnimationEventSourceBase::getType(void) const
 {
     return _type;
 }
 
-UInt32 TBWIN32WindowHelperBase::getContainerSize(void) const
+UInt32 TBAnimationEventSourceBase::getContainerSize(void) const
 {
-    return sizeof(TBWIN32WindowHelper);
+    return sizeof(TBAnimationEventSource);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -166,7 +205,7 @@ UInt32 TBWIN32WindowHelperBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-SizeT TBWIN32WindowHelperBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TBAnimationEventSourceBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
@@ -174,14 +213,14 @@ SizeT TBWIN32WindowHelperBase::getBinSize(ConstFieldMaskArg whichField)
     return returnValue;
 }
 
-void TBWIN32WindowHelperBase::copyToBin(BinaryDataHandler &pMem,
+void TBAnimationEventSourceBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
 
 }
 
-void TBWIN32WindowHelperBase::copyFromBin(BinaryDataHandler &pMem,
+void TBAnimationEventSourceBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
@@ -189,58 +228,58 @@ void TBWIN32WindowHelperBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-TBWIN32WindowHelperTransitPtr TBWIN32WindowHelperBase::createLocal(BitVector bFlags)
+TBAnimationEventSourceTransitPtr TBAnimationEventSourceBase::createLocal(BitVector bFlags)
 {
-    TBWIN32WindowHelperTransitPtr fc;
+    TBAnimationEventSourceTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
 
-        fc = dynamic_pointer_cast<TBWIN32WindowHelper>(tmpPtr);
+        fc = dynamic_pointer_cast<TBAnimationEventSource>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class, copy the container flags
-TBWIN32WindowHelperTransitPtr TBWIN32WindowHelperBase::createDependent(BitVector bFlags)
+TBAnimationEventSourceTransitPtr TBAnimationEventSourceBase::createDependent(BitVector bFlags)
 {
-    TBWIN32WindowHelperTransitPtr fc;
+    TBAnimationEventSourceTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyDependent(bFlags);
 
-        fc = dynamic_pointer_cast<TBWIN32WindowHelper>(tmpPtr);
+        fc = dynamic_pointer_cast<TBAnimationEventSource>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class
-TBWIN32WindowHelperTransitPtr TBWIN32WindowHelperBase::create(void)
+TBAnimationEventSourceTransitPtr TBAnimationEventSourceBase::create(void)
 {
-    TBWIN32WindowHelperTransitPtr fc;
+    TBAnimationEventSourceTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
 
-        fc = dynamic_pointer_cast<TBWIN32WindowHelper>(tmpPtr);
+        fc = dynamic_pointer_cast<TBAnimationEventSource>(tmpPtr);
     }
 
     return fc;
 }
 
-TBWIN32WindowHelper *TBWIN32WindowHelperBase::createEmptyLocal(BitVector bFlags)
+TBAnimationEventSource *TBAnimationEventSourceBase::createEmptyLocal(BitVector bFlags)
 {
-    TBWIN32WindowHelper *returnValue;
+    TBAnimationEventSource *returnValue;
 
-    newPtr<TBWIN32WindowHelper>(returnValue, bFlags);
+    newPtr<TBAnimationEventSource>(returnValue, bFlags);
 
     returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
@@ -248,11 +287,11 @@ TBWIN32WindowHelper *TBWIN32WindowHelperBase::createEmptyLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-TBWIN32WindowHelper *TBWIN32WindowHelperBase::createEmpty(void)
+TBAnimationEventSource *TBAnimationEventSourceBase::createEmpty(void)
 {
-    TBWIN32WindowHelper *returnValue;
+    TBAnimationEventSource *returnValue;
 
-    newPtr<TBWIN32WindowHelper>(returnValue, Thread::getCurrentLocalFlags());
+    newPtr<TBAnimationEventSource>(returnValue, Thread::getCurrentLocalFlags());
 
     returnValue->_pFieldFlags->_bNamespaceMask &=
         ~Thread::getCurrentLocalFlags();
@@ -261,12 +300,12 @@ TBWIN32WindowHelper *TBWIN32WindowHelperBase::createEmpty(void)
 }
 
 
-FieldContainerTransitPtr TBWIN32WindowHelperBase::shallowCopyLocal(
+FieldContainerTransitPtr TBAnimationEventSourceBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    TBWIN32WindowHelper *tmpPtr;
+    TBAnimationEventSource *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const TBWIN32WindowHelper *>(this), bFlags);
+    newPtr(tmpPtr, dynamic_cast<const TBAnimationEventSource *>(this), bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -275,12 +314,12 @@ FieldContainerTransitPtr TBWIN32WindowHelperBase::shallowCopyLocal(
     return returnValue;
 }
 
-FieldContainerTransitPtr TBWIN32WindowHelperBase::shallowCopyDependent(
+FieldContainerTransitPtr TBAnimationEventSourceBase::shallowCopyDependent(
     BitVector bFlags) const
 {
-    TBWIN32WindowHelper *tmpPtr;
+    TBAnimationEventSource *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const TBWIN32WindowHelper *>(this), ~bFlags);
+    newPtr(tmpPtr, dynamic_cast<const TBAnimationEventSource *>(this), ~bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -289,12 +328,12 @@ FieldContainerTransitPtr TBWIN32WindowHelperBase::shallowCopyDependent(
     return returnValue;
 }
 
-FieldContainerTransitPtr TBWIN32WindowHelperBase::shallowCopy(void) const
+FieldContainerTransitPtr TBAnimationEventSourceBase::shallowCopy(void) const
 {
-    TBWIN32WindowHelper *tmpPtr;
+    TBAnimationEventSource *tmpPtr;
 
     newPtr(tmpPtr,
-           dynamic_cast<const TBWIN32WindowHelper *>(this),
+           dynamic_cast<const TBAnimationEventSource *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -309,12 +348,12 @@ FieldContainerTransitPtr TBWIN32WindowHelperBase::shallowCopy(void) const
 
 /*------------------------- constructors ----------------------------------*/
 
-TBWIN32WindowHelperBase::TBWIN32WindowHelperBase(void) :
+TBAnimationEventSourceBase::TBAnimationEventSourceBase(void) :
     Inherited()
 {
 }
 
-TBWIN32WindowHelperBase::TBWIN32WindowHelperBase(const TBWIN32WindowHelperBase &source) :
+TBAnimationEventSourceBase::TBAnimationEventSourceBase(const TBAnimationEventSourceBase &source) :
     Inherited(source)
 {
 }
@@ -322,22 +361,22 @@ TBWIN32WindowHelperBase::TBWIN32WindowHelperBase(const TBWIN32WindowHelperBase &
 
 /*-------------------------- destructors ----------------------------------*/
 
-TBWIN32WindowHelperBase::~TBWIN32WindowHelperBase(void)
+TBAnimationEventSourceBase::~TBAnimationEventSourceBase(void)
 {
 }
 
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-void TBWIN32WindowHelperBase::execSyncV(      FieldContainer    &oFrom,
+void TBAnimationEventSourceBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    TBWIN32WindowHelper *pThis = static_cast<TBWIN32WindowHelper *>(this);
+    TBAnimationEventSource *pThis = static_cast<TBAnimationEventSource *>(this);
 
-    pThis->execSync(static_cast<TBWIN32WindowHelper *>(&oFrom),
+    pThis->execSync(static_cast<TBAnimationEventSource *>(&oFrom),
                     whichField,
                     oOffsets,
                     syncMode,
@@ -347,20 +386,20 @@ void TBWIN32WindowHelperBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *TBWIN32WindowHelperBase::createAspectCopy(
+FieldContainer *TBAnimationEventSourceBase::createAspectCopy(
     const FieldContainer *pRefAspect) const
 {
-    TBWIN32WindowHelper *returnValue;
+    TBAnimationEventSource *returnValue;
 
     newAspectCopy(returnValue,
-                  dynamic_cast<const TBWIN32WindowHelper *>(pRefAspect),
-                  dynamic_cast<const TBWIN32WindowHelper *>(this));
+                  dynamic_cast<const TBAnimationEventSource *>(pRefAspect),
+                  dynamic_cast<const TBAnimationEventSource *>(this));
 
     return returnValue;
 }
 #endif
 
-void TBWIN32WindowHelperBase::resolveLinks(void)
+void TBAnimationEventSourceBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 

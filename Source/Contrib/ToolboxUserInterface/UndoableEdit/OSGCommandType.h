@@ -32,13 +32,13 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 #include "OSGTypeBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING CommandType : public TypeBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CommandType : public TypeBase
 {
     /*==========================  PUBLIC  =================================*/
 

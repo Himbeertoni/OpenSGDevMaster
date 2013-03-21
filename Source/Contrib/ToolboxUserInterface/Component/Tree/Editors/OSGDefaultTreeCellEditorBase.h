@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -76,7 +76,7 @@ class DefaultTreeCellEditor;
 
 //! \brief DefaultTreeCellEditor Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DefaultTreeCellEditorBase : public TreeCellEditor
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DefaultTreeCellEditorBase : public TreeCellEditor
 {
   public:
 

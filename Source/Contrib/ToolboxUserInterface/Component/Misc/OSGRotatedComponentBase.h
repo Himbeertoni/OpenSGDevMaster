@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -76,7 +76,7 @@ class RotatedComponent;
 
 //! \brief RotatedComponent Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING RotatedComponentBase : public ComponentContainer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING RotatedComponentBase : public ComponentContainer
 {
   public:
 

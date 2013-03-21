@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceComponentDecorator for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ComponentDecorator : public ComponentDecoratorBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentDecorator : public ComponentDecoratorBase
 {
   protected:
 

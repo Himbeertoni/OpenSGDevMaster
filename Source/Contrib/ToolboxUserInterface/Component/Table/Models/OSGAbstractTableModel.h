@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceAbstractTableModel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING AbstractTableModel : public AbstractTableModelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractTableModel : public AbstractTableModelBase
 {
   protected:
 

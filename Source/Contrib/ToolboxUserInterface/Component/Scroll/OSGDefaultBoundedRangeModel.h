@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceDefaultBoundedRangeModel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DefaultBoundedRangeModel : public DefaultBoundedRangeModelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DefaultBoundedRangeModel : public DefaultBoundedRangeModelBase
 {
   protected:
 

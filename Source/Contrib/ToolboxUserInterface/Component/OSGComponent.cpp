@@ -1503,7 +1503,7 @@ void Component::handleToolTipActivateMouseEntered(MouseEventDetails* const e)
         getParentWindow()->getParentDrawingSurface() != NULL &&
         getParentWindow()->getParentDrawingSurface()->getEventProducer() != NULL)
     {
-        _ToolTipActivateUpdateConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectUpdate(boost::bind(&Component::handleToolTipActivateUpdate, this, _1));
+        _ToolTipActivateUpdateConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectUpdate(boost::bind(&Component::handleToolTipActivateUpdate, this, _1));
     }
 }
 

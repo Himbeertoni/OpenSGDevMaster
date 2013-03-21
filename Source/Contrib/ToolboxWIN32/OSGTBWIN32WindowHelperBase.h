@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGWindowDef.h"
+#include "OSGContribToolboxWIN32Def.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class TBWIN32WindowHelper;
 
 //! \brief TBWIN32WindowHelper Base Class.
 
-class OSG_WINDOW_DLLMAPPING TBWIN32WindowHelperBase : public WIN32Window
+class OSG_CONTRIBTOOLBOXWIN32_DLLMAPPING TBWIN32WindowHelperBase : public WIN32Window
 {
   public:
 

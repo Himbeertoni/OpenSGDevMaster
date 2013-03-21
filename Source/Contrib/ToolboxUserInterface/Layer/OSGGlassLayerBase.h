@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -77,7 +77,7 @@ class GlassLayer;
 
 //! \brief GlassLayer Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING GlassLayerBase : public Layer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING GlassLayerBase : public Layer
 {
   public:
 

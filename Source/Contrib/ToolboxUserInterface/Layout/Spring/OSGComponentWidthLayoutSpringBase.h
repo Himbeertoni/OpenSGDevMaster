@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -76,7 +76,7 @@ class ComponentWidthLayoutSpring;
 
 //! \brief ComponentWidthLayoutSpring Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ComponentWidthLayoutSpringBase : public AbstractLayoutSpring
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentWidthLayoutSpringBase : public AbstractLayoutSpring
 {
   public:
 

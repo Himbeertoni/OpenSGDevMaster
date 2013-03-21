@@ -68,8 +68,8 @@ OSG_BEGIN_NAMESPACE
 class SkeletonBlendedGeometryEventSource;
 
 OSG_GEN_CONTAINERPTR(SkeletonBlendedGeometryEventSource);
-/*! \ingroup GrpContribToolboxFieldTraits
-    \ingroup GrpLibOSGContribToolbox
+/*! \ingroup GrpContribToolboxAnimationFieldTraits
+    \ingroup GrpLibOSGContribToolboxAnimation
  */
 template <>
 struct FieldTraits<SkeletonBlendedGeometryEventSource *, nsOSG> :
@@ -145,30 +145,30 @@ const Char8 *FieldTraits<SkeletonBlendedGeometryEventSource *, nsOSG>::getMName<
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpContribToolboxFieldSFields */
+/*! \ingroup GrpContribToolboxAnimationFieldSFields */
 typedef PointerSField<SkeletonBlendedGeometryEventSource *,
                       RecordedRefCountPolicy, nsOSG  > SFRecSkeletonBlendedGeometryEventSourcePtr;
-/*! \ingroup GrpContribToolboxFieldSFields */
+/*! \ingroup GrpContribToolboxAnimationFieldSFields */
 typedef PointerSField<SkeletonBlendedGeometryEventSource *,
                       UnrecordedRefCountPolicy, nsOSG> SFUnrecSkeletonBlendedGeometryEventSourcePtr;
-/*! \ingroup GrpContribToolboxFieldSFields */
+/*! \ingroup GrpContribToolboxAnimationFieldSFields */
 typedef PointerSField<SkeletonBlendedGeometryEventSource *,
                       WeakRefCountPolicy, nsOSG      > SFWeakSkeletonBlendedGeometryEventSourcePtr;
-/*! \ingroup GrpContribToolboxFieldSFields */
+/*! \ingroup GrpContribToolboxAnimationFieldSFields */
 typedef PointerSField<SkeletonBlendedGeometryEventSource *,
                       NoRefCountPolicy, nsOSG        > SFUncountedSkeletonBlendedGeometryEventSourcePtr;
 
 
-/*! \ingroup GrpContribToolboxFieldMFields */
+/*! \ingroup GrpContribToolboxAnimationFieldMFields */
 typedef PointerMField<SkeletonBlendedGeometryEventSource *,
                       RecordedRefCountPolicy, nsOSG  > MFRecSkeletonBlendedGeometryEventSourcePtr;
-/*! \ingroup GrpContribToolboxFieldMFields */
+/*! \ingroup GrpContribToolboxAnimationFieldMFields */
 typedef PointerMField<SkeletonBlendedGeometryEventSource *,
                       UnrecordedRefCountPolicy, nsOSG> MFUnrecSkeletonBlendedGeometryEventSourcePtr;
-/*! \ingroup GrpContribToolboxFieldMFields */
+/*! \ingroup GrpContribToolboxAnimationFieldMFields */
 typedef PointerMField<SkeletonBlendedGeometryEventSource *,
                       WeakRefCountPolicy, nsOSG      > MFWeakSkeletonBlendedGeometryEventSourcePtr;
-/*! \ingroup GrpContribToolboxFieldMFields */
+/*! \ingroup GrpContribToolboxAnimationFieldMFields */
 typedef PointerMField<SkeletonBlendedGeometryEventSource *,
                       NoRefCountPolicy, nsOSG        > MFUncountedSkeletonBlendedGeometryEventSourcePtr;
 
@@ -177,37 +177,37 @@ typedef PointerMField<SkeletonBlendedGeometryEventSource *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpContribToolboxFieldSFields \ingroup GrpLibOSGContribToolbox */
+/*! \ingroup GrpContribToolboxAnimationFieldSFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct SFRecSkeletonBlendedGeometryEventSourcePtr : 
     public PointerSField<SkeletonBlendedGeometryEventSource *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpContribToolboxFieldSFields \ingroup GrpLibOSGContribToolbox */
+/*! \ingroup GrpContribToolboxAnimationFieldSFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct SFUnrecSkeletonBlendedGeometryEventSourcePtr : 
     public PointerSField<SkeletonBlendedGeometryEventSource *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribToolboxFieldSFields \ingroup GrpLibOSGContribToolbox */
+/*! \ingroup GrpContribToolboxAnimationFieldSFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct SFWeakSkeletonBlendedGeometryEventSourcePtr :
     public PointerSField<SkeletonBlendedGeometryEventSource *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpContribToolboxFieldSFields \ingroup GrpLibOSGContribToolbox */
+/*! \ingroup GrpContribToolboxAnimationFieldSFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct SFUncountedSkeletonBlendedGeometryEventSourcePtr :
     public PointerSField<SkeletonBlendedGeometryEventSource *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpContribToolboxFieldMFields \ingroup GrpLibOSGContribToolbox */
+/*! \ingroup GrpContribToolboxAnimationFieldMFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct MFRecSkeletonBlendedGeometryEventSourcePtr :
     public PointerMField<SkeletonBlendedGeometryEventSource *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpContribToolboxFieldMFields \ingroup GrpLibOSGContribToolbox */
+/*! \ingroup GrpContribToolboxAnimationFieldMFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct MFUnrecSkeletonBlendedGeometryEventSourcePtr :
     public PointerMField<SkeletonBlendedGeometryEventSource *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribToolboxFieldMFields \ingroup GrpLibOSGContribToolbox */
+/*! \ingroup GrpContribToolboxAnimationFieldMFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct MFWeakSkeletonBlendedGeometryEventSourcePtr :
     public PointerMField<SkeletonBlendedGeometryEventSource *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpContribToolboxFieldMFields \ingroup GrpLibOSGContribToolbox */
+/*! \ingroup GrpContribToolboxAnimationFieldMFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct MFUncountedSkeletonBlendedGeometryEventSourcePtr :
     public PointerMField<SkeletonBlendedGeometryEventSource *,
                          NoRefCountPolicy        > {};

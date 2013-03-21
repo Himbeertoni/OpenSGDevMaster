@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceSingleSelectionModel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING SingleSelectionModel : public SingleSelectionModelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SingleSelectionModel : public SingleSelectionModelBase
 {
   protected:
 

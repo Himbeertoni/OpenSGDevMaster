@@ -43,7 +43,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 #include "OSGTableCellRenderer.h"
 
@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
            PageUserInterfaceDefaultReal32TableCellRenderer for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DefaultReal32TableCellRenderer : public TableCellRenderer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DefaultReal32TableCellRenderer : public TableCellRenderer
 {
     /*==========================  PUBLIC  =================================*/
   public:

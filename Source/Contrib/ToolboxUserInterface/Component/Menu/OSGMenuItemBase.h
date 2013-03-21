@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -76,7 +76,7 @@ class MenuItem;
 
 //! \brief MenuItem Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING MenuItemBase : public ToggleButton
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MenuItemBase : public ToggleButton
 {
   public:
 

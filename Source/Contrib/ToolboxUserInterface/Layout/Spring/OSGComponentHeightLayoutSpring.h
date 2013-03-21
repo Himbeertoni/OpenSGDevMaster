@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceComponentHeightLayoutSpring for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ComponentHeightLayoutSpring : public ComponentHeightLayoutSpringBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentHeightLayoutSpring : public ComponentHeightLayoutSpringBase
 {
   protected:
 

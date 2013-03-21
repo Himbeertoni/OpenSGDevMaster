@@ -55,7 +55,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceUIRectangle for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING UIRectangle : public UIRectangleBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIRectangle : public UIRectangleBase
 {
   protected:
 

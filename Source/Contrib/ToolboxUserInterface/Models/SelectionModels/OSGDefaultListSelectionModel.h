@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceDefaultListSelectionModel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DefaultListSelectionModel : public DefaultListSelectionModelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DefaultListSelectionModel : public DefaultListSelectionModelBase
 {
   protected:
 

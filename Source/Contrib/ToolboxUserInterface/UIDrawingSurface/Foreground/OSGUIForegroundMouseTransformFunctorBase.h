@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class UIForegroundMouseTransformFunctor;
 
 //! \brief UIForegroundMouseTransformFunctor Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING UIForegroundMouseTransformFunctorBase : public UIDrawingSurfaceMouseTransformFunctor
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIForegroundMouseTransformFunctorBase : public UIDrawingSurfaceMouseTransformFunctor
 {
   public:
 

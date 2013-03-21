@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceMenuItem for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING MenuItem : public MenuItemBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MenuItem : public MenuItemBase
 {
   protected:
 

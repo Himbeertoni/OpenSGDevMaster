@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceCardLayout for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING CardLayout : public CardLayoutBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CardLayout : public CardLayoutBase
 {
   protected:
 

@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceFieldContainerFieldPathComponentGenerator for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING FieldContainerFieldPathComponentGenerator : public FieldContainerFieldPathComponentGeneratorBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING FieldContainerFieldPathComponentGenerator : public FieldContainerFieldPathComponentGeneratorBase
 {
   protected:
 

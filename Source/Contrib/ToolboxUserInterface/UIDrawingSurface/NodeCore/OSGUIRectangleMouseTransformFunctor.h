@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceUIRectangleMouseTransformFunctor for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING UIRectangleMouseTransformFunctor : public UIRectangleMouseTransformFunctorBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIRectangleMouseTransformFunctor : public UIRectangleMouseTransformFunctorBase
 {
   protected:
     friend class UIRectangle;

@@ -54,7 +54,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceRadioButtonGroup for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING RadioButtonGroup : public RadioButtonGroupBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING RadioButtonGroup : public RadioButtonGroupBase
 {
   protected:
 

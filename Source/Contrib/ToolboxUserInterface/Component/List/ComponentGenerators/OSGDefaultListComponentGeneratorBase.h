@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -79,7 +79,7 @@ class DefaultListComponentGenerator;
 
 //! \brief DefaultListComponentGenerator Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DefaultListComponentGeneratorBase : public ListComponentGenerator
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DefaultListComponentGeneratorBase : public ListComponentGenerator
 {
   public:
 

@@ -5,13 +5,13 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 #include "OSGLookAndFeel.h"
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING LookAndFeelManager
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING LookAndFeelManager
 {
 public:
    static LookAndFeelManager* the(void);

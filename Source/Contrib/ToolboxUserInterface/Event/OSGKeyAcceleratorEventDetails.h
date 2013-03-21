@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceKeyAcceleratorEventDetails for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING KeyAcceleratorEventDetails : public KeyAcceleratorEventDetailsBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING KeyAcceleratorEventDetails : public KeyAcceleratorEventDetailsBase
 {
   protected:
 

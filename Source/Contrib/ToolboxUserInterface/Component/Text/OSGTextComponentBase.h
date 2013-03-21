@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -80,7 +80,7 @@ class TextComponent;
 
 //! \brief TextComponent Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TextComponentBase : public Component
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextComponentBase : public Component
 {
   public:
 

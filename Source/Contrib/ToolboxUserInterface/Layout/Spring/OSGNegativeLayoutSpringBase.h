@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class NegativeLayoutSpring;
 
 //! \brief NegativeLayoutSpring Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING NegativeLayoutSpringBase : public LayoutSpring
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING NegativeLayoutSpringBase : public LayoutSpring
 {
   public:
 

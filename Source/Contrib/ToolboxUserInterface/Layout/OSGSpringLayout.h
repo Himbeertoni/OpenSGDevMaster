@@ -60,7 +60,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceSpringLayout for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING SpringLayout : public SpringLayoutBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SpringLayout : public SpringLayoutBase
 {
   protected:
 

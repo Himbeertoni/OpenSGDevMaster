@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class Border;
 
 //! \brief Border Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING BorderBase : public FieldContainer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING BorderBase : public FieldContainer
 {
   public:
 

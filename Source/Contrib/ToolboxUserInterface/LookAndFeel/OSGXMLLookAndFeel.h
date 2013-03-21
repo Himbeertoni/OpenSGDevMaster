@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceXMLLookAndFeel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING XMLLookAndFeel : public XMLLookAndFeelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING XMLLookAndFeel : public XMLLookAndFeelBase
 {
   protected:
 

@@ -34,11 +34,11 @@
 
 #include "OSGConfig.h"
 #include "OSGBaseTypes.h"
-#include "OSGSystemDef.h"
+#include "OSGContribToolboxWindowDef.h"
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_SYSTEM_DLLMAPPING InputSettings
+class OSG_CONTRIBTOOLBOXWINDOW_DLLMAPPING InputSettings
 {
    /*=========================  PUBLIC  ===============================*/
 public:

@@ -260,7 +260,7 @@ void ProgressBar::startIndeterminate(void)
         getParentWindow()->getParentDrawingSurface() != NULL &&
         getParentWindow()->getParentDrawingSurface()->getEventProducer() != NULL)
     {
-        _ProgressUpdateConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectUpdate(boost::bind(&ProgressBar::handleProgressUpdate, this, _1));
+        _ProgressUpdateConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectUpdate(boost::bind(&ProgressBar::handleProgressUpdate, this, _1));
     }
 }
 

@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfacePatternLayer for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING PatternLayer : public PatternLayerBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PatternLayer : public PatternLayerBase
 {
   protected:
 

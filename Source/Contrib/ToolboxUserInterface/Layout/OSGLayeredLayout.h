@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceLayeredLayout for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING LayeredLayout : public LayeredLayoutBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING LayeredLayout : public LayeredLayoutBase
 {
   protected:
 

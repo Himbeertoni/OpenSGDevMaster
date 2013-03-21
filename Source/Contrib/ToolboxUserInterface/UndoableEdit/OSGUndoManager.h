@@ -43,7 +43,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 #include "OSGCompoundUndoableEdit.h"
 #include "OSGChangeEventDetailsFields.h"
@@ -63,7 +63,7 @@ OSG_BEGIN_NAMESPACE
 class UndoManager;
 typedef boost::shared_ptr<UndoManager> UndoManagerPtr;
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING UndoManager : public CompoundUndoableEdit
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UndoManager : public CompoundUndoableEdit
 {
     /*==========================  PUBLIC  =================================*/
   public:

@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceLayout for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING Layout : public LayoutBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Layout : public LayoutBase
 {
   protected:
 

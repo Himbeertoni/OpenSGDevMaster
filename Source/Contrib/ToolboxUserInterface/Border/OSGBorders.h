@@ -37,7 +37,7 @@
 \*---------------------------------------------------------------------------*/
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 #include "OSGBevelBorder.h"
 #include "OSGCompoundBorder.h"

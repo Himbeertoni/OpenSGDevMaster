@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceTableColumnModelEventDetails for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TableColumnModelEventDetails : public TableColumnModelEventDetailsBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnModelEventDetails : public TableColumnModelEventDetailsBase
 {
   protected:
 

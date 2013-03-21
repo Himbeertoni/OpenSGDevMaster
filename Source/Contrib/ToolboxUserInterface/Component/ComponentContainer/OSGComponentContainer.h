@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceComponentContainer for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ComponentContainer : public ComponentContainerBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentContainer : public ComponentContainerBase
 {
   protected:
 

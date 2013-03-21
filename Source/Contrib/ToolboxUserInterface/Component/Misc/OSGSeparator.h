@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceSeparator for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING Separator : public SeparatorBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Separator : public SeparatorBase
 {
   protected:
 

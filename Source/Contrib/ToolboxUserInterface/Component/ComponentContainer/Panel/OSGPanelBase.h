@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class Panel;
 
 //! \brief Panel Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING PanelBase : public ComponentContainer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PanelBase : public ComponentContainer
 {
   public:
 

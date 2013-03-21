@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -76,7 +76,7 @@ class SpinnerDefaultEditor;
 
 //! \brief SpinnerDefaultEditor Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING SpinnerDefaultEditorBase : public SpinnerEditor
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SpinnerDefaultEditorBase : public SpinnerEditor
 {
   public:
 

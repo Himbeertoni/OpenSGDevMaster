@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceAbstractMutableComboBoxModel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING AbstractMutableComboBoxModel : public AbstractMutableComboBoxModelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractMutableComboBoxModel : public AbstractMutableComboBoxModelBase
 {
   protected:
 

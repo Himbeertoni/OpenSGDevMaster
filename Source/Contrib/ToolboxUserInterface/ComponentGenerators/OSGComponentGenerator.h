@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceComponentGenerator for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ComponentGenerator : public ComponentGeneratorBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentGenerator : public ComponentGeneratorBase
 {
   protected:
 

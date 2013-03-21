@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceUIForeground for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING UIForeground : public UIForegroundBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIForeground : public UIForegroundBase
 {
   protected:
 

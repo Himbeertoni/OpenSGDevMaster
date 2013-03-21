@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -80,7 +80,7 @@ class TreeSelectionModel;
 
 //! \brief TreeSelectionModel Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TreeSelectionModelBase : public AttachmentContainer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeSelectionModelBase : public AttachmentContainer
 {
   public:
 

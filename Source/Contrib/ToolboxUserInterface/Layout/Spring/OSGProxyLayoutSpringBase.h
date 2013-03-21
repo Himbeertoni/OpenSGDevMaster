@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -77,7 +77,7 @@ class ProxyLayoutSpring;
 
 //! \brief ProxyLayoutSpring Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ProxyLayoutSpringBase : public LayoutSpring
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ProxyLayoutSpringBase : public LayoutSpring
 {
   public:
 

@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="ComponentEventSource"
+    parent="EventContainer"
+    library="ContribToolboxUserInterface"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="true"
+    useLocalIncludes="false"
+    isNodeCore="false"
+    >
+<!--
+    <ProducedEvent
+        name="MouseMoved"
+        detailsType="MouseEventDetails"
+        consumable="true"
+        >
+        Event produced when the mouse is hovering over this Component and moves.
+    </ProducedEvent>
+    <ProducedEvent
+        name="MouseDragged"
+        detailsType="MouseEventDetails"
+        consumable="true"
+        >
+        Event produced when the mouse is hovering over this Component and moves 
+        when a mouse button is down.
+    </ProducedEvent>
+    <ProducedEvent
+        name="MouseClicked"
+        detailsType="MouseEventDetails"
+        consumable="true"
+        >
+        Event produced when the mouse is hovering over this Component and a 
+        mouse button is clicked.
+    </ProducedEvent>
+    <ProducedEvent
+        name="MouseEntered"
+        detailsType="MouseEventDetails"
+        consumable="true"
+        >
+        Event produced when the mouse enters this Component.
+    </ProducedEvent>
+    <ProducedEvent
+        name="MouseExited"
+        detailsType="MouseEventDetails"
+        consumable="true"
+        >
+        Event produced when the mouse exits this Component.
+    </ProducedEvent>
+    <ProducedEvent
+        name="MousePressed"
+        detailsType="MouseEventDetails"
+        consumable="true"
+        >
+        Event produced when the mouse is hovering over this Component and a 
+        mouse button is pressed.
+    </ProducedEvent>
+    <ProducedEvent
+        name="MouseReleased"
+        detailsType="MouseEventDetails"
+        consumable="true"
+        >
+        Event produced when the mouse is hovering over this Component and a 
+        mouse button is released.
+    </ProducedEvent>
+    <ProducedEvent
+        name="MouseWheelMoved"
+        detailsType="MouseWheelEventDetails"
+        consumable="true"
+        >
+        Event produced when the mouse is hovering over this Component and the
+        mouse wheel is moved.
+    </ProducedEvent>
+    <ProducedEvent
+        name="KeyPressed"
+        detailsType="KeyEventDetails"
+        consumable="true"
+        >
+        Event produced when this Component has focused and a keyboard key is 
+        pressed.
+    </ProducedEvent>
+    <ProducedEvent
+        name="KeyReleased"
+        detailsType="KeyEventDetails"
+        consumable="true"
+        >
+        Event produced when this Component has focused and a keyboard key is 
+        released.
+    </ProducedEvent>
+    <ProducedEvent
+        name="KeyTyped"
+        detailsType="KeyEventDetails"
+        consumable="true"
+        >
+        Event produced when this Component has focused and a keyboard key is 
+        typed.
+    </ProducedEvent>
+    <ProducedEvent
+        name="FocusGained"
+        detailsType="FocusEventDetails"
+        consumable="true"
+        >
+        Event produced when this Component gains focus.
+    </ProducedEvent>
+    <ProducedEvent
+        name="FocusLost"
+        detailsType="FocusEventDetails"
+        consumable="true"
+        >
+        Event produced when this Component loses focus.
+    </ProducedEvent>
+    <ProducedEvent
+        name="ComponentHidden"
+        detailsType="ComponentEventDetails"
+        consumable="true"
+        >
+        Event produced when this Component's Visible field is set to false.
+    </ProducedEvent>
+    <ProducedEvent
+        name="ComponentVisible"
+        detailsType="ComponentEventDetails"
+        consumable="true"
+        >
+        Event produced when this Component's Visible field is set to true.
+    </ProducedEvent>
+    <ProducedEvent
+        name="ComponentMoved"
+        detailsType="ComponentEventDetails"
+        consumable="true"
+        >
+        Event produced when this Component's Position field changes.
+    </ProducedEvent>
+    <ProducedEvent
+        name="ComponentResized"
+        detailsType="ComponentEventDetails"
+        consumable="true"
+        >
+        Event produced when this Component's Size field changes.
+    </ProducedEvent>
+    <ProducedEvent
+        name="ComponentEnabled"
+        detailsType="ComponentEventDetails"
+        consumable="true"
+        >
+        Event produced when this Component's Enabled field is set to true.
+    </ProducedEvent>
+    <ProducedEvent
+        name="ComponentDisabled"
+        detailsType="ComponentEventDetails"
+        consumable="true"
+        >
+        Event produced when this Component's Enabled field is set to false.
+    </ProducedEvent>
+    <ProducedEvent
+        name="ToolTipActivated"
+        detailsType="ComponentEventDetails"
+        consumable="true"
+        >
+        Event produced when the ToolTip for this Component is activated.
+    </ProducedEvent>
+    <ProducedEvent
+        name="ToolTipDeactivated"
+        detailsType="ComponentEventDetails"
+        consumable="true"
+        >
+        Event produced when the ToolTip for this Component is deactivated.
+    </ProducedEvent>
+-->
+</FieldContainer>

@@ -60,7 +60,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceDialogWindow for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DialogWindow : public DialogWindowBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DialogWindow : public DialogWindowBase
 {
   protected:
 

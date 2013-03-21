@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -77,7 +77,7 @@ class PolygonUIDrawObject;
 
 //! \brief PolygonUIDrawObject Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING PolygonUIDrawObjectBase : public UIDrawObject
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PolygonUIDrawObjectBase : public UIDrawObject
 {
   public:
 

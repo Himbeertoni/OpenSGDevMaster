@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGWindowDef.h"
+#include "OSGContribToolboxWIN32Def.h"
 
 #include "OSGFieldContainerFields.h"
 #include "OSGPointerSField.h"
@@ -85,7 +85,7 @@ struct FieldTraits<TBWIN32Window *, nsOSG> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING DataType &getType(void);
+    static OSG_CONTRIBTOOLBOXWIN32_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);

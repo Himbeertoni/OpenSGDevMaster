@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceFlowLayout for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING FlowLayout : public FlowLayoutBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING FlowLayout : public FlowLayoutBase
 {
   protected:
 

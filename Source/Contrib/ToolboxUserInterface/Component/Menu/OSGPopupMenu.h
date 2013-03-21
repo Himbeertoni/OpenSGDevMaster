@@ -55,7 +55,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfacePopupMenu for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING PopupMenu : public PopupMenuBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PopupMenu : public PopupMenuBase
 {
   protected:
 

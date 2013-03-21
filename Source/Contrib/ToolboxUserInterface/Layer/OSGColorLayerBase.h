@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class ColorLayer;
 
 //! \brief ColorLayer Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ColorLayerBase : public Layer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ColorLayerBase : public Layer
 {
   public:
 

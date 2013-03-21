@@ -32,13 +32,13 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 #include "OSGComponentFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DragGestureRecognizer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DragGestureRecognizer
 {
    /*=========================  PUBLIC  ===============================*/
 public:

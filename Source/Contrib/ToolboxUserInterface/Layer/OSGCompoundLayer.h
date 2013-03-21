@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceCompoundLayer for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING CompoundLayer : public CompoundLayerBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CompoundLayer : public CompoundLayerBase
 {
   protected:
 

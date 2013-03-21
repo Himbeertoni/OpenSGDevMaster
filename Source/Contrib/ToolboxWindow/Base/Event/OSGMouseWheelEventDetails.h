@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
            PageSystemMouseWheelEventDetails for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING MouseWheelEventDetails : public MouseWheelEventDetailsBase
+class OSG_CONTRIBTOOLBOXWINDOW_DLLMAPPING MouseWheelEventDetails : public MouseWheelEventDetailsBase
 {
   protected:
 

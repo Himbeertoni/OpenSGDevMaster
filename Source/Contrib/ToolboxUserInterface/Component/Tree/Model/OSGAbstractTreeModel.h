@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceAbstractTreeModel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING AbstractTreeModel : public AbstractTreeModelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractTreeModel : public AbstractTreeModelBase
 {
   protected:
 

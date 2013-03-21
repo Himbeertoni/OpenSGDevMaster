@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceScrollBar for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ScrollBar : public ScrollBarBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ScrollBar : public ScrollBarBase
 {
   protected:
 

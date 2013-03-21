@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -77,7 +77,7 @@ class MatteBorder;
 
 //! \brief MatteBorder Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING MatteBorderBase : public Border
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MatteBorderBase : public Border
 {
   public:
 

@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceMFieldListModel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING MFieldListModel : public MFieldListModelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MFieldListModel : public MFieldListModelBase
 {
   protected:
 

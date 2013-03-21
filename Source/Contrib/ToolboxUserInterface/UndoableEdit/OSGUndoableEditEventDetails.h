@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceUndoableEditEventDetails for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING UndoableEditEventDetails : public UndoableEditEventDetailsBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UndoableEditEventDetails : public UndoableEditEventDetailsBase
 {
   protected:
 

@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class TableCellEditor;
 
 //! \brief TableCellEditor Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TableCellEditorBase : public AbstractCellEditor
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableCellEditorBase : public AbstractCellEditor
 {
   public:
 

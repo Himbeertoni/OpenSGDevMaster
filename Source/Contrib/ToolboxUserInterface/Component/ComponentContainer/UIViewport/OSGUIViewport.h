@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceUIViewport for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING UIViewport : public UIViewportBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewport : public UIViewportBase
 {
   protected:
 

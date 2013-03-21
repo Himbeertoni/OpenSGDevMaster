@@ -48,14 +48,14 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGTBWIN32WINDOWFIELDS_H_
-#define _OSGTBWIN32WINDOWFIELDS_H_
+#ifndef _OSGTBANIMATIONEVENTSOURCEFIELDS_H_
+#define _OSGTBANIMATIONEVENTSOURCEFIELDS_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 #include "OSGConfig.h"
-#include "OSGWindowDef.h"
+#include "OSGContribToolboxAnimationDef.h"
 
 #include "OSGFieldContainerFields.h"
 #include "OSGPointerSField.h"
@@ -65,15 +65,15 @@
 OSG_BEGIN_NAMESPACE
 
 
-class TBWIN32Window;
+class TBAnimationEventSource;
 
-OSG_GEN_CONTAINERPTR(TBWIN32Window);
-/*! \ingroup GrpWindowWIN32FieldTraits
-    \ingroup GrpLibOSGWindow
+OSG_GEN_CONTAINERPTR(TBAnimationEventSource);
+/*! \ingroup GrpContribToolboxAnimationFieldTraits
+    \ingroup GrpLibOSGContribToolboxAnimation
  */
 template <>
-struct FieldTraits<TBWIN32Window *, nsOSG> :
-    public FieldTraitsFCPtrBase<TBWIN32Window *, nsOSG>
+struct FieldTraits<TBAnimationEventSource *, nsOSG> :
+    public FieldTraitsFCPtrBase<TBAnimationEventSource *, nsOSG>
 {
   private:
 
@@ -81,11 +81,11 @@ struct FieldTraits<TBWIN32Window *, nsOSG> :
 
   public:
 
-    typedef FieldTraits<TBWIN32Window *, nsOSG>  Self;
+    typedef FieldTraits<TBAnimationEventSource *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING DataType &getType(void);
+    static OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
@@ -96,120 +96,120 @@ struct FieldTraits<TBWIN32Window *, nsOSG> :
 };
 
 template<> inline
-const Char8 *FieldTraits<TBWIN32Window *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TBAnimationEventSource *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
-    return "SFRecTBWIN32WindowPtr"; 
+    return "SFRecTBAnimationEventSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TBWIN32Window *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TBAnimationEventSource *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
-    return "SFUnrecTBWIN32WindowPtr"; 
+    return "SFUnrecTBAnimationEventSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TBWIN32Window *, nsOSG>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TBAnimationEventSource *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
-    return "SFWeakTBWIN32WindowPtr"; 
+    return "SFWeakTBAnimationEventSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TBWIN32Window *, nsOSG>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TBAnimationEventSource *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
-    return "SFUnrefdTBWIN32WindowPtr"; 
+    return "SFUnrefdTBAnimationEventSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TBWIN32Window *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TBAnimationEventSource *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
-    return "MFRecTBWIN32WindowPtr"; 
+    return "MFRecTBAnimationEventSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TBWIN32Window *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TBAnimationEventSource *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
-    return "MFUnrecTBWIN32WindowPtr"; 
+    return "MFUnrecTBAnimationEventSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TBWIN32Window *, nsOSG>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TBAnimationEventSource *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
-    return "MFWeakTBWIN32WindowPtr"; 
+    return "MFWeakTBAnimationEventSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TBWIN32Window *, nsOSG>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TBAnimationEventSource *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
-    return "MFUnrefdTBWIN32WindowPtr"; 
+    return "MFUnrefdTBAnimationEventSourcePtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpWindowWIN32FieldSFields */
-typedef PointerSField<TBWIN32Window *,
-                      RecordedRefCountPolicy, nsOSG  > SFRecTBWIN32WindowPtr;
-/*! \ingroup GrpWindowWIN32FieldSFields */
-typedef PointerSField<TBWIN32Window *,
-                      UnrecordedRefCountPolicy, nsOSG> SFUnrecTBWIN32WindowPtr;
-/*! \ingroup GrpWindowWIN32FieldSFields */
-typedef PointerSField<TBWIN32Window *,
-                      WeakRefCountPolicy, nsOSG      > SFWeakTBWIN32WindowPtr;
-/*! \ingroup GrpWindowWIN32FieldSFields */
-typedef PointerSField<TBWIN32Window *,
-                      NoRefCountPolicy, nsOSG        > SFUncountedTBWIN32WindowPtr;
+/*! \ingroup GrpContribToolboxAnimationFieldSFields */
+typedef PointerSField<TBAnimationEventSource *,
+                      RecordedRefCountPolicy, nsOSG  > SFRecTBAnimationEventSourcePtr;
+/*! \ingroup GrpContribToolboxAnimationFieldSFields */
+typedef PointerSField<TBAnimationEventSource *,
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecTBAnimationEventSourcePtr;
+/*! \ingroup GrpContribToolboxAnimationFieldSFields */
+typedef PointerSField<TBAnimationEventSource *,
+                      WeakRefCountPolicy, nsOSG      > SFWeakTBAnimationEventSourcePtr;
+/*! \ingroup GrpContribToolboxAnimationFieldSFields */
+typedef PointerSField<TBAnimationEventSource *,
+                      NoRefCountPolicy, nsOSG        > SFUncountedTBAnimationEventSourcePtr;
 
 
-/*! \ingroup GrpWindowWIN32FieldMFields */
-typedef PointerMField<TBWIN32Window *,
-                      RecordedRefCountPolicy, nsOSG  > MFRecTBWIN32WindowPtr;
-/*! \ingroup GrpWindowWIN32FieldMFields */
-typedef PointerMField<TBWIN32Window *,
-                      UnrecordedRefCountPolicy, nsOSG> MFUnrecTBWIN32WindowPtr;
-/*! \ingroup GrpWindowWIN32FieldMFields */
-typedef PointerMField<TBWIN32Window *,
-                      WeakRefCountPolicy, nsOSG      > MFWeakTBWIN32WindowPtr;
-/*! \ingroup GrpWindowWIN32FieldMFields */
-typedef PointerMField<TBWIN32Window *,
-                      NoRefCountPolicy, nsOSG        > MFUncountedTBWIN32WindowPtr;
+/*! \ingroup GrpContribToolboxAnimationFieldMFields */
+typedef PointerMField<TBAnimationEventSource *,
+                      RecordedRefCountPolicy, nsOSG  > MFRecTBAnimationEventSourcePtr;
+/*! \ingroup GrpContribToolboxAnimationFieldMFields */
+typedef PointerMField<TBAnimationEventSource *,
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecTBAnimationEventSourcePtr;
+/*! \ingroup GrpContribToolboxAnimationFieldMFields */
+typedef PointerMField<TBAnimationEventSource *,
+                      WeakRefCountPolicy, nsOSG      > MFWeakTBAnimationEventSourcePtr;
+/*! \ingroup GrpContribToolboxAnimationFieldMFields */
+typedef PointerMField<TBAnimationEventSource *,
+                      NoRefCountPolicy, nsOSG        > MFUncountedTBAnimationEventSourcePtr;
 
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpWindowWIN32FieldSFields \ingroup GrpLibOSGWindow */
-struct SFRecTBWIN32WindowPtr : 
-    public PointerSField<TBWIN32Window *,
+/*! \ingroup GrpContribToolboxAnimationFieldSFields \ingroup GrpLibOSGContribToolboxAnimation */
+struct SFRecTBAnimationEventSourcePtr : 
+    public PointerSField<TBAnimationEventSource *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowWIN32FieldSFields \ingroup GrpLibOSGWindow */
-struct SFUnrecTBWIN32WindowPtr : 
-    public PointerSField<TBWIN32Window *,
+/*! \ingroup GrpContribToolboxAnimationFieldSFields \ingroup GrpLibOSGContribToolboxAnimation */
+struct SFUnrecTBAnimationEventSourcePtr : 
+    public PointerSField<TBAnimationEventSource *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowWIN32FieldSFields \ingroup GrpLibOSGWindow */
-struct SFWeakTBWIN32WindowPtr :
-    public PointerSField<TBWIN32Window *,
+/*! \ingroup GrpContribToolboxAnimationFieldSFields \ingroup GrpLibOSGContribToolboxAnimation */
+struct SFWeakTBAnimationEventSourcePtr :
+    public PointerSField<TBAnimationEventSource *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpWindowWIN32FieldSFields \ingroup GrpLibOSGWindow */
-struct SFUncountedTBWIN32WindowPtr :
-    public PointerSField<TBWIN32Window *,
+/*! \ingroup GrpContribToolboxAnimationFieldSFields \ingroup GrpLibOSGContribToolboxAnimation */
+struct SFUncountedTBAnimationEventSourcePtr :
+    public PointerSField<TBAnimationEventSource *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpWindowWIN32FieldMFields \ingroup GrpLibOSGWindow */
-struct MFRecTBWIN32WindowPtr :
-    public PointerMField<TBWIN32Window *,
+/*! \ingroup GrpContribToolboxAnimationFieldMFields \ingroup GrpLibOSGContribToolboxAnimation */
+struct MFRecTBAnimationEventSourcePtr :
+    public PointerMField<TBAnimationEventSource *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpWindowWIN32FieldMFields \ingroup GrpLibOSGWindow */
-struct MFUnrecTBWIN32WindowPtr :
-    public PointerMField<TBWIN32Window *,
+/*! \ingroup GrpContribToolboxAnimationFieldMFields \ingroup GrpLibOSGContribToolboxAnimation */
+struct MFUnrecTBAnimationEventSourcePtr :
+    public PointerMField<TBAnimationEventSource *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowWIN32FieldMFields \ingroup GrpLibOSGWindow */
-struct MFWeakTBWIN32WindowPtr :
-    public PointerMField<TBWIN32Window *,
+/*! \ingroup GrpContribToolboxAnimationFieldMFields \ingroup GrpLibOSGContribToolboxAnimation */
+struct MFWeakTBAnimationEventSourcePtr :
+    public PointerMField<TBAnimationEventSource *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpWindowWIN32FieldMFields \ingroup GrpLibOSGWindow */
-struct MFUncountedTBWIN32WindowPtr :
-    public PointerMField<TBWIN32Window *,
+/*! \ingroup GrpContribToolboxAnimationFieldMFields \ingroup GrpLibOSGContribToolboxAnimation */
+struct MFUncountedTBAnimationEventSourcePtr :
+    public PointerMField<TBAnimationEventSource *,
                          NoRefCountPolicy        > {};
 
 
@@ -218,4 +218,4 @@ struct MFUncountedTBWIN32WindowPtr :
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGTBWIN32WINDOWFIELDS_H_ */
+#endif /* _OSGTBANIMATIONEVENTSOURCEFIELDS_H_ */

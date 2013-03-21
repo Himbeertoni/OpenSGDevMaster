@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class FileSystemTreeModel;
 
 //! \brief FileSystemTreeModel Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING FileSystemTreeModelBase : public AbstractTreeModel
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING FileSystemTreeModelBase : public AbstractTreeModel
 {
   public:
 

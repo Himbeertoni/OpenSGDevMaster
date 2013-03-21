@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceAbstractListModel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING AbstractListModel : public AbstractListModelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractListModel : public AbstractListModelBase
 {
   protected:
 

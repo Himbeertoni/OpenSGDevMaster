@@ -56,7 +56,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceUIFont for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING UIFont : public UIFontBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIFont : public UIFontBase
 {
   protected:
 

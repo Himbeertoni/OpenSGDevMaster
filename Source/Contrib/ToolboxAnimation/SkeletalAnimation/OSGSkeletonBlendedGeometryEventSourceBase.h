@@ -59,11 +59,12 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribToolboxDef.h"
+#include "OSGContribToolboxAnimationDef.h"
 
 //#include "OSGBaseTypes.h"
 
 #include "OSGEventContainer.h" // Parent
+
 
 #include "OSGSkeletonBlendedGeometryEventSourceFields.h"
 
@@ -120,7 +121,6 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING SkeletonBlendedGeometryEventSourceB
     static UInt16              getClassGroupId(void);
     static const  EventProducerType  &getProducerClassType  (void);
     static        UInt32              getProducerClassTypeId(void);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                FieldContainer Get                            */
@@ -130,7 +130,6 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING SkeletonBlendedGeometryEventSourceB
     virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -173,6 +172,7 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING SkeletonBlendedGeometryEventSourceB
     bool   isEmptySkeletonChanged           (void) const;
     UInt32 numSlotsSkeletonChanged          (void) const;
 
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -183,6 +183,34 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING SkeletonBlendedGeometryEventSourceB
                                ConstFieldMaskArg  whichField);
     virtual void   copyFromBin(BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
+
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Construction                               */
+    /*! \{                                                                 */
+
+    static  SkeletonBlendedGeometryEventSourceTransitPtr  create          (void);
+    static  SkeletonBlendedGeometryEventSource           *createEmpty     (void);
+
+    static  SkeletonBlendedGeometryEventSourceTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
+
+    static  SkeletonBlendedGeometryEventSource            *createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
+
+    static  SkeletonBlendedGeometryEventSourceTransitPtr  createDependent  (BitVector bFlags);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Copy                                   */
+    /*! \{                                                                 */
+
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -225,6 +253,9 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING SkeletonBlendedGeometryEventSourceB
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
+
+
+    /*! \}                                                                 */
 
 
     /*! \}                                                                 */
@@ -271,6 +302,11 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING SkeletonBlendedGeometryEventSourceB
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
 
+#ifdef OSG_MT_CPTR_ASPECT
+    virtual FieldContainer *createAspectCopy(
+                                    const FieldContainer *pRefAspect) const;
+#endif
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Edit                                   */
@@ -289,7 +325,6 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING SkeletonBlendedGeometryEventSourceB
     /*---------------------------------------------------------------------*/
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
-    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SkeletonBlendedGeometryEventSourceBase &source);

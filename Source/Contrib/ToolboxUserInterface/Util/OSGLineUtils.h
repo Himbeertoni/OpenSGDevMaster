@@ -46,7 +46,7 @@
 #include "OSGConfig.h"
 #include "OSGLine.h"
 #include "OSGVector.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 OSG_BEGIN_NAMESPACE
 

@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceWindowBorder for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING WindowBorder : public WindowBorderBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING WindowBorder : public WindowBorderBase
 {
   protected:
 

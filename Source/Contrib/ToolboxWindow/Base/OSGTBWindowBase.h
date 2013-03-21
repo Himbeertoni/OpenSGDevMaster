@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGContribToolboxWindowDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -76,7 +76,7 @@ class TBWindow;
 
 //! \brief TBWindow Base Class.
 
-class OSG_SYSTEM_DLLMAPPING TBWindowBase : public Window
+class OSG_CONTRIBTOOLBOXWINDOW_DLLMAPPING TBWindowBase : public Window
 {
   public:
 

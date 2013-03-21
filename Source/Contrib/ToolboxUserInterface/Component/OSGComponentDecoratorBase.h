@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -85,7 +85,7 @@ class ComponentDecorator;
 
 //! \brief ComponentDecorator Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ComponentDecoratorBase : public Component
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentDecoratorBase : public Component
 {
   public:
 

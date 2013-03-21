@@ -54,7 +54,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceTreeSelectionModel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TreeSelectionModel : public TreeSelectionModelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeSelectionModel : public TreeSelectionModelBase
 {
   protected:
 

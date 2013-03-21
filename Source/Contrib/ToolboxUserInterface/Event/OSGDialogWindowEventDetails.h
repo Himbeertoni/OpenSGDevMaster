@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceDialogWindowEventDetails for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DialogWindowEventDetails : public DialogWindowEventDetailsBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DialogWindowEventDetails : public DialogWindowEventDetailsBase
 {
   protected:
 

@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class Layout;
 
 //! \brief Layout Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING LayoutBase : public AttachmentContainer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING LayoutBase : public AttachmentContainer
 {
   public:
 

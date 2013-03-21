@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceLineBorder for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING LineBorder : public LineBorderBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING LineBorder : public LineBorderBase
 {
   protected:
 

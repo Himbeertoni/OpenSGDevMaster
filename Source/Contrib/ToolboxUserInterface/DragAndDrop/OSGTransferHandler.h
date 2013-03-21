@@ -55,7 +55,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceTransferHandler for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TransferHandler : public TransferHandlerBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TransferHandler : public TransferHandlerBase
 {
   protected:
 

@@ -88,7 +88,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ComponentGenerator *>::_type("ComponentGeneratorPtr", "AttachmentContainerPtr");
+DataType FieldTraits<ComponentGenerator *>::_type("ComponentGeneratorPtr", "EventContainerPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(ComponentGenerator *)

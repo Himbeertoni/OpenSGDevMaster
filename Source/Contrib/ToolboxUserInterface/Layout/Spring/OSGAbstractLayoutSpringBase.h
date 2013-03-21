@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class AbstractLayoutSpring;
 
 //! \brief AbstractLayoutSpring Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING AbstractLayoutSpringBase : public LayoutSpring
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractLayoutSpringBase : public LayoutSpring
 {
   public:
 

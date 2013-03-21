@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 #include "OSGFieldContainerFields.h"
 #include "OSGPointerSField.h"
@@ -85,7 +85,7 @@ struct FieldTraits<RoundedCornerLineBorder *> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_CONTRIBUSERINTERFACE_DLLMAPPING DataType &getType(void);
+    static OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);

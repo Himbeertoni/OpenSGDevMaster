@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceBorderLayout for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING BorderLayout : public BorderLayoutBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING BorderLayout : public BorderLayoutBase
 {
   protected:
 

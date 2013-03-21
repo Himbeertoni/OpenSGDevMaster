@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceGraphics2D for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING Graphics2D : public Graphics2DBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Graphics2D : public Graphics2DBase
 {
   protected:
 

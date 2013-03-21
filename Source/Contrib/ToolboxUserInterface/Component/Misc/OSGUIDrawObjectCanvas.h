@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceUIDrawObjectCanvas for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING UIDrawObjectCanvas : public UIDrawObjectCanvasBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIDrawObjectCanvas : public UIDrawObjectCanvasBase
 {
   protected:
 

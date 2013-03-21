@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceTreeSelectionEventDetails for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TreeSelectionEventDetails : public TreeSelectionEventDetailsBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeSelectionEventDetails : public TreeSelectionEventDetailsBase
 {
   protected:
 

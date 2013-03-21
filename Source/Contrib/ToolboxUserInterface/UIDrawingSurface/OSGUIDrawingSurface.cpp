@@ -893,20 +893,20 @@ void UIDrawingSurface::changed(ConstFieldMaskArg whichField,
            getActive() &&
            getMouseTransformFunctor() != NULL)
         {           
-            _MouseClickedConnection = getEventProducer()->connectMouseClicked(boost::bind(&UIDrawingSurface::handleMouseClicked, this, _1));
-            _MouseEnteredConnection = getEventProducer()->connectMouseEntered(boost::bind(&UIDrawingSurface::handleMouseEntered, this, _1));
-            _MouseExitedConnection = getEventProducer()->connectMouseExited(boost::bind(&UIDrawingSurface::handleMouseExited, this, _1));
-            _MousePressedConnection = getEventProducer()->connectMousePressed(boost::bind(&UIDrawingSurface::handleMousePressed, this, _1));
-            _MouseReleasedConnection = getEventProducer()->connectMouseReleased(boost::bind(&UIDrawingSurface::handleMouseReleased, this, _1));
+            _MouseClickedConnection = getEventProducer()->getEventSource()->connectMouseClicked(boost::bind(&UIDrawingSurface::handleMouseClicked, this, _1));
+            _MouseEnteredConnection = getEventProducer()->getEventSource()->connectMouseEntered(boost::bind(&UIDrawingSurface::handleMouseEntered, this, _1));
+            _MouseExitedConnection = getEventProducer()->getEventSource()->connectMouseExited(boost::bind(&UIDrawingSurface::handleMouseExited, this, _1));
+            _MousePressedConnection = getEventProducer()->getEventSource()->connectMousePressed(boost::bind(&UIDrawingSurface::handleMousePressed, this, _1));
+            _MouseReleasedConnection = getEventProducer()->getEventSource()->connectMouseReleased(boost::bind(&UIDrawingSurface::handleMouseReleased, this, _1));
 
-            _MouseMovedConnection = getEventProducer()->connectMouseMoved(boost::bind(&UIDrawingSurface::handleMouseMoved, this, _1));
-            _MouseDraggedConnection = getEventProducer()->connectMouseDragged(boost::bind(&UIDrawingSurface::handleMouseDragged, this, _1));
+            _MouseMovedConnection = getEventProducer()->getEventSource()->connectMouseMoved(boost::bind(&UIDrawingSurface::handleMouseMoved, this, _1));
+            _MouseDraggedConnection = getEventProducer()->getEventSource()->connectMouseDragged(boost::bind(&UIDrawingSurface::handleMouseDragged, this, _1));
 
-            _MouseWheelMovedConnection = getEventProducer()->connectMouseWheelMoved(boost::bind(&UIDrawingSurface::handleMouseWheelMoved, this, _1));
+            _MouseWheelMovedConnection = getEventProducer()->getEventSource()->connectMouseWheelMoved(boost::bind(&UIDrawingSurface::handleMouseWheelMoved, this, _1));
 
-            _KeyPressedConnection = getEventProducer()->connectKeyPressed(boost::bind(&UIDrawingSurface::handleKeyPressed, this, _1));
-            _KeyReleasedConnection = getEventProducer()->connectKeyReleased(boost::bind(&UIDrawingSurface::handleKeyReleased, this, _1));
-            _KeyTypedConnection = getEventProducer()->connectKeyTyped(boost::bind(&UIDrawingSurface::handleKeyTyped, this, _1));
+            _KeyPressedConnection = getEventProducer()->getEventSource()->connectKeyPressed(boost::bind(&UIDrawingSurface::handleKeyPressed, this, _1));
+            _KeyReleasedConnection = getEventProducer()->getEventSource()->connectKeyReleased(boost::bind(&UIDrawingSurface::handleKeyReleased, this, _1));
+            _KeyTypedConnection = getEventProducer()->getEventSource()->connectKeyTyped(boost::bind(&UIDrawingSurface::handleKeyTyped, this, _1));
         }
     }
 

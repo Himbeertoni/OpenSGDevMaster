@@ -33,7 +33,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 #include "OSGVector.h"
 #include "OSGComponentFields.h"
 #include "OSGUIDrawingSurfaceFields.h"
@@ -42,37 +42,37 @@
 
 OSG_BEGIN_NAMESPACE
 
-Pnt2f OSG_CONTRIBUSERINTERFACE_DLLMAPPING calculateAlignment(const Pnt2f& Position1, const Vec2f& Size1, const Vec2f& Size2, const Real32& VAlign, const Real32& HAlign);
+Pnt2f OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING calculateAlignment(const Pnt2f& Position1, const Vec2f& Size1, const Vec2f& Size2, const Real32& VAlign, const Real32& HAlign);
 
-void OSG_CONTRIBUSERINTERFACE_DLLMAPPING quadIntersection(const Pnt2f& Quad1TopLeft, const Pnt2f& Quad1BottomRight,
+void OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING quadIntersection(const Pnt2f& Quad1TopLeft, const Pnt2f& Quad1BottomRight,
                                                           const Pnt2f& Quad2TopLeft, const Pnt2f& Quad2BottomRight,
                                                           Pnt2f& ResultQuadTopLeft, Pnt2f& ResultQuadBottomRight);
 
-void OSG_CONTRIBUSERINTERFACE_DLLMAPPING componentQuadIntersection(const Component* c1,
+void OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING componentQuadIntersection(const Component* c1,
                                                                    const Component* c2,
                                                                    Pnt2f& ResultQuadTopLeft, Pnt2f& ResultQuadBottomRight);
 
-bool OSG_CONTRIBUSERINTERFACE_DLLMAPPING isContainedBounds(const Pnt2f& Point, const Component* Comp);
+bool OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING isContainedBounds(const Pnt2f& Point, const Component* Comp);
 
 //Point: a point in Window space
 //Comp: A component
-bool OSG_CONTRIBUSERINTERFACE_DLLMAPPING isContainedClipBounds(const Pnt2f& Point, const Component* Comp);
+bool OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING isContainedClipBounds(const Pnt2f& Point, const Component* Comp);
 
-bool OSG_CONTRIBUSERINTERFACE_DLLMAPPING isContainedBounds(const Pnt2f& Point, const Pnt2f& TopLeft, const Pnt2f& BottomRight);
+bool OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING isContainedBounds(const Pnt2f& Point, const Pnt2f& TopLeft, const Pnt2f& BottomRight);
 
-Pnt2f OSG_CONTRIBUSERINTERFACE_DLLMAPPING DrawingSurfaceToComponent(const Pnt2f& DrawingSurfacePoint, const Component* Comp);
-Pnt2f OSG_CONTRIBUSERINTERFACE_DLLMAPPING ViewportToWindow(const Pnt2f& ViewportPoint, Int32 x, Int32 y, Int32 w, Int32 h );
-Pnt2f OSG_CONTRIBUSERINTERFACE_DLLMAPPING ViewportToComponent(const Pnt2f& ViewportPoint, const Component* Comp, const Viewport* TheViewport);
-Pnt2f OSG_CONTRIBUSERINTERFACE_DLLMAPPING ComponentToViewport(const Pnt2f& ComponentPoint, const Component* Comp, const Viewport* TheViewport);
-Pnt2f OSG_CONTRIBUSERINTERFACE_DLLMAPPING ComponentToWindow(const Pnt2f& ComponentPoint, const Component* Comp, Int32 x, Int32 y, Int32 w, Int32 h );
-Pnt2f OSG_CONTRIBUSERINTERFACE_DLLMAPPING ViewportToDrawingSurface(const Pnt2f& ViewportPoint, const UIDrawingSurface* DrawingSurface, const Viewport* TheViewport);
-Pnt2f OSG_CONTRIBUSERINTERFACE_DLLMAPPING DrawingSurfaceToViewport(const Pnt2f& DrawingSurfacePoint, const UIDrawingSurface* DrawingSurface, const Viewport* TheViewport);
-Pnt2f OSG_CONTRIBUSERINTERFACE_DLLMAPPING ComponentToDrawingSurface(const Pnt2f& ComponentPoint, const Component* Comp);
-Pnt2f OSG_CONTRIBUSERINTERFACE_DLLMAPPING ComponentToFrame(const Pnt2f& ComponentPoint, const Component* Comp);
-Pnt2f OSG_CONTRIBUSERINTERFACE_DLLMAPPING ComponentToComponent(const Pnt2f& ComponentPoint, const Component* Comp, const Component* ParentComp);
-Pnt2f OSG_CONTRIBUSERINTERFACE_DLLMAPPING Rotate(const Pnt2f& Point, const Real32& Angle);
+Pnt2f OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DrawingSurfaceToComponent(const Pnt2f& DrawingSurfacePoint, const Component* Comp);
+Pnt2f OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ViewportToWindow(const Pnt2f& ViewportPoint, Int32 x, Int32 y, Int32 w, Int32 h );
+Pnt2f OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ViewportToComponent(const Pnt2f& ViewportPoint, const Component* Comp, const Viewport* TheViewport);
+Pnt2f OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentToViewport(const Pnt2f& ComponentPoint, const Component* Comp, const Viewport* TheViewport);
+Pnt2f OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentToWindow(const Pnt2f& ComponentPoint, const Component* Comp, Int32 x, Int32 y, Int32 w, Int32 h );
+Pnt2f OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ViewportToDrawingSurface(const Pnt2f& ViewportPoint, const UIDrawingSurface* DrawingSurface, const Viewport* TheViewport);
+Pnt2f OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DrawingSurfaceToViewport(const Pnt2f& DrawingSurfacePoint, const UIDrawingSurface* DrawingSurface, const Viewport* TheViewport);
+Pnt2f OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentToDrawingSurface(const Pnt2f& ComponentPoint, const Component* Comp);
+Pnt2f OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentToFrame(const Pnt2f& ComponentPoint, const Component* Comp);
+Pnt2f OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentToComponent(const Pnt2f& ComponentPoint, const Component* Comp, const Component* ParentComp);
+Pnt2f OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Rotate(const Pnt2f& Point, const Real32& Angle);
 
-void OSG_CONTRIBUSERINTERFACE_DLLMAPPING getDrawObjectBounds(const MFUnrecUIDrawObjectPtr& DrawObjects, Pnt2f& TopLeft, Pnt2f& BottomRight);
+void OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING getDrawObjectBounds(const MFUnrecUIDrawObjectPtr& DrawObjects, Pnt2f& TopLeft, Pnt2f& BottomRight);
 
 OSG_END_NAMESPACE
 

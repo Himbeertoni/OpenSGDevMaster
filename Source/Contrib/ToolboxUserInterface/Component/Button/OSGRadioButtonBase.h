@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class RadioButton;
 
 //! \brief RadioButton Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING RadioButtonBase : public ToggleButton
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING RadioButtonBase : public ToggleButton
 {
   public:
 

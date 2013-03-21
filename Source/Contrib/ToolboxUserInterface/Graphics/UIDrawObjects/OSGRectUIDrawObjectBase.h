@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -77,7 +77,7 @@ class RectUIDrawObject;
 
 //! \brief RectUIDrawObject Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING RectUIDrawObjectBase : public UIDrawObject
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING RectUIDrawObjectBase : public UIDrawObject
 {
   public:
 

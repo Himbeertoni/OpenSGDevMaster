@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfacePolygonBorder for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING PolygonBorder : public PolygonBorderBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PolygonBorder : public PolygonBorderBase
 {
   protected:
 

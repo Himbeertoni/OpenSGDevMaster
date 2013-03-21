@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class ComponentTreeModel;
 
 //! \brief ComponentTreeModel Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ComponentTreeModelBase : public AbstractTreeModel
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentTreeModelBase : public AbstractTreeModel
 {
   public:
 

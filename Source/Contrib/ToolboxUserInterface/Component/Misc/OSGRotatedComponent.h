@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceRotatedComponent for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING RotatedComponent : public RotatedComponentBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING RotatedComponent : public RotatedComponentBase
 {
   protected:
 

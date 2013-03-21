@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class StringListModel;
 
 //! \brief StringListModel Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING StringListModelBase : public AbstractListModel
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING StringListModelBase : public AbstractListModel
 {
   public:
 

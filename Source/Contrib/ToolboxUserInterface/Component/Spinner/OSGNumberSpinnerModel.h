@@ -44,7 +44,7 @@
 #endif
  
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 #include "OSGAbstractSpinnerModel.h"
 

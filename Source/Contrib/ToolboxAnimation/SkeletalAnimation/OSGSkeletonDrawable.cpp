@@ -54,7 +54,7 @@
 #include "OSGDrawEnv.h"
 
 #include "OSGDrawableStatsAttachment.h"
-
+#include "OSGSkeletonBlendedGeometryEventSource.h"
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the

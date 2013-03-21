@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -81,7 +81,7 @@ class UIDrawingSurface;
 
 //! \brief UIDrawingSurface Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING UIDrawingSurfaceBase : public AttachmentContainer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIDrawingSurfaceBase : public AttachmentContainer
 {
   public:
 

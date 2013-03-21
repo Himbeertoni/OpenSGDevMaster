@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceDefaultComboBoxComponentGenerator for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DefaultComboBoxComponentGenerator : public DefaultComboBoxComponentGeneratorBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DefaultComboBoxComponentGenerator : public DefaultComboBoxComponentGeneratorBase
 {
   protected:
 

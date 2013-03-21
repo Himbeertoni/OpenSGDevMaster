@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -79,7 +79,7 @@ class DefaultComboBoxComponentGenerator;
 
 //! \brief DefaultComboBoxComponentGenerator Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DefaultComboBoxComponentGeneratorBase : public ComboBoxComponentGenerator
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DefaultComboBoxComponentGeneratorBase : public ComboBoxComponentGenerator
 {
   public:
 

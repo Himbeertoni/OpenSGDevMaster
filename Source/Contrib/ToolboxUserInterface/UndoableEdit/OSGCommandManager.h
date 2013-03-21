@@ -32,7 +32,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 #include "OSGCommand.h"
 #include "OSGCommandManagerFields.h"
@@ -41,7 +41,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING CommandManager
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CommandManager
 {
     /*==========================  PUBLIC  =================================*/
 

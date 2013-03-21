@@ -54,7 +54,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceDefaultTreeCellEditor for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DefaultTreeCellEditor : public DefaultTreeCellEditorBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DefaultTreeCellEditor : public DefaultTreeCellEditorBase
 {
   protected:
 

@@ -54,7 +54,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceSpinner for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING Spinner : public SpinnerBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Spinner : public SpinnerBase
 {
   protected:
 

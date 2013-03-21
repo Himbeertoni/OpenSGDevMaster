@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceMutableTreeNode for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING MutableTreeNode : public MutableTreeNodeBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MutableTreeNode : public MutableTreeNodeBase
 {
   protected:
 

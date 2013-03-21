@@ -44,7 +44,7 @@
 #endif
  
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 #include "OSGComponent.h"
 #include "OSGTableFields.h"
 
@@ -52,7 +52,7 @@
 
 OSG_BEGIN_NAMESPACE
      
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TableCellRenderer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableCellRenderer
 {
 private:
 protected:

@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceFileSystemTreeModel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING FileSystemTreeModel : public FileSystemTreeModelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING FileSystemTreeModel : public FileSystemTreeModelBase
 {
   protected:
 

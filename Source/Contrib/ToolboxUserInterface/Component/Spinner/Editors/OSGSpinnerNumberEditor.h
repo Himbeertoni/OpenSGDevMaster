@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceSpinnerNumberEditor for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING SpinnerNumberEditor : public SpinnerNumberEditorBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SpinnerNumberEditor : public SpinnerNumberEditorBase
 {
   protected:
 

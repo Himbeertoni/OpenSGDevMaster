@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -76,7 +76,7 @@ class ToggleButton;
 
 //! \brief ToggleButton Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ToggleButtonBase : public Button
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonBase : public Button
 {
   public:
 

@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceTransferable for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING Transferable : public TransferableBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Transferable : public TransferableBase
 {
   protected:
 

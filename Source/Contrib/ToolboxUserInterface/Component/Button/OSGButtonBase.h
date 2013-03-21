@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -83,7 +83,7 @@ class Button;
 
 //! \brief Button Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ButtonBase : public Component
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ButtonBase : public Component
 {
   public:
 

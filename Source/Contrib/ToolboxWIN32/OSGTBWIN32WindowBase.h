@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGWindowDef.h"
+#include "OSGContribToolboxWIN32Def.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -77,7 +77,7 @@ class TBWIN32Window;
 
 //! \brief TBWIN32Window Base Class.
 
-class OSG_WINDOW_DLLMAPPING TBWIN32WindowBase : public WindowEventProducer
+class OSG_CONTRIBTOOLBOXWIN32_DLLMAPPING TBWIN32WindowBase : public WindowEventProducer
 {
   public:
 

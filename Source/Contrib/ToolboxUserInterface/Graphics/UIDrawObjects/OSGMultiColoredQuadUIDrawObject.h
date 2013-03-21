@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceMultiColoredQuadUIDrawObject for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING MultiColoredQuadUIDrawObject : public MultiColoredQuadUIDrawObjectBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MultiColoredQuadUIDrawObject : public MultiColoredQuadUIDrawObjectBase
 {
   protected:
 

@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceListSelectionEventDetails for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ListSelectionEventDetails : public ListSelectionEventDetailsBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListSelectionEventDetails : public ListSelectionEventDetailsBase
 {
   protected:
 

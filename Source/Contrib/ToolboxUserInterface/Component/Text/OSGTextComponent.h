@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceTextComponent for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TextComponent : public TextComponentBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextComponent : public TextComponentBase
 {
   protected:
 

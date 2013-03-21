@@ -54,7 +54,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceRGBColorChooserPanel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING RGBColorChooserPanel : public RGBColorChooserPanelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING RGBColorChooserPanel : public RGBColorChooserPanelBase
 {
   protected:
 

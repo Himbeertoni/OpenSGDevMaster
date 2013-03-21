@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceSceneNodeTreeComponentGenerator for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING SceneNodeTreeComponentGenerator : public SceneNodeTreeComponentGeneratorBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SceneNodeTreeComponentGenerator : public SceneNodeTreeComponentGeneratorBase
 {
   protected:
 

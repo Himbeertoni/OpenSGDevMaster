@@ -55,7 +55,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceButton for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING Button : public ButtonBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Button : public ButtonBase
 {
   protected:
 

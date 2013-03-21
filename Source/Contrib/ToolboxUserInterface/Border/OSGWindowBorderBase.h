@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -76,7 +76,7 @@ class WindowBorder;
 
 //! \brief WindowBorder Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING WindowBorderBase : public Border
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING WindowBorderBase : public Border
 {
   public:
 

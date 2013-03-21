@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -78,7 +78,7 @@ class UIViewport;
 
 //! \brief UIViewport Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING UIViewportBase : public ComponentContainer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportBase : public ComponentContainer
 {
   public:
 

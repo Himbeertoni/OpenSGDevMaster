@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceToggleButton for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ToggleButton : public ToggleButtonBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButton : public ToggleButtonBase
 {
   protected:
 

@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class FieldContainerFieldPathComponentGenerator;
 
 //! \brief FieldContainerFieldPathComponentGenerator Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING FieldContainerFieldPathComponentGeneratorBase : public DefaultTreeComponentGenerator
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING FieldContainerFieldPathComponentGeneratorBase : public DefaultTreeComponentGenerator
 {
   public:
 

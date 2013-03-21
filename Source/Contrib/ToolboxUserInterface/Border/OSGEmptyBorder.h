@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceEmptyBorder for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING EmptyBorder : public EmptyBorderBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING EmptyBorder : public EmptyBorderBase
 {
   protected:
 

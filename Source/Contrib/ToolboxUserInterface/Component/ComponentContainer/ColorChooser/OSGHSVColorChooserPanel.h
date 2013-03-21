@@ -54,7 +54,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceHSVColorChooserPanel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING HSVColorChooserPanel : public HSVColorChooserPanelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING HSVColorChooserPanel : public HSVColorChooserPanelBase
 {
   protected:
 

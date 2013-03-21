@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceSlider for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING Slider : public SliderBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Slider : public SliderBase
 {
   protected:
 

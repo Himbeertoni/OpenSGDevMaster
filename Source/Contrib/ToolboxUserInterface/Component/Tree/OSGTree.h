@@ -59,7 +59,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceTree for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING Tree : public TreeBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Tree : public TreeBase
 {
   protected:
 

@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceModelTreeNode for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ModelTreeNode : public ModelTreeNodeBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ModelTreeNode : public ModelTreeNodeBase
 {
   protected:
 

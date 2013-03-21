@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceGridBagLayout for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING GridBagLayout : public GridBagLayoutBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING GridBagLayout : public GridBagLayoutBase
 {
   protected:
 

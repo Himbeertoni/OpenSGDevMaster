@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceCellEditor for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING CellEditor : public CellEditorBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CellEditor : public CellEditorBase
 {
   protected:
 

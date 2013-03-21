@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceSceneGraphTreeModel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING SceneGraphTreeModel : public SceneGraphTreeModelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SceneGraphTreeModel : public SceneGraphTreeModelBase
 {
   protected:
 

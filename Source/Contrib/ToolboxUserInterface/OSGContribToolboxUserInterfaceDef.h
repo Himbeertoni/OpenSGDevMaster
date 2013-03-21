@@ -40,8 +40,8 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#ifndef _OSGCONTRIBUSERINTERFACEDEF_H_
-#define _OSGCONTRIBUSERINTERFACEDEF_H_
+#ifndef _OSGCONTRIBTOOLBOXUSERINTERFACEDEF_H_
+#define _OSGCONTRIBTOOLBOXUSERINTERFACEDEF_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -50,17 +50,17 @@
 //  Defines
 //---------------------------------------------------------------------------
 #if defined(WIN32)
-#   ifdef OSG_COMPILECONTRIBUSERINTERFACELIB
-#       define OSG_CONTRIBUSERINTERFACE_DLLMAPPING  __declspec(dllexport)
-#       define OSG_CONTRIBUSERINTERFACE_EXPIMP_TMPL 
+#   ifdef OSG_COMPILECONTRIBTOOLBOXUSERINTERFACELIB
+#       define OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING  __declspec(dllexport)
+#       define OSG_CONTRIBTOOLBOXUSERINTERFACE_EXPIMP_TMPL 
 #   else
-#       define OSG_CONTRIBUSERINTERFACE_DLLMAPPING  __declspec(dllimport)
-#       define OSG_CONTRIBUSERINTERFACE_EXPIMP_TMPL   extern
+#       define OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING  __declspec(dllimport)
+#       define OSG_CONTRIBTOOLBOXUSERINTERFACE_EXPIMP_TMPL   extern
 #   endif
 #else
-#define OSG_CONTRIBUSERINTERFACE_DLLMAPPING
-#define OSG_CONTRIBUSERINTERFACE_EXPIMP_TMPL
+#define OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING
+#define OSG_CONTRIBTOOLBOXUSERINTERFACE_EXPIMP_TMPL
 #endif
 
-#endif /* _OSGUSERINTERFACEDEF_H_ */
+#endif /* _OSGCONTRIBTOOLBOXUSERINTERFACEDEF_H_ */
 

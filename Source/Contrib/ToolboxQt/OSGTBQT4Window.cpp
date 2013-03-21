@@ -47,7 +47,6 @@
 
 #include "OSGTBQT4Window.h"
 
-#include "OSGTBWIN32WindowHelper.h"
 
 OSG_BEGIN_NAMESPACE
 

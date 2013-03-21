@@ -44,7 +44,7 @@
 #endif
  
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 #include "OSGBoundedRangeModel.h"
 #include "OSGNumberSpinnerModel.h"
@@ -55,7 +55,7 @@ class BoundedRangeSpinnerModel;
 
 typedef boost::shared_ptr<BoundedRangeSpinnerModel> BoundedRangeSpinnerModelPtr;
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING BoundedRangeSpinnerModel
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING BoundedRangeSpinnerModel
 {
   public:
     typedef ChangeEventDetails StateChangedEventDetailsType;

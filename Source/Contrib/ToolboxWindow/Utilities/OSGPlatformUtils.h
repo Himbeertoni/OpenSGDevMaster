@@ -28,15 +28,15 @@
 #define _OPENSG_PLATFORM_UTILS_H_
 
 #include "OSGConfig.h"
-#include "OSGUtilDef.h"
+#include "OSGContribToolboxWindowDef.h"
 
 #include "OSGBoostPathFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-BoostPath OSG_UTIL_DLLMAPPING getPlatformUserAppDataDir(void);
+BoostPath OSG_CONTRIBTOOLBOXWINDOW_DLLMAPPING getPlatformUserAppDataDir(void);
 
-BoostPath OSG_UTIL_DLLMAPPING getPlatformTempDataDir(void);
+BoostPath OSG_CONTRIBTOOLBOXWINDOW_DLLMAPPING getPlatformTempDataDir(void);
 
 OSG_END_NAMESPACE
 

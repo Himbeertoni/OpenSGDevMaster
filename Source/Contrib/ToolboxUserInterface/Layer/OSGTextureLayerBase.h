@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -79,7 +79,7 @@ class TextureLayer;
 
 //! \brief TextureLayer Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TextureLayerBase : public Layer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextureLayerBase : public Layer
 {
   public:
 

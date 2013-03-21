@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -78,7 +78,7 @@ class List;
 
 //! \brief List Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ListBase : public ComponentContainer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListBase : public ComponentContainer
 {
   public:
 

@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceRoundedCornerLineBorder for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING RoundedCornerLineBorder : public RoundedCornerLineBorderBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING RoundedCornerLineBorder : public RoundedCornerLineBorderBase
 {
   protected:
 

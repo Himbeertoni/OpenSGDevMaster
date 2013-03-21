@@ -34,25 +34,33 @@
 
 #ifdef WIN32
 #include "OSGWIN32Window.h"
+#if 0
 #include "OSGTBWIN32Window.h"
 #include "OSGTBWIN32WindowHelper.h"
+#endif
 #endif
 
 #ifdef __linux
 #include "OSGXWindow.h"
 #endif
 
+#if 0
 #include "OSGTBNativeWindow.h"
-
+#include "OSGWindowEventProducerEventSource.h"
+#endif
 OSG_BEGIN_NAMESPACE
 
 WindowEventProducerTransitPtr createNativeWindow(void)
 {
+#if 0
+
 #if defined(__APPLE__)
     return WindowEventProducerTransitPtr(CarbonWindow::create());
 #elif defined(WIN32)
 
+    WindowEventProducerEventSourceUnrecPtr evSrc = WindowEventProducerEventSource::create();
 	TBWIN32WindowUnrecPtr win = TBWIN32Window::create();
+    win->setEventSource( evSrc );
 	TBWIN32WindowHelperUnrecPtr nwin = TBWIN32WindowHelper::create();
 	win->setActualWindow( nwin );
 
@@ -61,6 +69,9 @@ WindowEventProducerTransitPtr createNativeWindow(void)
 #elif defined(__linux)
     return WindowEventProducerTransitPtr(XWindow::create());
 #endif
+
+#endif
+    return WindowEventProducerTransitPtr();
 }
 
 FieldContainerType const *getNativeWindowType(void)

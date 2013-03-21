@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceShadowBorder for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ShadowBorder : public ShadowBorderBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ShadowBorder : public ShadowBorderBase
 {
   protected:
 

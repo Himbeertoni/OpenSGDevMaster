@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceGradientLayer for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING GradientLayer : public GradientLayerBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING GradientLayer : public GradientLayerBase
 {
   protected:
 

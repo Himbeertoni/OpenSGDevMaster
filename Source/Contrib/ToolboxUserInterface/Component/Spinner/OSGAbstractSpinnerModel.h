@@ -44,13 +44,13 @@
 #endif
  
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 #include "OSGSpinnerModel.h"
 
 OSG_BEGIN_NAMESPACE
      
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING AbstractSpinnerModel : public SpinnerModel
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractSpinnerModel : public SpinnerModel
 {
   protected:
 

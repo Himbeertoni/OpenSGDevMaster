@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -76,7 +76,7 @@ class Separator;
 
 //! \brief Separator Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING SeparatorBase : public Component
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SeparatorBase : public Component
 {
   public:
 

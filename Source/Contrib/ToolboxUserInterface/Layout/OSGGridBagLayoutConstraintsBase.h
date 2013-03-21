@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class GridBagLayoutConstraints;
 
 //! \brief GridBagLayoutConstraints Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING GridBagLayoutConstraintsBase : public LayoutConstraints
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING GridBagLayoutConstraintsBase : public LayoutConstraints
 {
   public:
 

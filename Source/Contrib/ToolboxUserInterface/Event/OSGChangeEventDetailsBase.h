@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class ChangeEventDetails;
 
 //! \brief ChangeEventDetails Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ChangeEventDetailsBase : public EventDetails
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ChangeEventDetailsBase : public EventDetails
 {
   public:
 

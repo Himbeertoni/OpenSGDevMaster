@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGContribToolboxWindowDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -76,7 +76,7 @@ class KeyEventDetails;
 
 //! \brief KeyEventDetails Base Class.
 
-class OSG_SYSTEM_DLLMAPPING KeyEventDetailsBase : public InputEventDetails
+class OSG_CONTRIBTOOLBOXWINDOW_DLLMAPPING KeyEventDetailsBase : public InputEventDetails
 {
   public:
 

@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfacePanel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING Panel : public PanelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Panel : public PanelBase
 {
   protected:
 

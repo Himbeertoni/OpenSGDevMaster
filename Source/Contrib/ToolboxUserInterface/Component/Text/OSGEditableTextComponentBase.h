@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -74,7 +74,7 @@ class EditableTextComponent;
 
 //! \brief EditableTextComponent Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING EditableTextComponentBase : public TextComponent
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING EditableTextComponentBase : public TextComponent
 {
   public:
 

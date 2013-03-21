@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceEtchedBorder for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING EtchedBorder : public EtchedBorderBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING EtchedBorder : public EtchedBorderBase
 {
   protected:
 

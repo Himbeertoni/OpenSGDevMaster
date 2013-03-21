@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceEditableTextComponent for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING EditableTextComponent : public EditableTextComponentBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING EditableTextComponent : public EditableTextComponentBase
 {
   protected:
 

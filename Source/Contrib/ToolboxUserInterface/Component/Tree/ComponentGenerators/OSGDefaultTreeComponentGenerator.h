@@ -55,7 +55,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceDefaultTreeComponentGenerator for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DefaultTreeComponentGenerator : public DefaultTreeComponentGeneratorBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DefaultTreeComponentGenerator : public DefaultTreeComponentGeneratorBase
 {
   protected:
 

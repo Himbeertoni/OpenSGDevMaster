@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceFunctorListComponentGenerator for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING FunctorListComponentGenerator : public FunctorListComponentGeneratorBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING FunctorListComponentGenerator : public FunctorListComponentGeneratorBase
 {
   protected:
 

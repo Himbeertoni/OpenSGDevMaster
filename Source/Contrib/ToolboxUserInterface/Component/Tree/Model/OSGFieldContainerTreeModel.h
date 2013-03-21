@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceFieldContainerTreeModel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING FieldContainerTreeModel : public FieldContainerTreeModelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING FieldContainerTreeModel : public FieldContainerTreeModelBase
 {
   protected:
 

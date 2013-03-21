@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class XMLLookAndFeel;
 
 //! \brief XMLLookAndFeel Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING XMLLookAndFeelBase : public LookAndFeel
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING XMLLookAndFeelBase : public LookAndFeel
 {
   public:
 

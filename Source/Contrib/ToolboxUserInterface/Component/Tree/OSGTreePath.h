@@ -44,7 +44,7 @@
 #endif
  
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 #include <boost/any.hpp>
 
 #include "OSGBaseTypes.h"
@@ -55,7 +55,7 @@
 
 OSG_BEGIN_NAMESPACE
      
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TreePath
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreePath
 {
 
 public:

@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceBevelBorder for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING BevelBorder : public BevelBorderBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING BevelBorder : public BevelBorderBase
 {
   protected:
 

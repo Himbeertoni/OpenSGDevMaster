@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceListModel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ListModel : public ListModelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListModel : public ListModelBase
 {
   protected:
 

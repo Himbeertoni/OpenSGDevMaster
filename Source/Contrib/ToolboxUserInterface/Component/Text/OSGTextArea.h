@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceTextArea for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TextArea : public TextAreaBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextArea : public TextAreaBase
 {
   protected:
 

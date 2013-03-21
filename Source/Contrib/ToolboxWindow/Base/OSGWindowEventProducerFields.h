@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGContribToolboxWindowDef.h"
 
 #include "OSGFieldContainerFields.h"
 #include "OSGPointerSField.h"
@@ -64,152 +64,150 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class WindowEventProducer;
 
 OSG_GEN_CONTAINERPTR(WindowEventProducer);
-
-/*! \ingroup GrpSystemFieldTraits
-    \ingroup GrpLibOSGSystem
+/*! \ingroup GrpContribToolboxWindowFieldTraits
+    \ingroup GrpLibOSGContribToolboxWindow
  */
 template <>
-struct FieldTraits<WindowEventProducer *> :
-    public FieldTraitsFCPtrBase<WindowEventProducer *>
+struct FieldTraits<WindowEventProducer *, nsOSG> :
+    public FieldTraitsFCPtrBase<WindowEventProducer *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<WindowEventProducer *>  Self;
+    typedef FieldTraits<WindowEventProducer *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
+    static OSG_CONTRIBTOOLBOXWINDOW_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFWindowEventProducerPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFWindowEventProducerPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<WindowEventProducer *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<WindowEventProducer *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecWindowEventProducerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<WindowEventProducer *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<WindowEventProducer *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecWindowEventProducerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<WindowEventProducer *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<WindowEventProducer *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakWindowEventProducerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<WindowEventProducer *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<WindowEventProducer *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdWindowEventProducerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<WindowEventProducer *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<WindowEventProducer *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecWindowEventProducerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<WindowEventProducer *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<WindowEventProducer *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecWindowEventProducerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<WindowEventProducer *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<WindowEventProducer *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakWindowEventProducerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<WindowEventProducer *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<WindowEventProducer *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdWindowEventProducerPtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpSystemFieldSFields */
+/*! \ingroup GrpContribToolboxWindowFieldSFields */
 typedef PointerSField<WindowEventProducer *,
-                      RecordedRefCountPolicy  > SFRecWindowEventProducerPtr;
-/*! \ingroup GrpSystemFieldSFields */
+                      RecordedRefCountPolicy, nsOSG  > SFRecWindowEventProducerPtr;
+/*! \ingroup GrpContribToolboxWindowFieldSFields */
 typedef PointerSField<WindowEventProducer *,
-                      UnrecordedRefCountPolicy> SFUnrecWindowEventProducerPtr;
-/*! \ingroup GrpSystemFieldSFields */
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecWindowEventProducerPtr;
+/*! \ingroup GrpContribToolboxWindowFieldSFields */
 typedef PointerSField<WindowEventProducer *,
-                      WeakRefCountPolicy      > SFWeakWindowEventProducerPtr;
-/*! \ingroup GrpSystemFieldSFields */
+                      WeakRefCountPolicy, nsOSG      > SFWeakWindowEventProducerPtr;
+/*! \ingroup GrpContribToolboxWindowFieldSFields */
 typedef PointerSField<WindowEventProducer *,
-                      NoRefCountPolicy        > SFUncountedWindowEventProducerPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedWindowEventProducerPtr;
 
 
-/*! \ingroup GrpSystemFieldMFields */
+/*! \ingroup GrpContribToolboxWindowFieldMFields */
 typedef PointerMField<WindowEventProducer *,
-                      RecordedRefCountPolicy  > MFRecWindowEventProducerPtr;
-/*! \ingroup GrpSystemFieldMFields */
+                      RecordedRefCountPolicy, nsOSG  > MFRecWindowEventProducerPtr;
+/*! \ingroup GrpContribToolboxWindowFieldMFields */
 typedef PointerMField<WindowEventProducer *,
-                      UnrecordedRefCountPolicy> MFUnrecWindowEventProducerPtr;
-/*! \ingroup GrpSystemFieldMFields */
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecWindowEventProducerPtr;
+/*! \ingroup GrpContribToolboxWindowFieldMFields */
 typedef PointerMField<WindowEventProducer *,
-                      WeakRefCountPolicy      > MFWeakWindowEventProducerPtr;
-/*! \ingroup GrpSystemFieldMFields */
+                      WeakRefCountPolicy, nsOSG      > MFWeakWindowEventProducerPtr;
+/*! \ingroup GrpContribToolboxWindowFieldMFields */
 typedef PointerMField<WindowEventProducer *,
-                      NoRefCountPolicy        > MFUncountedWindowEventProducerPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedWindowEventProducerPtr;
 
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpContribToolboxWindowFieldSFields \ingroup GrpLibOSGContribToolboxWindow */
 struct SFRecWindowEventProducerPtr : 
     public PointerSField<WindowEventProducer *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpContribToolboxWindowFieldSFields \ingroup GrpLibOSGContribToolboxWindow */
 struct SFUnrecWindowEventProducerPtr : 
     public PointerSField<WindowEventProducer *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpContribToolboxWindowFieldSFields \ingroup GrpLibOSGContribToolboxWindow */
 struct SFWeakWindowEventProducerPtr :
     public PointerSField<WindowEventProducer *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpContribToolboxWindowFieldSFields \ingroup GrpLibOSGContribToolboxWindow */
 struct SFUncountedWindowEventProducerPtr :
     public PointerSField<WindowEventProducer *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpContribToolboxWindowFieldMFields \ingroup GrpLibOSGContribToolboxWindow */
 struct MFRecWindowEventProducerPtr :
     public PointerMField<WindowEventProducer *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpContribToolboxWindowFieldMFields \ingroup GrpLibOSGContribToolboxWindow */
 struct MFUnrecWindowEventProducerPtr :
     public PointerMField<WindowEventProducer *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpContribToolboxWindowFieldMFields \ingroup GrpLibOSGContribToolboxWindow */
 struct MFWeakWindowEventProducerPtr :
     public PointerMField<WindowEventProducer *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+/*! \ingroup GrpContribToolboxWindowFieldMFields \ingroup GrpLibOSGContribToolboxWindow */
 struct MFUncountedWindowEventProducerPtr :
     public PointerMField<WindowEventProducer *,
                          NoRefCountPolicy        > {};

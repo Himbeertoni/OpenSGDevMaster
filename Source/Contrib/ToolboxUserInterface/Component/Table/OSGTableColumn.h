@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceTableColumn for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TableColumn : public TableColumnBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumn : public TableColumnBase
 {
   protected:
 

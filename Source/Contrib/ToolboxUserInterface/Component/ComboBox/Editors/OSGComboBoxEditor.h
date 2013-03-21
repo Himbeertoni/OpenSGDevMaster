@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceComboBoxEditor for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ComboBoxEditor : public ComboBoxEditorBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxEditor : public ComboBoxEditorBase
 {
   protected:
 

@@ -54,7 +54,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceTreeModelLayout for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TreeModelLayout : public TreeModelLayoutBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeModelLayout : public TreeModelLayoutBase
 {
   protected:
 

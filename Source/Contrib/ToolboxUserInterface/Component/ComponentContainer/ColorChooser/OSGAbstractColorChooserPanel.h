@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceAbstractColorChooserPanel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING AbstractColorChooserPanel : public AbstractColorChooserPanelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractColorChooserPanel : public AbstractColorChooserPanelBase
 {
   protected:
 

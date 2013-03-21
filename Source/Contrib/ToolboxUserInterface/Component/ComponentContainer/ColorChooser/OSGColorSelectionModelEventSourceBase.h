@@ -45,47 +45,47 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class TBWIN32WindowHelper
+ **     class ColorSelectionModelEventSource
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGTBWIN32WINDOWHELPERBASE_H_
-#define _OSGTBWIN32WINDOWHELPERBASE_H_
+#ifndef _OSGCOLORSELECTIONMODELEVENTSOURCEBASE_H_
+#define _OSGCOLORSELECTIONMODELEVENTSOURCEBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 
 #include "OSGConfig.h"
-#include "OSGWindowDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGWIN32Window.h" // Parent
+#include "OSGEventContainer.h" // Parent
 
 
-#include "OSGTBWIN32WindowHelperFields.h"
+#include "OSGColorSelectionModelEventSourceFields.h"
 
 OSG_BEGIN_NAMESPACE
 
 
-class TBWIN32WindowHelper;
+class ColorSelectionModelEventSource;
 
-//! \brief TBWIN32WindowHelper Base Class.
+//! \brief ColorSelectionModelEventSource Base Class.
 
-class OSG_WINDOW_DLLMAPPING TBWIN32WindowHelperBase : public WIN32Window
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ColorSelectionModelEventSourceBase : public EventContainer
 {
   public:
 
-    typedef WIN32Window Inherited;
-    typedef WIN32Window ParentContainer;
+    typedef EventContainer Inherited;
+    typedef EventContainer ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(TBWIN32WindowHelper);
+    OSG_GEN_INTERNALPTR(ColorSelectionModelEventSource);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -127,16 +127,16 @@ class OSG_WINDOW_DLLMAPPING TBWIN32WindowHelperBase : public WIN32Window
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TBWIN32WindowHelperTransitPtr  create          (void);
-    static  TBWIN32WindowHelper           *createEmpty     (void);
+    static  ColorSelectionModelEventSourceTransitPtr  create          (void);
+    static  ColorSelectionModelEventSource           *createEmpty     (void);
 
-    static  TBWIN32WindowHelperTransitPtr  createLocal     (
+    static  ColorSelectionModelEventSourceTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  TBWIN32WindowHelper            *createEmptyLocal(
+    static  ColorSelectionModelEventSource            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
-    static  TBWIN32WindowHelperTransitPtr  createDependent  (BitVector bFlags);
+    static  ColorSelectionModelEventSourceTransitPtr  createDependent  (BitVector bFlags);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -163,15 +163,15 @@ class OSG_WINDOW_DLLMAPPING TBWIN32WindowHelperBase : public WIN32Window
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    TBWIN32WindowHelperBase(void);
-    TBWIN32WindowHelperBase(const TBWIN32WindowHelperBase &source);
+    ColorSelectionModelEventSourceBase(void);
+    ColorSelectionModelEventSourceBase(const ColorSelectionModelEventSourceBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~TBWIN32WindowHelperBase(void);
+    virtual ~ColorSelectionModelEventSourceBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -197,7 +197,7 @@ class OSG_WINDOW_DLLMAPPING TBWIN32WindowHelperBase : public WIN32Window
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      TBWIN32WindowHelperBase *pFrom,
+            void execSync (      ColorSelectionModelEventSourceBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -237,11 +237,11 @@ class OSG_WINDOW_DLLMAPPING TBWIN32WindowHelperBase : public WIN32Window
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const TBWIN32WindowHelperBase &source);
+    void operator =(const ColorSelectionModelEventSourceBase &source);
 };
 
-typedef TBWIN32WindowHelperBase *TBWIN32WindowHelperBaseP;
+typedef ColorSelectionModelEventSourceBase *ColorSelectionModelEventSourceBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGTBWIN32WINDOWHELPERBASE_H_ */
+#endif /* _OSGCOLORSELECTIONMODELEVENTSOURCEBASE_H_ */

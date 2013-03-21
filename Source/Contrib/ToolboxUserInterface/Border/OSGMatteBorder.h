@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceMatteBorder for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING MatteBorder : public MatteBorderBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MatteBorder : public MatteBorderBase
 {
   protected:
 

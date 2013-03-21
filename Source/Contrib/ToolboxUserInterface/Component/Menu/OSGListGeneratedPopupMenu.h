@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceListGeneratedPopupMenu for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING ListGeneratedPopupMenu : public ListGeneratedPopupMenuBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListGeneratedPopupMenu : public ListGeneratedPopupMenuBase
 {
   protected:
 

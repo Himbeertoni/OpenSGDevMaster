@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceUIForegroundMouseTransformFunctor for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING UIForegroundMouseTransformFunctor : public UIForegroundMouseTransformFunctorBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIForegroundMouseTransformFunctor : public UIForegroundMouseTransformFunctorBase
 {
   protected:
     friend class UIForeground;

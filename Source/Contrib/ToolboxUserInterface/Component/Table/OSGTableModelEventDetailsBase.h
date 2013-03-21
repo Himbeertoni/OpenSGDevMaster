@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class TableModelEventDetails;
 
 //! \brief TableModelEventDetails Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TableModelEventDetailsBase : public EventDetails
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableModelEventDetailsBase : public EventDetails
 {
   public:
 

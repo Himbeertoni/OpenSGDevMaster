@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -81,7 +81,7 @@ class AbstractWindow;
 
 //! \brief AbstractWindow Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING AbstractWindowBase : public ComponentContainer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowBase : public ComponentContainer
 {
   public:
 

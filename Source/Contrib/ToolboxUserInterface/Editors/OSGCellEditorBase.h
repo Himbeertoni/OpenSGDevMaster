@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -80,7 +80,7 @@ class CellEditor;
 
 //! \brief CellEditor Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING CellEditorBase : public FieldContainer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CellEditorBase : public FieldContainer
 {
   public:
 

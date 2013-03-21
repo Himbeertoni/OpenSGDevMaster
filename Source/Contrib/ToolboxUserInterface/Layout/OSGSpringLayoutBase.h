@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class SpringLayout;
 
 //! \brief SpringLayout Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING SpringLayoutBase : public Layout
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SpringLayoutBase : public Layout
 {
   public:
 

@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceDerivedFieldContainerComboBoxModel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DerivedFieldContainerComboBoxModel : public DerivedFieldContainerComboBoxModelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DerivedFieldContainerComboBoxModel : public DerivedFieldContainerComboBoxModelBase
 {
   protected:
 

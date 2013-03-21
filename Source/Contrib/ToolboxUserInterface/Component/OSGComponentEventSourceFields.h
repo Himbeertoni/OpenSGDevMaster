@@ -48,14 +48,14 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGTBWIN32WINDOWHELPERFIELDS_H_
-#define _OSGTBWIN32WINDOWHELPERFIELDS_H_
+#ifndef _OSGCOMPONENTEVENTSOURCEFIELDS_H_
+#define _OSGCOMPONENTEVENTSOURCEFIELDS_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 #include "OSGConfig.h"
-#include "OSGWindowDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 #include "OSGFieldContainerFields.h"
 #include "OSGPointerSField.h"
@@ -65,15 +65,15 @@
 OSG_BEGIN_NAMESPACE
 
 
-class TBWIN32WindowHelper;
+class ComponentEventSource;
 
-OSG_GEN_CONTAINERPTR(TBWIN32WindowHelper);
-/*! \ingroup GrpWindowWIN32FieldTraits
-    \ingroup GrpLibOSGWindow
+OSG_GEN_CONTAINERPTR(ComponentEventSource);
+/*! \ingroup GrpContribToolboxUserInterfaceFieldTraits
+    \ingroup GrpLibOSGContribToolboxUserInterface
  */
 template <>
-struct FieldTraits<TBWIN32WindowHelper *, nsOSG> :
-    public FieldTraitsFCPtrBase<TBWIN32WindowHelper *, nsOSG>
+struct FieldTraits<ComponentEventSource *, nsOSG> :
+    public FieldTraitsFCPtrBase<ComponentEventSource *, nsOSG>
 {
   private:
 
@@ -81,11 +81,11 @@ struct FieldTraits<TBWIN32WindowHelper *, nsOSG> :
 
   public:
 
-    typedef FieldTraits<TBWIN32WindowHelper *, nsOSG>  Self;
+    typedef FieldTraits<ComponentEventSource *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOW_DLLMAPPING DataType &getType(void);
+    static OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
@@ -96,120 +96,120 @@ struct FieldTraits<TBWIN32WindowHelper *, nsOSG> :
 };
 
 template<> inline
-const Char8 *FieldTraits<TBWIN32WindowHelper *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentEventSource *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
-    return "SFRecTBWIN32WindowHelperPtr"; 
+    return "SFRecComponentEventSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TBWIN32WindowHelper *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentEventSource *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
-    return "SFUnrecTBWIN32WindowHelperPtr"; 
+    return "SFUnrecComponentEventSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TBWIN32WindowHelper *, nsOSG>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentEventSource *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
-    return "SFWeakTBWIN32WindowHelperPtr"; 
+    return "SFWeakComponentEventSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TBWIN32WindowHelper *, nsOSG>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentEventSource *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
-    return "SFUnrefdTBWIN32WindowHelperPtr"; 
+    return "SFUnrefdComponentEventSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TBWIN32WindowHelper *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentEventSource *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
-    return "MFRecTBWIN32WindowHelperPtr"; 
+    return "MFRecComponentEventSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TBWIN32WindowHelper *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentEventSource *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
-    return "MFUnrecTBWIN32WindowHelperPtr"; 
+    return "MFUnrecComponentEventSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TBWIN32WindowHelper *, nsOSG>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentEventSource *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
-    return "MFWeakTBWIN32WindowHelperPtr"; 
+    return "MFWeakComponentEventSourcePtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TBWIN32WindowHelper *, nsOSG>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentEventSource *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
-    return "MFUnrefdTBWIN32WindowHelperPtr"; 
+    return "MFUnrefdComponentEventSourcePtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpWindowWIN32FieldSFields */
-typedef PointerSField<TBWIN32WindowHelper *,
-                      RecordedRefCountPolicy, nsOSG  > SFRecTBWIN32WindowHelperPtr;
-/*! \ingroup GrpWindowWIN32FieldSFields */
-typedef PointerSField<TBWIN32WindowHelper *,
-                      UnrecordedRefCountPolicy, nsOSG> SFUnrecTBWIN32WindowHelperPtr;
-/*! \ingroup GrpWindowWIN32FieldSFields */
-typedef PointerSField<TBWIN32WindowHelper *,
-                      WeakRefCountPolicy, nsOSG      > SFWeakTBWIN32WindowHelperPtr;
-/*! \ingroup GrpWindowWIN32FieldSFields */
-typedef PointerSField<TBWIN32WindowHelper *,
-                      NoRefCountPolicy, nsOSG        > SFUncountedTBWIN32WindowHelperPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
+typedef PointerSField<ComponentEventSource *,
+                      RecordedRefCountPolicy, nsOSG  > SFRecComponentEventSourcePtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
+typedef PointerSField<ComponentEventSource *,
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecComponentEventSourcePtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
+typedef PointerSField<ComponentEventSource *,
+                      WeakRefCountPolicy, nsOSG      > SFWeakComponentEventSourcePtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
+typedef PointerSField<ComponentEventSource *,
+                      NoRefCountPolicy, nsOSG        > SFUncountedComponentEventSourcePtr;
 
 
-/*! \ingroup GrpWindowWIN32FieldMFields */
-typedef PointerMField<TBWIN32WindowHelper *,
-                      RecordedRefCountPolicy, nsOSG  > MFRecTBWIN32WindowHelperPtr;
-/*! \ingroup GrpWindowWIN32FieldMFields */
-typedef PointerMField<TBWIN32WindowHelper *,
-                      UnrecordedRefCountPolicy, nsOSG> MFUnrecTBWIN32WindowHelperPtr;
-/*! \ingroup GrpWindowWIN32FieldMFields */
-typedef PointerMField<TBWIN32WindowHelper *,
-                      WeakRefCountPolicy, nsOSG      > MFWeakTBWIN32WindowHelperPtr;
-/*! \ingroup GrpWindowWIN32FieldMFields */
-typedef PointerMField<TBWIN32WindowHelper *,
-                      NoRefCountPolicy, nsOSG        > MFUncountedTBWIN32WindowHelperPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
+typedef PointerMField<ComponentEventSource *,
+                      RecordedRefCountPolicy, nsOSG  > MFRecComponentEventSourcePtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
+typedef PointerMField<ComponentEventSource *,
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecComponentEventSourcePtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
+typedef PointerMField<ComponentEventSource *,
+                      WeakRefCountPolicy, nsOSG      > MFWeakComponentEventSourcePtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
+typedef PointerMField<ComponentEventSource *,
+                      NoRefCountPolicy, nsOSG        > MFUncountedComponentEventSourcePtr;
 
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpWindowWIN32FieldSFields \ingroup GrpLibOSGWindow */
-struct SFRecTBWIN32WindowHelperPtr : 
-    public PointerSField<TBWIN32WindowHelper *,
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
+struct SFRecComponentEventSourcePtr : 
+    public PointerSField<ComponentEventSource *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowWIN32FieldSFields \ingroup GrpLibOSGWindow */
-struct SFUnrecTBWIN32WindowHelperPtr : 
-    public PointerSField<TBWIN32WindowHelper *,
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
+struct SFUnrecComponentEventSourcePtr : 
+    public PointerSField<ComponentEventSource *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowWIN32FieldSFields \ingroup GrpLibOSGWindow */
-struct SFWeakTBWIN32WindowHelperPtr :
-    public PointerSField<TBWIN32WindowHelper *,
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
+struct SFWeakComponentEventSourcePtr :
+    public PointerSField<ComponentEventSource *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpWindowWIN32FieldSFields \ingroup GrpLibOSGWindow */
-struct SFUncountedTBWIN32WindowHelperPtr :
-    public PointerSField<TBWIN32WindowHelper *,
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
+struct SFUncountedComponentEventSourcePtr :
+    public PointerSField<ComponentEventSource *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpWindowWIN32FieldMFields \ingroup GrpLibOSGWindow */
-struct MFRecTBWIN32WindowHelperPtr :
-    public PointerMField<TBWIN32WindowHelper *,
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
+struct MFRecComponentEventSourcePtr :
+    public PointerMField<ComponentEventSource *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpWindowWIN32FieldMFields \ingroup GrpLibOSGWindow */
-struct MFUnrecTBWIN32WindowHelperPtr :
-    public PointerMField<TBWIN32WindowHelper *,
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
+struct MFUnrecComponentEventSourcePtr :
+    public PointerMField<ComponentEventSource *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpWindowWIN32FieldMFields \ingroup GrpLibOSGWindow */
-struct MFWeakTBWIN32WindowHelperPtr :
-    public PointerMField<TBWIN32WindowHelper *,
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
+struct MFWeakComponentEventSourcePtr :
+    public PointerMField<ComponentEventSource *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpWindowWIN32FieldMFields \ingroup GrpLibOSGWindow */
-struct MFUncountedTBWIN32WindowHelperPtr :
-    public PointerMField<TBWIN32WindowHelper *,
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
+struct MFUncountedComponentEventSourcePtr :
+    public PointerMField<ComponentEventSource *,
                          NoRefCountPolicy        > {};
 
 
@@ -218,4 +218,4 @@ struct MFUncountedTBWIN32WindowHelperPtr :
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGTBWIN32WINDOWHELPERFIELDS_H_ */
+#endif /* _OSGCOMPONENTEVENTSOURCEFIELDS_H_ */

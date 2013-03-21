@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -80,7 +80,7 @@ class DefaultTreeComponentGenerator;
 
 //! \brief DefaultTreeComponentGenerator Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING DefaultTreeComponentGeneratorBase : public TreeComponentGenerator
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DefaultTreeComponentGeneratorBase : public TreeComponentGenerator
 {
   public:
 

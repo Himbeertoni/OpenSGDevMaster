@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageContribUserInterfaceTabPanel for a description.
 */
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING TabPanel : public TabPanelBase
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TabPanel : public TabPanelBase
 {
   protected:
 

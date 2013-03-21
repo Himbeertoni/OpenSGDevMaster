@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGContribUserInterfaceDef.h"
+#include "OSGContribToolboxUserInterfaceDef.h"
 
 //#include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class SceneNodeTreeComponentGenerator;
 
 //! \brief SceneNodeTreeComponentGenerator Base Class.
 
-class OSG_CONTRIBUSERINTERFACE_DLLMAPPING SceneNodeTreeComponentGeneratorBase : public DefaultTreeComponentGenerator
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SceneNodeTreeComponentGeneratorBase : public DefaultTreeComponentGenerator
 {
   public:
 
