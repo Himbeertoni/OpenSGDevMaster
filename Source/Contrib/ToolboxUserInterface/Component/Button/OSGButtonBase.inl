@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -48,9 +48,8 @@
  *****************************************************************************
 \*****************************************************************************/
 
-#include "OSGActionEventDetails.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 
 //! access the type of the class
@@ -65,19 +64,6 @@ inline
 OSG::UInt32 ButtonBase::getClassTypeId(void)
 {
     return _type.getId();
-}
-//! access the producer type of the class
-inline
-const EventProducerType &ButtonBase::getProducerClassType(void)
-{
-    return _producerType;
-}
-
-//! access the producer type id of the class
-inline
-UInt32 ButtonBase::getProducerClassTypeId(void)
-{
-    return _producerType.getId();
 }
 
 inline
@@ -615,94 +601,6 @@ const Char8 *ButtonBase::getClassname(void)
 {
     return "Button";
 }
-inline
-boost::signals2::connection  ButtonBase::connectActionPerformed(const ActionPerformedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _ActionPerformedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  ButtonBase::connectActionPerformed(const ActionPerformedEventType::group_type &group,
-                                                    const ActionPerformedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _ActionPerformedEvent.connect(group, listener, at);
-}
-
-inline
-void  ButtonBase::disconnectActionPerformed(const ActionPerformedEventType::group_type &group)
-{
-    _ActionPerformedEvent.disconnect(group);
-}
-
-inline
-void  ButtonBase::disconnectAllSlotsActionPerformed(void)
-{
-    _ActionPerformedEvent.disconnect_all_slots();
-}
-
-inline
-bool  ButtonBase::isEmptyActionPerformed(void) const
-{
-    return _ActionPerformedEvent.empty();
-}
-
-inline
-UInt32  ButtonBase::numSlotsActionPerformed(void) const
-{
-    return _ActionPerformedEvent.num_slots();
-}
-
-inline
-void ButtonBase::produceActionPerformed(ActionPerformedEventDetailsType* const e)
-{
-    produceEvent(ActionPerformedEventId, e);
-}
-
-inline
-boost::signals2::connection  ButtonBase::connectMousePressedActionPerformed(const MousePressedActionPerformedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _MousePressedActionPerformedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  ButtonBase::connectMousePressedActionPerformed(const MousePressedActionPerformedEventType::group_type &group,
-                                                    const MousePressedActionPerformedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _MousePressedActionPerformedEvent.connect(group, listener, at);
-}
-
-inline
-void  ButtonBase::disconnectMousePressedActionPerformed(const MousePressedActionPerformedEventType::group_type &group)
-{
-    _MousePressedActionPerformedEvent.disconnect(group);
-}
-
-inline
-void  ButtonBase::disconnectAllSlotsMousePressedActionPerformed(void)
-{
-    _MousePressedActionPerformedEvent.disconnect_all_slots();
-}
-
-inline
-bool  ButtonBase::isEmptyMousePressedActionPerformed(void) const
-{
-    return _MousePressedActionPerformedEvent.empty();
-}
-
-inline
-UInt32  ButtonBase::numSlotsMousePressedActionPerformed(void) const
-{
-    return _MousePressedActionPerformedEvent.num_slots();
-}
-
-inline
-void ButtonBase::produceMousePressedActionPerformed(MousePressedActionPerformedEventDetailsType* const e)
-{
-    produceEvent(MousePressedActionPerformedEventId, e);
-}
-
 OSG_GEN_CONTAINERPTR(Button);
 
 OSG_END_NAMESPACE

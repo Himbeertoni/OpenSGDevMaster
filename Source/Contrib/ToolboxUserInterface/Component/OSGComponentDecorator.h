@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -47,7 +47,7 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief ComponentDecorator class. See \ref
-           PageContribUserInterfaceComponentDecorator for a description.
+           PageContribToolboxUserInterfaceComponentDecorator for a description.
 */
 
 class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentDecorator : public ComponentDecoratorBase

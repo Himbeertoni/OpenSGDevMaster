@@ -49,6 +49,8 @@
 #include "OSGUIDrawObjectCanvas.h"
 #include "OSGTextureObjChunk.h"
 
+#include "OSGActionEventDetailsFields.h"
+
 OSG_BEGIN_NAMESPACE
 
 /*! \brief Button class. See \ref

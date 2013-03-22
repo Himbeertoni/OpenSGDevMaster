@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ComponentDecorator;
 
 OSG_GEN_CONTAINERPTR(ComponentDecorator);
-
-/*! \ingroup GrpContribUserInterfaceFieldTraits
-    \ingroup GrpLibOSGContribUserInterface
+/*! \ingroup GrpContribToolboxUserInterfaceFieldTraits
+    \ingroup GrpLibOSGContribToolboxUserInterface
  */
 template <>
-struct FieldTraits<ComponentDecorator *> :
-    public FieldTraitsFCPtrBase<ComponentDecorator *>
+struct FieldTraits<ComponentDecorator *, nsOSG> :
+    public FieldTraitsFCPtrBase<ComponentDecorator *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<ComponentDecorator *>  Self;
+    typedef FieldTraits<ComponentDecorator *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,72 +90,70 @@ struct FieldTraits<ComponentDecorator *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFComponentDecoratorPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFComponentDecoratorPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ComponentDecorator *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentDecorator *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecComponentDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentDecorator *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentDecorator *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecComponentDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentDecorator *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentDecorator *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakComponentDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentDecorator *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentDecorator *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdComponentDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentDecorator *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentDecorator *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecComponentDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentDecorator *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentDecorator *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecComponentDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentDecorator *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentDecorator *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakComponentDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentDecorator *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentDecorator *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdComponentDecoratorPtr"; 
 }
 
 
-/*! \ingroup GrpContribUserInterfaceFieldTraits
+/*! \ingroup GrpContribToolboxUserInterfaceFieldTraits
  */
 template <>
-struct FieldTraits<ComponentDecorator *, 1> :
-    public FieldTraitsFCPtrBase<ComponentDecorator *, 1>
+struct FieldTraits<ComponentDecorator *, nsOSG + 1> :
+    public FieldTraitsFCPtrBase<ComponentDecorator *, nsOSG + 1>
 {
   private:
 
   public:
-    typedef FieldTraits<ComponentDecorator *, 1>  Self;
+    typedef FieldTraits<ComponentDecorator *, nsOSG + 1>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -169,137 +167,137 @@ struct FieldTraits<ComponentDecorator *, 1> :
 };
 
 template<> inline
-const Char8 *FieldTraits<ComponentDecorator *, 1>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentDecorator *, nsOSG + 1>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChildComponentDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentDecorator *, 1>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentDecorator *, nsOSG + 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChildComponentDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentDecorator *, 1>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentDecorator *, nsOSG + 1>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChildComponentDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentDecorator *, 1>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentDecorator *, nsOSG + 1>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChildComponentDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentDecorator *, 1>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentDecorator *, nsOSG + 1>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecChildComponentDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentDecorator *, 1>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentDecorator *, nsOSG + 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecChildComponentDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentDecorator *, 1>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentDecorator *, nsOSG + 1>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakChildComponentDecoratorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ComponentDecorator *, 1>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ComponentDecorator *, nsOSG + 1>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdChildComponentDecoratorPtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<ComponentDecorator *,
-                      RecordedRefCountPolicy  > SFRecComponentDecoratorPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      RecordedRefCountPolicy, nsOSG  > SFRecComponentDecoratorPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<ComponentDecorator *,
-                      UnrecordedRefCountPolicy> SFUnrecComponentDecoratorPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecComponentDecoratorPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<ComponentDecorator *,
-                      WeakRefCountPolicy      > SFWeakComponentDecoratorPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      WeakRefCountPolicy, nsOSG      > SFWeakComponentDecoratorPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<ComponentDecorator *,
-                      NoRefCountPolicy        > SFUncountedComponentDecoratorPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedComponentDecoratorPtr;
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<ComponentDecorator *,
-                      RecordedRefCountPolicy  > MFRecComponentDecoratorPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      RecordedRefCountPolicy, nsOSG  > MFRecComponentDecoratorPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<ComponentDecorator *,
-                      UnrecordedRefCountPolicy> MFUnrecComponentDecoratorPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecComponentDecoratorPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<ComponentDecorator *,
-                      WeakRefCountPolicy      > MFWeakComponentDecoratorPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      WeakRefCountPolicy, nsOSG      > MFWeakComponentDecoratorPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<ComponentDecorator *,
-                      NoRefCountPolicy        > MFUncountedComponentDecoratorPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedComponentDecoratorPtr;
 
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef ChildPointerMField<
           ComponentDecorator *, 
           UnrecordedRefCountPolicy,
-          1             > MFUnrecChildComponentDecoratorPtr;
+          nsOSG + 1             > MFUnrecChildComponentDecoratorPtr;
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFRecComponentDecoratorPtr : 
     public PointerSField<ComponentDecorator *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUnrecComponentDecoratorPtr : 
     public PointerSField<ComponentDecorator *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFWeakComponentDecoratorPtr :
     public PointerSField<ComponentDecorator *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUncountedComponentDecoratorPtr :
     public PointerSField<ComponentDecorator *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFRecComponentDecoratorPtr :
     public PointerMField<ComponentDecorator *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUnrecComponentDecoratorPtr :
     public PointerMField<ComponentDecorator *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFWeakComponentDecoratorPtr :
     public PointerMField<ComponentDecorator *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUncountedComponentDecoratorPtr :
     public PointerMField<ComponentDecorator *,
                          NoRefCountPolicy        > {};
 
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUnrecChildComponentDecoratorPtr :
     public ChildPointerMField<
         ComponentDecorator *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 #endif // these are the doxygen hacks

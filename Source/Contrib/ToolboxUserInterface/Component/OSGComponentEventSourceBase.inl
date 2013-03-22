@@ -72,6 +72,9 @@ OSG::UInt16 ComponentEventSourceBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
+/*------------------------------ get -----------------------------------*/
+
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

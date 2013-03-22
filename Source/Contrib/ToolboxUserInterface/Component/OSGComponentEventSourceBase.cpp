@@ -134,7 +134,7 @@ ComponentEventSourceBase::TypeObject ComponentEventSourceBase::_type(
     "    structure=\"concrete\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"
-    "    decoratable=\"true\"\n"
+    "    decoratable=\"false\"\n"
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    >\n"
@@ -525,9 +525,6 @@ void ComponentEventSourceBase::resolveLinks(void)
 
 
 }
-
-/*------------------------------ get -----------------------------------*/
-
 
 
 OSG_END_NAMESPACE

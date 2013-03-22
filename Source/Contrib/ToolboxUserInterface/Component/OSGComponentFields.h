@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Component;
 
 OSG_GEN_CONTAINERPTR(Component);
-
-/*! \ingroup GrpContribUserInterfaceFieldTraits
-    \ingroup GrpLibOSGContribUserInterface
+/*! \ingroup GrpContribToolboxUserInterfaceFieldTraits
+    \ingroup GrpLibOSGContribToolboxUserInterface
  */
 template <>
-struct FieldTraits<Component *> :
-    public FieldTraitsFCPtrBase<Component *>
+struct FieldTraits<Component *, nsOSG> :
+    public FieldTraitsFCPtrBase<Component *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<Component *>  Self;
+    typedef FieldTraits<Component *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,72 +90,70 @@ struct FieldTraits<Component *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFComponentPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFComponentPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<Component *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Component *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecComponentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Component *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Component *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecComponentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Component *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Component *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakComponentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Component *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Component *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdComponentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Component *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Component *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecComponentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Component *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Component *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecComponentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Component *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Component *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakComponentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Component *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Component *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdComponentPtr"; 
 }
 
 
-/*! \ingroup GrpContribUserInterfaceFieldTraits
+/*! \ingroup GrpContribToolboxUserInterfaceFieldTraits
  */
 template <>
-struct FieldTraits<Component *, 1> :
-    public FieldTraitsFCPtrBase<Component *, 1>
+struct FieldTraits<Component *, nsOSG + 1> :
+    public FieldTraitsFCPtrBase<Component *, nsOSG + 1>
 {
   private:
 
   public:
-    typedef FieldTraits<Component *, 1>  Self;
+    typedef FieldTraits<Component *, nsOSG + 1>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -169,137 +167,137 @@ struct FieldTraits<Component *, 1> :
 };
 
 template<> inline
-const Char8 *FieldTraits<Component *, 1>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Component *, nsOSG + 1>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChildComponentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Component *, 1>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Component *, nsOSG + 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChildComponentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Component *, 1>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Component *, nsOSG + 1>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChildComponentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Component *, 1>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Component *, nsOSG + 1>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChildComponentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Component *, 1>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Component *, nsOSG + 1>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecChildComponentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Component *, 1>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Component *, nsOSG + 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecChildComponentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Component *, 1>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Component *, nsOSG + 1>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakChildComponentPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Component *, 1>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Component *, nsOSG + 1>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdChildComponentPtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<Component *,
-                      RecordedRefCountPolicy  > SFRecComponentPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      RecordedRefCountPolicy, nsOSG  > SFRecComponentPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<Component *,
-                      UnrecordedRefCountPolicy> SFUnrecComponentPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecComponentPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<Component *,
-                      WeakRefCountPolicy      > SFWeakComponentPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      WeakRefCountPolicy, nsOSG      > SFWeakComponentPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<Component *,
-                      NoRefCountPolicy        > SFUncountedComponentPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedComponentPtr;
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<Component *,
-                      RecordedRefCountPolicy  > MFRecComponentPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      RecordedRefCountPolicy, nsOSG  > MFRecComponentPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<Component *,
-                      UnrecordedRefCountPolicy> MFUnrecComponentPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecComponentPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<Component *,
-                      WeakRefCountPolicy      > MFWeakComponentPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      WeakRefCountPolicy, nsOSG      > MFWeakComponentPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<Component *,
-                      NoRefCountPolicy        > MFUncountedComponentPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedComponentPtr;
 
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef ChildPointerMField<
           Component *, 
           UnrecordedRefCountPolicy,
-          1             > MFUnrecChildComponentPtr;
+          nsOSG + 1             > MFUnrecChildComponentPtr;
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFRecComponentPtr : 
     public PointerSField<Component *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUnrecComponentPtr : 
     public PointerSField<Component *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFWeakComponentPtr :
     public PointerSField<Component *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUncountedComponentPtr :
     public PointerSField<Component *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFRecComponentPtr :
     public PointerMField<Component *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUnrecComponentPtr :
     public PointerMField<Component *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFWeakComponentPtr :
     public PointerMField<Component *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUncountedComponentPtr :
     public PointerMField<Component *,
                          NoRefCountPolicy        > {};
 
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUnrecChildComponentPtr :
     public ChildPointerMField<
         Component *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 #endif // these are the doxygen hacks

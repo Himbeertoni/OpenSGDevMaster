@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -52,7 +52,6 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include <boost/assign/list_of.hpp>
 
 #include "OSGConfig.h"
 
@@ -67,8 +66,6 @@
 #include "OSGButton.h"
 
 #include <boost/bind.hpp>
-
-#include "OSGEventDetails.h"
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -178,18 +175,22 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Button *>::_type("ButtonPtr", "ComponentPtr");
+PointerType FieldTraits<Button *, nsOSG>::_type(
+    "ButtonPtr", 
+    "ComponentPtr", 
+    Button::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Button *)
+OSG_FIELDTRAITS_GETTYPE_NS(Button *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            Button *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Button *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -458,7 +459,7 @@ ButtonBase::TypeObject ButtonBase::_type(
     ButtonBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ButtonBase::createEmptyLocal),
     Button::initMethod,
     Button::exitMethod,
@@ -468,261 +469,235 @@ ButtonBase::TypeObject ButtonBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"Button\"\n"
-    "\tparent=\"Component\"\n"
-    "    library=\"ContribUserInterface\"\n"
+    "    name=\"Button\"\n"
+    "    parent=\"Component\"\n"
+    "    library=\"ContribToolboxUserInterface\"\n"
     "    pointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
+    "    structure=\"concrete\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"
     "    decoratable=\"false\"\n"
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
-    "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
+    "    authors=\"David Kabala (djkabala@gmail.com)\"\n"
     "    parentProducer=\"Component\"\n"
     ">\n"
     "A UI Button.\n"
-    "\t<Field\n"
-    "\t\tname=\"Font\"\n"
-    "\t\ttype=\"UIFont\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"Text\"\n"
-    "\t\ttype=\"std::string\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"ActiveBorder\"\n"
-    "\t\ttype=\"Border\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"ActiveBackground\"\n"
-    "\t\ttype=\"Layer\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"ActiveForeground\"\n"
-    "\t\ttype=\"Layer\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"ActiveTextColor\"\n"
-    "\t\ttype=\"Color4f\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"FocusedTextColor\"\n"
-    "\t\ttype=\"Color4f\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"RolloverTextColor\"\n"
-    "\t\ttype=\"Color4f\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"DisabledTextColor\"\n"
-    "\t\ttype=\"Color4f\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"TextColor\"\n"
-    "\t\ttype=\"Color4f\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"Alignment\"\n"
-    "\t\ttype=\"Vec2f\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"0.5,0.5\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"EnableActionOnMouseDownTime\"\n"
-    "\t\ttype=\"bool\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"false\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"ActionOnMouseDownRate\"\n"
-    "\t\ttype=\"Time\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"0.1\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"ActiveOffset\"\n"
-    "\t\ttype=\"Vec2f\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t\tdefaultValue=\"0,0\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"DrawObject\"\n"
-    "\t\ttype=\"UIDrawObjectCanvas\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"ActiveDrawObject\"\n"
-    "\t\ttype=\"UIDrawObjectCanvas\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"FocusedDrawObject\"\n"
-    "\t\ttype=\"UIDrawObjectCanvas\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"RolloverDrawObject\"\n"
-    "\t\ttype=\"UIDrawObjectCanvas\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"DisabledDrawObject\"\n"
-    "\t\ttype=\"UIDrawObjectCanvas\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"DrawObjectToTextAlignment\"\n"
-    "\t\ttype=\"UInt32\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"Button::ALIGN_DRAW_OBJECT_LEFT_OF_TEXT\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"DrawObjectToTextPadding\"\n"
-    "\t\ttype=\"Real32\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"2.0\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"ActionPerformed\"\n"
-    "\t\tdetailsType=\"ActionEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"MousePressedActionPerformed\"\n"
-    "\t\tdetailsType=\"ActionEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
+    "    <Field\n"
+    "        name=\"Font\"\n"
+    "        type=\"UIFont\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"Text\"\n"
+    "        type=\"std::string\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"ActiveBorder\"\n"
+    "        type=\"Border\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"ActiveBackground\"\n"
+    "        type=\"Layer\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"ActiveForeground\"\n"
+    "        type=\"Layer\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"ActiveTextColor\"\n"
+    "        type=\"Color4f\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"FocusedTextColor\"\n"
+    "        type=\"Color4f\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"RolloverTextColor\"\n"
+    "        type=\"Color4f\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"DisabledTextColor\"\n"
+    "        type=\"Color4f\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"TextColor\"\n"
+    "        type=\"Color4f\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"Alignment\"\n"
+    "        type=\"Vec2f\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"0.5,0.5\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"EnableActionOnMouseDownTime\"\n"
+    "        type=\"bool\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"false\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"ActionOnMouseDownRate\"\n"
+    "        type=\"Time\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"0.1\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"ActiveOffset\"\n"
+    "        type=\"Vec2f\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"0,0\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"DrawObject\"\n"
+    "        type=\"UIDrawObjectCanvas\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"ActiveDrawObject\"\n"
+    "        type=\"UIDrawObjectCanvas\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"FocusedDrawObject\"\n"
+    "        type=\"UIDrawObjectCanvas\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"RolloverDrawObject\"\n"
+    "        type=\"UIDrawObjectCanvas\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"DisabledDrawObject\"\n"
+    "        type=\"UIDrawObjectCanvas\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"DrawObjectToTextAlignment\"\n"
+    "        type=\"UInt32\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"Button::ALIGN_DRAW_OBJECT_LEFT_OF_TEXT\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"DrawObjectToTextPadding\"\n"
+    "        type=\"Real32\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"2.0\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field> \n"
+    "<!--\n"
+    "    <ProducedEvent\n"
+    "        name=\"ActionPerformed\"\n"
+    "        detailsType=\"ActionEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "    <ProducedEvent\n"
+    "        name=\"MousePressedActionPerformed\"\n"
+    "        detailsType=\"ActionEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "-->\n"
     "</FieldContainer>\n",
     "A UI Button.\n"
     );
-
-//! Button Produced Events
-
-EventDescription *ButtonBase::_eventDesc[] =
-{
-    new EventDescription("ActionPerformed", 
-                          "",
-                          ActionPerformedEventId, 
-                          FieldTraits<ActionEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&ButtonBase::getHandleActionPerformedSignal)),
-
-    new EventDescription("MousePressedActionPerformed", 
-                          "",
-                          MousePressedActionPerformedEventId, 
-                          FieldTraits<ActionEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&ButtonBase::getHandleMousePressedActionPerformedSignal))
-
-};
-
-EventProducerType ButtonBase::_producerType(
-    "ButtonProducerType",
-    "ComponentProducerType",
-    "",
-    InitEventProducerFunctor(),
-    _eventDesc,
-    sizeof(_eventDesc));
 
 /*------------------------------ get -----------------------------------*/
 
@@ -734,11 +709,6 @@ FieldContainerType &ButtonBase::getType(void)
 const FieldContainerType &ButtonBase::getType(void) const
 {
     return _type;
-}
-
-const EventProducerType &ButtonBase::getProducerType(void) const
-{
-    return _producerType;
 }
 
 UInt32 ButtonBase::getContainerSize(void) const
@@ -1028,9 +998,9 @@ const SFReal32 *ButtonBase::getSFDrawObjectToTextPadding(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ButtonBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ButtonBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (FontFieldMask & whichField))
     {
@@ -1218,86 +1188,107 @@ void ButtonBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (FontFieldMask & whichField))
     {
+        editSField(FontFieldMask);
         _sfFont.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TextFieldMask & whichField))
     {
+        editSField(TextFieldMask);
         _sfText.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ActiveBorderFieldMask & whichField))
     {
+        editSField(ActiveBorderFieldMask);
         _sfActiveBorder.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ActiveBackgroundFieldMask & whichField))
     {
+        editSField(ActiveBackgroundFieldMask);
         _sfActiveBackground.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ActiveForegroundFieldMask & whichField))
     {
+        editSField(ActiveForegroundFieldMask);
         _sfActiveForeground.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ActiveTextColorFieldMask & whichField))
     {
+        editSField(ActiveTextColorFieldMask);
         _sfActiveTextColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FocusedTextColorFieldMask & whichField))
     {
+        editSField(FocusedTextColorFieldMask);
         _sfFocusedTextColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RolloverTextColorFieldMask & whichField))
     {
+        editSField(RolloverTextColorFieldMask);
         _sfRolloverTextColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DisabledTextColorFieldMask & whichField))
     {
+        editSField(DisabledTextColorFieldMask);
         _sfDisabledTextColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TextColorFieldMask & whichField))
     {
+        editSField(TextColorFieldMask);
         _sfTextColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AlignmentFieldMask & whichField))
     {
+        editSField(AlignmentFieldMask);
         _sfAlignment.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EnableActionOnMouseDownTimeFieldMask & whichField))
     {
+        editSField(EnableActionOnMouseDownTimeFieldMask);
         _sfEnableActionOnMouseDownTime.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ActionOnMouseDownRateFieldMask & whichField))
     {
+        editSField(ActionOnMouseDownRateFieldMask);
         _sfActionOnMouseDownRate.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ActiveOffsetFieldMask & whichField))
     {
+        editSField(ActiveOffsetFieldMask);
         _sfActiveOffset.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DrawObjectFieldMask & whichField))
     {
+        editSField(DrawObjectFieldMask);
         _sfDrawObject.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ActiveDrawObjectFieldMask & whichField))
     {
+        editSField(ActiveDrawObjectFieldMask);
         _sfActiveDrawObject.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FocusedDrawObjectFieldMask & whichField))
     {
+        editSField(FocusedDrawObjectFieldMask);
         _sfFocusedDrawObject.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RolloverDrawObjectFieldMask & whichField))
     {
+        editSField(RolloverDrawObjectFieldMask);
         _sfRolloverDrawObject.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DisabledDrawObjectFieldMask & whichField))
     {
+        editSField(DisabledDrawObjectFieldMask);
         _sfDisabledDrawObject.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DrawObjectToTextAlignmentFieldMask & whichField))
     {
+        editSField(DrawObjectToTextAlignmentFieldMask);
         _sfDrawObjectToTextAlignment.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DrawObjectToTextPaddingFieldMask & whichField))
     {
+        editSField(DrawObjectToTextPaddingFieldMask);
         _sfDrawObjectToTextPadding.copyFromBin(pMem);
     }
 }
@@ -1419,134 +1410,6 @@ FieldContainerTransitPtr ButtonBase::shallowCopy(void) const
 }
 
 
-
-/*------------------------- event producers ----------------------------------*/
-void ButtonBase::produceEvent(UInt32 eventId, EventDetails* const e)
-{
-    switch(eventId)
-    {
-    case ActionPerformedEventId:
-        OSG_ASSERT(dynamic_cast<ActionPerformedEventDetailsType* const>(e));
-
-        _ActionPerformedEvent.set_combiner(ConsumableEventCombiner(e));
-        _ActionPerformedEvent(dynamic_cast<ActionPerformedEventDetailsType* const>(e), ActionPerformedEventId);
-        break;
-    case MousePressedActionPerformedEventId:
-        OSG_ASSERT(dynamic_cast<MousePressedActionPerformedEventDetailsType* const>(e));
-
-        _MousePressedActionPerformedEvent.set_combiner(ConsumableEventCombiner(e));
-        _MousePressedActionPerformedEvent(dynamic_cast<MousePressedActionPerformedEventDetailsType* const>(e), MousePressedActionPerformedEventId);
-        break;
-    default:
-        Inherited::produceEvent(eventId, e);
-        break;
-    }
-}
-
-boost::signals2::connection ButtonBase::connectEvent(UInt32 eventId, 
-                                                             const BaseEventType::slot_type &listener, 
-                                                             boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case ActionPerformedEventId:
-        return _ActionPerformedEvent.connect(listener, at);
-        break;
-    case MousePressedActionPerformedEventId:
-        return _MousePressedActionPerformedEvent.connect(listener, at);
-        break;
-    default:
-        return Inherited::connectEvent(eventId, listener, at);
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-
-boost::signals2::connection  ButtonBase::connectEvent(UInt32 eventId, 
-                                                              const BaseEventType::group_type &group,
-                                                              const BaseEventType::slot_type &listener,
-                                                              boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case ActionPerformedEventId:
-        return _ActionPerformedEvent.connect(group, listener, at);
-        break;
-    case MousePressedActionPerformedEventId:
-        return _MousePressedActionPerformedEvent.connect(group, listener, at);
-        break;
-    default:
-        return Inherited::connectEvent(eventId, group, listener, at);
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-    
-void  ButtonBase::disconnectEvent(UInt32 eventId, const BaseEventType::group_type &group)
-{
-    switch(eventId)
-    {
-    case ActionPerformedEventId:
-        _ActionPerformedEvent.disconnect(group);
-        break;
-    case MousePressedActionPerformedEventId:
-        _MousePressedActionPerformedEvent.disconnect(group);
-        break;
-    default:
-        return Inherited::disconnectEvent(eventId, group);
-        break;
-    }
-}
-
-void  ButtonBase::disconnectAllSlotsEvent(UInt32 eventId)
-{
-    switch(eventId)
-    {
-    case ActionPerformedEventId:
-        _ActionPerformedEvent.disconnect_all_slots();
-        break;
-    case MousePressedActionPerformedEventId:
-        _MousePressedActionPerformedEvent.disconnect_all_slots();
-        break;
-    default:
-        Inherited::disconnectAllSlotsEvent(eventId);
-        break;
-    }
-}
-
-bool  ButtonBase::isEmptyEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case ActionPerformedEventId:
-        return _ActionPerformedEvent.empty();
-        break;
-    case MousePressedActionPerformedEventId:
-        return _MousePressedActionPerformedEvent.empty();
-        break;
-    default:
-        return Inherited::isEmptyEvent(eventId);
-        break;
-    }
-}
-
-UInt32  ButtonBase::numSlotsEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case ActionPerformedEventId:
-        return _ActionPerformedEvent.num_slots();
-        break;
-    case MousePressedActionPerformedEventId:
-        return _MousePressedActionPerformedEvent.num_slots();
-        break;
-    default:
-        return Inherited::numSlotsEvent(eventId);
-        break;
-    }
-}
 
 
 /*------------------------- constructors ----------------------------------*/
@@ -2186,29 +2049,6 @@ EditFieldHandlePtr ButtonBase::editHandleDrawObjectToTextPadding(void)
 
 
     editSField(DrawObjectToTextPaddingFieldMask);
-
-    return returnValue;
-}
-
-
-GetEventHandlePtr ButtonBase::getHandleActionPerformedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<ActionPerformedEventType>(
-             const_cast<ActionPerformedEventType *>(&_ActionPerformedEvent),
-             _producerType.getEventDescription(ActionPerformedEventId),
-             const_cast<ButtonBase *>(this)));
-
-    return returnValue;
-}
-
-GetEventHandlePtr ButtonBase::getHandleMousePressedActionPerformedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<MousePressedActionPerformedEventType>(
-             const_cast<MousePressedActionPerformedEventType *>(&_MousePressedActionPerformedEvent),
-             _producerType.getEventDescription(MousePressedActionPerformedEventId),
-             const_cast<ButtonBase *>(this)));
 
     return returnValue;
 }

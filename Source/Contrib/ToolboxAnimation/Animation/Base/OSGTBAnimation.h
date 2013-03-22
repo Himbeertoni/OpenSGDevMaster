@@ -44,8 +44,6 @@
 
 #include "OSGTBAnimationBase.h"
 
-//#include "OSGAnimationAdvancer.h"
-#include "OSGAnimationEventDetails.h"
 #include "OSGStatElemTypes.h"
 
 OSG_BEGIN_NAMESPACE
@@ -79,19 +77,19 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING TBAnimation : public TBAnimationBas
 
     /*! \}                                                                 */
 
-    virtual bool update(const Time& ElapsedTime);
+    virtual bool update(const Time& elapsedTime);
     
-    virtual void start(const Time& StartTime=0.0f);
+    virtual void start(const Time& startTime=0.0f);
 
-    virtual void seek(const Time& SeekTime);
+    virtual void seek(const Time& seekTime);
 
-    virtual void pause(bool ShouldPause);
+    virtual void pause(bool shouldPause);
 
     virtual bool isPaused(void) const;
 
     virtual bool isPlaying(void) const;
 
-    virtual void stop(bool DisconnectFromEventProducer = true);
+    virtual void stop(bool disconnectFromEventProducer = true);
 
     Real32 getLength(void) const;
 
@@ -104,28 +102,6 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING TBAnimation : public TBAnimationBas
     static StatElemDesc<StatTimeElem   > statAnimUpdateTime;
     static StatElemDesc<StatIntElem    > statNAnimations;
 
-    /*---------------------------------------------------------------------*/
-    /*! \name                  Event Connectable                           */
-    /*! \{                                                                 */
-
-    void attachUpdateProducer( EventContainer* const producer );
-    void detachUpdateProducer(void);
-
-    virtual bool
-    isConnectableEvent(EventDescription const * eventDesc) const;
-
-    virtual EventDescVector getConnectableEvents(void) const;
-
-    virtual bool
-        isConnected(EventDescription const * eventDesc) const;
-
-    virtual bool
-        disconnectFromEvent(EventDescription const * eventDesc) const;
-
-    boost::signals2::connection 
-        connectToEvent(EventDescription const * eventDesc,
-                       EventContainer* const eventProducer) const;
-    /*! \}                                                                 */
 
     /*=========================  PROTECTED  ===============================*/
 
@@ -155,18 +131,10 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING TBAnimation : public TBAnimationBas
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
-    void produceAnimationStarted(void);
-    void produceAnimationStopped(void);
-    void produceAnimationPaused(void);
-    void produceAnimationUnpaused(void);
-    void produceAnimationEnded(void);
-    void produceAnimationCycled(void);
+
 
     virtual void internalUpdate(Real32 t, const Real32 prev_t)=0;
 
-    void handleUpdate(EventDetails* const details);
-
-    boost::signals2::connection _UpdateEventConnection;
 
     Time _CurrentTime,_PrevTime;
     bool _IsPlaying,_IsPaused;

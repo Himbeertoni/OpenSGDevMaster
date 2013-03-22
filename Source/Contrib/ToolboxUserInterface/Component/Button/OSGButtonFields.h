@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class Button;
 
 OSG_GEN_CONTAINERPTR(Button);
-
-/*! \ingroup GrpContribUserInterfaceFieldTraits
-    \ingroup GrpLibOSGContribUserInterface
+/*! \ingroup GrpContribToolboxUserInterfaceFieldTraits
+    \ingroup GrpLibOSGContribToolboxUserInterface
  */
 template <>
-struct FieldTraits<Button *> :
-    public FieldTraitsFCPtrBase<Button *>
+struct FieldTraits<Button *, nsOSG> :
+    public FieldTraitsFCPtrBase<Button *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<Button *>  Self;
+    typedef FieldTraits<Button *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,126 +90,124 @@ struct FieldTraits<Button *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFButtonPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFButtonPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<Button *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Button *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecButtonPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Button *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Button *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecButtonPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Button *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Button *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakButtonPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Button *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Button *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdButtonPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Button *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Button *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecButtonPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Button *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<Button *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecButtonPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Button *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<Button *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakButtonPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Button *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<Button *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdButtonPtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<Button *,
-                      RecordedRefCountPolicy  > SFRecButtonPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      RecordedRefCountPolicy, nsOSG  > SFRecButtonPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<Button *,
-                      UnrecordedRefCountPolicy> SFUnrecButtonPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecButtonPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<Button *,
-                      WeakRefCountPolicy      > SFWeakButtonPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      WeakRefCountPolicy, nsOSG      > SFWeakButtonPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<Button *,
-                      NoRefCountPolicy        > SFUncountedButtonPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedButtonPtr;
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<Button *,
-                      RecordedRefCountPolicy  > MFRecButtonPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      RecordedRefCountPolicy, nsOSG  > MFRecButtonPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<Button *,
-                      UnrecordedRefCountPolicy> MFUnrecButtonPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecButtonPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<Button *,
-                      WeakRefCountPolicy      > MFWeakButtonPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      WeakRefCountPolicy, nsOSG      > MFWeakButtonPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<Button *,
-                      NoRefCountPolicy        > MFUncountedButtonPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedButtonPtr;
 
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFRecButtonPtr : 
     public PointerSField<Button *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUnrecButtonPtr : 
     public PointerSField<Button *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFWeakButtonPtr :
     public PointerSField<Button *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUncountedButtonPtr :
     public PointerSField<Button *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFRecButtonPtr :
     public PointerMField<Button *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUnrecButtonPtr :
     public PointerMField<Button *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFWeakButtonPtr :
     public PointerMField<Button *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUncountedButtonPtr :
     public PointerMField<Button *,
                          NoRefCountPolicy        > {};

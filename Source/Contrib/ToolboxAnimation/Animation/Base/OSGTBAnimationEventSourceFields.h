@@ -144,6 +144,77 @@ const Char8 *FieldTraits<TBAnimationEventSource *, nsOSG>::getMName<NoRefCountPo
 }
 
 
+/*! \ingroup GrpContribToolboxAnimationFieldTraits
+ */
+template <>
+struct FieldTraits<TBAnimationEventSource *, nsOSG + 1> :
+    public FieldTraitsFCPtrBase<TBAnimationEventSource *, nsOSG + 1>
+{
+  private:
+
+  public:
+    typedef FieldTraits<TBAnimationEventSource *, nsOSG + 1>  Self;
+
+    enum                        { Convertible = NotConvertible };
+
+    static OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING DataType &getType(void);
+
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+};
+
+template<> inline
+const Char8 *FieldTraits<TBAnimationEventSource *, nsOSG + 1>::getSName<RecordedRefCountPolicy>(void)
+{
+    return "SFRecChildTBAnimationEventSourcePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TBAnimationEventSource *, nsOSG + 1>::getSName<UnrecordedRefCountPolicy>(void)
+{
+    return "SFUnrecChildTBAnimationEventSourcePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TBAnimationEventSource *, nsOSG + 1>::getSName<WeakRefCountPolicy>(void)
+{
+    return "SFWeakChildTBAnimationEventSourcePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TBAnimationEventSource *, nsOSG + 1>::getSName<NoRefCountPolicy>(void)
+{
+    return "SFUnrefdChildTBAnimationEventSourcePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TBAnimationEventSource *, nsOSG + 1>::getMName<RecordedRefCountPolicy>(void)
+{
+    return "MFRecChildTBAnimationEventSourcePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TBAnimationEventSource *, nsOSG + 1>::getMName<UnrecordedRefCountPolicy>(void)
+{
+    return "MFUnrecChildTBAnimationEventSourcePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TBAnimationEventSource *, nsOSG + 1>::getMName<WeakRefCountPolicy>(void)
+{
+    return "MFWeakChildTBAnimationEventSourcePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<TBAnimationEventSource *, nsOSG + 1>::getMName<NoRefCountPolicy>(void)
+{
+    return "MFUnrefdChildTBAnimationEventSourcePtr"; 
+}
+
+
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpContribToolboxAnimationFieldSFields */
 typedef PointerSField<TBAnimationEventSource *,
@@ -172,6 +243,13 @@ typedef PointerMField<TBAnimationEventSource *,
 typedef PointerMField<TBAnimationEventSource *,
                       NoRefCountPolicy, nsOSG        > MFUncountedTBAnimationEventSourcePtr;
 
+
+
+/*! \ingroup GrpContribToolboxAnimationFieldSFields */
+typedef ChildPointerSField<
+          TBAnimationEventSource *, 
+          UnrecordedRefCountPolicy,
+          nsOSG + 1             > SFUnrecChildTBAnimationEventSourcePtr;
 
 
 
@@ -212,6 +290,14 @@ struct MFUncountedTBAnimationEventSourcePtr :
     public PointerMField<TBAnimationEventSource *,
                          NoRefCountPolicy        > {};
 
+
+
+/*! \ingroup GrpContribToolboxAnimationFieldSFields \ingroup GrpLibOSGContribToolboxAnimation */
+struct SFUnrecChildTBAnimationEventSourcePtr :
+    public ChildPointerSField<
+        TBAnimationEventSource *, 
+        UnrecordedRefCountPolicy,
+        nsOSG + 1             > {};
 
 
 #endif // these are the doxygen hacks

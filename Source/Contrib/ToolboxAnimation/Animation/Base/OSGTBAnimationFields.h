@@ -144,6 +144,39 @@ const Char8 *FieldTraits<TBAnimation *, nsOSG>::getMName<NoRefCountPolicy>(void)
 }
 
 
+/*! \ingroup GrpContribToolboxAnimationFieldTraits
+ */
+template <>
+struct FieldTraits<TBAnimation *, nsOSG + 1> : 
+    public FieldTraitsFCPtrBase<TBAnimation *, nsOSG + 1>
+{
+  private:
+
+    static  DataType                                _type;
+
+  public:
+
+    static const bool bIsPointerField = true;
+
+    typedef FieldTraits<TBAnimation *, nsOSG + 1> Self;
+
+
+    enum             { Convertible = Self::NotConvertible };
+    
+    static OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING
+                 DataType &getType (void);
+
+    static const Char8    *getSName(void) 
+    {
+        return "SFParentTBAnimationPtr"; 
+    }
+
+    static const Char8    *getMName(void) 
+    { 
+        return "MFParentTBAnimationPtr"; 
+    }
+};
+
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpContribToolboxAnimationFieldSFields */
 typedef PointerSField<TBAnimation *,
@@ -173,6 +206,12 @@ typedef PointerMField<TBAnimation *,
                       NoRefCountPolicy, nsOSG        > MFUncountedTBAnimationPtr;
 
 
+
+/*! \ingroup GrpContribToolboxAnimationFieldSFields */
+typedef ParentPointerSField<
+          TBAnimation *, 
+          NoRefCountPolicy,
+          nsOSG + 1    > SFParentTBAnimationPtr;
 
 
 #else // these are the doxygen hacks
@@ -213,6 +252,13 @@ struct MFUncountedTBAnimationPtr :
                          NoRefCountPolicy        > {};
 
 
+
+/*! \ingroup GrpContribToolboxAnimationFieldSFields \ingroup GrpLibOSGContribToolboxAnimation */
+struct SFParentTBAnimationPtr :
+    public ParentPointerSField<
+        TBAnimation *, 
+        NoRefCountPolicy,
+        nsOSG + 1    > {};
 
 #endif // these are the doxygen hacks
 

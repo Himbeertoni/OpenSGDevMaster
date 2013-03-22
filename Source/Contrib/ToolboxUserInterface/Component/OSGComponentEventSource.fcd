@@ -8,7 +8,7 @@
     structure="concrete"
     systemcomponent="true"
     parentsystemcomponent="true"
-    decoratable="true"
+    decoratable="false"
     useLocalIncludes="false"
     isNodeCore="false"
     >

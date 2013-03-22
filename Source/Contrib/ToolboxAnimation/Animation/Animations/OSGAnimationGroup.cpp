@@ -135,17 +135,17 @@ bool AnimationGroup::update(const Time& ElapsedTime)
             {
                 //Animation has reached the end
                 //Remove the Animation from it's update producer
-                _UpdateEventConnection.disconnect();
+                getEventSource()->disconnectUpdate();
                 _IsPlaying = false;
 
                 //Produce the Ended event
-                produceAnimationEnded();
+                getEventSource()->produceAnimationEnded();
             }
             else
             {
                 //Animation hasn't finished yet
                 //Produce the Cycled event
-                produceAnimationCycled();
+                getEventSource()->produceAnimationCycled();
             }
         }
     }

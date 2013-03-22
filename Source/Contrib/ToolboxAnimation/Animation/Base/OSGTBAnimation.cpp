@@ -196,7 +196,7 @@ void TBAnimation::start(const Time& StartTime)
 
     update(0.0);
 
-    produceAnimationStarted();
+    getEventSource()->produceAnimationStarted();
 }
 
 /*!\fn void Animation::seek(const Time& SeekTime)
@@ -228,12 +228,12 @@ void TBAnimation::pause(bool ShouldPause)
     if(_IsPaused && !ShouldPause)
     {
         _IsPaused = ShouldPause;
-        produceAnimationUnpaused();
+        getEventSource()->produceAnimationUnpaused();
     }
     if(!_IsPaused && ShouldPause)
     {
         _IsPaused = ShouldPause;
-        produceAnimationPaused();
+        getEventSource()->produceAnimationPaused();
     }
 }
 
@@ -244,16 +244,16 @@ void TBAnimation::pause(bool ShouldPause)
  * @param[in] DisconnectFromEventProducer If true the animation will also be
  * detached from the event producer. By default it is true.
  */
-void TBAnimation::stop(bool DisconnectFromEventProducer)
+void TBAnimation::stop(bool disconnectFromEventProducer)
 {
     if(_IsPlaying)
     {
         _IsPlaying = false;
-        if(DisconnectFromEventProducer)
+        if( disconnectFromEventProducer )
         {
-            _UpdateEventConnection.disconnect();
+            getEventSource()->disconnectUpdate();
         }
-        produceAnimationStopped();
+        getEventSource()->produceAnimationStopped();
     }
 }
 
@@ -326,17 +326,17 @@ bool TBAnimation::update(const Time& ElapsedTime)
             {
                 //Animation has reached the end
                 //Remove the Animation from it's update producer
-                _UpdateEventConnection.disconnect();
+                getEventSource()->disconnectUpdate();
                 _IsPlaying = false;
 
                 //Produce the Ended event
-                produceAnimationEnded();
+                getEventSource()->produceAnimationEnded();
             }
             else
             {
                 //Animation hasn't finished yet
                 //Produce the Cycled event
-                produceAnimationCycled();
+                getEventSource()->produceAnimationCycled();
             }
         }
     }
@@ -350,148 +350,6 @@ bool TBAnimation::update(const Time& ElapsedTime)
     return (getCycling() > 0 && getCycles() >= getCycling());
 }
 
-/*!\fn void Animation::attachUpdateProducer(ReflexiveContainer* const producer)
- *
- * \brief Attach an update event producer to this animation.
- *
- * This event producer should produce an update event regularly to update the
- * animation.
- *
- * @param[in] Producer A ReflexiveContainer that can produce an UpdateEvent.
- */
-void TBAnimation::attachUpdateProducer( EventContainer* const producer )
-{
-    const EventDescription* Desc(producer->getProducerType().findEventDescription("Update"));
-
-    if(_UpdateEventConnection.connected())
-    {
-        _UpdateEventConnection.disconnect();
-    }
-
-    _UpdateEventConnection = connectToEvent(Desc, producer);
-}
-
-/*!\fn void Animation::detachUpdateProducer(void)
- *
- * \brief Detach the event update producer from this animation if there is one
- * attached.
- */
-void TBAnimation::detachUpdateProducer(void)
-{
-    _UpdateEventConnection.disconnect();
-}
-
-bool TBAnimation::isConnectableEvent(EventDescription const * eventDesc) const
-{
-    return eventDesc->getEventArgumentType() == FieldTraits<UpdateEventDetails *>::getType();
-}
-
-TBAnimation::EventDescVector TBAnimation::getConnectableEvents(void) const
-{
-    EventDescVector ConnectableEvents;
-
-    EventDescPair UpdateEventDesc("Update", &FieldTraits<UpdateEventDetails *>::getType());
-
-    ConnectableEvents.push_back(UpdateEventDesc);
-
-    return ConnectableEvents;
-}
-
-bool
-TBAnimation::isConnected(EventDescription const * eventDesc) const
-{
-    if(eventDesc->getEventArgumentType() == FieldTraits<UpdateEventDetails *>::getType())
-    {
-        return _UpdateEventConnection.connected();
-    }
-    else
-    {
-        return false;
-    }
-}
-
-bool
-TBAnimation::disconnectFromEvent(EventDescription const * eventDesc) const
-{
-    if(eventDesc->getEventArgumentType() == FieldTraits<UpdateEventDetails *>::getType())
-    {
-        _UpdateEventConnection.disconnect();
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-boost::signals2::connection 
-TBAnimation::connectToEvent(EventDescription const * eventDesc,
-                            EventContainer* const eventProducer) const
-{
-    //Validate the EventDescription and producer
-    EventDescription const * localDesc( eventProducer->getEventDescription(eventDesc->getName().c_str()) );
-#if 0
-	if( this->getEventProducer()->validateConnectable(eventDesc,eventProducer))
-#else
-	if ( true )
-#endif
-    {
-        return eventProducer->connectEvent(localDesc->getEventId(),
-                                           boost::bind(&TBAnimation::handleUpdate,
-                                                       const_cast<TBAnimation*>(this),
-                                                       _1));
-    }
-    else
-    {
-        return boost::signals2::connection();
-    }
-}
-
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
-
-void TBAnimation::produceAnimationStarted(void)
-{
-    AnimationEventDetailsUnrecPtr Details = AnimationEventDetails::create(this,getTimeStamp());
-   
-    Inherited::produceAnimationStarted(Details);
-}
-
-void TBAnimation::produceAnimationStopped(void)
-{
-    AnimationEventDetailsUnrecPtr Details = AnimationEventDetails::create(this,getTimeStamp());
-   
-    Inherited::produceAnimationStopped(Details);
-}
-
-void TBAnimation::produceAnimationPaused(void)
-{
-    AnimationEventDetailsUnrecPtr Details = AnimationEventDetails::create(this,getTimeStamp());
-   
-    Inherited::produceAnimationPaused(Details);
-}
-
-void TBAnimation::produceAnimationUnpaused(void)
-{
-    AnimationEventDetailsUnrecPtr Details = AnimationEventDetails::create(this,getTimeStamp());
-   
-    Inherited::produceAnimationUnpaused(Details);
-}
-
-void TBAnimation::produceAnimationEnded(void)
-{
-    AnimationEventDetailsUnrecPtr Details = AnimationEventDetails::create(this,getTimeStamp());
-   
-    Inherited::produceAnimationEnded(Details);
-}
-
-void TBAnimation::produceAnimationCycled(void)
-{
-    AnimationEventDetailsUnrecPtr Details = AnimationEventDetails::create(this,getTimeStamp());
-   
-    Inherited::produceAnimationCycled(Details);
-}
 
 /*----------------------- constructors & destructors ----------------------*/
 
@@ -532,10 +390,5 @@ void TBAnimation::dump(      UInt32    ,
     SLOG << "Dump Animation NI" << std::endl;
 }
 
-void TBAnimation::handleUpdate(EventDetails* const details)
-{
-    Time elapsed = dynamic_cast<UpdateEventDetails* const>(details)->getElapsedTime();
-    update(elapsed);
-}
 
 OSG_END_NAMESPACE

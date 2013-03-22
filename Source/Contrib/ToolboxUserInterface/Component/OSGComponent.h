@@ -48,6 +48,10 @@
 #include "OSGInternalWindowFields.h"
 #include "OSGComponentContainerFields.h"
 #include "OSGUpdateEventDetailsFields.h"
+#include "OSGMouseEventDetailsFields.h"
+#include "OSGMouseWheelEventDetailsFields.h"
+#include "OSGKeyEventDetailsFields.h"
+#include "OSGFocusEventDetailsFields.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -961,15 +965,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Component : public ComponentBas
 
     void handleDeactivateToolTipEvent(MouseEventDetails* const e);
 
-    boost::signals2::connection _ToolTipActivateUpdateConnection;
-
-    boost::signals2::connection _ToolTipActivateMouseEnterConnection,
-        _ToolTipActivateMouseExitConnection;
-
-    boost::signals2::connection _ActiveTooltipClickConnection,
-                                _ActiveTooltipExitConnection,
-                                _ActiveTooltipPressConnection,
-                                _ActiveTooltipReleaseConnection;
 
     Real32 _TimeSinceMouseEntered;
 

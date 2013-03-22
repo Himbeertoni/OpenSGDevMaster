@@ -124,7 +124,7 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING TBAnimationBase : public Attachment
     typedef SFReal32          SFOffsetType;
     typedef SFReal32          SFSpanType;
     typedef SFReal32          SFCyclesType;
-    typedef SFUnrecTBAnimationEventSourcePtr SFEventSourceType;
+    typedef SFUnrecChildTBAnimationEventSourcePtr SFEventSourceType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -164,8 +164,8 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING TBAnimationBase : public Attachment
 
                   SFReal32            *editSFCycles         (void);
             const SFReal32            *getSFCycles          (void) const;
-            const SFUnrecTBAnimationEventSourcePtr *getSFEventSource    (void) const;
-                  SFUnrecTBAnimationEventSourcePtr *editSFEventSource    (void);
+            const SFUnrecChildTBAnimationEventSourcePtr *getSFEventSource    (void) const;
+                  SFUnrecChildTBAnimationEventSourcePtr *editSFEventSource    (void);
 
 
                   Int32               &editCycling        (void);
@@ -238,7 +238,7 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING TBAnimationBase : public Attachment
     SFReal32          _sfOffset;
     SFReal32          _sfSpan;
     SFReal32          _sfCycles;
-    SFUnrecTBAnimationEventSourcePtr _sfEventSource;
+    SFUnrecChildTBAnimationEventSourcePtr _sfEventSource;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -261,6 +261,14 @@ class OSG_CONTRIBTOOLBOXANIMATION_DLLMAPPING TBAnimationBase : public Attachment
     /*! \{                                                                 */
 
     void onCreate(const TBAnimation *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Child linking                                                */
+    /*! \{                                                                 */
+
+    virtual bool unlinkChild(FieldContainer * const pChild,
+                             UInt16           const childFieldId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

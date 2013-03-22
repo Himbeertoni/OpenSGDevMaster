@@ -11,6 +11,7 @@
     decoratable="false"
     isNodeCore="false"
     authors="David Kabala (djkabala@gmail.com)                             "
+    parentFields="single"
 >
 \brief Abstract interface for controlling and applying the result of an
 #OSG::Animator to some object
@@ -78,11 +79,12 @@ concrete class can define what object to apply to.
     <Field
         name="EventSource"
         type="TBAnimationEventSource"
-        category="pointer"
+        category="childpointer"
         cardinality="single"
         visibility="external"
         access="public"
-        defaultValue="NULL"
+        childParentType="TBAnimation"
+        linkParentField="Parent" 
     >
     </Field>	
 <!--

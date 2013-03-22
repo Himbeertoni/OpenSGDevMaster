@@ -141,6 +141,23 @@ OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            TBAnimation *,
                            nsOSG);
 
+DataType &FieldTraits<TBAnimation *, nsOSG + 1 >::getType(void)
+{
+    return FieldTraits<TBAnimation *, nsOSG>::getType();
+}
+
+
+OSG_SFIELDTYPE_INST(ParentPointerSField,
+                    TBAnimation *,
+                    NoRefCountPolicy,
+                    nsOSG + 1);
+
+OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
+                         TBAnimation *,
+                         NoRefCountPolicy,
+                         nsOSG + 1);
+
+
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
@@ -210,8 +227,8 @@ void TBAnimationBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUnrecTBAnimationEventSourcePtr::Description(
-        SFUnrecTBAnimationEventSourcePtr::getClassType(),
+    pDesc = new SFUnrecChildTBAnimationEventSourcePtr::Description(
+        SFUnrecChildTBAnimationEventSourcePtr::getClassType(),
         "EventSource",
         "",
         EventSourceFieldId, EventSourceFieldMask,
@@ -248,6 +265,7 @@ TBAnimationBase::TypeObject TBAnimationBase::_type(
     "    decoratable=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
+    "    parentFields=\"single\"\n"
     ">\n"
     "\\brief Abstract interface for controlling and applying the result of an\n"
     "#OSG::Animator to some object\n"
@@ -315,11 +333,12 @@ TBAnimationBase::TypeObject TBAnimationBase::_type(
     "    <Field\n"
     "        name=\"EventSource\"\n"
     "        type=\"TBAnimationEventSource\"\n"
-    "        category=\"pointer\"\n"
+    "        category=\"childpointer\"\n"
     "        cardinality=\"single\"\n"
     "        visibility=\"external\"\n"
     "        access=\"public\"\n"
-    "        defaultValue=\"NULL\"\n"
+    "        childParentType=\"TBAnimation\"\n"
+    "        linkParentField=\"Parent\" \n"
     "    >\n"
     "    </Field>\t\n"
     "<!--\n"
@@ -462,12 +481,12 @@ const SFReal32 *TBAnimationBase::getSFCycles(void) const
 
 
 //! Get the TBAnimation::_sfEventSource field.
-const SFUnrecTBAnimationEventSourcePtr *TBAnimationBase::getSFEventSource(void) const
+const SFUnrecChildTBAnimationEventSourcePtr *TBAnimationBase::getSFEventSource(void) const
 {
     return &_sfEventSource;
 }
 
-SFUnrecTBAnimationEventSourcePtr *TBAnimationBase::editSFEventSource    (void)
+SFUnrecChildTBAnimationEventSourcePtr *TBAnimationBase::editSFEventSource    (void)
 {
     editSField(EventSourceFieldMask);
 
@@ -592,7 +611,9 @@ TBAnimationBase::TBAnimationBase(void) :
     _sfOffset                 (Real32(0.0)),
     _sfSpan                   (Real32(-1.0)),
     _sfCycles                 (Real32(0)),
-    _sfEventSource            (NULL)
+    _sfEventSource            (this,
+                          EventSourceFieldId,
+                          TBAnimationEventSource::ParentFieldId)
 {
 }
 
@@ -603,7 +624,9 @@ TBAnimationBase::TBAnimationBase(const TBAnimationBase &source) :
     _sfOffset                 (source._sfOffset                 ),
     _sfSpan                   (source._sfSpan                   ),
     _sfCycles                 (source._sfCycles                 ),
-    _sfEventSource            (NULL)
+    _sfEventSource            (this,
+                          EventSourceFieldId,
+                          TBAnimationEventSource::ParentFieldId)
 {
 }
 
@@ -612,6 +635,49 @@ TBAnimationBase::TBAnimationBase(const TBAnimationBase &source) :
 
 TBAnimationBase::~TBAnimationBase(void)
 {
+}
+
+/*-------------------------------------------------------------------------*/
+/* Child linking                                                           */
+
+bool TBAnimationBase::unlinkChild(
+    FieldContainer * const pChild,
+    UInt16           const childFieldId)
+{
+    if(childFieldId == EventSourceFieldId)
+    {
+        TBAnimationEventSource * pTypedChild =
+            dynamic_cast<TBAnimationEventSource *>(pChild);
+
+        if(pTypedChild != NULL)
+        {
+            if(_sfEventSource.getValue() == pTypedChild)
+            {
+                editSField(EventSourceFieldMask);
+
+                _sfEventSource.setValue(NULL);
+
+                return true;
+            }
+
+            SWARNING << "Parent (["        << this
+                     << "] id ["           << this->getId()
+                     << "] type ["         << this->getType().getCName()
+                     << "] childFieldId [" << childFieldId
+                     << "]) - Child (["    << pChild
+                     << "] id ["           << pChild->getId()
+                     << "] type ["         << pChild->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
+
+            return false;
+        }
+
+        return false;
+    }
+
+
+    return Inherited::unlinkChild(pChild, childFieldId);
 }
 
 void TBAnimationBase::onCreate(const TBAnimation *source)
@@ -753,8 +819,8 @@ EditFieldHandlePtr TBAnimationBase::editHandleCycles         (void)
 
 GetFieldHandlePtr TBAnimationBase::getHandleEventSource     (void) const
 {
-    SFUnrecTBAnimationEventSourcePtr::GetHandlePtr returnValue(
-        new  SFUnrecTBAnimationEventSourcePtr::GetHandle(
+    SFUnrecChildTBAnimationEventSourcePtr::GetHandlePtr returnValue(
+        new  SFUnrecChildTBAnimationEventSourcePtr::GetHandle(
              &_sfEventSource,
              this->getType().getFieldDesc(EventSourceFieldId),
              const_cast<TBAnimationBase *>(this)));
@@ -764,8 +830,8 @@ GetFieldHandlePtr TBAnimationBase::getHandleEventSource     (void) const
 
 EditFieldHandlePtr TBAnimationBase::editHandleEventSource    (void)
 {
-    SFUnrecTBAnimationEventSourcePtr::EditHandlePtr returnValue(
-        new  SFUnrecTBAnimationEventSourcePtr::EditHandle(
+    SFUnrecChildTBAnimationEventSourcePtr::EditHandlePtr returnValue(
+        new  SFUnrecChildTBAnimationEventSourcePtr::EditHandle(
              &_sfEventSource,
              this->getType().getFieldDesc(EventSourceFieldId),
              this));

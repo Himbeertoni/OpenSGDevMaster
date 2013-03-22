@@ -3,7 +3,7 @@
 <FieldContainer
     name="Button"
     parent="Component"
-    library="ContribUserInterface"
+    library="ContribToolboxUserInterface"
     pointerfieldtypes="both"
     structure="concrete"
     systemcomponent="true"
@@ -212,7 +212,8 @@ A UI Button.
         defaultValue="2.0"
         access="public"
     >
-    </Field>
+    </Field> 
+<!--
     <ProducedEvent
         name="ActionPerformed"
         detailsType="ActionEventDetails"
@@ -225,4 +226,5 @@ A UI Button.
         consumable="true"
     >
     </ProducedEvent>
+-->
 </FieldContainer>

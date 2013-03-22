@@ -10,7 +10,17 @@
     parentsystemcomponent="true"
     decoratable="false"
     isNodeCore="false"
+    childFields="single"
 >
+    <Field
+        name="Parent"
+        category="parentpointer"
+        type="TBAnimation"
+        cardinality="single"
+        access="none"
+        visibility="internal"
+        >
+    </Field>
 <!--    
     <ProducedEvent
         name="AnimationStarted"
