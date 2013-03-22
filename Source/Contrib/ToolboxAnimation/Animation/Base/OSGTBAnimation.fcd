@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-    name="Animation"
+    name="TBAnimation"
     parent="AttachmentContainer"
-    library="TBAnimation"
+    library="ContribToolboxAnimation"
     pointerfieldtypes="both"
     structure="abstract"
     systemcomponent="true"
@@ -75,6 +75,17 @@ concrete class can define what object to apply to.
         defaultValue="0"
     >
     </Field>
+    <Field
+        name="EventSource"
+        type="TBAnimationEventSource"
+        category="pointer"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="NULL"
+    >
+    </Field>	
+<!--
     <ProducedEvent
         name="AnimationStarted"
         detailsType="AnimationEventDetails"
@@ -111,4 +122,5 @@ concrete class can define what object to apply to.
         consumable="true"
     >
     </ProducedEvent>
+-->
 </FieldContainer>

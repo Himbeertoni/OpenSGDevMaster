@@ -187,6 +187,7 @@ typedef TBAnimation *TBAnimationP;
 
 OSG_END_NAMESPACE
 
+#include "OSGTBAnimationEventSource.h"
 #include "OSGTBAnimationBase.inl"
 #include "OSGTBAnimation.inl"
 

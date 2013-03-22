@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -45,26 +45,24 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class Animation!
+ **     class TBAnimation!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 #include <cstdlib>
 #include <cstdio>
-#include <boost/assign/list_of.hpp>
 
 #include "OSGConfig.h"
 
 
 
+#include "OSGTBAnimationEventSource.h"  // EventSource Class
 
 #include "OSGTBAnimationBase.h"
 #include "OSGTBAnimation.h"
 
 #include <boost/bind.hpp>
-
-#include "OSGEventDetails.h"
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -76,7 +74,7 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::Animation
+/*! \class OSG::TBAnimation
     \brief Abstract interface for controlling and applying the result of an
     #OSG::Animator to some object
 
@@ -96,23 +94,27 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var Int32           AnimationBase::_sfCycling
+/*! \var Int32           TBAnimationBase::_sfCycling
     
 */
 
-/*! \var Real32          AnimationBase::_sfScale
+/*! \var Real32          TBAnimationBase::_sfScale
     
 */
 
-/*! \var Real32          AnimationBase::_sfOffset
+/*! \var Real32          TBAnimationBase::_sfOffset
     
 */
 
-/*! \var Real32          AnimationBase::_sfSpan
+/*! \var Real32          TBAnimationBase::_sfSpan
     
 */
 
-/*! \var Real32          AnimationBase::_sfCycles
+/*! \var Real32          TBAnimationBase::_sfCycles
+    
+*/
+
+/*! \var TBAnimationEventSource * TBAnimationBase::_sfEventSource
     
 */
 
@@ -122,18 +124,22 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TBAnimation *>::_type("TBAnimationPtr", "EventContainerPtr");
+PointerType FieldTraits<TBAnimation *, nsOSG>::_type(
+    "TBAnimationPtr", 
+    "AttachmentContainerPtr", 
+    TBAnimation::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TBAnimation *)
+OSG_FIELDTRAITS_GETTYPE_NS(TBAnimation *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            TBAnimation *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            TBAnimation *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -203,6 +209,18 @@ void TBAnimationBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&TBAnimation::getHandleCycles));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUnrecTBAnimationEventSourcePtr::Description(
+        SFUnrecTBAnimationEventSourcePtr::getClassType(),
+        "EventSource",
+        "",
+        EventSourceFieldId, EventSourceFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&TBAnimation::editHandleEventSource),
+        static_cast<FieldGetMethodSig >(&TBAnimation::getHandleEventSource));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -210,7 +228,7 @@ TBAnimationBase::TypeObject TBAnimationBase::_type(
     TBAnimationBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     TBAnimation::initMethod,
     TBAnimation::exitMethod,
@@ -220,21 +238,20 @@ TBAnimationBase::TypeObject TBAnimationBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"Animation\"\n"
-    "\tparent=\"EventContainer\"\n"
-    "    library=\"TBAnimation\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"abstract\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
+    "    name=\"TBAnimation\"\n"
+    "    parent=\"AttachmentContainer\"\n"
+    "    library=\"ContribToolboxAnimation\"\n"
+    "    pointerfieldtypes=\"both\"\n"
+    "    structure=\"abstract\"\n"
+    "    systemcomponent=\"true\"\n"
+    "    parentsystemcomponent=\"true\"\n"
+    "    decoratable=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
     ">\n"
     "\\brief Abstract interface for controlling and applying the result of an\n"
     "#OSG::Animator to some object\n"
     "\n"
-    "\\copybrief OSG::Animation\n"
     "To use an animation, first create a concrete instance that\n"
     "inherits from Animation.  The animation can be started using the start()\n"
     "method.  Updating the animation can be done using the update() method, or\n"
@@ -245,97 +262,108 @@ TBAnimationBase::TypeObject TBAnimationBase::_type(
     "getUnclippedLength() and protected internalUpdate() methods.  internalUpdate() is\n"
     "responsible for applying the result of an #OSG::Animator to some object.  The\n"
     "concrete class can define what object to apply to.\n"
-    "\t<Field\n"
-    "\t\tname=\"Cycling\"\n"
-    "\t\ttype=\"Int32\"\n"
+    "    <Field\n"
+    "        name=\"Cycling\"\n"
+    "        type=\"Int32\"\n"
     "        category=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
     "        defaultValue=\"-1\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"Scale\"\n"
-    "\t\ttype=\"Real32\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"Scale\"\n"
+    "        type=\"Real32\"\n"
     "        category=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
     "        defaultValue=\"1.0\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"Offset\"\n"
-    "\t\ttype=\"Real32\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"Offset\"\n"
+    "        type=\"Real32\"\n"
     "        category=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
     "        defaultValue=\"0.0\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"Span\"\n"
-    "\t\ttype=\"Real32\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"Span\"\n"
+    "        type=\"Real32\"\n"
     "        category=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
     "        defaultValue=\"-1.0\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"Cycles\"\n"
-    "\t\ttype=\"Real32\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"Cycles\"\n"
+    "        type=\"Real32\"\n"
     "        category=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"public\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        access=\"public\"\n"
     "        defaultValue=\"0\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"AnimationStarted\"\n"
-    "\t\tdetailsType=\"AnimationEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"AnimationStopped\"\n"
-    "\t\tdetailsType=\"AnimationEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"AnimationPaused\"\n"
-    "\t\tdetailsType=\"AnimationEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"AnimationUnpaused\"\n"
-    "\t\tdetailsType=\"AnimationEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"AnimationEnded\"\n"
-    "\t\tdetailsType=\"AnimationEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"AnimationCycled\"\n"
-    "\t\tdetailsType=\"AnimationEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"EventSource\"\n"
+    "        type=\"TBAnimationEventSource\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "    >\n"
+    "    </Field>\t\n"
+    "<!--\n"
+    "    <ProducedEvent\n"
+    "        name=\"AnimationStarted\"\n"
+    "        detailsType=\"AnimationEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "    <ProducedEvent\n"
+    "        name=\"AnimationStopped\"\n"
+    "        detailsType=\"AnimationEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "    <ProducedEvent\n"
+    "        name=\"AnimationPaused\"\n"
+    "        detailsType=\"AnimationEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "    <ProducedEvent\n"
+    "        name=\"AnimationUnpaused\"\n"
+    "        detailsType=\"AnimationEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "    <ProducedEvent\n"
+    "        name=\"AnimationEnded\"\n"
+    "        detailsType=\"AnimationEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "    <ProducedEvent\n"
+    "        name=\"AnimationCycled\"\n"
+    "        detailsType=\"AnimationEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "-->\n"
     "</FieldContainer>\n",
     "\\brief Abstract interface for controlling and applying the result of an\n"
     "#OSG::Animator to some object\n"
     "\n"
-    "\\copybrief OSG::Animation\n"
     "To use an animation, first create a concrete instance that\n"
     "inherits from Animation.  The animation can be started using the start()\n"
     "method.  Updating the animation can be done using the update() method, or\n"
@@ -348,62 +376,6 @@ TBAnimationBase::TypeObject TBAnimationBase::_type(
     "concrete class can define what object to apply to.\n"
     );
 
-//! Animation Produced Events
-
-EventDescription *TBAnimationBase::_eventDesc[] =
-{
-    new EventDescription("AnimationStarted", 
-                          "",
-                          AnimationStartedEventId, 
-                          FieldTraits<AnimationEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&TBAnimationBase::getHandleAnimationStartedSignal)),
-
-    new EventDescription("AnimationStopped", 
-                          "",
-                          AnimationStoppedEventId, 
-                          FieldTraits<AnimationEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&TBAnimationBase::getHandleAnimationStoppedSignal)),
-
-    new EventDescription("AnimationPaused", 
-                          "",
-                          AnimationPausedEventId, 
-                          FieldTraits<AnimationEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&TBAnimationBase::getHandleAnimationPausedSignal)),
-
-    new EventDescription("AnimationUnpaused", 
-                          "",
-                          AnimationUnpausedEventId, 
-                          FieldTraits<AnimationEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&TBAnimationBase::getHandleAnimationUnpausedSignal)),
-
-    new EventDescription("AnimationEnded", 
-                          "",
-                          AnimationEndedEventId, 
-                          FieldTraits<AnimationEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&TBAnimationBase::getHandleAnimationEndedSignal)),
-
-    new EventDescription("AnimationCycled", 
-                          "",
-                          AnimationCycledEventId, 
-                          FieldTraits<AnimationEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&TBAnimationBase::getHandleAnimationCycledSignal))
-
-};
-
-EventProducerType TBAnimationBase::_producerType(
-    "AnimationProducerType",
-    "EventProducerType",
-    "",
-    InitEventProducerFunctor(),
-    _eventDesc,
-    sizeof(_eventDesc));
-
 /*------------------------------ get -----------------------------------*/
 
 FieldContainerType &TBAnimationBase::getType(void)
@@ -414,11 +386,6 @@ FieldContainerType &TBAnimationBase::getType(void)
 const FieldContainerType &TBAnimationBase::getType(void) const
 {
     return _type;
-}
-
-const EventProducerType &TBAnimationBase::getProducerType(void) const
-{
-    return _producerType;
 }
 
 UInt32 TBAnimationBase::getContainerSize(void) const
@@ -494,15 +461,28 @@ const SFReal32 *TBAnimationBase::getSFCycles(void) const
 }
 
 
+//! Get the TBAnimation::_sfEventSource field.
+const SFUnrecTBAnimationEventSourcePtr *TBAnimationBase::getSFEventSource(void) const
+{
+    return &_sfEventSource;
+}
+
+SFUnrecTBAnimationEventSourcePtr *TBAnimationBase::editSFEventSource    (void)
+{
+    editSField(EventSourceFieldMask);
+
+    return &_sfEventSource;
+}
+
 
 
 
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TBAnimationBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TBAnimationBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (CyclingFieldMask & whichField))
     {
@@ -523,6 +503,10 @@ UInt32 TBAnimationBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (CyclesFieldMask & whichField))
     {
         returnValue += _sfCycles.getBinSize();
+    }
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+    {
+        returnValue += _sfEventSource.getBinSize();
     }
 
     return returnValue;
@@ -553,6 +537,10 @@ void TBAnimationBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfCycles.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+    {
+        _sfEventSource.copyToBin(pMem);
+    }
 }
 
 void TBAnimationBase::copyFromBin(BinaryDataHandler &pMem,
@@ -562,255 +550,37 @@ void TBAnimationBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (CyclingFieldMask & whichField))
     {
+        editSField(CyclingFieldMask);
         _sfCycling.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ScaleFieldMask & whichField))
     {
+        editSField(ScaleFieldMask);
         _sfScale.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OffsetFieldMask & whichField))
     {
+        editSField(OffsetFieldMask);
         _sfOffset.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SpanFieldMask & whichField))
     {
+        editSField(SpanFieldMask);
         _sfSpan.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CyclesFieldMask & whichField))
     {
+        editSField(CyclesFieldMask);
         _sfCycles.copyFromBin(pMem);
     }
-}
-
-
-
-/*------------------------- event producers ----------------------------------*/
-void TBAnimationBase::produceEvent(UInt32 eventId, EventDetails* const e)
-{
-    switch(eventId)
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
     {
-    case AnimationStartedEventId:
-        OSG_ASSERT(dynamic_cast<AnimationStartedEventDetailsType* const>(e));
-
-        _AnimationStartedEvent.set_combiner(ConsumableEventCombiner(e));
-        _AnimationStartedEvent(dynamic_cast<AnimationStartedEventDetailsType* const>(e), AnimationStartedEventId);
-        break;
-    case AnimationStoppedEventId:
-        OSG_ASSERT(dynamic_cast<AnimationStoppedEventDetailsType* const>(e));
-
-        _AnimationStoppedEvent.set_combiner(ConsumableEventCombiner(e));
-        _AnimationStoppedEvent(dynamic_cast<AnimationStoppedEventDetailsType* const>(e), AnimationStoppedEventId);
-        break;
-    case AnimationPausedEventId:
-        OSG_ASSERT(dynamic_cast<AnimationPausedEventDetailsType* const>(e));
-
-        _AnimationPausedEvent.set_combiner(ConsumableEventCombiner(e));
-        _AnimationPausedEvent(dynamic_cast<AnimationPausedEventDetailsType* const>(e), AnimationPausedEventId);
-        break;
-    case AnimationUnpausedEventId:
-        OSG_ASSERT(dynamic_cast<AnimationUnpausedEventDetailsType* const>(e));
-
-        _AnimationUnpausedEvent.set_combiner(ConsumableEventCombiner(e));
-        _AnimationUnpausedEvent(dynamic_cast<AnimationUnpausedEventDetailsType* const>(e), AnimationUnpausedEventId);
-        break;
-    case AnimationEndedEventId:
-        OSG_ASSERT(dynamic_cast<AnimationEndedEventDetailsType* const>(e));
-
-        _AnimationEndedEvent.set_combiner(ConsumableEventCombiner(e));
-        _AnimationEndedEvent(dynamic_cast<AnimationEndedEventDetailsType* const>(e), AnimationEndedEventId);
-        break;
-    case AnimationCycledEventId:
-        OSG_ASSERT(dynamic_cast<AnimationCycledEventDetailsType* const>(e));
-
-        _AnimationCycledEvent.set_combiner(ConsumableEventCombiner(e));
-        _AnimationCycledEvent(dynamic_cast<AnimationCycledEventDetailsType* const>(e), AnimationCycledEventId);
-        break;
-    default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
-        break;
+        editSField(EventSourceFieldMask);
+        _sfEventSource.copyFromBin(pMem);
     }
 }
 
-boost::signals2::connection TBAnimationBase::connectEvent(UInt32 eventId, 
-                                                             const BaseEventType::slot_type &listener, 
-                                                             boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case AnimationStartedEventId:
-        return _AnimationStartedEvent.connect(listener, at);
-        break;
-    case AnimationStoppedEventId:
-        return _AnimationStoppedEvent.connect(listener, at);
-        break;
-    case AnimationPausedEventId:
-        return _AnimationPausedEvent.connect(listener, at);
-        break;
-    case AnimationUnpausedEventId:
-        return _AnimationUnpausedEvent.connect(listener, at);
-        break;
-    case AnimationEndedEventId:
-        return _AnimationEndedEvent.connect(listener, at);
-        break;
-    case AnimationCycledEventId:
-        return _AnimationCycledEvent.connect(listener, at);
-        break;
-    default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
-        return boost::signals2::connection();
-        break;
-    }
 
-    return boost::signals2::connection();
-}
-
-boost::signals2::connection  TBAnimationBase::connectEvent(UInt32 eventId, 
-                                                              const BaseEventType::group_type &group,
-                                                              const BaseEventType::slot_type &listener,
-                                                              boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case AnimationStartedEventId:
-        return _AnimationStartedEvent.connect(group, listener, at);
-        break;
-    case AnimationStoppedEventId:
-        return _AnimationStoppedEvent.connect(group, listener, at);
-        break;
-    case AnimationPausedEventId:
-        return _AnimationPausedEvent.connect(group, listener, at);
-        break;
-    case AnimationUnpausedEventId:
-        return _AnimationUnpausedEvent.connect(group, listener, at);
-        break;
-    case AnimationEndedEventId:
-        return _AnimationEndedEvent.connect(group, listener, at);
-        break;
-    case AnimationCycledEventId:
-        return _AnimationCycledEvent.connect(group, listener, at);
-        break;
-    default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
-        return boost::signals2::connection();
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-    
-void  TBAnimationBase::disconnectEvent(UInt32 eventId, const BaseEventType::group_type &group)
-{
-    switch(eventId)
-    {
-    case AnimationStartedEventId:
-        _AnimationStartedEvent.disconnect(group);
-        break;
-    case AnimationStoppedEventId:
-        _AnimationStoppedEvent.disconnect(group);
-        break;
-    case AnimationPausedEventId:
-        _AnimationPausedEvent.disconnect(group);
-        break;
-    case AnimationUnpausedEventId:
-        _AnimationUnpausedEvent.disconnect(group);
-        break;
-    case AnimationEndedEventId:
-        _AnimationEndedEvent.disconnect(group);
-        break;
-    case AnimationCycledEventId:
-        _AnimationCycledEvent.disconnect(group);
-        break;
-    default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
-        break;
-    }
-}
-
-void  TBAnimationBase::disconnectAllSlotsEvent(UInt32 eventId)
-{
-    switch(eventId)
-    {
-    case AnimationStartedEventId:
-        _AnimationStartedEvent.disconnect_all_slots();
-        break;
-    case AnimationStoppedEventId:
-        _AnimationStoppedEvent.disconnect_all_slots();
-        break;
-    case AnimationPausedEventId:
-        _AnimationPausedEvent.disconnect_all_slots();
-        break;
-    case AnimationUnpausedEventId:
-        _AnimationUnpausedEvent.disconnect_all_slots();
-        break;
-    case AnimationEndedEventId:
-        _AnimationEndedEvent.disconnect_all_slots();
-        break;
-    case AnimationCycledEventId:
-        _AnimationCycledEvent.disconnect_all_slots();
-        break;
-    default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
-        break;
-    }
-}
-
-bool  TBAnimationBase::isEmptyEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case AnimationStartedEventId:
-        return _AnimationStartedEvent.empty();
-        break;
-    case AnimationStoppedEventId:
-        return _AnimationStoppedEvent.empty();
-        break;
-    case AnimationPausedEventId:
-        return _AnimationPausedEvent.empty();
-        break;
-    case AnimationUnpausedEventId:
-        return _AnimationUnpausedEvent.empty();
-        break;
-    case AnimationEndedEventId:
-        return _AnimationEndedEvent.empty();
-        break;
-    case AnimationCycledEventId:
-        return _AnimationCycledEvent.empty();
-        break;
-    default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
-        return true;
-        break;
-    }
-}
-
-UInt32  TBAnimationBase::numSlotsEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case AnimationStartedEventId:
-        return _AnimationStartedEvent.num_slots();
-        break;
-    case AnimationStoppedEventId:
-        return _AnimationStoppedEvent.num_slots();
-        break;
-    case AnimationPausedEventId:
-        return _AnimationPausedEvent.num_slots();
-        break;
-    case AnimationUnpausedEventId:
-        return _AnimationUnpausedEvent.num_slots();
-        break;
-    case AnimationEndedEventId:
-        return _AnimationEndedEvent.num_slots();
-        break;
-    case AnimationCycledEventId:
-        return _AnimationCycledEvent.num_slots();
-        break;
-    default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
-        return 0;
-        break;
-    }
-}
 
 
 /*------------------------- constructors ----------------------------------*/
@@ -821,7 +591,8 @@ TBAnimationBase::TBAnimationBase(void) :
     _sfScale                  (Real32(1.0)),
     _sfOffset                 (Real32(0.0)),
     _sfSpan                   (Real32(-1.0)),
-    _sfCycles                 (Real32(0))
+    _sfCycles                 (Real32(0)),
+    _sfEventSource            (NULL)
 {
 }
 
@@ -831,7 +602,8 @@ TBAnimationBase::TBAnimationBase(const TBAnimationBase &source) :
     _sfScale                  (source._sfScale                  ),
     _sfOffset                 (source._sfOffset                 ),
     _sfSpan                   (source._sfSpan                   ),
-    _sfCycles                 (source._sfCycles                 )
+    _sfCycles                 (source._sfCycles                 ),
+    _sfEventSource            (NULL)
 {
 }
 
@@ -842,6 +614,17 @@ TBAnimationBase::~TBAnimationBase(void)
 {
 }
 
+void TBAnimationBase::onCreate(const TBAnimation *source)
+{
+    Inherited::onCreate(source);
+
+    if(source != NULL)
+    {
+        TBAnimation *pThis = static_cast<TBAnimation *>(this);
+
+        pThis->setEventSource(source->getEventSource());
+    }
+}
 
 GetFieldHandlePtr TBAnimationBase::getHandleCycling         (void) const
 {
@@ -968,69 +751,30 @@ EditFieldHandlePtr TBAnimationBase::editHandleCycles         (void)
     return returnValue;
 }
 
-
-GetEventHandlePtr TBAnimationBase::getHandleAnimationStartedSignal(void) const
+GetFieldHandlePtr TBAnimationBase::getHandleEventSource     (void) const
 {
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<AnimationStartedEventType>(
-             const_cast<AnimationStartedEventType *>(&_AnimationStartedEvent),
-             _producerType.getEventDescription(AnimationStartedEventId),
+    SFUnrecTBAnimationEventSourcePtr::GetHandlePtr returnValue(
+        new  SFUnrecTBAnimationEventSourcePtr::GetHandle(
+             &_sfEventSource,
+             this->getType().getFieldDesc(EventSourceFieldId),
              const_cast<TBAnimationBase *>(this)));
 
     return returnValue;
 }
 
-GetEventHandlePtr TBAnimationBase::getHandleAnimationStoppedSignal(void) const
+EditFieldHandlePtr TBAnimationBase::editHandleEventSource    (void)
 {
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<AnimationStoppedEventType>(
-             const_cast<AnimationStoppedEventType *>(&_AnimationStoppedEvent),
-             _producerType.getEventDescription(AnimationStoppedEventId),
-             const_cast<TBAnimationBase *>(this)));
+    SFUnrecTBAnimationEventSourcePtr::EditHandlePtr returnValue(
+        new  SFUnrecTBAnimationEventSourcePtr::EditHandle(
+             &_sfEventSource,
+             this->getType().getFieldDesc(EventSourceFieldId),
+             this));
 
-    return returnValue;
-}
+    returnValue->setSetMethod(
+        boost::bind(&TBAnimation::setEventSource,
+                    static_cast<TBAnimation *>(this), _1));
 
-GetEventHandlePtr TBAnimationBase::getHandleAnimationPausedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<AnimationPausedEventType>(
-             const_cast<AnimationPausedEventType *>(&_AnimationPausedEvent),
-             _producerType.getEventDescription(AnimationPausedEventId),
-             const_cast<TBAnimationBase *>(this)));
-
-    return returnValue;
-}
-
-GetEventHandlePtr TBAnimationBase::getHandleAnimationUnpausedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<AnimationUnpausedEventType>(
-             const_cast<AnimationUnpausedEventType *>(&_AnimationUnpausedEvent),
-             _producerType.getEventDescription(AnimationUnpausedEventId),
-             const_cast<TBAnimationBase *>(this)));
-
-    return returnValue;
-}
-
-GetEventHandlePtr TBAnimationBase::getHandleAnimationEndedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<AnimationEndedEventType>(
-             const_cast<AnimationEndedEventType *>(&_AnimationEndedEvent),
-             _producerType.getEventDescription(AnimationEndedEventId),
-             const_cast<TBAnimationBase *>(this)));
-
-    return returnValue;
-}
-
-GetEventHandlePtr TBAnimationBase::getHandleAnimationCycledSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<AnimationCycledEventType>(
-             const_cast<AnimationCycledEventType *>(&_AnimationCycledEvent),
-             _producerType.getEventDescription(AnimationCycledEventId),
-             const_cast<TBAnimationBase *>(this)));
+    editSField(EventSourceFieldMask);
 
     return returnValue;
 }
@@ -1058,6 +802,8 @@ void TBAnimationBase::execSyncV(      FieldContainer    &oFrom,
 void TBAnimationBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+    static_cast<TBAnimation *>(this)->setEventSource(NULL);
 
 
 }

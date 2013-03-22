@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TBAnimation;
 
 OSG_GEN_CONTAINERPTR(TBAnimation);
-
-/*! \ingroup GrpTBAnimationFieldTraits
-    \ingroup GrpLibOSGTBAnimation
+/*! \ingroup GrpContribToolboxAnimationFieldTraits
+    \ingroup GrpLibOSGContribToolboxAnimation
  */
 template <>
-struct FieldTraits<TBAnimation *> :
-    public FieldTraitsFCPtrBase<TBAnimation *>
+struct FieldTraits<TBAnimation *, nsOSG> :
+    public FieldTraitsFCPtrBase<TBAnimation *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<TBAnimation *>  Self;
+    typedef FieldTraits<TBAnimation *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,126 +90,124 @@ struct FieldTraits<TBAnimation *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFAnimationPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFAnimationPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<TBAnimation *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TBAnimation *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTBAnimationPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TBAnimation *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TBAnimation *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTBAnimationPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TBAnimation *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TBAnimation *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTBAnimationPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TBAnimation *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TBAnimation *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTBAnimationPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TBAnimation *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TBAnimation *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecTBAnimationPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TBAnimation *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TBAnimation *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecTBAnimationPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TBAnimation *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TBAnimation *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakTBAnimationPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TBAnimation *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TBAnimation *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdTBAnimationPtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpTBAnimationFieldSFields */
+/*! \ingroup GrpContribToolboxAnimationFieldSFields */
 typedef PointerSField<TBAnimation *,
-                      RecordedRefCountPolicy  > SFRecTBAnimationPtr;
-/*! \ingroup GrpTBAnimationFieldSFields */
+                      RecordedRefCountPolicy, nsOSG  > SFRecTBAnimationPtr;
+/*! \ingroup GrpContribToolboxAnimationFieldSFields */
 typedef PointerSField<TBAnimation *,
-                      UnrecordedRefCountPolicy> SFUnrecTBAnimationPtr;
-/*! \ingroup GrpTBAnimationFieldSFields */
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecTBAnimationPtr;
+/*! \ingroup GrpContribToolboxAnimationFieldSFields */
 typedef PointerSField<TBAnimation *,
-                      WeakRefCountPolicy      > SFWeakTBAnimationPtr;
-/*! \ingroup GrpTBAnimationFieldSFields */
+                      WeakRefCountPolicy, nsOSG      > SFWeakTBAnimationPtr;
+/*! \ingroup GrpContribToolboxAnimationFieldSFields */
 typedef PointerSField<TBAnimation *,
-                      NoRefCountPolicy        > SFUncountedTBAnimationPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedTBAnimationPtr;
 
 
-/*! \ingroup GrpTBAnimationFieldMFields */
+/*! \ingroup GrpContribToolboxAnimationFieldMFields */
 typedef PointerMField<TBAnimation *,
-                      RecordedRefCountPolicy  > MFRecTBAnimationPtr;
-/*! \ingroup GrpTBAnimationFieldMFields */
+                      RecordedRefCountPolicy, nsOSG  > MFRecTBAnimationPtr;
+/*! \ingroup GrpContribToolboxAnimationFieldMFields */
 typedef PointerMField<TBAnimation *,
-                      UnrecordedRefCountPolicy> MFUnrecTBAnimationPtr;
-/*! \ingroup GrpTBAnimationFieldMFields */
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecTBAnimationPtr;
+/*! \ingroup GrpContribToolboxAnimationFieldMFields */
 typedef PointerMField<TBAnimation *,
-                      WeakRefCountPolicy      > MFWeakTBAnimationPtr;
-/*! \ingroup GrpTBAnimationFieldMFields */
+                      WeakRefCountPolicy, nsOSG      > MFWeakTBAnimationPtr;
+/*! \ingroup GrpContribToolboxAnimationFieldMFields */
 typedef PointerMField<TBAnimation *,
-                      NoRefCountPolicy        > MFUncountedTBAnimationPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedTBAnimationPtr;
 
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpTBAnimationFieldSFields \ingroup GrpLibOSGTBAnimation */
+/*! \ingroup GrpContribToolboxAnimationFieldSFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct SFRecTBAnimationPtr : 
     public PointerSField<TBAnimation *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpTBAnimationFieldSFields \ingroup GrpLibOSGTBAnimation */
+/*! \ingroup GrpContribToolboxAnimationFieldSFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct SFUnrecTBAnimationPtr : 
     public PointerSField<TBAnimation *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpTBAnimationFieldSFields \ingroup GrpLibOSGTBAnimation */
+/*! \ingroup GrpContribToolboxAnimationFieldSFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct SFWeakTBAnimationPtr :
     public PointerSField<TBAnimation *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpTBAnimationFieldSFields \ingroup GrpLibOSGTBAnimation */
+/*! \ingroup GrpContribToolboxAnimationFieldSFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct SFUncountedTBAnimationPtr :
     public PointerSField<TBAnimation *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpTBAnimationFieldMFields \ingroup GrpLibOSGTBAnimation */
+/*! \ingroup GrpContribToolboxAnimationFieldMFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct MFRecTBAnimationPtr :
     public PointerMField<TBAnimation *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpTBAnimationFieldMFields \ingroup GrpLibOSGTBAnimation */
+/*! \ingroup GrpContribToolboxAnimationFieldMFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct MFUnrecTBAnimationPtr :
     public PointerMField<TBAnimation *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpTBAnimationFieldMFields \ingroup GrpLibOSGTBAnimation */
+/*! \ingroup GrpContribToolboxAnimationFieldMFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct MFWeakTBAnimationPtr :
     public PointerMField<TBAnimation *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpTBAnimationFieldMFields \ingroup GrpLibOSGTBAnimation */
+/*! \ingroup GrpContribToolboxAnimationFieldMFields \ingroup GrpLibOSGContribToolboxAnimation */
 struct MFUncountedTBAnimationPtr :
     public PointerMField<TBAnimation *,
                          NoRefCountPolicy        > {};
@@ -220,4 +218,4 @@ struct MFUncountedTBAnimationPtr :
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGANIMATIONFIELDS_H_ */
+#endif /* _OSGTBANIMATIONFIELDS_H_ */

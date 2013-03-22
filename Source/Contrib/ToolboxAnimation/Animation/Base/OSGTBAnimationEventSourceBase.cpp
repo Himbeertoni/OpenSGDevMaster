@@ -63,6 +63,7 @@
 
 #include <boost/bind.hpp>
 
+#include "OSGEventDetails.h"
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
 #endif
@@ -179,6 +180,61 @@ TBAnimationEventSourceBase::TypeObject TBAnimationEventSourceBase::_type(
     ""
     );
 
+//! Animation Produced Events
+
+EventDescription *TBAnimationBase::_eventDesc[] =
+{
+    new EventDescription("AnimationStarted", 
+                          "",
+                          AnimationStartedEventId, 
+                          FieldTraits<AnimationEventDetails *>::getType(),
+                          true,
+                          static_cast<EventGetMethod>(&TBAnimationBase::getHandleAnimationStartedSignal)),
+
+    new EventDescription("AnimationStopped", 
+                          "",
+                          AnimationStoppedEventId, 
+                          FieldTraits<AnimationEventDetails *>::getType(),
+                          true,
+                          static_cast<EventGetMethod>(&TBAnimationBase::getHandleAnimationStoppedSignal)),
+
+    new EventDescription("AnimationPaused", 
+                          "",
+                          AnimationPausedEventId, 
+                          FieldTraits<AnimationEventDetails *>::getType(),
+                          true,
+                          static_cast<EventGetMethod>(&TBAnimationBase::getHandleAnimationPausedSignal)),
+
+    new EventDescription("AnimationUnpaused", 
+                          "",
+                          AnimationUnpausedEventId, 
+                          FieldTraits<AnimationEventDetails *>::getType(),
+                          true,
+                          static_cast<EventGetMethod>(&TBAnimationBase::getHandleAnimationUnpausedSignal)),
+
+    new EventDescription("AnimationEnded", 
+                          "",
+                          AnimationEndedEventId, 
+                          FieldTraits<AnimationEventDetails *>::getType(),
+                          true,
+                          static_cast<EventGetMethod>(&TBAnimationBase::getHandleAnimationEndedSignal)),
+
+    new EventDescription("AnimationCycled", 
+                          "",
+                          AnimationCycledEventId, 
+                          FieldTraits<AnimationEventDetails *>::getType(),
+                          true,
+                          static_cast<EventGetMethod>(&TBAnimationBase::getHandleAnimationCycledSignal))
+
+};
+
+EventProducerType TBAnimationEventSourceBase::_producerType(
+    "AnimationProducerType",
+    "EventProducerType",
+    "",
+    InitEventProducerFunctor(),
+    _eventDesc,
+    sizeof(_eventDesc));
 /*------------------------------ get -----------------------------------*/
 
 FieldContainerType &TBAnimationEventSourceBase::getType(void)
@@ -191,12 +247,244 @@ const FieldContainerType &TBAnimationEventSourceBase::getType(void) const
     return _type;
 }
 
+const EventProducerType &TBAnimationEventSourceBase::getProducerType(void) const
+{
+    return _producerType;
+}
+
 UInt32 TBAnimationEventSourceBase::getContainerSize(void) const
 {
     return sizeof(TBAnimationEventSource);
 }
 
-/*------------------------- decorator get ------------------------------*/
+
+/*------------------------- event producers ----------------------------------*/
+void TBAnimationBase::produceEvent(UInt32 eventId, EventDetails* const e)
+{
+    switch(eventId)
+    {
+    case AnimationStartedEventId:
+        OSG_ASSERT(dynamic_cast<AnimationStartedEventDetailsType* const>(e));
+
+        _AnimationStartedEvent.set_combiner(ConsumableEventCombiner(e));
+        _AnimationStartedEvent(dynamic_cast<AnimationStartedEventDetailsType* const>(e), AnimationStartedEventId);
+        break;
+    case AnimationStoppedEventId:
+        OSG_ASSERT(dynamic_cast<AnimationStoppedEventDetailsType* const>(e));
+
+        _AnimationStoppedEvent.set_combiner(ConsumableEventCombiner(e));
+        _AnimationStoppedEvent(dynamic_cast<AnimationStoppedEventDetailsType* const>(e), AnimationStoppedEventId);
+        break;
+    case AnimationPausedEventId:
+        OSG_ASSERT(dynamic_cast<AnimationPausedEventDetailsType* const>(e));
+
+        _AnimationPausedEvent.set_combiner(ConsumableEventCombiner(e));
+        _AnimationPausedEvent(dynamic_cast<AnimationPausedEventDetailsType* const>(e), AnimationPausedEventId);
+        break;
+    case AnimationUnpausedEventId:
+        OSG_ASSERT(dynamic_cast<AnimationUnpausedEventDetailsType* const>(e));
+
+        _AnimationUnpausedEvent.set_combiner(ConsumableEventCombiner(e));
+        _AnimationUnpausedEvent(dynamic_cast<AnimationUnpausedEventDetailsType* const>(e), AnimationUnpausedEventId);
+        break;
+    case AnimationEndedEventId:
+        OSG_ASSERT(dynamic_cast<AnimationEndedEventDetailsType* const>(e));
+
+        _AnimationEndedEvent.set_combiner(ConsumableEventCombiner(e));
+        _AnimationEndedEvent(dynamic_cast<AnimationEndedEventDetailsType* const>(e), AnimationEndedEventId);
+        break;
+    case AnimationCycledEventId:
+        OSG_ASSERT(dynamic_cast<AnimationCycledEventDetailsType* const>(e));
+
+        _AnimationCycledEvent.set_combiner(ConsumableEventCombiner(e));
+        _AnimationCycledEvent(dynamic_cast<AnimationCycledEventDetailsType* const>(e), AnimationCycledEventId);
+        break;
+    default:
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        break;
+    }
+}
+
+boost::signals2::connection TBAnimationBase::connectEvent(UInt32 eventId, 
+                                                             const BaseEventType::slot_type &listener, 
+                                                             boost::signals2::connect_position at)
+{
+    switch(eventId)
+    {
+    case AnimationStartedEventId:
+        return _AnimationStartedEvent.connect(listener, at);
+        break;
+    case AnimationStoppedEventId:
+        return _AnimationStoppedEvent.connect(listener, at);
+        break;
+    case AnimationPausedEventId:
+        return _AnimationPausedEvent.connect(listener, at);
+        break;
+    case AnimationUnpausedEventId:
+        return _AnimationUnpausedEvent.connect(listener, at);
+        break;
+    case AnimationEndedEventId:
+        return _AnimationEndedEvent.connect(listener, at);
+        break;
+    case AnimationCycledEventId:
+        return _AnimationCycledEvent.connect(listener, at);
+        break;
+    default:
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        return boost::signals2::connection();
+        break;
+    }
+
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  TBAnimationBase::connectEvent(UInt32 eventId, 
+                                                              const BaseEventType::group_type &group,
+                                                              const BaseEventType::slot_type &listener,
+                                                              boost::signals2::connect_position at)
+{
+    switch(eventId)
+    {
+    case AnimationStartedEventId:
+        return _AnimationStartedEvent.connect(group, listener, at);
+        break;
+    case AnimationStoppedEventId:
+        return _AnimationStoppedEvent.connect(group, listener, at);
+        break;
+    case AnimationPausedEventId:
+        return _AnimationPausedEvent.connect(group, listener, at);
+        break;
+    case AnimationUnpausedEventId:
+        return _AnimationUnpausedEvent.connect(group, listener, at);
+        break;
+    case AnimationEndedEventId:
+        return _AnimationEndedEvent.connect(group, listener, at);
+        break;
+    case AnimationCycledEventId:
+        return _AnimationCycledEvent.connect(group, listener, at);
+        break;
+    default:
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        return boost::signals2::connection();
+        break;
+    }
+
+    return boost::signals2::connection();
+}
+    
+void  TBAnimationBase::disconnectEvent(UInt32 eventId, const BaseEventType::group_type &group)
+{
+    switch(eventId)
+    {
+    case AnimationStartedEventId:
+        _AnimationStartedEvent.disconnect(group);
+        break;
+    case AnimationStoppedEventId:
+        _AnimationStoppedEvent.disconnect(group);
+        break;
+    case AnimationPausedEventId:
+        _AnimationPausedEvent.disconnect(group);
+        break;
+    case AnimationUnpausedEventId:
+        _AnimationUnpausedEvent.disconnect(group);
+        break;
+    case AnimationEndedEventId:
+        _AnimationEndedEvent.disconnect(group);
+        break;
+    case AnimationCycledEventId:
+        _AnimationCycledEvent.disconnect(group);
+        break;
+    default:
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        break;
+    }
+}
+
+void  TBAnimationBase::disconnectAllSlotsEvent(UInt32 eventId)
+{
+    switch(eventId)
+    {
+    case AnimationStartedEventId:
+        _AnimationStartedEvent.disconnect_all_slots();
+        break;
+    case AnimationStoppedEventId:
+        _AnimationStoppedEvent.disconnect_all_slots();
+        break;
+    case AnimationPausedEventId:
+        _AnimationPausedEvent.disconnect_all_slots();
+        break;
+    case AnimationUnpausedEventId:
+        _AnimationUnpausedEvent.disconnect_all_slots();
+        break;
+    case AnimationEndedEventId:
+        _AnimationEndedEvent.disconnect_all_slots();
+        break;
+    case AnimationCycledEventId:
+        _AnimationCycledEvent.disconnect_all_slots();
+        break;
+    default:
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        break;
+    }
+}
+
+bool  TBAnimationBase::isEmptyEvent(UInt32 eventId) const
+{
+    switch(eventId)
+    {
+    case AnimationStartedEventId:
+        return _AnimationStartedEvent.empty();
+        break;
+    case AnimationStoppedEventId:
+        return _AnimationStoppedEvent.empty();
+        break;
+    case AnimationPausedEventId:
+        return _AnimationPausedEvent.empty();
+        break;
+    case AnimationUnpausedEventId:
+        return _AnimationUnpausedEvent.empty();
+        break;
+    case AnimationEndedEventId:
+        return _AnimationEndedEvent.empty();
+        break;
+    case AnimationCycledEventId:
+        return _AnimationCycledEvent.empty();
+        break;
+    default:
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        return true;
+        break;
+    }
+}
+
+UInt32  TBAnimationBase::numSlotsEvent(UInt32 eventId) const
+{
+    switch(eventId)
+    {
+    case AnimationStartedEventId:
+        return _AnimationStartedEvent.num_slots();
+        break;
+    case AnimationStoppedEventId:
+        return _AnimationStoppedEvent.num_slots();
+        break;
+    case AnimationPausedEventId:
+        return _AnimationPausedEvent.num_slots();
+        break;
+    case AnimationUnpausedEventId:
+        return _AnimationUnpausedEvent.num_slots();
+        break;
+    case AnimationEndedEventId:
+        return _AnimationEndedEvent.num_slots();
+        break;
+    case AnimationCycledEventId:
+        return _AnimationCycledEvent.num_slots();
+        break;
+    default:
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        return 0;
+        break;
+    }
+}
 
 
 
@@ -366,6 +654,71 @@ TBAnimationEventSourceBase::~TBAnimationEventSourceBase(void)
 }
 
 
+GetEventHandlePtr TBAnimationBase::getHandleAnimationStartedSignal(void) const
+{
+    GetEventHandlePtr returnValue(
+        new  GetTypedEventHandle<AnimationStartedEventType>(
+             const_cast<AnimationStartedEventType *>(&_AnimationStartedEvent),
+             _producerType.getEventDescription(AnimationStartedEventId),
+             const_cast<TBAnimationBase *>(this)));
+
+    return returnValue;
+}
+
+GetEventHandlePtr TBAnimationBase::getHandleAnimationStoppedSignal(void) const
+{
+    GetEventHandlePtr returnValue(
+        new  GetTypedEventHandle<AnimationStoppedEventType>(
+             const_cast<AnimationStoppedEventType *>(&_AnimationStoppedEvent),
+             _producerType.getEventDescription(AnimationStoppedEventId),
+             const_cast<TBAnimationBase *>(this)));
+
+    return returnValue;
+}
+
+GetEventHandlePtr TBAnimationBase::getHandleAnimationPausedSignal(void) const
+{
+    GetEventHandlePtr returnValue(
+        new  GetTypedEventHandle<AnimationPausedEventType>(
+             const_cast<AnimationPausedEventType *>(&_AnimationPausedEvent),
+             _producerType.getEventDescription(AnimationPausedEventId),
+             const_cast<TBAnimationBase *>(this)));
+
+    return returnValue;
+}
+
+GetEventHandlePtr TBAnimationBase::getHandleAnimationUnpausedSignal(void) const
+{
+    GetEventHandlePtr returnValue(
+        new  GetTypedEventHandle<AnimationUnpausedEventType>(
+             const_cast<AnimationUnpausedEventType *>(&_AnimationUnpausedEvent),
+             _producerType.getEventDescription(AnimationUnpausedEventId),
+             const_cast<TBAnimationBase *>(this)));
+
+    return returnValue;
+}
+
+GetEventHandlePtr TBAnimationBase::getHandleAnimationEndedSignal(void) const
+{
+    GetEventHandlePtr returnValue(
+        new  GetTypedEventHandle<AnimationEndedEventType>(
+             const_cast<AnimationEndedEventType *>(&_AnimationEndedEvent),
+             _producerType.getEventDescription(AnimationEndedEventId),
+             const_cast<TBAnimationBase *>(this)));
+
+    return returnValue;
+}
+
+GetEventHandlePtr TBAnimationBase::getHandleAnimationCycledSignal(void) const
+{
+    GetEventHandlePtr returnValue(
+        new  GetTypedEventHandle<AnimationCycledEventType>(
+             const_cast<AnimationCycledEventType *>(&_AnimationCycledEvent),
+             _producerType.getEventDescription(AnimationCycledEventId),
+             const_cast<TBAnimationBase *>(this)));
+
+    return returnValue;
+}
 
 #ifdef OSG_MT_CPTR_ASPECT
 void TBAnimationEventSourceBase::execSyncV(      FieldContainer    &oFrom,
