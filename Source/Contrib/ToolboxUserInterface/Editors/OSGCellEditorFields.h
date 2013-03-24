@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class CellEditor;
 
 OSG_GEN_CONTAINERPTR(CellEditor);
-
-/*! \ingroup GrpContribUserInterfaceFieldTraits
-    \ingroup GrpLibOSGContribUserInterface
+/*! \ingroup GrpContribToolboxUserInterfaceFieldTraits
+    \ingroup GrpLibOSGContribToolboxUserInterface
  */
 template <>
-struct FieldTraits<CellEditor *> :
-    public FieldTraitsFCPtrBase<CellEditor *>
+struct FieldTraits<CellEditor *, nsOSG> :
+    public FieldTraitsFCPtrBase<CellEditor *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<CellEditor *>  Self;
+    typedef FieldTraits<CellEditor *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,126 +90,124 @@ struct FieldTraits<CellEditor *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCellEditorPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFCellEditorPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<CellEditor *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CellEditor *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecCellEditorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CellEditor *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CellEditor *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecCellEditorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CellEditor *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CellEditor *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakCellEditorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CellEditor *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CellEditor *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdCellEditorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CellEditor *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CellEditor *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecCellEditorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CellEditor *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CellEditor *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecCellEditorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CellEditor *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CellEditor *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakCellEditorPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<CellEditor *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CellEditor *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdCellEditorPtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<CellEditor *,
-                      RecordedRefCountPolicy  > SFRecCellEditorPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      RecordedRefCountPolicy, nsOSG  > SFRecCellEditorPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<CellEditor *,
-                      UnrecordedRefCountPolicy> SFUnrecCellEditorPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecCellEditorPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<CellEditor *,
-                      WeakRefCountPolicy      > SFWeakCellEditorPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      WeakRefCountPolicy, nsOSG      > SFWeakCellEditorPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<CellEditor *,
-                      NoRefCountPolicy        > SFUncountedCellEditorPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedCellEditorPtr;
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<CellEditor *,
-                      RecordedRefCountPolicy  > MFRecCellEditorPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      RecordedRefCountPolicy, nsOSG  > MFRecCellEditorPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<CellEditor *,
-                      UnrecordedRefCountPolicy> MFUnrecCellEditorPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecCellEditorPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<CellEditor *,
-                      WeakRefCountPolicy      > MFWeakCellEditorPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      WeakRefCountPolicy, nsOSG      > MFWeakCellEditorPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<CellEditor *,
-                      NoRefCountPolicy        > MFUncountedCellEditorPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedCellEditorPtr;
 
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFRecCellEditorPtr : 
     public PointerSField<CellEditor *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUnrecCellEditorPtr : 
     public PointerSField<CellEditor *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFWeakCellEditorPtr :
     public PointerSField<CellEditor *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUncountedCellEditorPtr :
     public PointerSField<CellEditor *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFRecCellEditorPtr :
     public PointerMField<CellEditor *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUnrecCellEditorPtr :
     public PointerMField<CellEditor *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFWeakCellEditorPtr :
     public PointerMField<CellEditor *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUncountedCellEditorPtr :
     public PointerMField<CellEditor *,
                          NoRefCountPolicy        > {};

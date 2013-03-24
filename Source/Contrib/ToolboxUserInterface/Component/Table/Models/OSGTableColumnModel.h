@@ -166,6 +166,7 @@ typedef TableColumnModel *TableColumnModelP;
 
 OSG_END_NAMESPACE
 
+#include "OSGTableColumnModelEventSource.h"
 #include "OSGTableColumnModelBase.inl"
 #include "OSGTableColumnModel.inl"
 

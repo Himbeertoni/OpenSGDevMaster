@@ -262,8 +262,18 @@ class OSG_CONTRIBTOOLBOXWINDOW_DLLMAPPING WindowEventProducer : public WindowEve
 
     void blockInputConnections(bool Block);
     bool isBlockInputConnections(void) const;
-    /*=========================  PROTECTED  ===============================*/
 
+    //Moved protected -> public:
+    void produceWindowOpened(void);
+    void produceWindowClosing(void);
+    void produceWindowClosed(void);
+    void produceWindowIconified(void);
+    void produceWindowDeiconified(void);
+    void produceWindowActivated(void);
+    void produceWindowDeactivated(void);
+    void produceWindowEntered(void);
+    void produceWindowExited(void);
+    /*=========================  PROTECTED  ===============================*/
   protected:
 
     // Variables should all be in WindowEventProducerBase.
@@ -341,15 +351,7 @@ class OSG_CONTRIBTOOLBOXWINDOW_DLLMAPPING WindowEventProducer : public WindowEve
     
     void produceUpdate(const Time& ElapsedTime);
     
-    void produceWindowOpened(void);
-    void produceWindowClosing(void);
-    void produceWindowClosed(void);
-    void produceWindowIconified(void);
-    void produceWindowDeiconified(void);
-    void produceWindowActivated(void);
-    void produceWindowDeactivated(void);
-    void produceWindowEntered(void);
-    void produceWindowExited(void);
+
 
     UInt32 _CursorType;
     bool _BlockInput;

@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class SingleSelectionModel;
 
 OSG_GEN_CONTAINERPTR(SingleSelectionModel);
-
-/*! \ingroup GrpContribUserInterfaceFieldTraits
-    \ingroup GrpLibOSGContribUserInterface
+/*! \ingroup GrpContribToolboxUserInterfaceFieldTraits
+    \ingroup GrpLibOSGContribToolboxUserInterface
  */
 template <>
-struct FieldTraits<SingleSelectionModel *> :
-    public FieldTraitsFCPtrBase<SingleSelectionModel *>
+struct FieldTraits<SingleSelectionModel *, nsOSG> :
+    public FieldTraitsFCPtrBase<SingleSelectionModel *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<SingleSelectionModel *>  Self;
+    typedef FieldTraits<SingleSelectionModel *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,126 +90,124 @@ struct FieldTraits<SingleSelectionModel *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFSingleSelectionModelPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFSingleSelectionModelPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<SingleSelectionModel *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SingleSelectionModel *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecSingleSelectionModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SingleSelectionModel *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SingleSelectionModel *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecSingleSelectionModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SingleSelectionModel *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SingleSelectionModel *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakSingleSelectionModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SingleSelectionModel *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SingleSelectionModel *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdSingleSelectionModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SingleSelectionModel *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SingleSelectionModel *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecSingleSelectionModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SingleSelectionModel *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<SingleSelectionModel *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecSingleSelectionModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SingleSelectionModel *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<SingleSelectionModel *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakSingleSelectionModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<SingleSelectionModel *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<SingleSelectionModel *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdSingleSelectionModelPtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<SingleSelectionModel *,
-                      RecordedRefCountPolicy  > SFRecSingleSelectionModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      RecordedRefCountPolicy, nsOSG  > SFRecSingleSelectionModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<SingleSelectionModel *,
-                      UnrecordedRefCountPolicy> SFUnrecSingleSelectionModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecSingleSelectionModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<SingleSelectionModel *,
-                      WeakRefCountPolicy      > SFWeakSingleSelectionModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      WeakRefCountPolicy, nsOSG      > SFWeakSingleSelectionModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<SingleSelectionModel *,
-                      NoRefCountPolicy        > SFUncountedSingleSelectionModelPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedSingleSelectionModelPtr;
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<SingleSelectionModel *,
-                      RecordedRefCountPolicy  > MFRecSingleSelectionModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      RecordedRefCountPolicy, nsOSG  > MFRecSingleSelectionModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<SingleSelectionModel *,
-                      UnrecordedRefCountPolicy> MFUnrecSingleSelectionModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecSingleSelectionModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<SingleSelectionModel *,
-                      WeakRefCountPolicy      > MFWeakSingleSelectionModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      WeakRefCountPolicy, nsOSG      > MFWeakSingleSelectionModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<SingleSelectionModel *,
-                      NoRefCountPolicy        > MFUncountedSingleSelectionModelPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedSingleSelectionModelPtr;
 
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFRecSingleSelectionModelPtr : 
     public PointerSField<SingleSelectionModel *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUnrecSingleSelectionModelPtr : 
     public PointerSField<SingleSelectionModel *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFWeakSingleSelectionModelPtr :
     public PointerSField<SingleSelectionModel *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUncountedSingleSelectionModelPtr :
     public PointerSField<SingleSelectionModel *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFRecSingleSelectionModelPtr :
     public PointerMField<SingleSelectionModel *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUnrecSingleSelectionModelPtr :
     public PointerMField<SingleSelectionModel *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFWeakSingleSelectionModelPtr :
     public PointerMField<SingleSelectionModel *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUncountedSingleSelectionModelPtr :
     public PointerMField<SingleSelectionModel *,
                          NoRefCountPolicy        > {};

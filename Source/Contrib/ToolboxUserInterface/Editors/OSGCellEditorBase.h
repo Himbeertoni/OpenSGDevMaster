@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -65,16 +65,12 @@
 
 #include "OSGFieldContainer.h" // Parent
 
+#include "OSGCellEditorEventSourceFields.h" // EventSource type
 
 #include "OSGCellEditorFields.h"
 
-//Event Producer Headers
-#include "OSGActivity.h"
-#include "OSGConsumableEventCombiner.h"
-
-#include "OSGChangeEventDetailsFields.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 class CellEditor;
 
@@ -91,26 +87,23 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CellEditorBase : public FieldCo
     typedef TypeObject::InitPhase InitPhase;
 
     OSG_GEN_INTERNALPTR(CellEditor);
-    
-    
-    typedef ChangeEventDetails EditingCanceledEventDetailsType;
-    typedef ChangeEventDetails EditingStoppedEventDetailsType;
-
-    typedef boost::signals2::signal<void (EventDetails* const            , UInt32)> BaseEventType;
-    typedef boost::signals2::signal<void (ChangeEventDetails* const, UInt32), ConsumableEventCombiner> EditingCanceledEventType;
-    typedef boost::signals2::signal<void (ChangeEventDetails* const, UInt32), ConsumableEventCombiner> EditingStoppedEventType;
 
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-
     enum
     {
-        EditingCanceledEventId = 1,
-        EditingStoppedEventId = EditingCanceledEventId + 1,
-        NextProducedEventId = EditingStoppedEventId + 1
+        EventSourceFieldId = Inherited::NextFieldId,
+        NextFieldId = EventSourceFieldId + 1
     };
+
+    static const OSG::BitVector EventSourceFieldMask =
+        (TypeTraits<BitVector>::One << EventSourceFieldId);
+    static const OSG::BitVector NextFieldMask =
+        (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecCellEditorEventSourcePtr SFEventSourceType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -119,8 +112,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CellEditorBase : public FieldCo
     static FieldContainerType &getClassType   (void);
     static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
-    static const  EventProducerType  &getProducerClassType  (void);
-    static        UInt32              getProducerClassTypeId(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -134,10 +125,38 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CellEditorBase : public FieldCo
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+            const SFUnrecCellEditorEventSourcePtr *getSFEventSource    (void) const;
+                  SFUnrecCellEditorEventSourcePtr *editSFEventSource    (void);
+
+
+                  CellEditorEventSource * getEventSource    (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setEventSource    (CellEditorEventSource * const value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr Field Set                                 */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual SizeT  getBinSize (ConstFieldMaskArg  whichField);
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
     virtual void   copyFromBin(BinaryDataHandler &pMem,
@@ -145,76 +164,22 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CellEditorBase : public FieldCo
 
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Event Produced Get                           */
-    /*! \{                                                                 */
-
-    virtual const EventProducerType &getProducerType(void) const; 
-
-    virtual UInt32                   getNumProducedEvents       (void                                ) const;
-    virtual const EventDescription *getProducedEventDescription(const std::string &ProducedEventName) const;
-    virtual const EventDescription *getProducedEventDescription(UInt32 ProducedEventId              ) const;
-    virtual UInt32                   getProducedEventId         (const std::string &ProducedEventName) const;
-    
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-                                              
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::group_type &group,
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-    
-    virtual void   disconnectEvent        (UInt32 eventId, const BaseEventType::group_type &group);
-    virtual void   disconnectAllSlotsEvent(UInt32 eventId);
-    virtual bool   isEmptyEvent           (UInt32 eventId) const;
-    virtual UInt32 numSlotsEvent          (UInt32 eventId) const;
-
-    /*! \}                                                                 */
-    /*! \name                Event Access                                 */
-    /*! \{                                                                 */
-    
-    //EditingCanceled
-    boost::signals2::connection connectEditingCanceled(const EditingCanceledEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectEditingCanceled(const EditingCanceledEventType::group_type &group,
-                                                       const EditingCanceledEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectEditingCanceled        (const EditingCanceledEventType::group_type &group);
-    void   disconnectAllSlotsEditingCanceled(void);
-    bool   isEmptyEditingCanceled           (void) const;
-    UInt32 numSlotsEditingCanceled          (void) const;
-    
-    //EditingStopped
-    boost::signals2::connection connectEditingStopped (const EditingStoppedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectEditingStopped (const EditingStoppedEventType::group_type &group,
-                                                       const EditingStoppedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectEditingStopped         (const EditingStoppedEventType::group_type &group);
-    void   disconnectAllSlotsEditingStopped (void);
-    bool   isEmptyEditingStopped            (void) const;
-    UInt32 numSlotsEditingStopped           (void) const;
-    
-    
-    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Produced Event Signals                   */
-    /*! \{                                                                 */
-
-    //Event Event producers
-    EditingCanceledEventType _EditingCanceledEvent;
-    EditingStoppedEventType _EditingStoppedEvent;
-    /*! \}                                                                 */
 
     static TypeObject _type;
 
     static       void   classDescInserter(TypeObject &oType);
     static const Char8 *getClassname     (void             );
 
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    SFUnrecCellEditorEventSourcePtr _sfEventSource;
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
@@ -234,29 +199,16 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CellEditorBase : public FieldCo
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
+    void onCreate(const CellEditor *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleEventSource     (void) const;
+    EditFieldHandlePtr editHandleEventSource    (void);
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Event Access                     */
-    /*! \{                                                                 */
-
-    GetEventHandlePtr getHandleEditingCanceledSignal(void) const;
-    GetEventHandlePtr getHandleEditingStoppedSignal(void) const;
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Event Producer Firing                    */
-    /*! \{                                                                 */
-
-    virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
-    
-    void produceEditingCanceled     (EditingCanceledEventDetailsType* const e);
-    void produceEditingStopped      (EditingStoppedEventDetailsType* const e);
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
@@ -302,9 +254,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CellEditorBase : public FieldCo
 
   private:
     /*---------------------------------------------------------------------*/
-    static EventDescription   *_eventDesc[];
-    static EventProducerType _producerType;
-
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const CellEditorBase &source);

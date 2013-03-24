@@ -1170,8 +1170,8 @@ void Tree::onCreate(const Tree * Id)
 
     DefaultTreeSelectionModelUnrecPtr SelModel = DefaultTreeSelectionModel::create();
     setSelectionModel(SelModel);
-    _SelectionAddedConnection = getSelectionModel()->connectSelectionAdded(boost::bind(&Tree::handleSelectionAdded, this, _1));
-    _SelectionRemovedConnection = getSelectionModel()->connectSelectionRemoved(boost::bind(&Tree::handleSelectionRemoved, this, _1));
+    _SelectionAddedConnection = getSelectionModel()->getEventSource()->connectSelectionAdded(boost::bind(&Tree::handleSelectionAdded, this, _1));
+    _SelectionRemovedConnection = getSelectionModel()->getEventSource()->connectSelectionRemoved(boost::bind(&Tree::handleSelectionRemoved, this, _1));
 
     if(Id != NULL &&
        getModelLayout() != NULL)
@@ -1185,14 +1185,14 @@ void Tree::onCreate(const Tree * Id)
         setModelLayout(TheModelLayout);
     }
 
-    _ModelTreeNodesChangedConnection = getModelLayout()->connectTreeNodesChanged(boost::bind(&Tree::handleModelTreeNodesChanged, this, _1));
-    _ModelTreeNodesInsertedConnection = getModelLayout()->connectTreeNodesInserted(boost::bind(&Tree::handleModelTreeNodesInserted, this, _1));
-    _ModelTreeNodesWillBeRemovedConnection = getModelLayout()->connectTreeNodesWillBeRemoved(boost::bind(&Tree::handleModelTreeNodesWillBeRemoved, this, _1));
-    _ModelTreeNodesRemovedConnection = getModelLayout()->connectTreeNodesRemoved(boost::bind(&Tree::handleModelTreeNodesRemoved, this, _1));
-    _ModelTreeStructureChangedConnection = getModelLayout()->connectTreeStructureChanged(boost::bind(&Tree::handleModelTreeStructureChanged, this, _1));
+    _ModelTreeNodesChangedConnection = getModelLayout()->getEventSource()->connectTreeNodesChanged(boost::bind(&Tree::handleModelTreeNodesChanged, this, _1));
+    _ModelTreeNodesInsertedConnection = getModelLayout()->getEventSource()->connectTreeNodesInserted(boost::bind(&Tree::handleModelTreeNodesInserted, this, _1));
+    _ModelTreeNodesWillBeRemovedConnection = getModelLayout()->getEventSource()->connectTreeNodesWillBeRemoved(boost::bind(&Tree::handleModelTreeNodesWillBeRemoved, this, _1));
+    _ModelTreeNodesRemovedConnection = getModelLayout()->getEventSource()->connectTreeNodesRemoved(boost::bind(&Tree::handleModelTreeNodesRemoved, this, _1));
+    _ModelTreeStructureChangedConnection = getModelLayout()->getEventSource()->connectTreeStructureChanged(boost::bind(&Tree::handleModelTreeStructureChanged, this, _1));
 
-    _ModelLayoutTreeCollapsedConnection = getModelLayout()->connectTreeCollapsed(boost::bind(&Tree::handleModelLayoutTreeCollapsed, this, _1));
-    _ModelLayoutTreeExpandedConnection = getModelLayout()->connectTreeExpanded(boost::bind(&Tree::handleModelLayoutTreeExpanded, this, _1));
+    _ModelLayoutTreeCollapsedConnection = getModelLayout()->getEventSource()->connectTreeCollapsed(boost::bind(&Tree::handleModelLayoutTreeCollapsed, this, _1));
+    _ModelLayoutTreeExpandedConnection = getModelLayout()->getEventSource()->connectTreeExpanded(boost::bind(&Tree::handleModelLayoutTreeExpanded, this, _1));
 
     if(getModelLayout() != NULL)
     {
@@ -1281,13 +1281,13 @@ void Tree::changed(ConstFieldMaskArg whichField,
         {
             //Set the model used by the ModelLayout
             getModelLayout()->setModel(getModel());
-            _ModelTreeNodesChangedConnection = getModelLayout()->connectTreeNodesChanged(boost::bind(&Tree::handleModelTreeNodesChanged, this, _1));
-            _ModelTreeNodesInsertedConnection = getModelLayout()->connectTreeNodesInserted(boost::bind(&Tree::handleModelTreeNodesInserted, this, _1));
-            _ModelTreeNodesWillBeRemovedConnection = getModelLayout()->connectTreeNodesWillBeRemoved(boost::bind(&Tree::handleModelTreeNodesWillBeRemoved, this, _1));
-            _ModelTreeNodesRemovedConnection = getModelLayout()->connectTreeNodesRemoved(boost::bind(&Tree::handleModelTreeNodesRemoved, this, _1));
-            _ModelTreeStructureChangedConnection = getModelLayout()->connectTreeStructureChanged(boost::bind(&Tree::handleModelTreeStructureChanged, this, _1));
-            _ModelLayoutTreeCollapsedConnection = getModelLayout()->connectTreeCollapsed(boost::bind(&Tree::handleModelLayoutTreeCollapsed, this, _1));
-            _ModelLayoutTreeExpandedConnection = getModelLayout()->connectTreeExpanded(boost::bind(&Tree::handleModelLayoutTreeExpanded, this, _1));
+            _ModelTreeNodesChangedConnection = getModelLayout()->getEventSource()->connectTreeNodesChanged(boost::bind(&Tree::handleModelTreeNodesChanged, this, _1));
+            _ModelTreeNodesInsertedConnection = getModelLayout()->getEventSource()->connectTreeNodesInserted(boost::bind(&Tree::handleModelTreeNodesInserted, this, _1));
+            _ModelTreeNodesWillBeRemovedConnection = getModelLayout()->getEventSource()->connectTreeNodesWillBeRemoved(boost::bind(&Tree::handleModelTreeNodesWillBeRemoved, this, _1));
+            _ModelTreeNodesRemovedConnection = getModelLayout()->getEventSource()->connectTreeNodesRemoved(boost::bind(&Tree::handleModelTreeNodesRemoved, this, _1));
+            _ModelTreeStructureChangedConnection = getModelLayout()->getEventSource()->connectTreeStructureChanged(boost::bind(&Tree::handleModelTreeStructureChanged, this, _1));
+            _ModelLayoutTreeCollapsedConnection = getModelLayout()->getEventSource()->connectTreeCollapsed(boost::bind(&Tree::handleModelLayoutTreeCollapsed, this, _1));
+            _ModelLayoutTreeExpandedConnection = getModelLayout()->getEventSource()->connectTreeExpanded(boost::bind(&Tree::handleModelLayoutTreeExpanded, this, _1));
             if(getSelectionModel())
             {
                 getSelectionModel()->setRowMapper(getModelLayout());
@@ -1308,11 +1308,11 @@ void Tree::changed(ConstFieldMaskArg whichField,
         {
             //Set the model used by the ModelLayout
             getModelLayout()->setModel(getModel());
-            _ModelTreeNodesChangedConnection = getModelLayout()->connectTreeNodesChanged(boost::bind(&Tree::handleModelTreeNodesChanged, this, _1));
-            _ModelTreeNodesInsertedConnection = getModelLayout()->connectTreeNodesInserted(boost::bind(&Tree::handleModelTreeNodesInserted, this, _1));
-            _ModelTreeNodesWillBeRemovedConnection = getModelLayout()->connectTreeNodesWillBeRemoved(boost::bind(&Tree::handleModelTreeNodesWillBeRemoved, this, _1));
-            _ModelTreeNodesRemovedConnection = getModelLayout()->connectTreeNodesRemoved(boost::bind(&Tree::handleModelTreeNodesRemoved, this, _1));
-            _ModelTreeStructureChangedConnection = getModelLayout()->connectTreeStructureChanged(boost::bind(&Tree::handleModelTreeStructureChanged, this, _1));
+            _ModelTreeNodesChangedConnection = getModelLayout()->getEventSource()->connectTreeNodesChanged(boost::bind(&Tree::handleModelTreeNodesChanged, this, _1));
+            _ModelTreeNodesInsertedConnection = getModelLayout()->getEventSource()->connectTreeNodesInserted(boost::bind(&Tree::handleModelTreeNodesInserted, this, _1));
+            _ModelTreeNodesWillBeRemovedConnection = getModelLayout()->getEventSource()->connectTreeNodesWillBeRemoved(boost::bind(&Tree::handleModelTreeNodesWillBeRemoved, this, _1));
+            _ModelTreeNodesRemovedConnection = getModelLayout()->getEventSource()->connectTreeNodesRemoved(boost::bind(&Tree::handleModelTreeNodesRemoved, this, _1));
+            _ModelTreeStructureChangedConnection = getModelLayout()->getEventSource()->connectTreeStructureChanged(boost::bind(&Tree::handleModelTreeStructureChanged, this, _1));
             if(getSelectionModel())
             {
                 getSelectionModel()->setRowMapper(getModelLayout());
@@ -1327,8 +1327,8 @@ void Tree::changed(ConstFieldMaskArg whichField,
         _SelectionRemovedConnection.disconnect();
         if(getSelectionModel() != NULL)
         {
-            _SelectionAddedConnection = getSelectionModel()->connectSelectionAdded(boost::bind(&Tree::handleSelectionAdded, this, _1));
-            _SelectionRemovedConnection = getSelectionModel()->connectSelectionRemoved(boost::bind(&Tree::handleSelectionRemoved, this, _1));
+            _SelectionAddedConnection = getSelectionModel()->getEventSource()->connectSelectionAdded(boost::bind(&Tree::handleSelectionAdded, this, _1));
+            _SelectionRemovedConnection = getSelectionModel()->getEventSource()->connectSelectionRemoved(boost::bind(&Tree::handleSelectionRemoved, this, _1));
             if(getModelLayout() != NULL)
             {
                 getSelectionModel()->setRowMapper(getModelLayout());

@@ -216,7 +216,7 @@ void TextArea::focusGained(FocusEventDetails* const e)
         getParentWindow()->getParentDrawingSurface() != NULL &&
         getParentWindow()->getParentDrawingSurface()->getEventProducer() != NULL)
     {
-        _CaretUpdateConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectUpdate(boost::bind(&TextArea::handleCaretUpdate, this, _1));
+        _CaretUpdateConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectUpdate(boost::bind(&TextArea::handleCaretUpdate, this, _1));
     }
     Inherited::focusGained(e);
 }
@@ -482,9 +482,9 @@ void TextArea::mousePressed(MouseEventDetails* const e)
     }
     if(getParentWindow() != NULL && getParentWindow()->getParentDrawingSurface()!=NULL&& getParentWindow()->getParentDrawingSurface()->getEventProducer() != NULL)
     {
-        _MouseDownKeyTypedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectKeyTyped(boost::bind(&TextArea::handleMouseDownKeyTyped, this, _1));
-        _MouseDownMouseReleasedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectMouseReleased(boost::bind(&TextArea::handleMouseDownMouseReleased, this, _1));
-        _MouseDownMouseDraggedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectMouseDragged(boost::bind(&TextArea::handleMouseDownMouseDragged, this, _1));
+        _MouseDownKeyTypedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectKeyTyped(boost::bind(&TextArea::handleMouseDownKeyTyped, this, _1));
+        _MouseDownMouseReleasedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectMouseReleased(boost::bind(&TextArea::handleMouseDownMouseReleased, this, _1));
+        _MouseDownMouseDraggedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectMouseDragged(boost::bind(&TextArea::handleMouseDownMouseDragged, this, _1));
     }
     Inherited::mousePressed(e);
 }

@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -65,16 +65,12 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
+#include "OSGTreeSelectionModelEventSourceFields.h" // EventSource type
 
 #include "OSGTreeSelectionModelFields.h"
 
-//Event Producer Headers
-#include "OSGActivity.h"
-#include "OSGConsumableEventCombiner.h"
-
-#include "OSGTreeSelectionEventDetailsFields.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 class TreeSelectionModel;
 
@@ -91,26 +87,23 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeSelectionModelBase : public
     typedef TypeObject::InitPhase InitPhase;
 
     OSG_GEN_INTERNALPTR(TreeSelectionModel);
-    
-    
-    typedef TreeSelectionEventDetails SelectionAddedEventDetailsType;
-    typedef TreeSelectionEventDetails SelectionRemovedEventDetailsType;
-
-    typedef boost::signals2::signal<void (EventDetails* const            , UInt32)> BaseEventType;
-    typedef boost::signals2::signal<void (TreeSelectionEventDetails* const, UInt32), ConsumableEventCombiner> SelectionAddedEventType;
-    typedef boost::signals2::signal<void (TreeSelectionEventDetails* const, UInt32), ConsumableEventCombiner> SelectionRemovedEventType;
 
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-
     enum
     {
-        SelectionAddedEventId = 1,
-        SelectionRemovedEventId = SelectionAddedEventId + 1,
-        NextProducedEventId = SelectionRemovedEventId + 1
+        EventSourceFieldId = Inherited::NextFieldId,
+        NextFieldId = EventSourceFieldId + 1
     };
+
+    static const OSG::BitVector EventSourceFieldMask =
+        (TypeTraits<BitVector>::One << EventSourceFieldId);
+    static const OSG::BitVector NextFieldMask =
+        (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecTreeSelectionModelEventSourcePtr SFEventSourceType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -119,8 +112,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeSelectionModelBase : public
     static FieldContainerType &getClassType   (void);
     static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
-    static const  EventProducerType  &getProducerClassType  (void);
-    static        UInt32              getProducerClassTypeId(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -134,10 +125,38 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeSelectionModelBase : public
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+            const SFUnrecTreeSelectionModelEventSourcePtr *getSFEventSource    (void) const;
+                  SFUnrecTreeSelectionModelEventSourcePtr *editSFEventSource    (void);
+
+
+                  TreeSelectionModelEventSource * getEventSource    (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setEventSource    (TreeSelectionModelEventSource * const value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr Field Set                                 */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual SizeT  getBinSize (ConstFieldMaskArg  whichField);
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
     virtual void   copyFromBin(BinaryDataHandler &pMem,
@@ -145,76 +164,22 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeSelectionModelBase : public
 
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Event Produced Get                           */
-    /*! \{                                                                 */
-
-    virtual const EventProducerType &getProducerType(void) const; 
-
-    virtual UInt32                   getNumProducedEvents       (void                                ) const;
-    virtual const EventDescription *getProducedEventDescription(const std::string &ProducedEventName) const;
-    virtual const EventDescription *getProducedEventDescription(UInt32 ProducedEventId              ) const;
-    virtual UInt32                   getProducedEventId         (const std::string &ProducedEventName) const;
-    
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-                                              
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::group_type &group,
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-    
-    virtual void   disconnectEvent        (UInt32 eventId, const BaseEventType::group_type &group);
-    virtual void   disconnectAllSlotsEvent(UInt32 eventId);
-    virtual bool   isEmptyEvent           (UInt32 eventId) const;
-    virtual UInt32 numSlotsEvent          (UInt32 eventId) const;
-
-    /*! \}                                                                 */
-    /*! \name                Event Access                                 */
-    /*! \{                                                                 */
-    
-    //SelectionAdded
-    boost::signals2::connection connectSelectionAdded (const SelectionAddedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectSelectionAdded (const SelectionAddedEventType::group_type &group,
-                                                       const SelectionAddedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectSelectionAdded         (const SelectionAddedEventType::group_type &group);
-    void   disconnectAllSlotsSelectionAdded (void);
-    bool   isEmptySelectionAdded            (void) const;
-    UInt32 numSlotsSelectionAdded           (void) const;
-    
-    //SelectionRemoved
-    boost::signals2::connection connectSelectionRemoved(const SelectionRemovedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectSelectionRemoved(const SelectionRemovedEventType::group_type &group,
-                                                       const SelectionRemovedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectSelectionRemoved       (const SelectionRemovedEventType::group_type &group);
-    void   disconnectAllSlotsSelectionRemoved(void);
-    bool   isEmptySelectionRemoved          (void) const;
-    UInt32 numSlotsSelectionRemoved         (void) const;
-    
-    
-    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Produced Event Signals                   */
-    /*! \{                                                                 */
-
-    //Event Event producers
-    SelectionAddedEventType _SelectionAddedEvent;
-    SelectionRemovedEventType _SelectionRemovedEvent;
-    /*! \}                                                                 */
 
     static TypeObject _type;
 
     static       void   classDescInserter(TypeObject &oType);
     static const Char8 *getClassname     (void             );
 
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    SFUnrecTreeSelectionModelEventSourcePtr _sfEventSource;
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
@@ -234,29 +199,16 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeSelectionModelBase : public
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
+    void onCreate(const TreeSelectionModel *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleEventSource     (void) const;
+    EditFieldHandlePtr editHandleEventSource    (void);
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Event Access                     */
-    /*! \{                                                                 */
-
-    GetEventHandlePtr getHandleSelectionAddedSignal(void) const;
-    GetEventHandlePtr getHandleSelectionRemovedSignal(void) const;
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Event Producer Firing                    */
-    /*! \{                                                                 */
-
-    virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
-    
-    void produceSelectionAdded      (SelectionAddedEventDetailsType* const e);
-    void produceSelectionRemoved    (SelectionRemovedEventDetailsType* const e);
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
@@ -302,9 +254,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeSelectionModelBase : public
 
   private:
     /*---------------------------------------------------------------------*/
-    static EventDescription   *_eventDesc[];
-    static EventProducerType _producerType;
-
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const TreeSelectionModelBase &source);

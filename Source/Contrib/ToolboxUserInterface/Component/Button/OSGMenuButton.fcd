@@ -3,7 +3,7 @@
 <FieldContainer
     name="MenuButton"
     parent="ToggleButton"
-    library="ContribUserInterface"
+    library="ContribToolboxUserInterface"
     pointerfieldtypes="both"
     structure="concrete"
     systemcomponent="true"
@@ -12,8 +12,8 @@
     useLocalIncludes="false"
     isNodeCore="false"
     authors="David Kabala (djkabala@gmail.com)                             "
-    parentProducer="ToggleButton"
 >
+<!--    parentProducer="ToggleButton" -->
 A UI MenuButton
     <Field
         name="Model"
@@ -45,10 +45,12 @@ A UI MenuButton
         defaultValue="NULL"
     >
     </Field>
+<!--
     <ProducedEvent
         name="MenuActionPerformed"
         detailsType="ActionEventDetails"
         consumable="true"
     >
     </ProducedEvent>
+-->
 </FieldContainer>

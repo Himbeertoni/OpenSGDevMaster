@@ -3,7 +3,7 @@
 <FieldContainer
     name="AbstractWindow"
     parent="ComponentContainer"
-    library="ContribUserInterface"
+    library="ContribToolboxUserInterface"
     pointerfieldtypes="both"
     structure="abstract"
     systemcomponent="true"
@@ -12,7 +12,6 @@
     useLocalIncludes="false"
     isNodeCore="false"
     authors="David Kabala (djkabala@gmail.com)                             "
-    parentProducer="Component"
     >
     A UI Abstract Window.
     <Field
@@ -206,6 +205,7 @@
         defaultValue="3"
         >
     </Field>
+<!--
     <ProducedEvent
         name="WindowOpened"
         detailsType="WindowEventDetails"
@@ -260,4 +260,5 @@
         consumable="true"
         >
     </ProducedEvent>
+-->
 </FieldContainer>

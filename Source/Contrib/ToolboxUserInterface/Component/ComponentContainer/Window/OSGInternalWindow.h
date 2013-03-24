@@ -45,7 +45,9 @@
 #include "OSGInternalWindowBase.h"
 #include "OSGKeyEventDetails.h"
 #include "OSGActionEventDetailsFields.h"
-
+#include "OSGKeyEventDetailsFields.h"
+#include <boost/signals2.hpp>
+#include "OSGComponentEventSource.h"
 OSG_BEGIN_NAMESPACE
 
 /*! \brief InternalWindow class. See \ref
@@ -109,20 +111,17 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING InternalWindow : public Interna
     bool giveFocus(Component* const NewFocusedComponent, bool Temporary = false);
     bool takeFocus(bool Temporary = false);
 
+
     boost::signals2::connection connectKeyAccelerator(KeyEventDetails::Key TheKey, 
                                                       UInt32 Modifiers,
-                                                      const KeyPressedEventType::slot_type &listener,
+                                                      const ComponentEventSource::KeyPressedEventType::slot_type &listener,
                                                       boost::signals2::connect_position at= boost::signals2::at_front);
 
     boost::signals2::connection connectKeyAccelerator(KeyEventDetails::Key TheKey, 
                                                       UInt32 Modifiers,
-                                                      const KeyPressedEventType::group_type &group,
-                                                      const KeyPressedEventType::slot_type &listener,
+                                                      const ComponentEventSource::KeyPressedEventType::group_type &group,
+                                                      const ComponentEventSource::KeyPressedEventType::slot_type &listener,
                                                       boost::signals2::connect_position at= boost::signals2::at_front);
-    
-    static void handleKeyAcceleratorCheck(KeyEventDetails* const details,
-                                          boost::function<bool (KeyEventDetails* const)> predicateFunc,
-                                          KeyPressedEventType::slot_type &listener);
 
     static bool doKeyDetailsMatch(KeyEventDetails* const Details,
                                   KeyEventDetails::Key   Key,
@@ -170,6 +169,9 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING InternalWindow : public Interna
 
   protected:
 
+    static void handleKeyAcceleratorCheck(KeyEventDetails* const details,
+                                          boost::function<bool (KeyEventDetails* const)> predicateFunc,
+                                          ComponentEventSource::KeyPressedEventType::slot_type &listener);
     // Variables should all be in InternalWindowBase.
 
     /*---------------------------------------------------------------------*/
@@ -221,15 +223,11 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING InternalWindow : public Interna
     //KeyAcceleratorMap _KeyAcceleratorMap;
     
     void titlebarMousePressed(MouseEventDetails* const e);
-    boost::signals2::connection _TitleBarMousePressedConnection;
 
     virtual void titlebarDragMouseDragged(MouseEventDetails* const e);
     virtual void titlebarDragMouseReleased(MouseEventDetails* const e);
     virtual void titlebarDragKeyPressed(KeyEventDetails* const e);
 
-    boost::signals2::connection _TitlebarDragMouseDraggedConnection,
-                                _TitlebarDragMouseReleasedConnection,
-                                _TitlebarDragKeyPressedConnection;
 
     Pnt2f _WindowStartPosition;
     Pnt2f _MouseStartPosition;
@@ -238,13 +236,19 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING InternalWindow : public Interna
     void borderDragMouseReleased(MouseEventDetails* const e);
     void borderDragKeyPressed(KeyEventDetails* const e);
 
+    Vec2f _WindowStartSize;
+    WindowArea _BorderDragged;
+    
+
+    boost::signals2::connection _TitleBarMousePressedConnection;
+
+    boost::signals2::connection _TitlebarDragMouseDraggedConnection,
+                                _TitlebarDragMouseReleasedConnection,
+                                _TitlebarDragKeyPressedConnection;
     boost::signals2::connection _BorderDragMouseDraggedConnection,
                                 _BorderDragMouseReleasedConnection,
                                 _BorderDragKeyPressedConnection;
 
-    Vec2f _WindowStartSize;
-    WindowArea _BorderDragged;
-    
     //CloseButton
     void closeButtonAction(ActionEventDetails* const e);
     boost::signals2::connection _CloseButtonActionConnection;

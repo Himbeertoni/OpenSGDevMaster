@@ -305,7 +305,7 @@ void DefaultTableColumnModel::changed(ConstFieldMaskArg whichField,
         _SelectionChangedConnection.disconnect();
         if(getSelectionModel() != NULL)
         {
-            _SelectionChangedConnection = getSelectionModel()->connectSelectionChanged(boost::bind(&DefaultTableColumnModel::handleSelectionChanged, this, _1));
+            _SelectionChangedConnection = getSelectionModel()->getEventSource()->connectSelectionChanged(boost::bind(&DefaultTableColumnModel::handleSelectionChanged, this, _1));
         }
     }
 }

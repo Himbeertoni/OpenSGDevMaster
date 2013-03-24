@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="ToggleButtonEventSource"
+    parent="ButtonEventSource"
+    library="ContribToolboxUserInterface"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="false"
+>
+<!--
+    <ProducedEvent
+        name="ButtonSelected"
+        detailsType="ButtonSelectedEventDetails"
+        consumable="true"
+    >
+    </ProducedEvent>
+    <ProducedEvent
+        name="ButtonDeselected"
+        detailsType="ButtonSelectedEventDetails"
+        consumable="true"
+    >
+    </ProducedEvent>
+-->
+</FieldContainer>

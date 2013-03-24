@@ -327,7 +327,11 @@ void Spinner::changed(ConstFieldMaskArg whichField,
         _NextButtonActionConnection.disconnect();
         if(getNextButton() != NULL)
         {
-            _NextButtonActionConnection = getNextButton()->connectMousePressedActionPerformed(boost::bind(&Spinner::handleNextButtonAction, this, _1));
+            ButtonEventSource* ev = dynamic_cast<ButtonEventSource*>( getNextButton()->getEventSource() );
+            if ( ev )
+            {
+                _NextButtonActionConnection = ev->connectMousePressedActionPerformed(boost::bind(&Spinner::handleNextButtonAction, this, _1));
+            }
         }
     }
 
@@ -336,7 +340,11 @@ void Spinner::changed(ConstFieldMaskArg whichField,
         _PreviousButtonActionConnection.disconnect();
         if(getPreviousButton() != NULL)
         {
-            _PreviousButtonActionConnection = getPreviousButton()->connectMousePressedActionPerformed(boost::bind(&Spinner::handlePreviousButtonAction, this, _1));
+            ButtonEventSource* ev = dynamic_cast<ButtonEventSource*>( getPreviousButton()->getEventSource() );
+            if ( ev )
+            {
+                _PreviousButtonActionConnection = ev->connectMousePressedActionPerformed(boost::bind(&Spinner::handlePreviousButtonAction, this, _1));
+            }
         }
     }
 }

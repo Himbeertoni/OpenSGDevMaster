@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="CellEditorEventSource"
+    parent="EventContainer"
+    library="ContribToolboxUserInterface"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="false"
+>
+<!--
+    <ProducedEvent
+        name="EditingCanceled"
+        detailsType="ChangeEventDetails"
+        consumable="true"
+    >
+    </ProducedEvent>
+    <ProducedEvent
+        name="EditingStopped"
+        detailsType="ChangeEventDetails"
+        consumable="true"
+    >
+    </ProducedEvent>
+-->
+</FieldContainer>

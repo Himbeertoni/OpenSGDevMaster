@@ -56,7 +56,7 @@
 #include "OSGDefaultListSelectionModel.h"
 #include "OSGListSelectionEventDetails.h"
 #include "OSGListDataEventDetails.h"
-
+#include "OSGListSelectionModel.h"
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
@@ -179,8 +179,8 @@ void List::initItem(const UInt32& Index)
             {
                 getParentWindow()->setFocusedComponent(_DrawnIndices[Index]);
             }
-            _ItemFocusGainedConnections[_DrawnIndices[Index]] = _DrawnIndices[Index]->connectFocusGained(boost::bind(&List::handleItemFocusGained, this, _1));
-            _ItemFocusLostConnections[_DrawnIndices[Index]] = _DrawnIndices[Index]->connectFocusLost(boost::bind(&List::handleItemFocusLost, this, _1));
+            _ItemFocusGainedConnections[_DrawnIndices[Index]] = _DrawnIndices[Index]->getEventSource()->connectFocusGained(boost::bind(&List::handleItemFocusGained, this, _1));
+            _ItemFocusLostConnections[_DrawnIndices[Index]] = _DrawnIndices[Index]->getEventSource()->connectFocusLost(boost::bind(&List::handleItemFocusLost, this, _1));
             _DrawnIndices[Index]->setFocused(getListIndexFromDrawnIndex(Index) == _FocusedIndex);
         }
 
@@ -1104,7 +1104,7 @@ void List::changed(ConstFieldMaskArg whichField,
 
         if(getSelectionModel() != NULL)
         {
-            _SelectionChangedConnection = getSelectionModel()->connectSelectionChanged(boost::bind(&List::handleSelectionChanged, this, _1));
+            _SelectionChangedConnection = getSelectionModel()->getEventSource()->connectSelectionChanged(boost::bind(&List::handleSelectionChanged, this, _1));
         }
     }
         
@@ -1125,9 +1125,9 @@ void List::changed(ConstFieldMaskArg whichField,
 
         if(getModel() != NULL)
         {
-            _ContentsChangedConnection = getModel()->connectListDataContentsChanged(boost::bind(&List::handleContentsChanged, this, _1));
-            _IntervalAddedConnection = getModel()->connectListDataIntervalAdded(boost::bind(&List::handleIntervalAdded, this, _1));
-            _IntervalRemovedConnection = getModel()->connectListDataIntervalRemoved(boost::bind(&List::handleIntervalRemoved, this, _1));
+            _ContentsChangedConnection = getModel()->getEventSource()->connectListDataContentsChanged(boost::bind(&List::handleContentsChanged, this, _1));
+            _IntervalAddedConnection   = getModel()->getEventSource()->connectListDataIntervalAdded(boost::bind(&List::handleIntervalAdded, this, _1));
+            _IntervalRemovedConnection = getModel()->getEventSource()->connectListDataIntervalRemoved(boost::bind(&List::handleIntervalRemoved, this, _1));
         }
         
         updateIndiciesDrawnFromModel();

@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class BoundedRangeModel;
 
 OSG_GEN_CONTAINERPTR(BoundedRangeModel);
-
-/*! \ingroup GrpContribUserInterfaceFieldTraits
-    \ingroup GrpLibOSGContribUserInterface
+/*! \ingroup GrpContribToolboxUserInterfaceFieldTraits
+    \ingroup GrpLibOSGContribToolboxUserInterface
  */
 template <>
-struct FieldTraits<BoundedRangeModel *> :
-    public FieldTraitsFCPtrBase<BoundedRangeModel *>
+struct FieldTraits<BoundedRangeModel *, nsOSG> :
+    public FieldTraitsFCPtrBase<BoundedRangeModel *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<BoundedRangeModel *>  Self;
+    typedef FieldTraits<BoundedRangeModel *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,126 +90,124 @@ struct FieldTraits<BoundedRangeModel *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFBoundedRangeModelPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFBoundedRangeModelPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<BoundedRangeModel *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<BoundedRangeModel *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecBoundedRangeModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BoundedRangeModel *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<BoundedRangeModel *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecBoundedRangeModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BoundedRangeModel *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<BoundedRangeModel *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakBoundedRangeModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BoundedRangeModel *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<BoundedRangeModel *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdBoundedRangeModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BoundedRangeModel *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<BoundedRangeModel *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecBoundedRangeModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BoundedRangeModel *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<BoundedRangeModel *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecBoundedRangeModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BoundedRangeModel *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<BoundedRangeModel *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakBoundedRangeModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<BoundedRangeModel *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<BoundedRangeModel *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdBoundedRangeModelPtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<BoundedRangeModel *,
-                      RecordedRefCountPolicy  > SFRecBoundedRangeModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      RecordedRefCountPolicy, nsOSG  > SFRecBoundedRangeModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<BoundedRangeModel *,
-                      UnrecordedRefCountPolicy> SFUnrecBoundedRangeModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecBoundedRangeModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<BoundedRangeModel *,
-                      WeakRefCountPolicy      > SFWeakBoundedRangeModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      WeakRefCountPolicy, nsOSG      > SFWeakBoundedRangeModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<BoundedRangeModel *,
-                      NoRefCountPolicy        > SFUncountedBoundedRangeModelPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedBoundedRangeModelPtr;
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<BoundedRangeModel *,
-                      RecordedRefCountPolicy  > MFRecBoundedRangeModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      RecordedRefCountPolicy, nsOSG  > MFRecBoundedRangeModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<BoundedRangeModel *,
-                      UnrecordedRefCountPolicy> MFUnrecBoundedRangeModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecBoundedRangeModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<BoundedRangeModel *,
-                      WeakRefCountPolicy      > MFWeakBoundedRangeModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      WeakRefCountPolicy, nsOSG      > MFWeakBoundedRangeModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<BoundedRangeModel *,
-                      NoRefCountPolicy        > MFUncountedBoundedRangeModelPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedBoundedRangeModelPtr;
 
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFRecBoundedRangeModelPtr : 
     public PointerSField<BoundedRangeModel *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUnrecBoundedRangeModelPtr : 
     public PointerSField<BoundedRangeModel *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFWeakBoundedRangeModelPtr :
     public PointerSField<BoundedRangeModel *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUncountedBoundedRangeModelPtr :
     public PointerSField<BoundedRangeModel *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFRecBoundedRangeModelPtr :
     public PointerMField<BoundedRangeModel *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUnrecBoundedRangeModelPtr :
     public PointerMField<BoundedRangeModel *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFWeakBoundedRangeModelPtr :
     public PointerMField<BoundedRangeModel *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUncountedBoundedRangeModelPtr :
     public PointerMField<BoundedRangeModel *,
                          NoRefCountPolicy        > {};

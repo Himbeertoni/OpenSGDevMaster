@@ -3,7 +3,7 @@
 <FieldContainer
     name="ListModel"
     parent="AttachmentContainer"
-    library="ContribUserInterface"
+    library="ContribToolboxUserInterface"
     pointerfieldtypes="both"
     structure="abstract"
     systemcomponent="true"
@@ -14,6 +14,17 @@
     authors="David Kabala (djkabala@gmail.com)                             "
 >
 A UI ListModel.
+    <Field
+        name="EventSource"
+        type="ListModelEventSource"
+        category="pointer"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="NULL"
+        >
+    </Field>
+<!--
     <ProducedEvent
         name="ListDataContentsChanged"
         detailsType="ListDataEventDetails"
@@ -32,4 +43,5 @@ A UI ListModel.
         consumable="true"
     >
     </ProducedEvent>
+-->	
 </FieldContainer>

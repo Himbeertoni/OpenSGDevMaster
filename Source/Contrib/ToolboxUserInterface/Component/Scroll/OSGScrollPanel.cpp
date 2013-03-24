@@ -50,7 +50,7 @@
 #include "OSGScrollBar.h"
 #include "OSGButton.h"
 #include "OSGDefaultBoundedRangeModel.h"
-
+#include "OSGUIViewportEventSource.h"
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
@@ -449,7 +449,11 @@ void ScrollPanel::changed(ConstFieldMaskArg whichField,
         && getView() != NULL)
     {    
         _ViewportStateChangedConnection.disconnect();
-        _ViewportStateChangedConnection = getView()->connectStateChanged(boost::bind(&ScrollPanel::handleViewportStateChanged, this, _1));
+        UIViewportEventSource* ev = dynamic_cast<UIViewportEventSource*>( getView()->getEventSource() );
+        if ( ev )
+        {
+            _ViewportStateChangedConnection = ev->connectStateChanged(boost::bind(&ScrollPanel::handleViewportStateChanged, this, _1));
+        }
 
         updateRangeModels();
     }
@@ -470,7 +474,7 @@ void ScrollPanel::changed(ConstFieldMaskArg whichField,
         _VertRangeModelStateChangedConnection.disconnect();
         if(getVerticalRangeModel() != NULL)
         {
-            _VertRangeModelStateChangedConnection = getVerticalRangeModel()->connectStateChanged(boost::bind(&ScrollPanel::handleRangeModelStateChanged, this, _1));
+            _VertRangeModelStateChangedConnection = getVerticalRangeModel()->getEventSource()->connectStateChanged(boost::bind(&ScrollPanel::handleRangeModelStateChanged, this, _1));
         }
     }
     if(whichField & HorizontalRangeModelFieldMask)
@@ -478,7 +482,7 @@ void ScrollPanel::changed(ConstFieldMaskArg whichField,
         _HorzRangeModelStateChangedConnection.disconnect();
         if(getHorizontalRangeModel() != NULL)
         {
-            _HorzRangeModelStateChangedConnection = getHorizontalRangeModel()->connectStateChanged(boost::bind(&ScrollPanel::handleRangeModelStateChanged, this, _1));
+            _HorzRangeModelStateChangedConnection = getHorizontalRangeModel()->getEventSource()->connectStateChanged(boost::bind(&ScrollPanel::handleRangeModelStateChanged, this, _1));
         }
     }
 

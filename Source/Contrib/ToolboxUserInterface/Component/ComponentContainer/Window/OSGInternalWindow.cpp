@@ -56,7 +56,7 @@
 #include "OSGUIDrawUtils.h"
 #include "OSGWindowEventProducer.h"
 #include "OSGMenuItem.h"
-
+#include "OSGAbstractWindowEventSource.h"
 #include <boost/bind.hpp>
 
 OSG_BEGIN_NAMESPACE
@@ -177,8 +177,8 @@ bool InternalWindow::giveFocus(Component* const NewFocusedComponent, bool Tempor
     else
     {
         setFocused(false);
-        FocusEventDetailsUnrecPtr Details(FocusEventDetails::create(this,getSystemTime(),Temporary, NewFocusedComponent));
-        focusLost(Details);
+        FocusEventDetailsUnrecPtr details(FocusEventDetails::create(this,getSystemTime(),Temporary, NewFocusedComponent));
+        focusLost(details);
         return true;
     }
 }
@@ -195,9 +195,9 @@ bool InternalWindow::takeFocus(bool Temporary)
     setFocused(true);
     if(Temporary || getParentDrawingSurface() == NULL)
     {
-        FocusEventDetailsUnrecPtr Details(FocusEventDetails::create(this,getSystemTime(),Temporary, NULL));
+        FocusEventDetailsUnrecPtr details(FocusEventDetails::create(this,getSystemTime(),Temporary, NULL));
 
-        focusGained(Details);
+        focusGained(details);
     }
     else
     {
@@ -206,8 +206,8 @@ bool InternalWindow::takeFocus(bool Temporary)
             getParentDrawingSurface()->getFocusedWindow()->giveFocus(this);
         }
         getParentDrawingSurface()->setFocusedWindow(this);
-        FocusEventDetailsUnrecPtr Details(FocusEventDetails::create(this,getSystemTime(),Temporary, getParentDrawingSurface()->getFocusedWindow()));
-        focusGained(Details);
+        FocusEventDetailsUnrecPtr details(FocusEventDetails::create(this,getSystemTime(),Temporary, getParentDrawingSurface()->getFocusedWindow()));
+        focusGained(details);
     }
     return true;
 }
@@ -294,7 +294,7 @@ void InternalWindow::keyTyped(KeyEventDetails* const e)
                 ParentContainer = dynamic_cast<ComponentContainer*>(ParentContainer->getParentContainer());
             }
         }
-        produceKeyTyped(e);
+        getEventSource()->produceKeyTyped(e);
     }
 }
 
@@ -874,36 +874,36 @@ void InternalWindow::updateLayout(void)
 
 boost::signals2::connection InternalWindow::connectKeyAccelerator(KeyEventDetails::Key TheKey, 
                                                                   UInt32 Modifiers,
-                                                                  const KeyPressedEventType::slot_type &listener,
+                                                                  const ComponentEventSource::KeyPressedEventType::slot_type &listener,
                                                                   boost::signals2::connect_position at)
 {
     //Bind a predicate function to check the key/modifier pair
     boost::function<bool (KeyEventDetails* const)> predicateFunc(boost::bind(&InternalWindow::doKeyDetailsMatch, _1, TheKey, Modifiers));
 
     //Use the predicate function with a handleKeyAcceleratorCheck function
-    return connectKeyPressed(boost::bind(&InternalWindow::handleKeyAcceleratorCheck, _1, predicateFunc, listener), at);
+    return getEventSource()->connectKeyPressed(boost::bind(&InternalWindow::handleKeyAcceleratorCheck, _1, predicateFunc, listener), at);
 }
 
 boost::signals2::connection InternalWindow::connectKeyAccelerator(KeyEventDetails::Key TheKey, 
                                                                   UInt32 Modifiers,
-                                                                  const KeyPressedEventType::group_type &group,
-                                                                  const KeyPressedEventType::slot_type &listener,
+                                                                  const ComponentEventSource::KeyPressedEventType::group_type &group,
+                                                                  const ComponentEventSource::KeyPressedEventType::slot_type &listener,
                                                                   boost::signals2::connect_position at)
 {
     //Bind a predicate function to check the key/modifier pair
     boost::function<bool (KeyEventDetails* const)> predicateFunc(boost::bind(&InternalWindow::doKeyDetailsMatch, _1, TheKey, Modifiers));
 
     //Use the predicate function with a handleKeyAcceleratorCheck function
-    return connectKeyPressed(group, boost::bind(&InternalWindow::handleKeyAcceleratorCheck, _1, predicateFunc, listener), at);
+    return getEventSource()->connectKeyPressed(group, boost::bind(&InternalWindow::handleKeyAcceleratorCheck, _1, predicateFunc, listener), at);
 }
 
 void InternalWindow::handleKeyAcceleratorCheck(KeyEventDetails* const details,
                                                boost::function<bool (KeyEventDetails* const)> predicateFunc,
-                                               KeyPressedEventType::slot_type &listener)
+                                               ComponentEventSource::KeyPressedEventType::slot_type &listener)
 {
     if(predicateFunc(details))
     {
-        listener.operator()(details, InternalWindow::KeyPressedEventId);
+        listener.operator()(details, ComponentEventSource::KeyPressedEventId);
     }
 }
 
@@ -1080,19 +1080,31 @@ void InternalWindow::changed(ConstFieldMaskArg whichField,
     {
         if(getTitlebar()->getTitleLabel() != NULL)
         {
-            _TitleBarMousePressedConnection = getTitlebar()->getTitleLabel()->connectMousePressed(boost::bind(&InternalWindow::titlebarMousePressed, this, _1));
+            _TitleBarMousePressedConnection = getTitlebar()->getTitleLabel()->getEventSource()->connectMousePressed(boost::bind(&InternalWindow::titlebarMousePressed, this, _1));
         }
         if(getTitlebar()->getCloseButton() != NULL)
         {
-            _CloseButtonActionConnection = getTitlebar()->getCloseButton()->connectActionPerformed(boost::bind(&InternalWindow::closeButtonAction, this, _1));
+            ButtonEventSource* ev = dynamic_cast<ButtonEventSource*>( getTitlebar()->getCloseButton()->getEventSource() );
+            if ( ev )
+            {
+                _CloseButtonActionConnection = ev->connectActionPerformed(boost::bind(&InternalWindow::closeButtonAction, this, _1));
+            }
         }
         if(getTitlebar()->getMaximizeButton() != NULL)
         {
-            _MaximizeButtonActionConnection = getTitlebar()->getMaximizeButton()->connectActionPerformed(boost::bind(&InternalWindow::maximizeButtonAction, this, _1));
+            ButtonEventSource* ev = dynamic_cast<ButtonEventSource*>( getTitlebar()->getMaximizeButton()->getEventSource() );
+            if ( ev )
+            {
+                _MaximizeButtonActionConnection = ev->connectActionPerformed(boost::bind(&InternalWindow::maximizeButtonAction, this, _1));
+            }
         }
         if(getTitlebar()->getIconifyButton() != NULL)
         {
-            _IconifyButtonActionConnection = getTitlebar()->getIconifyButton()->connectActionPerformed(boost::bind(&InternalWindow::iconifyButtonAction, this, _1));
+            ButtonEventSource* ev = dynamic_cast<ButtonEventSource*>( getTitlebar()->getIconifyButton()->getEventSource() );
+            if ( ev )
+            {
+                _IconifyButtonActionConnection = ev->connectActionPerformed(boost::bind(&InternalWindow::iconifyButtonAction, this, _1));
+            }
         }
     }
 
@@ -1248,9 +1260,13 @@ void InternalWindow::titlebarMousePressed(MouseEventDetails* const e)
     _WindowStartPosition = getPosition();
     _MouseStartPosition = e->getLocation();
             
-    _TitlebarDragMouseDraggedConnection = getParentDrawingSurface()->getEventProducer()->connectMouseDragged(boost::bind(&InternalWindow::titlebarDragMouseDragged, this, _1));
-    _TitlebarDragMouseReleasedConnection = getParentDrawingSurface()->getEventProducer()->connectMouseReleased(boost::bind(&InternalWindow::titlebarDragMouseReleased, this, _1));
-    _TitlebarDragKeyPressedConnection = getParentDrawingSurface()->getEventProducer()->connectKeyPressed(boost::bind(&InternalWindow::titlebarDragKeyPressed, this, _1));
+    WindowEventProducerEventSource* ev = dynamic_cast<WindowEventProducerEventSource*>( getParentDrawingSurface()->getEventProducer()->getEventSource() );
+    if ( ev )
+    {
+        _TitlebarDragMouseDraggedConnection  = ev->connectMouseDragged(boost::bind(&InternalWindow::titlebarDragMouseDragged, this, _1));
+        _TitlebarDragMouseReleasedConnection = ev->connectMouseReleased(boost::bind(&InternalWindow::titlebarDragMouseReleased, this, _1));
+        _TitlebarDragKeyPressedConnection    = ev->connectKeyPressed(boost::bind(&InternalWindow::titlebarDragKeyPressed, this, _1));
+    }
 }
 
 void InternalWindow::titlebarDragMouseReleased(MouseEventDetails* const e)

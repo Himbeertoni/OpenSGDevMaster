@@ -151,6 +151,7 @@ typedef TreeModel *TreeModelP;
 
 OSG_END_NAMESPACE
 
+#include "OSGTreeModelEventSource.h"
 #include "OSGTreeModelBase.inl"
 #include "OSGTreeModel.inl"
 

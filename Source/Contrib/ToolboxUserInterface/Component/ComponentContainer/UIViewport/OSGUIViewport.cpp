@@ -47,7 +47,8 @@
 
 #include "OSGUIViewport.h"
 #include <boost/bind.hpp>
-
+#include "OSGChangeEventDetails.h"
+#include "OSGUIViewportEventSource.h"
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
@@ -147,7 +148,11 @@ void UIViewport::produceStateChanged(void)
 {
     ChangeEventDetailsUnrecPtr Details(ChangeEventDetails::create(this, getSystemTime()));
 
-    Inherited::produceStateChanged(Details);
+    UIViewportEventSource* ev = dynamic_cast<UIViewportEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceStateChanged(Details);
+    }
 }
 
 Vec2f UIViewport::getCorrectedViewSize(void) const

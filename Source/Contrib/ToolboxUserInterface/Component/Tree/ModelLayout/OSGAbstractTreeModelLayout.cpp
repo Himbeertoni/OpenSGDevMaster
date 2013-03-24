@@ -50,7 +50,7 @@
 #include "OSGTreeModelEventDetails.h"
 #include <boost/bind.hpp>
 #include "OSGTreeModelEventDetails.h"
-
+#include "OSGTreeModelLayoutEventDetails.h"
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
@@ -163,11 +163,11 @@ void AbstractTreeModelLayout::setModel(TreeModel* const newModel)
     if(_TreeModel != NULL)
     {
 
-        _TreeNodesChangedConnection = _TreeModel->connectTreeNodesChanged(boost::bind(&AbstractTreeModelLayout::handleTreeNodesChanged, this, _1));
-        _TreeNodesInsertedConnection = _TreeModel->connectTreeNodesInserted(boost::bind(&AbstractTreeModelLayout::handleTreeNodesInserted, this, _1));
-        _TreeNodesWillBeRemovedConnection = _TreeModel->connectTreeNodesWillBeRemoved(boost::bind(&AbstractTreeModelLayout::handleTreeNodesWillBeRemoved, this, _1));
-        _TreeNodesRemovedConnection = _TreeModel->connectTreeNodesRemoved(boost::bind(&AbstractTreeModelLayout::handleTreeNodesRemoved, this, _1));
-        _TreeStructureChangedConnection = _TreeModel->connectTreeStructureChanged(boost::bind(&AbstractTreeModelLayout::handleTreeStructureChanged, this, _1));
+        _TreeNodesChangedConnection       = _TreeModel->getEventSource()->connectTreeNodesChanged(boost::bind(&AbstractTreeModelLayout::handleTreeNodesChanged, this, _1));
+        _TreeNodesInsertedConnection      = _TreeModel->getEventSource()->connectTreeNodesInserted(boost::bind(&AbstractTreeModelLayout::handleTreeNodesInserted, this, _1));
+        _TreeNodesWillBeRemovedConnection = _TreeModel->getEventSource()->connectTreeNodesWillBeRemoved(boost::bind(&AbstractTreeModelLayout::handleTreeNodesWillBeRemoved, this, _1));
+        _TreeNodesRemovedConnection       = _TreeModel->getEventSource()->connectTreeNodesRemoved(boost::bind(&AbstractTreeModelLayout::handleTreeNodesRemoved, this, _1));
+        _TreeStructureChangedConnection   = _TreeModel->getEventSource()->connectTreeStructureChanged(boost::bind(&AbstractTreeModelLayout::handleTreeStructureChanged, this, _1));
 
         TreePath RootPath(_TreeModel->getRootPath());
         setExpanded(RootPath, true);
@@ -236,28 +236,28 @@ void AbstractTreeModelLayout::produceTreeCollapsed(const TreePath& Path)
 {
     TreeModelLayoutEventDetailsUnrecPtr Details = TreeModelLayoutEventDetails::create(this, getTimeStamp(), Path);
 
-    Inherited::produceTreeCollapsed(Details);
+    getEventSource()->produceTreeCollapsed(Details);
 }
 
 void AbstractTreeModelLayout::produceTreeExpanded(const TreePath& Path)
 {
     TreeModelLayoutEventDetailsUnrecPtr Details = TreeModelLayoutEventDetails::create(this, getTimeStamp(), Path);
 
-    Inherited::produceTreeExpanded(Details);
+    getEventSource()->produceTreeExpanded(Details);
 }
 
 void AbstractTreeModelLayout::produceTreeWillCollapse(const TreePath& Path)
 {
     TreeModelLayoutEventDetailsUnrecPtr Details = TreeModelLayoutEventDetails::create(this, getTimeStamp(), Path);
 
-    Inherited::produceTreeWillCollapse(Details);
+    getEventSource()->produceTreeWillCollapse(Details);
 }
 
 void AbstractTreeModelLayout::produceTreeWillExpand(const TreePath& Path)
 {
     TreeModelLayoutEventDetailsUnrecPtr Details = TreeModelLayoutEventDetails::create(this, getTimeStamp(), Path);
 
-    Inherited::produceTreeWillExpand(Details);
+    getEventSource()->produceTreeWillExpand(Details);
 }
 
 
@@ -392,27 +392,27 @@ void AbstractTreeModelLayout::getVisibleDecendants(const TreePath& Path, std::ve
 
 void AbstractTreeModelLayout::produceTreeNodesChanged(TreeModelEventDetails* const Details)
 {
-    Inherited::produceTreeNodesChanged(Details);
+    getEventSource()->produceTreeNodesChanged(Details);
 }
 
 void AbstractTreeModelLayout::produceTreeNodesInserted(TreeModelEventDetails* const Details)
 {
-    Inherited::produceTreeNodesInserted(Details);
+    getEventSource()->produceTreeNodesInserted(Details);
 }
 
 void AbstractTreeModelLayout::produceTreeNodesWillBeRemoved(TreeModelEventDetails* const Details)
 {
-    Inherited::produceTreeNodesWillBeRemoved(Details);
+    getEventSource()->produceTreeNodesWillBeRemoved(Details);
 }
 
 void AbstractTreeModelLayout::produceTreeNodesRemoved(TreeModelEventDetails* const Details)
 {
-    Inherited::produceTreeNodesRemoved(Details);
+    getEventSource()->produceTreeNodesRemoved(Details);
 }
 
 void AbstractTreeModelLayout::produceTreeStructureChanged(TreeModelEventDetails* const Details)
 {
-    Inherited::produceTreeStructureChanged(Details);
+    getEventSource()->produceTreeStructureChanged(Details);
 }
 
 /*-------------------------------------------------------------------------*\

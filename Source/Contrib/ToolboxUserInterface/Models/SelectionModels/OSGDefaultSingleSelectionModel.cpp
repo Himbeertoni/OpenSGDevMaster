@@ -121,7 +121,7 @@ void DefaultSingleSelectionModel::produceSelectionChanged(const Int32& SelectedI
 
     SelectionEventDetailsUnrecPtr Details = SelectionEventDetails::create(this, getTimeStamp(), Selected, PreviouslySelected, false);
    
-    Inherited::produceSelectionChanged(Details);
+    getEventSource()->produceSelectionChanged(Details);
 }
 
 /*-------------------------------------------------------------------------*\

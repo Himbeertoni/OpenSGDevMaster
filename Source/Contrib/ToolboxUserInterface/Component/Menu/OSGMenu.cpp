@@ -290,7 +290,7 @@ void Menu::changed(ConstFieldMaskArg whichField,
             {
                 _PopupElps = 0.0;
                 _PopupUpdateEventConnection.disconnect();
-                _PopupUpdateEventConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectUpdate(boost::bind(&Menu::popupUpdate, this, _1));
+                _PopupUpdateEventConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectUpdate(boost::bind(&Menu::popupUpdate, this, _1));
             }
         }
         else

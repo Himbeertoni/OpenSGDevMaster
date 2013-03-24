@@ -199,7 +199,7 @@ void DefaultBoundedRangeModel::setValueIsAdjusting(bool b)
 
 void DefaultBoundedRangeModel::produceStateChanged(ChangeEventDetails* const Details)
 {
-   Inherited::produceStateChanged(Details);
+   getEventSource()->produceStateChanged(Details);
 }
 
 /*----------------------- constructors & destructors ----------------------*/

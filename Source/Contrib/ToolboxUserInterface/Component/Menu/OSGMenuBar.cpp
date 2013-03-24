@@ -51,7 +51,7 @@
 #include "OSGInternalWindow.h"
 #include "OSGUIDrawingSurface.h"
 #include "OSGUIDrawUtils.h"
-
+#include "OSGPopupMenuEventSource.h"
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
@@ -249,7 +249,7 @@ void MenuBar::setParentWindow(InternalWindow* const parent)
 
     if(getParentWindow() != NULL)
     {
-        _KeyTypedConnection = getParentWindow()->connectKeyTyped(boost::bind(&MenuBar::handleMenuArmedKeyTyped, this, _1));
+        _KeyTypedConnection = getParentWindow()->getEventSource()->connectKeyTyped(boost::bind(&MenuBar::handleMenuArmedKeyTyped, this, _1));
     }
 }
 
@@ -304,7 +304,7 @@ void MenuBar::changed(ConstFieldMaskArg whichField,
         _SelectionChangedConnection.disconnect();
         if(getSelectionModel() != NULL)
         {
-            _SelectionChangedConnection = getSelectionModel()->connectSelectionChanged(boost::bind(&MenuBar::handleMenuArmedSelectionChanged, this, _1));
+            _SelectionChangedConnection = getSelectionModel()->getEventSource()->connectSelectionChanged(boost::bind(&MenuBar::handleMenuArmedSelectionChanged, this, _1));
         }
     }
 
@@ -323,7 +323,11 @@ void MenuBar::changed(ConstFieldMaskArg whichField,
         {
             TheMenu = dynamic_cast<Menu*>(getChildren(i));
             TheMenu->setTopLevelMenu(true);
-            _PopupMenuCanceledConnections[TheMenu] = TheMenu->getInternalPopupMenu()->connectPopupMenuCanceled(boost::bind(&MenuBar::handleMenuArmedPopupMenuCanceled, this, _1));
+            PopupMenuEventSource* ev = dynamic_cast<PopupMenuEventSource*>( TheMenu->getInternalPopupMenu()->getEventSource() );
+            if ( ev )
+            {
+                _PopupMenuCanceledConnections[TheMenu] = ev->connectPopupMenuCanceled(boost::bind(&MenuBar::handleMenuArmedPopupMenuCanceled, this, _1));
+            }
         }
     }
 }

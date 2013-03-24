@@ -404,7 +404,30 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSource : public C
     bool   isEmptyToolTipDeactivated        (void) const;
     UInt32 numSlotsToolTipDeactivated       (void) const;
     
+    //Moved protected -> public:
+    void produceKeyTyped            (KeyTypedEventDetailsType* const e);
     
+    void produceMouseMoved          (MouseMovedEventDetailsType* const e);
+    void produceMouseDragged        (MouseDraggedEventDetailsType* const e);
+    void produceMouseClicked        (MouseClickedEventDetailsType* const e);
+    void produceMouseEntered        (MouseEnteredEventDetailsType* const e);
+    void produceMouseExited         (MouseExitedEventDetailsType* const e);
+    void produceMousePressed        (MousePressedEventDetailsType* const e);
+    void produceMouseReleased       (MouseReleasedEventDetailsType* const e);
+    void produceMouseWheelMoved     (MouseWheelMovedEventDetailsType* const e);
+    void produceKeyPressed          (KeyPressedEventDetailsType* const e);
+    void produceKeyReleased         (KeyReleasedEventDetailsType* const e);
+    
+    void produceFocusGained         (FocusGainedEventDetailsType* const e);
+    void produceFocusLost           (FocusLostEventDetailsType* const e);
+    void produceComponentHidden     (ComponentHiddenEventDetailsType* const e);
+    void produceComponentVisible    (ComponentVisibleEventDetailsType* const e);
+    void produceComponentMoved      (ComponentMovedEventDetailsType* const e);
+    void produceComponentResized    (ComponentResizedEventDetailsType* const e);
+    void produceComponentEnabled    (ComponentEnabledEventDetailsType* const e);
+    void produceComponentDisabled   (ComponentDisabledEventDetailsType* const e);
+    void produceToolTipActivated    (ToolTipActivatedEventDetailsType* const e);
+    void produceToolTipDeactivated  (ToolTipDeactivatedEventDetailsType* const e);
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -508,28 +531,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSource : public C
     /*! \{                                                                 */
 
     virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
-    
-    void produceMouseMoved          (MouseMovedEventDetailsType* const e);
-    void produceMouseDragged        (MouseDraggedEventDetailsType* const e);
-    void produceMouseClicked        (MouseClickedEventDetailsType* const e);
-    void produceMouseEntered        (MouseEnteredEventDetailsType* const e);
-    void produceMouseExited         (MouseExitedEventDetailsType* const e);
-    void produceMousePressed        (MousePressedEventDetailsType* const e);
-    void produceMouseReleased       (MouseReleasedEventDetailsType* const e);
-    void produceMouseWheelMoved     (MouseWheelMovedEventDetailsType* const e);
-    void produceKeyPressed          (KeyPressedEventDetailsType* const e);
-    void produceKeyReleased         (KeyReleasedEventDetailsType* const e);
-    void produceKeyTyped            (KeyTypedEventDetailsType* const e);
-    void produceFocusGained         (FocusGainedEventDetailsType* const e);
-    void produceFocusLost           (FocusLostEventDetailsType* const e);
-    void produceComponentHidden     (ComponentHiddenEventDetailsType* const e);
-    void produceComponentVisible    (ComponentVisibleEventDetailsType* const e);
-    void produceComponentMoved      (ComponentMovedEventDetailsType* const e);
-    void produceComponentResized    (ComponentResizedEventDetailsType* const e);
-    void produceComponentEnabled    (ComponentEnabledEventDetailsType* const e);
-    void produceComponentDisabled   (ComponentDisabledEventDetailsType* const e);
-    void produceToolTipActivated    (ToolTipActivatedEventDetailsType* const e);
-    void produceToolTipDeactivated  (ToolTipDeactivatedEventDetailsType* const e);
+
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
@@ -537,15 +539,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSource : public C
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
 
-    boost::signals2::connection _ToolTipActivateUpdateConnection;
-
-    boost::signals2::connection _ToolTipActivateMouseEnterConnection,
-        _ToolTipActivateMouseExitConnection;
-
-    boost::signals2::connection _ActiveTooltipClickConnection,
-                                _ActiveTooltipExitConnection,
-                                _ActiveTooltipPressConnection,
-                                _ActiveTooltipReleaseConnection;
 
     friend class FieldContainer;
     friend class ComponentEventSourceBase;

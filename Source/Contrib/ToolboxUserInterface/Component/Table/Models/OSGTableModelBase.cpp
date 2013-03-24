@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -52,19 +52,17 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include <boost/assign/list_of.hpp>
 
 #include "OSGConfig.h"
 
 
 
+#include "OSGTableModelEventSource.h"   // EventSource Class
 
 #include "OSGTableModelBase.h"
 #include "OSGTableModel.h"
 
 #include <boost/bind.hpp>
-
-#include "OSGEventDetails.h"
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -84,24 +82,32 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
+/*! \var TableModelEventSource * TableModelBase::_sfEventSource
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TableModel *>::_type("TableModelPtr", "FieldContainerPtr");
+PointerType FieldTraits<TableModel *, nsOSG>::_type(
+    "TableModelPtr", 
+    "FieldContainerPtr", 
+    TableModel::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TableModel *)
+OSG_FIELDTRAITS_GETTYPE_NS(TableModel *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            TableModel *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            TableModel *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -109,6 +115,20 @@ OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
 
 void TableModelBase::classDescInserter(TypeObject &oType)
 {
+    FieldDescriptionBase *pDesc = NULL;
+
+
+    pDesc = new SFUnrecTableModelEventSourcePtr::Description(
+        SFUnrecTableModelEventSourcePtr::getClassType(),
+        "EventSource",
+        "",
+        EventSourceFieldId, EventSourceFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&TableModel::editHandleEventSource),
+        static_cast<FieldGetMethodSig >(&TableModel::getHandleEventSource));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -116,7 +136,7 @@ TableModelBase::TypeObject TableModelBase::_type(
     TableModelBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     TableModel::initMethod,
     TableModel::exitMethod,
@@ -126,11 +146,11 @@ TableModelBase::TypeObject TableModelBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"TableModel\"\n"
-    "\tparent=\"FieldContainer\"\n"
-    "    library=\"ContribUserInterface\"\n"
+    "    name=\"TableModel\"\n"
+    "    parent=\"FieldContainer\"\n"
+    "    library=\"ContribToolboxUserInterface\"\n"
     "    pointerfieldtypes=\"both\"\n"
-    "\tstructure=\"abstract\"\n"
+    "    structure=\"abstract\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"
     "    decoratable=\"false\"\n"
@@ -139,75 +159,45 @@ TableModelBase::TypeObject TableModelBase::_type(
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
     ">\n"
     "A UI TableModel.\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"ContentsHeaderRowChanged\"\n"
-    "\t\tdetailsType=\"TableModelEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"ContentsChanged\"\n"
-    "\t\tdetailsType=\"TableModelEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"IntervalAdded\"\n"
-    "\t\tdetailsType=\"TableModelEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"IntervalRemoved\"\n"
-    "\t\tdetailsType=\"TableModelEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
+    "    <Field\n"
+    "        name=\"EventSource\"\n"
+    "        type=\"TableModelEventSource\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "<!--\n"
+    "    <ProducedEvent\n"
+    "        name=\"ContentsHeaderRowChanged\"\n"
+    "        detailsType=\"TableModelEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "    <ProducedEvent\n"
+    "        name=\"ContentsChanged\"\n"
+    "        detailsType=\"TableModelEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "    <ProducedEvent\n"
+    "        name=\"IntervalAdded\"\n"
+    "        detailsType=\"TableModelEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "    <ProducedEvent\n"
+    "        name=\"IntervalRemoved\"\n"
+    "        detailsType=\"TableModelEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "-->\n"
     "</FieldContainer>\n",
     "A UI TableModel.\n"
     );
-
-//! TableModel Produced Events
-
-EventDescription *TableModelBase::_eventDesc[] =
-{
-    new EventDescription("ContentsHeaderRowChanged", 
-                          "",
-                          ContentsHeaderRowChangedEventId, 
-                          FieldTraits<TableModelEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&TableModelBase::getHandleContentsHeaderRowChangedSignal)),
-
-    new EventDescription("ContentsChanged", 
-                          "",
-                          ContentsChangedEventId, 
-                          FieldTraits<TableModelEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&TableModelBase::getHandleContentsChangedSignal)),
-
-    new EventDescription("IntervalAdded", 
-                          "",
-                          IntervalAddedEventId, 
-                          FieldTraits<TableModelEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&TableModelBase::getHandleIntervalAddedSignal)),
-
-    new EventDescription("IntervalRemoved", 
-                          "",
-                          IntervalRemovedEventId, 
-                          FieldTraits<TableModelEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&TableModelBase::getHandleIntervalRemovedSignal))
-
-};
-
-EventProducerType TableModelBase::_producerType(
-    "TableModelProducerType",
-    "EventProducerType",
-    "",
-    InitEventProducerFunctor(),
-    _eventDesc,
-    sizeof(_eventDesc));
 
 /*------------------------------ get -----------------------------------*/
 
@@ -221,11 +211,6 @@ const FieldContainerType &TableModelBase::getType(void) const
     return _type;
 }
 
-const EventProducerType &TableModelBase::getProducerType(void) const
-{
-    return _producerType;
-}
-
 UInt32 TableModelBase::getContainerSize(void) const
 {
     return sizeof(TableModel);
@@ -234,16 +219,33 @@ UInt32 TableModelBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
+//! Get the TableModel::_sfEventSource field.
+const SFUnrecTableModelEventSourcePtr *TableModelBase::getSFEventSource(void) const
+{
+    return &_sfEventSource;
+}
+
+SFUnrecTableModelEventSourcePtr *TableModelBase::editSFEventSource    (void)
+{
+    editSField(EventSourceFieldMask);
+
+    return &_sfEventSource;
+}
+
 
 
 
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TableModelBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TableModelBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+    {
+        returnValue += _sfEventSource.getBinSize();
+    }
 
     return returnValue;
 }
@@ -253,6 +255,10 @@ void TableModelBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+    {
+        _sfEventSource.copyToBin(pMem);
+    }
 }
 
 void TableModelBase::copyFromBin(BinaryDataHandler &pMem,
@@ -260,200 +266,27 @@ void TableModelBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
-}
-
-
-
-/*------------------------- event producers ----------------------------------*/
-void TableModelBase::produceEvent(UInt32 eventId, EventDetails* const e)
-{
-    switch(eventId)
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
     {
-    case ContentsHeaderRowChangedEventId:
-        OSG_ASSERT(dynamic_cast<ContentsHeaderRowChangedEventDetailsType* const>(e));
-
-        _ContentsHeaderRowChangedEvent.set_combiner(ConsumableEventCombiner(e));
-        _ContentsHeaderRowChangedEvent(dynamic_cast<ContentsHeaderRowChangedEventDetailsType* const>(e), ContentsHeaderRowChangedEventId);
-        break;
-    case ContentsChangedEventId:
-        OSG_ASSERT(dynamic_cast<ContentsChangedEventDetailsType* const>(e));
-
-        _ContentsChangedEvent.set_combiner(ConsumableEventCombiner(e));
-        _ContentsChangedEvent(dynamic_cast<ContentsChangedEventDetailsType* const>(e), ContentsChangedEventId);
-        break;
-    case IntervalAddedEventId:
-        OSG_ASSERT(dynamic_cast<IntervalAddedEventDetailsType* const>(e));
-
-        _IntervalAddedEvent.set_combiner(ConsumableEventCombiner(e));
-        _IntervalAddedEvent(dynamic_cast<IntervalAddedEventDetailsType* const>(e), IntervalAddedEventId);
-        break;
-    case IntervalRemovedEventId:
-        OSG_ASSERT(dynamic_cast<IntervalRemovedEventDetailsType* const>(e));
-
-        _IntervalRemovedEvent.set_combiner(ConsumableEventCombiner(e));
-        _IntervalRemovedEvent(dynamic_cast<IntervalRemovedEventDetailsType* const>(e), IntervalRemovedEventId);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        break;
+        editSField(EventSourceFieldMask);
+        _sfEventSource.copyFromBin(pMem);
     }
 }
 
-boost::signals2::connection TableModelBase::connectEvent(UInt32 eventId, 
-                                                             const BaseEventType::slot_type &listener, 
-                                                             boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case ContentsHeaderRowChangedEventId:
-        return _ContentsHeaderRowChangedEvent.connect(listener, at);
-        break;
-    case ContentsChangedEventId:
-        return _ContentsChangedEvent.connect(listener, at);
-        break;
-    case IntervalAddedEventId:
-        return _IntervalAddedEvent.connect(listener, at);
-        break;
-    case IntervalRemovedEventId:
-        return _IntervalRemovedEvent.connect(listener, at);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return boost::signals2::connection();
-        break;
-    }
 
-    return boost::signals2::connection();
-}
-
-boost::signals2::connection  TableModelBase::connectEvent(UInt32 eventId, 
-                                                              const BaseEventType::group_type &group,
-                                                              const BaseEventType::slot_type &listener,
-                                                              boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case ContentsHeaderRowChangedEventId:
-        return _ContentsHeaderRowChangedEvent.connect(group, listener, at);
-        break;
-    case ContentsChangedEventId:
-        return _ContentsChangedEvent.connect(group, listener, at);
-        break;
-    case IntervalAddedEventId:
-        return _IntervalAddedEvent.connect(group, listener, at);
-        break;
-    case IntervalRemovedEventId:
-        return _IntervalRemovedEvent.connect(group, listener, at);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return boost::signals2::connection();
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-    
-void  TableModelBase::disconnectEvent(UInt32 eventId, const BaseEventType::group_type &group)
-{
-    switch(eventId)
-    {
-    case ContentsHeaderRowChangedEventId:
-        _ContentsHeaderRowChangedEvent.disconnect(group);
-        break;
-    case ContentsChangedEventId:
-        _ContentsChangedEvent.disconnect(group);
-        break;
-    case IntervalAddedEventId:
-        _IntervalAddedEvent.disconnect(group);
-        break;
-    case IntervalRemovedEventId:
-        _IntervalRemovedEvent.disconnect(group);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        break;
-    }
-}
-
-void  TableModelBase::disconnectAllSlotsEvent(UInt32 eventId)
-{
-    switch(eventId)
-    {
-    case ContentsHeaderRowChangedEventId:
-        _ContentsHeaderRowChangedEvent.disconnect_all_slots();
-        break;
-    case ContentsChangedEventId:
-        _ContentsChangedEvent.disconnect_all_slots();
-        break;
-    case IntervalAddedEventId:
-        _IntervalAddedEvent.disconnect_all_slots();
-        break;
-    case IntervalRemovedEventId:
-        _IntervalRemovedEvent.disconnect_all_slots();
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        break;
-    }
-}
-
-bool  TableModelBase::isEmptyEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case ContentsHeaderRowChangedEventId:
-        return _ContentsHeaderRowChangedEvent.empty();
-        break;
-    case ContentsChangedEventId:
-        return _ContentsChangedEvent.empty();
-        break;
-    case IntervalAddedEventId:
-        return _IntervalAddedEvent.empty();
-        break;
-    case IntervalRemovedEventId:
-        return _IntervalRemovedEvent.empty();
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return true;
-        break;
-    }
-}
-
-UInt32  TableModelBase::numSlotsEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case ContentsHeaderRowChangedEventId:
-        return _ContentsHeaderRowChangedEvent.num_slots();
-        break;
-    case ContentsChangedEventId:
-        return _ContentsChangedEvent.num_slots();
-        break;
-    case IntervalAddedEventId:
-        return _IntervalAddedEvent.num_slots();
-        break;
-    case IntervalRemovedEventId:
-        return _IntervalRemovedEvent.num_slots();
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return 0;
-        break;
-    }
-}
 
 
 /*------------------------- constructors ----------------------------------*/
 
 TableModelBase::TableModelBase(void) :
-    Inherited()
+    Inherited(),
+    _sfEventSource            (NULL)
 {
 }
 
 TableModelBase::TableModelBase(const TableModelBase &source) :
-    Inherited(source)
+    Inherited(source),
+    _sfEventSource            (NULL)
 {
 }
 
@@ -464,48 +297,42 @@ TableModelBase::~TableModelBase(void)
 {
 }
 
-
-
-GetEventHandlePtr TableModelBase::getHandleContentsHeaderRowChangedSignal(void) const
+void TableModelBase::onCreate(const TableModel *source)
 {
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<ContentsHeaderRowChangedEventType>(
-             const_cast<ContentsHeaderRowChangedEventType *>(&_ContentsHeaderRowChangedEvent),
-             _producerType.getEventDescription(ContentsHeaderRowChangedEventId),
+    Inherited::onCreate(source);
+
+    if(source != NULL)
+    {
+        TableModel *pThis = static_cast<TableModel *>(this);
+
+        pThis->setEventSource(source->getEventSource());
+    }
+}
+
+GetFieldHandlePtr TableModelBase::getHandleEventSource     (void) const
+{
+    SFUnrecTableModelEventSourcePtr::GetHandlePtr returnValue(
+        new  SFUnrecTableModelEventSourcePtr::GetHandle(
+             &_sfEventSource,
+             this->getType().getFieldDesc(EventSourceFieldId),
              const_cast<TableModelBase *>(this)));
 
     return returnValue;
 }
 
-GetEventHandlePtr TableModelBase::getHandleContentsChangedSignal(void) const
+EditFieldHandlePtr TableModelBase::editHandleEventSource    (void)
 {
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<ContentsChangedEventType>(
-             const_cast<ContentsChangedEventType *>(&_ContentsChangedEvent),
-             _producerType.getEventDescription(ContentsChangedEventId),
-             const_cast<TableModelBase *>(this)));
+    SFUnrecTableModelEventSourcePtr::EditHandlePtr returnValue(
+        new  SFUnrecTableModelEventSourcePtr::EditHandle(
+             &_sfEventSource,
+             this->getType().getFieldDesc(EventSourceFieldId),
+             this));
 
-    return returnValue;
-}
+    returnValue->setSetMethod(
+        boost::bind(&TableModel::setEventSource,
+                    static_cast<TableModel *>(this), _1));
 
-GetEventHandlePtr TableModelBase::getHandleIntervalAddedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<IntervalAddedEventType>(
-             const_cast<IntervalAddedEventType *>(&_IntervalAddedEvent),
-             _producerType.getEventDescription(IntervalAddedEventId),
-             const_cast<TableModelBase *>(this)));
-
-    return returnValue;
-}
-
-GetEventHandlePtr TableModelBase::getHandleIntervalRemovedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<IntervalRemovedEventType>(
-             const_cast<IntervalRemovedEventType *>(&_IntervalRemovedEvent),
-             _producerType.getEventDescription(IntervalRemovedEventId),
-             const_cast<TableModelBase *>(this)));
+    editSField(EventSourceFieldMask);
 
     return returnValue;
 }
@@ -533,6 +360,8 @@ void TableModelBase::execSyncV(      FieldContainer    &oFrom,
 void TableModelBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+    static_cast<TableModel *>(this)->setEventSource(NULL);
 
 
 }

@@ -234,6 +234,7 @@ typedef TreeSelectionModel *TreeSelectionModelP;
 
 OSG_END_NAMESPACE
 
+#include "OSGTreeSelectionModelEventSource.h"
 #include "OSGTreeSelectionModelBase.inl"
 #include "OSGTreeSelectionModel.inl"
 

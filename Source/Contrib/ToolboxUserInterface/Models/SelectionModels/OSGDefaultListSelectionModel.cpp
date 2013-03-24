@@ -154,7 +154,7 @@ void     DefaultListSelectionModel::addSelectionInterval(UInt32 index0, UInt32 i
         {
             std::vector<UInt32> SelectedIndexes(getSelectedIndexes());
             ListSelectionEventDetailsUnrecPtr TheListSelectionEvent = ListSelectionEventDetails::create(this, getSystemTime(), changedRange.StartIndex, changedRange.EndIndex, SelectedIndexes, PrevSelectedIndexes, _ValueIsAdjusting);
-            produceSelectionChanged(TheListSelectionEvent);
+            getEventSource()->produceSelectionChanged(TheListSelectionEvent);
         }
     }
 }
@@ -167,7 +167,7 @@ void     DefaultListSelectionModel::clearSelection(void)
     _AnchorSelectionIndex = _LeadSelectionIndex = -1;
     std::vector<UInt32> SelectedIndexes(getSelectedIndexes());
     ListSelectionEventDetailsUnrecPtr Details(ListSelectionEventDetails::create(this, getSystemTime(), _MinSelectionIndex, _MaxSelectionIndex, SelectedIndexes, PrevSelectedIndexes, _ValueIsAdjusting));
-    produceSelectionChanged(Details);
+    getEventSource()->produceSelectionChanged(Details);
 }
 
 Int32     DefaultListSelectionModel::getAnchorSelectionIndex(void) const
@@ -222,7 +222,7 @@ void     DefaultListSelectionModel::insertIndexInterval(UInt32 index, UInt32 len
                 _RangeSelectionList.push_back(range);
                 std::vector<UInt32> SelectedIndexes(getSelectedIndexes());
                 ListSelectionEventDetailsUnrecPtr Details(ListSelectionEventDetails::create(this, getSystemTime(), range.StartIndex, range.EndIndex, SelectedIndexes, PrevSelectedIndexes, _ValueIsAdjusting));
-                produceSelectionChanged(Details);
+                getEventSource()->produceSelectionChanged(Details);
             }
             else if (_RangeSelectionList.front() != range)
             {
@@ -233,7 +233,7 @@ void     DefaultListSelectionModel::insertIndexInterval(UInt32 index, UInt32 len
                 updateMinMax();
                 std::vector<UInt32> SelectedIndexes(getSelectedIndexes());
                 ListSelectionEventDetailsUnrecPtr Details(ListSelectionEventDetails::create(this, getSystemTime(), minMax.StartIndex, minMax.EndIndex, SelectedIndexes, PrevSelectedIndexes, _ValueIsAdjusting));
-                produceSelectionChanged(Details);
+                getEventSource()->produceSelectionChanged(Details);
             }
             break;
         case SINGLE_INTERVAL_SELECTION:
@@ -314,7 +314,7 @@ void     DefaultListSelectionModel::removeIndexInterval(UInt32 index0, UInt32 in
     {
         std::vector<UInt32> SelectedIndexes(getSelectedIndexes());
         ListSelectionEventDetailsUnrecPtr TheListSelectionEvent = ListSelectionEventDetails::create(this, getSystemTime(), changedRange.StartIndex, changedRange.EndIndex, SelectedIndexes, PrevSelectedIndexes, _ValueIsAdjusting);
-        produceSelectionChanged(TheListSelectionEvent);
+        getEventSource()->produceSelectionChanged(TheListSelectionEvent);
     }
 }
 
@@ -349,7 +349,7 @@ void     DefaultListSelectionModel::removeSelectionInterval(UInt32 index0, UInt3
                 updateMinMax();
                 std::vector<UInt32> SelectedIndexes(getSelectedIndexes());
                 ListSelectionEventDetailsUnrecPtr Details(ListSelectionEventDetails::create(this, getSystemTime(), osgMin(index0,range.StartIndex), osgMax(index0,range.EndIndex), SelectedIndexes, PrevSelectedIndexes, _ValueIsAdjusting));
-                produceSelectionChanged(Details);
+                getEventSource()->produceSelectionChanged(Details);
             }
             else
             {
@@ -477,7 +477,7 @@ void     DefaultListSelectionModel::setSelectionInterval(UInt32 index0, UInt32 i
         {
             std::vector<UInt32> SelectedIndexes(getSelectedIndexes());
             ListSelectionEventDetailsUnrecPtr TheListSelectionEvent = ListSelectionEventDetails::create(this, getSystemTime(), changedRange.StartIndex, changedRange.EndIndex, SelectedIndexes, PrevSelectedIndexes, _ValueIsAdjusting);
-            produceSelectionChanged(TheListSelectionEvent);
+            getEventSource()->produceSelectionChanged(TheListSelectionEvent);
         }
     }
 }

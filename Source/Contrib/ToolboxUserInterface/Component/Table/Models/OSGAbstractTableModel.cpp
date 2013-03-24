@@ -95,28 +95,28 @@ void AbstractTableModel::produceContentsHeaderRowChanged(UInt32 FirstColumn, UIn
 {
     TableModelEventDetailsUnrecPtr Details = TableModelEventDetails::create(this, getSystemTime(), FirstColumn, LastColumn, 0,0);
 
-    Inherited::produceContentsHeaderRowChanged(Details);
+    getEventSource()->produceContentsHeaderRowChanged(Details);
 }
 
 void AbstractTableModel::produceContentsChanged(UInt32 FirstColumn, UInt32 LastColumn, UInt32 FirstRow, UInt32 LastRow)
 {
     TableModelEventDetailsUnrecPtr Details = TableModelEventDetails::create(this, getSystemTime(), FirstColumn, LastColumn, FirstRow,LastRow);
 
-    Inherited::produceContentsChanged(Details);
+    getEventSource()->produceContentsChanged(Details);
 }
 
 void AbstractTableModel::produceIntervalAdded(UInt32 FirstColumn, UInt32 LastColumn, UInt32 FirstRow, UInt32 LastRow)
 {
     TableModelEventDetailsUnrecPtr Details = TableModelEventDetails::create(this, getSystemTime(), FirstColumn, LastColumn, FirstRow,LastRow);
 
-    Inherited::produceIntervalAdded(Details);
+    getEventSource()->produceIntervalAdded(Details);
 }
 
 void AbstractTableModel::produceIntervalRemoved(UInt32 FirstColumn, UInt32 LastColumn, UInt32 FirstRow, UInt32 LastRow)
 {
     TableModelEventDetailsUnrecPtr Details = TableModelEventDetails::create(this, getSystemTime(), FirstColumn, LastColumn, FirstRow,LastRow);
 
-    Inherited::produceIntervalRemoved(Details);
+    getEventSource()->produceIntervalRemoved(Details);
 }
 
 /*-------------------------------------------------------------------------*\

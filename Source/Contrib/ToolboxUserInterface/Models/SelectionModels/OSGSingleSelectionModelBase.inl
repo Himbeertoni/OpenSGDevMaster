@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -48,9 +48,8 @@
  *****************************************************************************
 \*****************************************************************************/
 
-#include "OSGSelectionEventDetails.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 
 //! access the type of the class
@@ -66,19 +65,6 @@ OSG::UInt32 SingleSelectionModelBase::getClassTypeId(void)
 {
     return _type.getId();
 }
-//! access the producer type of the class
-inline
-const EventProducerType &SingleSelectionModelBase::getProducerClassType(void)
-{
-    return _producerType;
-}
-
-//! access the producer type id of the class
-inline
-UInt32 SingleSelectionModelBase::getProducerClassTypeId(void)
-{
-    return _producerType.getId();
-}
 
 inline
 OSG::UInt16 SingleSelectionModelBase::getClassGroupId(void)
@@ -88,6 +74,22 @@ OSG::UInt16 SingleSelectionModelBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+
+//! Get the value of the SingleSelectionModel::_sfEventSource field.
+inline
+SingleSelectionModelEventSource * SingleSelectionModelBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the SingleSelectionModel::_sfEventSource field.
+inline
+void SingleSelectionModelBase::setEventSource(SingleSelectionModelEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -99,6 +101,9 @@ void SingleSelectionModelBase::execSync (      SingleSelectionModelBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+        _sfEventSource.syncWith(pFrom->_sfEventSource);
 }
 #endif
 
@@ -108,75 +113,6 @@ const Char8 *SingleSelectionModelBase::getClassname(void)
 {
     return "SingleSelectionModel";
 }
-
-inline
-UInt32 SingleSelectionModelBase::getNumProducedEvents(void) const
-{
-    return getProducerType().getNumEventDescs();
-}
-
-inline
-const EventDescription *SingleSelectionModelBase::getProducedEventDescription(const std::string &ProducedEventName) const
-{
-    return getProducerType().findEventDescription(ProducedEventName);
-}
-
-inline
-const EventDescription *SingleSelectionModelBase::getProducedEventDescription(UInt32 ProducedEventId) const
-{
-    return getProducerType().getEventDescription(ProducedEventId);
-}
-
-inline
-UInt32 SingleSelectionModelBase::getProducedEventId(const std::string &ProducedEventName) const
-{
-    return getProducerType().getProducedEventId(ProducedEventName);
-}
-
-inline
-boost::signals2::connection  SingleSelectionModelBase::connectSelectionChanged(const SelectionChangedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _SelectionChangedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  SingleSelectionModelBase::connectSelectionChanged(const SelectionChangedEventType::group_type &group,
-                                                    const SelectionChangedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _SelectionChangedEvent.connect(group, listener, at);
-}
-
-inline
-void  SingleSelectionModelBase::disconnectSelectionChanged(const SelectionChangedEventType::group_type &group)
-{
-    _SelectionChangedEvent.disconnect(group);
-}
-
-inline
-void  SingleSelectionModelBase::disconnectAllSlotsSelectionChanged(void)
-{
-    _SelectionChangedEvent.disconnect_all_slots();
-}
-
-inline
-bool  SingleSelectionModelBase::isEmptySelectionChanged(void) const
-{
-    return _SelectionChangedEvent.empty();
-}
-
-inline
-UInt32  SingleSelectionModelBase::numSlotsSelectionChanged(void) const
-{
-    return _SelectionChangedEvent.num_slots();
-}
-
-inline
-void SingleSelectionModelBase::produceSelectionChanged(SelectionChangedEventDetailsType* const e)
-{
-    produceEvent(SelectionChangedEventId, e);
-}
-
 OSG_GEN_CONTAINERPTR(SingleSelectionModel);
 
 OSG_END_NAMESPACE

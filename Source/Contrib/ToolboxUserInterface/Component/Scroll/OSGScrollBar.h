@@ -45,7 +45,7 @@
 #include "OSGScrollBarBase.h"
 #include "OSGBoundedRangeModel.h"
 #include "OSGActionEventDetailsFields.h"
-
+#include "OSGAdjustmentEventDetailsFields.h"
 OSG_BEGIN_NAMESPACE
 
 /*! \brief ScrollBar class. See \ref

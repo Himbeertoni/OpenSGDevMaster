@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -66,16 +66,12 @@
 #include "OSGFieldContainer.h" // Parent
 
 #include "OSGSysFields.h"               // SelectionMode type
+#include "OSGListSelectionModelEventSourceFields.h" // EventSource type
 
 #include "OSGListSelectionModelFields.h"
 
-//Event Producer Headers
-#include "OSGActivity.h"
-#include "OSGConsumableEventCombiner.h"
-
-#include "OSGListSelectionEventDetailsFields.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 class ListSelectionModel;
 
@@ -92,12 +88,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListSelectionModelBase : public
     typedef TypeObject::InitPhase InitPhase;
 
     OSG_GEN_INTERNALPTR(ListSelectionModel);
-    
-    
-    typedef ListSelectionEventDetails SelectionChangedEventDetailsType;
-
-    typedef boost::signals2::signal<void (EventDetails* const            , UInt32)> BaseEventType;
-    typedef boost::signals2::signal<void (ListSelectionEventDetails* const, UInt32), ConsumableEventCombiner> SelectionChangedEventType;
 
     /*==========================  PUBLIC  =================================*/
 
@@ -106,21 +96,19 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListSelectionModelBase : public
     enum
     {
         SelectionModeFieldId = Inherited::NextFieldId,
-        NextFieldId = SelectionModeFieldId + 1
+        EventSourceFieldId = SelectionModeFieldId + 1,
+        NextFieldId = EventSourceFieldId + 1
     };
 
     static const OSG::BitVector SelectionModeFieldMask =
         (TypeTraits<BitVector>::One << SelectionModeFieldId);
+    static const OSG::BitVector EventSourceFieldMask =
+        (TypeTraits<BitVector>::One << EventSourceFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFUInt32          SFSelectionModeType;
-
-    enum
-    {
-        SelectionChangedEventId = 1,
-        NextProducedEventId = SelectionChangedEventId + 1
-    };
+    typedef SFUnrecListSelectionModelEventSourcePtr SFEventSourceType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -129,8 +117,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListSelectionModelBase : public
     static FieldContainerType &getClassType   (void);
     static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
-    static const  EventProducerType  &getProducerClassType  (void);
-    static        UInt32              getProducerClassTypeId(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -150,10 +136,14 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListSelectionModelBase : public
 
                   SFUInt32            *editSFSelectionMode  (void);
             const SFUInt32            *getSFSelectionMode   (void) const;
+            const SFUnrecListSelectionModelEventSourcePtr *getSFEventSource    (void) const;
+                  SFUnrecListSelectionModelEventSourcePtr *editSFEventSource    (void);
 
 
                   UInt32              &editSelectionMode  (void);
                   UInt32               getSelectionMode   (void) const;
+
+                  ListSelectionModelEventSource * getEventSource    (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -161,6 +151,12 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListSelectionModelBase : public
     /*! \{                                                                 */
 
             void setSelectionMode  (const UInt32 value);
+            void setEventSource    (ListSelectionModelEventSource * const value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr Field Set                                 */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -172,7 +168,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListSelectionModelBase : public
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual SizeT  getBinSize (ConstFieldMaskArg  whichField);
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
     virtual void   copyFromBin(BinaryDataHandler &pMem,
@@ -180,58 +176,9 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListSelectionModelBase : public
 
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Event Produced Get                           */
-    /*! \{                                                                 */
-
-    virtual const EventProducerType &getProducerType(void) const; 
-
-    virtual UInt32                   getNumProducedEvents       (void                                ) const;
-    virtual const EventDescription *getProducedEventDescription(const std::string &ProducedEventName) const;
-    virtual const EventDescription *getProducedEventDescription(UInt32 ProducedEventId              ) const;
-    virtual UInt32                   getProducedEventId         (const std::string &ProducedEventName) const;
-    
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-                                              
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::group_type &group,
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-    
-    virtual void   disconnectEvent        (UInt32 eventId, const BaseEventType::group_type &group);
-    virtual void   disconnectAllSlotsEvent(UInt32 eventId);
-    virtual bool   isEmptyEvent           (UInt32 eventId) const;
-    virtual UInt32 numSlotsEvent          (UInt32 eventId) const;
-
-    /*! \}                                                                 */
-    /*! \name                Event Access                                 */
-    /*! \{                                                                 */
-    
-    //SelectionChanged
-    boost::signals2::connection connectSelectionChanged(const SelectionChangedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectSelectionChanged(const SelectionChangedEventType::group_type &group,
-                                                       const SelectionChangedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectSelectionChanged       (const SelectionChangedEventType::group_type &group);
-    void   disconnectAllSlotsSelectionChanged(void);
-    bool   isEmptySelectionChanged          (void) const;
-    UInt32 numSlotsSelectionChanged         (void) const;
-    
-    
-    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Produced Event Signals                   */
-    /*! \{                                                                 */
-
-    //Event Event producers
-    SelectionChangedEventType _SelectionChangedEvent;
-    /*! \}                                                                 */
 
     static TypeObject _type;
 
@@ -243,6 +190,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListSelectionModelBase : public
     /*! \{                                                                 */
 
     SFUInt32          _sfSelectionMode;
+    SFUnrecListSelectionModelEventSourcePtr _sfEventSource;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -264,6 +212,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListSelectionModelBase : public
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
+    void onCreate(const ListSelectionModel *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -272,21 +221,9 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListSelectionModelBase : public
 
     GetFieldHandlePtr  getHandleSelectionMode   (void) const;
     EditFieldHandlePtr editHandleSelectionMode  (void);
+    GetFieldHandlePtr  getHandleEventSource     (void) const;
+    EditFieldHandlePtr editHandleEventSource    (void);
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Event Access                     */
-    /*! \{                                                                 */
-
-    GetEventHandlePtr getHandleSelectionChangedSignal(void) const;
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Event Producer Firing                    */
-    /*! \{                                                                 */
-
-    virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
-    
-    void produceSelectionChanged    (SelectionChangedEventDetailsType* const e);
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
@@ -332,9 +269,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListSelectionModelBase : public
 
   private:
     /*---------------------------------------------------------------------*/
-    static EventDescription   *_eventDesc[];
-    static EventProducerType _producerType;
-
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ListSelectionModelBase &source);

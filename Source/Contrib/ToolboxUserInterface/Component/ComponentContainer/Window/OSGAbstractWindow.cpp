@@ -51,6 +51,7 @@
 #include "OSGUIDrawUtils.h"
 #include "OSGBorder.h"
 #include "OSGLayer.h"
+#include "OSGAbstractWindowEventSource.h"
 
 #include <boost/bind.hpp>
 
@@ -236,63 +237,99 @@ void AbstractWindow::produceWindowOpened(void)
 {
    WindowEventDetailsUnrecPtr Details = WindowEventDetails::create( this, getSystemTime() );
 
-   Inherited::produceWindowOpened(Details);
+   AbstractWindowEventSource* ev = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+   if ( ev )
+   {
+       ev->produceWindowOpened(Details);
+   }
 }
 
 void AbstractWindow::produceWindowClosing(void)
 {
-   WindowEventDetailsUnrecPtr Details = WindowEventDetails::create( this, getSystemTime() );
+    WindowEventDetailsUnrecPtr Details = WindowEventDetails::create( this, getSystemTime() );
 
-   Inherited::produceWindowClosing(Details);
+    AbstractWindowEventSource* ev = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceWindowClosing(Details);
+    }
 }
 
 void AbstractWindow::produceWindowClosed(void)
 {
-   WindowEventDetailsUnrecPtr Details = WindowEventDetails::create( NULL, getSystemTime() );
+    WindowEventDetailsUnrecPtr Details = WindowEventDetails::create( NULL, getSystemTime() );
 
-   Inherited::produceWindowClosed(Details);
+    AbstractWindowEventSource* ev = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceWindowClosed(Details);
+    }
 }
 
 void AbstractWindow::produceWindowIconified(void)
 {
-   WindowEventDetailsUnrecPtr Details = WindowEventDetails::create( this, getSystemTime() );
+    WindowEventDetailsUnrecPtr Details = WindowEventDetails::create( this, getSystemTime() );
 
-   Inherited::produceWindowIconified(Details);
+    AbstractWindowEventSource* ev = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceWindowIconified(Details);
+    }
 }
 
 void AbstractWindow::produceWindowDeiconified(void)
 {
-   WindowEventDetailsUnrecPtr Details = WindowEventDetails::create( this, getSystemTime() );
+    WindowEventDetailsUnrecPtr Details = WindowEventDetails::create( this, getSystemTime() );
 
-   Inherited::produceWindowDeiconified(Details);
+    AbstractWindowEventSource* ev = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceWindowDeiconified(Details);
+    }
 }
 
 void AbstractWindow::produceWindowActivated(void)
 {
-   WindowEventDetailsUnrecPtr Details = WindowEventDetails::create( this, getSystemTime() );
+    WindowEventDetailsUnrecPtr Details = WindowEventDetails::create( this, getSystemTime() );
 
-   Inherited::produceWindowActivated(Details);
+    AbstractWindowEventSource* ev = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceWindowActivated(Details);
+    }
 }
 
 void AbstractWindow::produceWindowDeactivated(void)
 {
-   WindowEventDetailsUnrecPtr Details = WindowEventDetails::create( this, getSystemTime() );
+    WindowEventDetailsUnrecPtr Details = WindowEventDetails::create( this, getSystemTime() );
 
-   Inherited::produceWindowDeactivated(Details);
+    AbstractWindowEventSource* ev = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceWindowDeactivated(Details);
+    }
 }
 
 void AbstractWindow::produceWindowEntered(void)
 {
-   WindowEventDetailsUnrecPtr Details = WindowEventDetails::create( this, getSystemTime() );
+    WindowEventDetailsUnrecPtr Details = WindowEventDetails::create( this, getSystemTime() );
 
-   Inherited::produceWindowEntered(Details);
+    AbstractWindowEventSource* ev = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceWindowEntered(Details);
+    }
 }
 
 void AbstractWindow::produceWindowExited(void)
 {
-   WindowEventDetailsUnrecPtr Details = WindowEventDetails::create( this, getSystemTime() );
+    WindowEventDetailsUnrecPtr Details = WindowEventDetails::create( this, getSystemTime() );
 
-   Inherited::produceWindowExited(Details);
+    AbstractWindowEventSource* ev = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceWindowExited(Details);
+    }
 }
 
 void AbstractWindow::focusGained(FocusEventDetails* const e)

@@ -82,7 +82,7 @@
         cardinality="single"
         visibility="internal"
         defaultValue="0.0f,0.0f,0.0f,0.0f"
-        access="protected"
+        access="public"
         >
         The clipping bounds of the Component.  The indexing of the bounds are: 0=Left,
         1=Right, 2=Top, 3=Bottom.

@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -52,7 +52,6 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include <boost/assign/list_of.hpp>
 
 #include "OSGConfig.h"
 
@@ -64,8 +63,6 @@
 #include "OSGTextComponent.h"
 
 #include <boost/bind.hpp>
-
-#include "OSGEventDetails.h"
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -131,18 +128,22 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextComponent *>::_type("TextComponentPtr", "ComponentPtr");
+PointerType FieldTraits<TextComponent *, nsOSG>::_type(
+    "TextComponentPtr", 
+    "ComponentPtr", 
+    TextComponent::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TextComponent *)
+OSG_FIELDTRAITS_GETTYPE_NS(TextComponent *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            TextComponent *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            TextComponent *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -279,7 +280,7 @@ TextComponentBase::TypeObject TextComponentBase::_type(
     TextComponentBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     TextComponent::initMethod,
     TextComponent::exitMethod,
@@ -289,157 +290,131 @@ TextComponentBase::TypeObject TextComponentBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"TextComponent\"\n"
-    "\tparent=\"Component\"\n"
-    "    library=\"ContribUserInterface\"\n"
+    "    name=\"TextComponent\"\n"
+    "    parent=\"Component\"\n"
+    "    library=\"ContribToolboxUserInterface\"\n"
     "    pointerfieldtypes=\"both\"\n"
-    "\tstructure=\"abstract\"\n"
+    "    structure=\"abstract\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"
     "    decoratable=\"false\"\n"
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
-    "    parentProducer=\"Component\"\n"
     ">\n"
+    "<!--     parentProducer=\"Component\" -->\n"
     "A UI Button.\n"
-    "\t<Field\n"
-    "\t\tname=\"Text\"\n"
-    "\t\ttype=\"std::string\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"CaretPosition\"\n"
-    "\t\ttype=\"UInt32\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\tdefaultValue=\"0\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"Font\"\n"
-    "\t\ttype=\"UIFont\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"SelectionBoxColor\"\n"
-    "\t\ttype=\"Color4f\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"0.0,0.0,1.0,1.0\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"SelectionTextColor\"\n"
-    "\t\ttype=\"Color4f\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"1.0,1.0,1.0,1.0\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"ActiveTextColor\"\n"
-    "\t\ttype=\"Color4f\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"FocusedTextColor\"\n"
-    "\t\ttype=\"Color4f\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"RolloverTextColor\"\n"
-    "\t\ttype=\"Color4f\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"DisabledTextColor\"\n"
-    "\t\ttype=\"Color4f\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"TextColor\"\n"
-    "\t\ttype=\"Color4f\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"TextValueChanged\"\n"
-    "\t\tdetailsType=\"TextEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"CaretChanged\"\n"
-    "\t\tdetailsType=\"CaretEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
+    "    <Field\n"
+    "        name=\"Text\"\n"
+    "        type=\"std::string\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"CaretPosition\"\n"
+    "        type=\"UInt32\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"internal\"\n"
+    "        defaultValue=\"0\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"Font\"\n"
+    "        type=\"UIFont\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"SelectionBoxColor\"\n"
+    "        type=\"Color4f\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"0.0,0.0,1.0,1.0\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"SelectionTextColor\"\n"
+    "        type=\"Color4f\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"1.0,1.0,1.0,1.0\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"ActiveTextColor\"\n"
+    "        type=\"Color4f\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"FocusedTextColor\"\n"
+    "        type=\"Color4f\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"RolloverTextColor\"\n"
+    "        type=\"Color4f\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"DisabledTextColor\"\n"
+    "        type=\"Color4f\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"TextColor\"\n"
+    "        type=\"Color4f\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "<!--\n"
+    "    <ProducedEvent\n"
+    "        name=\"TextValueChanged\"\n"
+    "        detailsType=\"TextEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "    <ProducedEvent\n"
+    "        name=\"CaretChanged\"\n"
+    "        detailsType=\"CaretEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "-->\n"
     "</FieldContainer>\n",
     "A UI Button.\n"
     );
-
-//! TextComponent Produced Events
-
-EventDescription *TextComponentBase::_eventDesc[] =
-{
-    new EventDescription("TextValueChanged", 
-                          "",
-                          TextValueChangedEventId, 
-                          FieldTraits<TextEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&TextComponentBase::getHandleTextValueChangedSignal)),
-
-    new EventDescription("CaretChanged", 
-                          "",
-                          CaretChangedEventId, 
-                          FieldTraits<CaretEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&TextComponentBase::getHandleCaretChangedSignal))
-
-};
-
-EventProducerType TextComponentBase::_producerType(
-    "TextComponentProducerType",
-    "ComponentProducerType",
-    "",
-    InitEventProducerFunctor(),
-    _eventDesc,
-    sizeof(_eventDesc));
 
 /*------------------------------ get -----------------------------------*/
 
@@ -451,11 +426,6 @@ FieldContainerType &TextComponentBase::getType(void)
 const FieldContainerType &TextComponentBase::getType(void) const
 {
     return _type;
-}
-
-const EventProducerType &TextComponentBase::getProducerType(void) const
-{
-    return _producerType;
 }
 
 UInt32 TextComponentBase::getContainerSize(void) const
@@ -602,9 +572,9 @@ const SFColor4f *TextComponentBase::getSFTextColor(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TextComponentBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TextComponentBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (TextFieldMask & whichField))
     {
@@ -704,175 +674,57 @@ void TextComponentBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (TextFieldMask & whichField))
     {
+        editSField(TextFieldMask);
         _sfText.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CaretPositionFieldMask & whichField))
     {
+        editSField(CaretPositionFieldMask);
         _sfCaretPosition.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FontFieldMask & whichField))
     {
+        editSField(FontFieldMask);
         _sfFont.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SelectionBoxColorFieldMask & whichField))
     {
+        editSField(SelectionBoxColorFieldMask);
         _sfSelectionBoxColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SelectionTextColorFieldMask & whichField))
     {
+        editSField(SelectionTextColorFieldMask);
         _sfSelectionTextColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ActiveTextColorFieldMask & whichField))
     {
+        editSField(ActiveTextColorFieldMask);
         _sfActiveTextColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FocusedTextColorFieldMask & whichField))
     {
+        editSField(FocusedTextColorFieldMask);
         _sfFocusedTextColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RolloverTextColorFieldMask & whichField))
     {
+        editSField(RolloverTextColorFieldMask);
         _sfRolloverTextColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DisabledTextColorFieldMask & whichField))
     {
+        editSField(DisabledTextColorFieldMask);
         _sfDisabledTextColor.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TextColorFieldMask & whichField))
     {
+        editSField(TextColorFieldMask);
         _sfTextColor.copyFromBin(pMem);
     }
 }
 
 
-
-/*------------------------- event producers ----------------------------------*/
-void TextComponentBase::produceEvent(UInt32 eventId, EventDetails* const e)
-{
-    switch(eventId)
-    {
-    case TextValueChangedEventId:
-        OSG_ASSERT(dynamic_cast<TextValueChangedEventDetailsType* const>(e));
-
-        _TextValueChangedEvent.set_combiner(ConsumableEventCombiner(e));
-        _TextValueChangedEvent(dynamic_cast<TextValueChangedEventDetailsType* const>(e), TextValueChangedEventId);
-        break;
-    case CaretChangedEventId:
-        OSG_ASSERT(dynamic_cast<CaretChangedEventDetailsType* const>(e));
-
-        _CaretChangedEvent.set_combiner(ConsumableEventCombiner(e));
-        _CaretChangedEvent(dynamic_cast<CaretChangedEventDetailsType* const>(e), CaretChangedEventId);
-        break;
-    default:
-        Inherited::produceEvent(eventId, e);
-        break;
-    }
-}
-
-boost::signals2::connection TextComponentBase::connectEvent(UInt32 eventId, 
-                                                             const BaseEventType::slot_type &listener, 
-                                                             boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case TextValueChangedEventId:
-        return _TextValueChangedEvent.connect(listener, at);
-        break;
-    case CaretChangedEventId:
-        return _CaretChangedEvent.connect(listener, at);
-        break;
-    default:
-        return Inherited::connectEvent(eventId, listener, at);
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-
-boost::signals2::connection  TextComponentBase::connectEvent(UInt32 eventId, 
-                                                              const BaseEventType::group_type &group,
-                                                              const BaseEventType::slot_type &listener,
-                                                              boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case TextValueChangedEventId:
-        return _TextValueChangedEvent.connect(group, listener, at);
-        break;
-    case CaretChangedEventId:
-        return _CaretChangedEvent.connect(group, listener, at);
-        break;
-    default:
-        return Inherited::connectEvent(eventId, group, listener, at);
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-    
-void  TextComponentBase::disconnectEvent(UInt32 eventId, const BaseEventType::group_type &group)
-{
-    switch(eventId)
-    {
-    case TextValueChangedEventId:
-        _TextValueChangedEvent.disconnect(group);
-        break;
-    case CaretChangedEventId:
-        _CaretChangedEvent.disconnect(group);
-        break;
-    default:
-        return Inherited::disconnectEvent(eventId, group);
-        break;
-    }
-}
-
-void  TextComponentBase::disconnectAllSlotsEvent(UInt32 eventId)
-{
-    switch(eventId)
-    {
-    case TextValueChangedEventId:
-        _TextValueChangedEvent.disconnect_all_slots();
-        break;
-    case CaretChangedEventId:
-        _CaretChangedEvent.disconnect_all_slots();
-        break;
-    default:
-        Inherited::disconnectAllSlotsEvent(eventId);
-        break;
-    }
-}
-
-bool  TextComponentBase::isEmptyEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case TextValueChangedEventId:
-        return _TextValueChangedEvent.empty();
-        break;
-    case CaretChangedEventId:
-        return _CaretChangedEvent.empty();
-        break;
-    default:
-        return Inherited::isEmptyEvent(eventId);
-        break;
-    }
-}
-
-UInt32  TextComponentBase::numSlotsEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case TextValueChangedEventId:
-        return _TextValueChangedEvent.num_slots();
-        break;
-    case CaretChangedEventId:
-        return _CaretChangedEvent.num_slots();
-        break;
-    default:
-        return Inherited::numSlotsEvent(eventId);
-        break;
-    }
-}
 
 
 /*------------------------- constructors ----------------------------------*/
@@ -1175,29 +1027,6 @@ EditFieldHandlePtr TextComponentBase::editHandleTextColor      (void)
 
 
     editSField(TextColorFieldMask);
-
-    return returnValue;
-}
-
-
-GetEventHandlePtr TextComponentBase::getHandleTextValueChangedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<TextValueChangedEventType>(
-             const_cast<TextValueChangedEventType *>(&_TextValueChangedEvent),
-             _producerType.getEventDescription(TextValueChangedEventId),
-             const_cast<TextComponentBase *>(this)));
-
-    return returnValue;
-}
-
-GetEventHandlePtr TextComponentBase::getHandleCaretChangedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<CaretChangedEventType>(
-             const_cast<CaretChangedEventType *>(&_CaretChangedEvent),
-             _producerType.getEventDescription(CaretChangedEventId),
-             const_cast<TextComponentBase *>(this)));
 
     return returnValue;
 }

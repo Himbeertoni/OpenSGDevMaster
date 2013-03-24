@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -65,16 +65,12 @@
 
 #include "OSGFieldContainer.h" // Parent
 
+#include "OSGSingleSelectionModelEventSourceFields.h" // EventSource type
 
 #include "OSGSingleSelectionModelFields.h"
 
-//Event Producer Headers
-#include "OSGActivity.h"
-#include "OSGConsumableEventCombiner.h"
-
-#include "OSGSelectionEventDetailsFields.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 class SingleSelectionModel;
 
@@ -91,23 +87,23 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SingleSelectionModelBase : publ
     typedef TypeObject::InitPhase InitPhase;
 
     OSG_GEN_INTERNALPTR(SingleSelectionModel);
-    
-    
-    typedef SelectionEventDetails SelectionChangedEventDetailsType;
-
-    typedef boost::signals2::signal<void (EventDetails* const            , UInt32)> BaseEventType;
-    typedef boost::signals2::signal<void (SelectionEventDetails* const, UInt32), ConsumableEventCombiner> SelectionChangedEventType;
 
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-
     enum
     {
-        SelectionChangedEventId = 1,
-        NextProducedEventId = SelectionChangedEventId + 1
+        EventSourceFieldId = Inherited::NextFieldId,
+        NextFieldId = EventSourceFieldId + 1
     };
+
+    static const OSG::BitVector EventSourceFieldMask =
+        (TypeTraits<BitVector>::One << EventSourceFieldId);
+    static const OSG::BitVector NextFieldMask =
+        (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecSingleSelectionModelEventSourcePtr SFEventSourceType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -116,8 +112,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SingleSelectionModelBase : publ
     static FieldContainerType &getClassType   (void);
     static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
-    static const  EventProducerType  &getProducerClassType  (void);
-    static        UInt32              getProducerClassTypeId(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -131,10 +125,38 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SingleSelectionModelBase : publ
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+            const SFUnrecSingleSelectionModelEventSourcePtr *getSFEventSource    (void) const;
+                  SFUnrecSingleSelectionModelEventSourcePtr *editSFEventSource    (void);
+
+
+                  SingleSelectionModelEventSource * getEventSource    (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setEventSource    (SingleSelectionModelEventSource * const value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr Field Set                                 */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual SizeT  getBinSize (ConstFieldMaskArg  whichField);
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
     virtual void   copyFromBin(BinaryDataHandler &pMem,
@@ -142,64 +164,22 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SingleSelectionModelBase : publ
 
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Event Produced Get                           */
-    /*! \{                                                                 */
-
-    virtual const EventProducerType &getProducerType(void) const; 
-
-    virtual UInt32                   getNumProducedEvents       (void                                ) const;
-    virtual const EventDescription *getProducedEventDescription(const std::string &ProducedEventName) const;
-    virtual const EventDescription *getProducedEventDescription(UInt32 ProducedEventId              ) const;
-    virtual UInt32                   getProducedEventId         (const std::string &ProducedEventName) const;
-    
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-                                              
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::group_type &group,
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-    
-    virtual void   disconnectEvent        (UInt32 eventId, const BaseEventType::group_type &group);
-    virtual void   disconnectAllSlotsEvent(UInt32 eventId);
-    virtual bool   isEmptyEvent           (UInt32 eventId) const;
-    virtual UInt32 numSlotsEvent          (UInt32 eventId) const;
-
-    /*! \}                                                                 */
-    /*! \name                Event Access                                 */
-    /*! \{                                                                 */
-    
-    //SelectionChanged
-    boost::signals2::connection connectSelectionChanged(const SelectionChangedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectSelectionChanged(const SelectionChangedEventType::group_type &group,
-                                                       const SelectionChangedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectSelectionChanged       (const SelectionChangedEventType::group_type &group);
-    void   disconnectAllSlotsSelectionChanged(void);
-    bool   isEmptySelectionChanged          (void) const;
-    UInt32 numSlotsSelectionChanged         (void) const;
-    
-    
-    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Produced Event Signals                   */
-    /*! \{                                                                 */
-
-    //Event Event producers
-    SelectionChangedEventType _SelectionChangedEvent;
-    /*! \}                                                                 */
 
     static TypeObject _type;
 
     static       void   classDescInserter(TypeObject &oType);
     static const Char8 *getClassname     (void             );
 
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    SFUnrecSingleSelectionModelEventSourcePtr _sfEventSource;
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
@@ -219,27 +199,16 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SingleSelectionModelBase : publ
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
+    void onCreate(const SingleSelectionModel *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleEventSource     (void) const;
+    EditFieldHandlePtr editHandleEventSource    (void);
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Event Access                     */
-    /*! \{                                                                 */
-
-    GetEventHandlePtr getHandleSelectionChangedSignal(void) const;
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Event Producer Firing                    */
-    /*! \{                                                                 */
-
-    virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
-    
-    void produceSelectionChanged    (SelectionChangedEventDetailsType* const e);
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
@@ -285,9 +254,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SingleSelectionModelBase : publ
 
   private:
     /*---------------------------------------------------------------------*/
-    static EventDescription   *_eventDesc[];
-    static EventProducerType _producerType;
-
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SingleSelectionModelBase &source);

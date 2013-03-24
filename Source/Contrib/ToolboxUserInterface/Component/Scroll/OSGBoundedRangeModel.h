@@ -153,6 +153,7 @@ typedef BoundedRangeModel *BoundedRangeModelP;
 
 OSG_END_NAMESPACE
 
+#include "OSGBoundedRangeModelEventSource.h"
 #include "OSGBoundedRangeModelBase.inl"
 #include "OSGBoundedRangeModel.inl"
 

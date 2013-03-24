@@ -126,8 +126,8 @@ void Table::startEditing(const UInt32& Row, const UInt32& Column)
     }
 
 
-    _EditingCanceledConnection = Inherited::getGlobalCellEditor()->connectEditingCanceled(boost::bind(&Table::handleEditingCanceled, this, _1));
-    _EditingStoppedConnection = Inherited::getGlobalCellEditor()->connectEditingStopped(boost::bind(&Table::handleEditingStopped, this, _1));
+    _EditingCanceledConnection = Inherited::getGlobalCellEditor()->getEventSource()->connectEditingCanceled(boost::bind(&Table::handleEditingCanceled, this, _1));
+    _EditingStoppedConnection = Inherited::getGlobalCellEditor()->getEventSource()->connectEditingStopped(boost::bind(&Table::handleEditingStopped, this, _1));
 
     updateItem(Row*getModel()->getColumnCount() + Column);
     _EditingComponent->setFocused(false);
@@ -503,8 +503,8 @@ void Table::updateItem(const UInt32& index)
         //getChildren(index)->takeFocus();
         getParentWindow()->setFocusedComponent(getChildren(index));
     }
-    _ItemFocusGainedConnections[getChildren(index)] = getChildren(index)->connectFocusGained(boost::bind(&Table::handleItemFocusGained, this, _1));
-    _ItemFocusLostConnections[getChildren(index)] = getChildren(index)->connectFocusGained(boost::bind(&Table::handleItemFocusLost, this, _1));
+    _ItemFocusGainedConnections[getChildren(index)] = getChildren(index)->getEventSource()->connectFocusGained(boost::bind(&Table::handleItemFocusGained, this, _1));
+    _ItemFocusLostConnections[getChildren(index)]   = getChildren(index)->getEventSource()->connectFocusLost(boost::bind(&Table::handleItemFocusLost, this, _1));
 
     getChildren(index)->setFocused(PrevComponent->getFocused());
     if(getChildren(index)->getPosition() != PrevComponent->getPosition())
@@ -680,8 +680,8 @@ void Table::updateTableComponents(void)
     for(UInt32 i(0); i<getMFTable()->size() ; ++i)
     {
         pushToChildren(getTable(i));
-        _ItemFocusGainedConnections[getChildren(i)] = getChildren(i)->connectFocusGained(boost::bind(&Table::handleItemFocusGained, this, _1));
-        _ItemFocusLostConnections[getChildren(i)] = getChildren(i)->connectFocusLost(boost::bind(&Table::handleItemFocusLost, this, _1));
+        _ItemFocusGainedConnections[getChildren(i)] = getChildren(i)->getEventSource()->connectFocusGained(boost::bind(&Table::handleItemFocusGained, this, _1));
+        _ItemFocusLostConnections[getChildren(i)]   = getChildren(i)->getEventSource()->connectFocusLost(boost::bind(&Table::handleItemFocusLost, this, _1));
     }
 
     pushToChildren(getHeader());
@@ -1076,11 +1076,11 @@ void Table::createColumnsFromModel(void)
     {
         getColumnModel()->getColumn(i)->setHeaderValue(getModel()->getColumnValue(i));
     }
-    _ColumnMarginChangedConnection = getColumnModel()->connectColumnMarginChanged(boost::bind(&Table::handleColumnMarginChanged, this, _1));
-    _ColumnMovedConnection = getColumnModel()->connectColumnMoved(boost::bind(&Table::handleColumnMoved, this, _1));
-    _ColumnRemovedConnection = getColumnModel()->connectColumnRemoved(boost::bind(&Table::handleColumnRemoved, this, _1));
-    _ColumnAddedConnection = getColumnModel()->connectColumnAdded(boost::bind(&Table::handleColumnAdded, this, _1));
-    _ColumnSelectionChangedConnection = getColumnModel()->connectColumnSelectionChanged(boost::bind(&Table::handleColumnSelectionChanged, this, _1));
+    _ColumnMarginChangedConnection = getColumnModel()->getEventSource()->connectColumnMarginChanged(boost::bind(&Table::handleColumnMarginChanged, this, _1));
+    _ColumnMovedConnection = getColumnModel()->getEventSource()->connectColumnMoved(boost::bind(&Table::handleColumnMoved, this, _1));
+    _ColumnRemovedConnection = getColumnModel()->getEventSource()->connectColumnRemoved(boost::bind(&Table::handleColumnRemoved, this, _1));
+    _ColumnAddedConnection = getColumnModel()->getEventSource()->connectColumnAdded(boost::bind(&Table::handleColumnAdded, this, _1));
+    _ColumnSelectionChangedConnection = getColumnModel()->getEventSource()->connectColumnSelectionChanged(boost::bind(&Table::handleColumnSelectionChanged, this, _1));
 }
 
 void Table::setHeader(TableHeader * const value)
@@ -1107,10 +1107,10 @@ void Table::setModel(TableModel * const value)
         {
             createColumnsFromModel();
         }
-        _ContentsHeaderRowChangedConnection = getModel()->connectContentsHeaderRowChanged(boost::bind(&Table::handleContentsChanged, this, _1));
-        _ContentsChangedConnection = getModel()->connectContentsChanged(boost::bind(&Table::handleContentsChanged, this, _1));
-        _IntervalAddedConnection = getModel()->connectIntervalAdded(boost::bind(&Table::handleIntervalAdded, this, _1));
-        _IntervalRemovedConnection = getModel()->connectIntervalRemoved(boost::bind(&Table::handleIntervalRemoved, this, _1));
+        _ContentsHeaderRowChangedConnection = getModel()->getEventSource()->connectContentsHeaderRowChanged(boost::bind(&Table::handleContentsChanged, this, _1));
+        _ContentsChangedConnection = getModel()->getEventSource()->connectContentsChanged(boost::bind(&Table::handleContentsChanged, this, _1));
+        _IntervalAddedConnection = getModel()->getEventSource()->connectIntervalAdded(boost::bind(&Table::handleIntervalAdded, this, _1));
+        _IntervalRemovedConnection = getModel()->getEventSource()->connectIntervalRemoved(boost::bind(&Table::handleIntervalRemoved, this, _1));
     }
     updateTableComponents();
 }
@@ -1134,11 +1134,11 @@ void Table::setColumnModel(TableColumnModel * const value)
         {
             createColumnsFromModel();
         }
-        _ColumnMarginChangedConnection = getColumnModel()->connectColumnMarginChanged(boost::bind(&Table::handleColumnMarginChanged, this, _1));
-        _ColumnMovedConnection = getColumnModel()->connectColumnMoved(boost::bind(&Table::handleColumnMoved, this, _1));
-        _ColumnRemovedConnection = getColumnModel()->connectColumnRemoved(boost::bind(&Table::handleColumnRemoved, this, _1));
-        _ColumnAddedConnection = getColumnModel()->connectColumnAdded(boost::bind(&Table::handleColumnAdded, this, _1));
-        _ColumnSelectionChangedConnection = getColumnModel()->connectColumnSelectionChanged(boost::bind(&Table::handleColumnSelectionChanged, this, _1));
+        _ColumnMarginChangedConnection = getColumnModel()->getEventSource()->connectColumnMarginChanged(boost::bind(&Table::handleColumnMarginChanged, this, _1));
+        _ColumnMovedConnection = getColumnModel()->getEventSource()->connectColumnMoved(boost::bind(&Table::handleColumnMoved, this, _1));
+        _ColumnRemovedConnection = getColumnModel()->getEventSource()->connectColumnRemoved(boost::bind(&Table::handleColumnRemoved, this, _1));
+        _ColumnAddedConnection = getColumnModel()->getEventSource()->connectColumnAdded(boost::bind(&Table::handleColumnAdded, this, _1));
+        _ColumnSelectionChangedConnection = getColumnModel()->getEventSource()->connectColumnSelectionChanged(boost::bind(&Table::handleColumnSelectionChanged, this, _1));
     }
     updateTableComponents();
 }
@@ -1159,10 +1159,10 @@ void Table::onCreate(const Table * Id)
 
     if(getModel() != NULL)
     {
-        _ContentsHeaderRowChangedConnection = getModel()->connectContentsHeaderRowChanged(boost::bind(&Table::handleContentsChanged, this, _1));
-        _ContentsChangedConnection = getModel()->connectContentsChanged(boost::bind(&Table::handleContentsChanged, this, _1));
-        _IntervalAddedConnection = getModel()->connectIntervalAdded(boost::bind(&Table::handleIntervalAdded, this, _1));
-        _IntervalRemovedConnection = getModel()->connectIntervalRemoved(boost::bind(&Table::handleIntervalRemoved, this, _1));
+        _ContentsHeaderRowChangedConnection = getModel()->getEventSource()->connectContentsHeaderRowChanged(boost::bind(&Table::handleContentsChanged, this, _1));
+        _ContentsChangedConnection = getModel()->getEventSource()->connectContentsChanged(boost::bind(&Table::handleContentsChanged, this, _1));
+        _IntervalAddedConnection = getModel()->getEventSource()->connectIntervalAdded(boost::bind(&Table::handleIntervalAdded, this, _1));
+        _IntervalRemovedConnection = getModel()->getEventSource()->connectIntervalRemoved(boost::bind(&Table::handleIntervalRemoved, this, _1));
     }
     if(getColumnModel() != NULL)
     {
@@ -1173,11 +1173,11 @@ void Table::onCreate(const Table * Id)
         DefaultListSelectionModelUnrecPtr ColumnSelModel = DefaultListSelectionModel::create();
         getColumnModel()->setSelectionModel(ColumnSelModel);
 
-        _ColumnMarginChangedConnection = getColumnModel()->connectColumnMarginChanged(boost::bind(&Table::handleColumnMarginChanged, this, _1));
-        _ColumnMovedConnection = getColumnModel()->connectColumnMoved(boost::bind(&Table::handleColumnMoved, this, _1));
-        _ColumnRemovedConnection = getColumnModel()->connectColumnRemoved(boost::bind(&Table::handleColumnRemoved, this, _1));
-        _ColumnAddedConnection = getColumnModel()->connectColumnAdded(boost::bind(&Table::handleColumnAdded, this, _1));
-        _ColumnSelectionChangedConnection = getColumnModel()->connectColumnSelectionChanged(boost::bind(&Table::handleColumnSelectionChanged, this, _1));
+        _ColumnMarginChangedConnection = getColumnModel()->getEventSource()->connectColumnMarginChanged(boost::bind(&Table::handleColumnMarginChanged, this, _1));
+        _ColumnMovedConnection = getColumnModel()->getEventSource()->connectColumnMoved(boost::bind(&Table::handleColumnMoved, this, _1));
+        _ColumnRemovedConnection = getColumnModel()->getEventSource()->connectColumnRemoved(boost::bind(&Table::handleColumnRemoved, this, _1));
+        _ColumnAddedConnection = getColumnModel()->getEventSource()->connectColumnAdded(boost::bind(&Table::handleColumnAdded, this, _1));
+        _ColumnSelectionChangedConnection = getColumnModel()->getEventSource()->connectColumnSelectionChanged(boost::bind(&Table::handleColumnSelectionChanged, this, _1));
     }
 
     DefaultListSelectionModelUnrecPtr RowSelModel = DefaultListSelectionModel::create();
@@ -1285,7 +1285,7 @@ void Table::changed(ConstFieldMaskArg whichField,
         _RowSelectionChangedConnection.disconnect();
         if(getRowSelectionModel() != NULL)
         {
-            _RowSelectionChangedConnection = getRowSelectionModel()->connectSelectionChanged(boost::bind(&Table::handleRowSelectionChanged, this, _1));
+            _RowSelectionChangedConnection = getRowSelectionModel()->getEventSource()->connectSelectionChanged(boost::bind(&Table::handleRowSelectionChanged, this, _1));
         }
     }
 }

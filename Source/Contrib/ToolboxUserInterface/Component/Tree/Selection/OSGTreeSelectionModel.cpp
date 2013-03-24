@@ -80,14 +80,14 @@ void TreeSelectionModel::produceSelectionAdded(const std::vector<NumberRange>& E
 {
     TreeSelectionEventDetailsUnrecPtr Details = TreeSelectionEventDetails::create(NULL, getSystemTime(), ElementsAdded, NewLeadSelectionPath, OldLeadSelectionPath);
 
-    Inherited::produceSelectionAdded(Details);
+    getEventSource()->produceSelectionAdded(Details);
 }
 
 void TreeSelectionModel::produceSelectionRemoved(const std::vector<NumberRange>& ElementsRemoved, Int32 NewLeadSelectionPath, Int32 OldLeadSelectionPath)
 {
     TreeSelectionEventDetailsUnrecPtr Details = TreeSelectionEventDetails::create(NULL, getSystemTime(), ElementsRemoved, NewLeadSelectionPath, OldLeadSelectionPath);
 
-    Inherited::produceSelectionRemoved(Details);
+    getEventSource()->produceSelectionRemoved(Details);
 }
 /*-------------------------------------------------------------------------*\
  -  private                                                                 -

@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -48,9 +48,8 @@
  *****************************************************************************
 \*****************************************************************************/
 
-#include "OSGTreeSelectionEventDetails.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 
 //! access the type of the class
@@ -66,19 +65,6 @@ OSG::UInt32 TreeSelectionModelBase::getClassTypeId(void)
 {
     return _type.getId();
 }
-//! access the producer type of the class
-inline
-const EventProducerType &TreeSelectionModelBase::getProducerClassType(void)
-{
-    return _producerType;
-}
-
-//! access the producer type id of the class
-inline
-UInt32 TreeSelectionModelBase::getProducerClassTypeId(void)
-{
-    return _producerType.getId();
-}
 
 inline
 OSG::UInt16 TreeSelectionModelBase::getClassGroupId(void)
@@ -88,6 +74,22 @@ OSG::UInt16 TreeSelectionModelBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+
+//! Get the value of the TreeSelectionModel::_sfEventSource field.
+inline
+TreeSelectionModelEventSource * TreeSelectionModelBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the TreeSelectionModel::_sfEventSource field.
+inline
+void TreeSelectionModelBase::setEventSource(TreeSelectionModelEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -99,6 +101,9 @@ void TreeSelectionModelBase::execSync (      TreeSelectionModelBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+        _sfEventSource.syncWith(pFrom->_sfEventSource);
 }
 #endif
 
@@ -108,119 +113,6 @@ const Char8 *TreeSelectionModelBase::getClassname(void)
 {
     return "TreeSelectionModel";
 }
-
-inline
-UInt32 TreeSelectionModelBase::getNumProducedEvents(void) const
-{
-    return getProducerType().getNumEventDescs();
-}
-
-inline
-const EventDescription *TreeSelectionModelBase::getProducedEventDescription(const std::string &ProducedEventName) const
-{
-    return getProducerType().findEventDescription(ProducedEventName);
-}
-
-inline
-const EventDescription *TreeSelectionModelBase::getProducedEventDescription(UInt32 ProducedEventId) const
-{
-    return getProducerType().getEventDescription(ProducedEventId);
-}
-
-inline
-UInt32 TreeSelectionModelBase::getProducedEventId(const std::string &ProducedEventName) const
-{
-    return getProducerType().getProducedEventId(ProducedEventName);
-}
-
-inline
-boost::signals2::connection  TreeSelectionModelBase::connectSelectionAdded(const SelectionAddedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _SelectionAddedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  TreeSelectionModelBase::connectSelectionAdded(const SelectionAddedEventType::group_type &group,
-                                                    const SelectionAddedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _SelectionAddedEvent.connect(group, listener, at);
-}
-
-inline
-void  TreeSelectionModelBase::disconnectSelectionAdded(const SelectionAddedEventType::group_type &group)
-{
-    _SelectionAddedEvent.disconnect(group);
-}
-
-inline
-void  TreeSelectionModelBase::disconnectAllSlotsSelectionAdded(void)
-{
-    _SelectionAddedEvent.disconnect_all_slots();
-}
-
-inline
-bool  TreeSelectionModelBase::isEmptySelectionAdded(void) const
-{
-    return _SelectionAddedEvent.empty();
-}
-
-inline
-UInt32  TreeSelectionModelBase::numSlotsSelectionAdded(void) const
-{
-    return _SelectionAddedEvent.num_slots();
-}
-
-inline
-void TreeSelectionModelBase::produceSelectionAdded(SelectionAddedEventDetailsType* const e)
-{
-    produceEvent(SelectionAddedEventId, e);
-}
-
-inline
-boost::signals2::connection  TreeSelectionModelBase::connectSelectionRemoved(const SelectionRemovedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _SelectionRemovedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  TreeSelectionModelBase::connectSelectionRemoved(const SelectionRemovedEventType::group_type &group,
-                                                    const SelectionRemovedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _SelectionRemovedEvent.connect(group, listener, at);
-}
-
-inline
-void  TreeSelectionModelBase::disconnectSelectionRemoved(const SelectionRemovedEventType::group_type &group)
-{
-    _SelectionRemovedEvent.disconnect(group);
-}
-
-inline
-void  TreeSelectionModelBase::disconnectAllSlotsSelectionRemoved(void)
-{
-    _SelectionRemovedEvent.disconnect_all_slots();
-}
-
-inline
-bool  TreeSelectionModelBase::isEmptySelectionRemoved(void) const
-{
-    return _SelectionRemovedEvent.empty();
-}
-
-inline
-UInt32  TreeSelectionModelBase::numSlotsSelectionRemoved(void) const
-{
-    return _SelectionRemovedEvent.num_slots();
-}
-
-inline
-void TreeSelectionModelBase::produceSelectionRemoved(SelectionRemovedEventDetailsType* const e)
-{
-    produceEvent(SelectionRemovedEventId, e);
-}
-
 OSG_GEN_CONTAINERPTR(TreeSelectionModel);
 
 OSG_END_NAMESPACE

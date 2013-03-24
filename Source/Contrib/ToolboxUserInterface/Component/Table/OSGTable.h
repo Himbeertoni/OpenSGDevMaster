@@ -50,6 +50,7 @@
 #include "OSGChangeEventDetailsFields.h"
 #include "OSGTableColumnModelEventDetailsFields.h"
 #include "OSGTableModelEventDetailsFields.h"
+#include "OSGEventDetailsFields.h"
 #include <boost/any.hpp>
 #include <typeinfo>
 
@@ -275,7 +276,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Table : public TableBase
     void setDefaultRenderer(const std::type_info& TheType, TableCellRendererPtr renderer);
 
     //Sets the dragEnabled property, which must be true to enable automatic drag handling (the first part of drag and drop) on this component.
-    void setDragEnabled(bool b);
+    void setDragEnabled(const bool b);
 
     //Sets the editingColumn variable.
     void setEditingColumn(const Int32& aColumn);

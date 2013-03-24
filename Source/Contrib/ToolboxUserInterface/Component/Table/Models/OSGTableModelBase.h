@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -65,16 +65,12 @@
 
 #include "OSGFieldContainer.h" // Parent
 
+#include "OSGTableModelEventSourceFields.h" // EventSource type
 
 #include "OSGTableModelFields.h"
 
-//Event Producer Headers
-#include "OSGActivity.h"
-#include "OSGConsumableEventCombiner.h"
-
-#include "OSGTableModelEventDetailsFields.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 class TableModel;
 
@@ -91,32 +87,23 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableModelBase : public FieldCo
     typedef TypeObject::InitPhase InitPhase;
 
     OSG_GEN_INTERNALPTR(TableModel);
-    
-    
-    typedef TableModelEventDetails ContentsHeaderRowChangedEventDetailsType;
-    typedef TableModelEventDetails ContentsChangedEventDetailsType;
-    typedef TableModelEventDetails IntervalAddedEventDetailsType;
-    typedef TableModelEventDetails IntervalRemovedEventDetailsType;
-
-    typedef boost::signals2::signal<void (EventDetails* const            , UInt32)> BaseEventType;
-    typedef boost::signals2::signal<void (TableModelEventDetails* const, UInt32), ConsumableEventCombiner> ContentsHeaderRowChangedEventType;
-    typedef boost::signals2::signal<void (TableModelEventDetails* const, UInt32), ConsumableEventCombiner> ContentsChangedEventType;
-    typedef boost::signals2::signal<void (TableModelEventDetails* const, UInt32), ConsumableEventCombiner> IntervalAddedEventType;
-    typedef boost::signals2::signal<void (TableModelEventDetails* const, UInt32), ConsumableEventCombiner> IntervalRemovedEventType;
 
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-
     enum
     {
-        ContentsHeaderRowChangedEventId = 1,
-        ContentsChangedEventId = ContentsHeaderRowChangedEventId + 1,
-        IntervalAddedEventId = ContentsChangedEventId + 1,
-        IntervalRemovedEventId = IntervalAddedEventId + 1,
-        NextProducedEventId = IntervalRemovedEventId + 1
+        EventSourceFieldId = Inherited::NextFieldId,
+        NextFieldId = EventSourceFieldId + 1
     };
+
+    static const OSG::BitVector EventSourceFieldMask =
+        (TypeTraits<BitVector>::One << EventSourceFieldId);
+    static const OSG::BitVector NextFieldMask =
+        (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecTableModelEventSourcePtr SFEventSourceType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -125,8 +112,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableModelBase : public FieldCo
     static FieldContainerType &getClassType   (void);
     static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
-    static const  EventProducerType  &getProducerClassType  (void);
-    static        UInt32              getProducerClassTypeId(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -140,10 +125,38 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableModelBase : public FieldCo
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+            const SFUnrecTableModelEventSourcePtr *getSFEventSource    (void) const;
+                  SFUnrecTableModelEventSourcePtr *editSFEventSource    (void);
+
+
+                  TableModelEventSource * getEventSource    (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setEventSource    (TableModelEventSource * const value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr Field Set                                 */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual SizeT  getBinSize (ConstFieldMaskArg  whichField);
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
     virtual void   copyFromBin(BinaryDataHandler &pMem,
@@ -151,100 +164,22 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableModelBase : public FieldCo
 
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Event Produced Get                           */
-    /*! \{                                                                 */
-
-    virtual const EventProducerType &getProducerType(void) const; 
-
-    virtual UInt32                   getNumProducedEvents       (void                                ) const;
-    virtual const EventDescription *getProducedEventDescription(const std::string &ProducedEventName) const;
-    virtual const EventDescription *getProducedEventDescription(UInt32 ProducedEventId              ) const;
-    virtual UInt32                   getProducedEventId         (const std::string &ProducedEventName) const;
-    
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-                                              
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::group_type &group,
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-    
-    virtual void   disconnectEvent        (UInt32 eventId, const BaseEventType::group_type &group);
-    virtual void   disconnectAllSlotsEvent(UInt32 eventId);
-    virtual bool   isEmptyEvent           (UInt32 eventId) const;
-    virtual UInt32 numSlotsEvent          (UInt32 eventId) const;
-
-    /*! \}                                                                 */
-    /*! \name                Event Access                                 */
-    /*! \{                                                                 */
-    
-    //ContentsHeaderRowChanged
-    boost::signals2::connection connectContentsHeaderRowChanged(const ContentsHeaderRowChangedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectContentsHeaderRowChanged(const ContentsHeaderRowChangedEventType::group_type &group,
-                                                       const ContentsHeaderRowChangedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectContentsHeaderRowChanged(const ContentsHeaderRowChangedEventType::group_type &group);
-    void   disconnectAllSlotsContentsHeaderRowChanged(void);
-    bool   isEmptyContentsHeaderRowChanged  (void) const;
-    UInt32 numSlotsContentsHeaderRowChanged (void) const;
-    
-    //ContentsChanged
-    boost::signals2::connection connectContentsChanged(const ContentsChangedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectContentsChanged(const ContentsChangedEventType::group_type &group,
-                                                       const ContentsChangedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectContentsChanged        (const ContentsChangedEventType::group_type &group);
-    void   disconnectAllSlotsContentsChanged(void);
-    bool   isEmptyContentsChanged           (void) const;
-    UInt32 numSlotsContentsChanged          (void) const;
-    
-    //IntervalAdded
-    boost::signals2::connection connectIntervalAdded  (const IntervalAddedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectIntervalAdded  (const IntervalAddedEventType::group_type &group,
-                                                       const IntervalAddedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectIntervalAdded          (const IntervalAddedEventType::group_type &group);
-    void   disconnectAllSlotsIntervalAdded  (void);
-    bool   isEmptyIntervalAdded             (void) const;
-    UInt32 numSlotsIntervalAdded            (void) const;
-    
-    //IntervalRemoved
-    boost::signals2::connection connectIntervalRemoved(const IntervalRemovedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectIntervalRemoved(const IntervalRemovedEventType::group_type &group,
-                                                       const IntervalRemovedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectIntervalRemoved        (const IntervalRemovedEventType::group_type &group);
-    void   disconnectAllSlotsIntervalRemoved(void);
-    bool   isEmptyIntervalRemoved           (void) const;
-    UInt32 numSlotsIntervalRemoved          (void) const;
-    
-    
-    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Produced Event Signals                   */
-    /*! \{                                                                 */
-
-    //Event Event producers
-    ContentsHeaderRowChangedEventType _ContentsHeaderRowChangedEvent;
-    ContentsChangedEventType _ContentsChangedEvent;
-    IntervalAddedEventType _IntervalAddedEvent;
-    IntervalRemovedEventType _IntervalRemovedEvent;
-    /*! \}                                                                 */
 
     static TypeObject _type;
 
     static       void   classDescInserter(TypeObject &oType);
     static const Char8 *getClassname     (void             );
 
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    SFUnrecTableModelEventSourcePtr _sfEventSource;
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
@@ -264,33 +199,16 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableModelBase : public FieldCo
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
+    void onCreate(const TableModel *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleEventSource     (void) const;
+    EditFieldHandlePtr editHandleEventSource    (void);
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Event Access                     */
-    /*! \{                                                                 */
-
-    GetEventHandlePtr getHandleContentsHeaderRowChangedSignal(void) const;
-    GetEventHandlePtr getHandleContentsChangedSignal(void) const;
-    GetEventHandlePtr getHandleIntervalAddedSignal(void) const;
-    GetEventHandlePtr getHandleIntervalRemovedSignal(void) const;
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Event Producer Firing                    */
-    /*! \{                                                                 */
-
-    virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
-    
-    void produceContentsHeaderRowChanged  (ContentsHeaderRowChangedEventDetailsType* const e);
-    void produceContentsChanged     (ContentsChangedEventDetailsType* const e);
-    void produceIntervalAdded       (IntervalAddedEventDetailsType* const e);
-    void produceIntervalRemoved     (IntervalRemovedEventDetailsType* const e);
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
@@ -336,9 +254,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableModelBase : public FieldCo
 
   private:
     /*---------------------------------------------------------------------*/
-    static EventDescription   *_eventDesc[];
-    static EventProducerType _producerType;
-
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const TableModelBase &source);

@@ -319,7 +319,7 @@ void ProgressBar::changed(ConstFieldMaskArg whichField,
         _ProgressStateChangedConnection.disconnect();
         if(getRangeModel() != NULL)
         {
-            _ProgressStateChangedConnection = getRangeModel()->connectStateChanged(boost::bind(&ProgressBar::handleProgressStateChanged, this, _1));
+            _ProgressStateChangedConnection = getRangeModel()->getEventSource()->connectStateChanged(boost::bind(&ProgressBar::handleProgressStateChanged, this, _1));
         }
     }
 }

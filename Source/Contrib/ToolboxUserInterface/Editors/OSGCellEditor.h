@@ -143,6 +143,7 @@ typedef CellEditor *CellEditorP;
 
 OSG_END_NAMESPACE
 
+#include "OSGCellEditorEventSource.h"
 #include "OSGCellEditorBase.inl"
 #include "OSGCellEditor.inl"
 

@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TreeModelLayout;
 
 OSG_GEN_CONTAINERPTR(TreeModelLayout);
-
-/*! \ingroup GrpContribUserInterfaceFieldTraits
-    \ingroup GrpLibOSGContribUserInterface
+/*! \ingroup GrpContribToolboxUserInterfaceFieldTraits
+    \ingroup GrpLibOSGContribToolboxUserInterface
  */
 template <>
-struct FieldTraits<TreeModelLayout *> :
-    public FieldTraitsFCPtrBase<TreeModelLayout *>
+struct FieldTraits<TreeModelLayout *, nsOSG> :
+    public FieldTraitsFCPtrBase<TreeModelLayout *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<TreeModelLayout *>  Self;
+    typedef FieldTraits<TreeModelLayout *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,126 +90,124 @@ struct FieldTraits<TreeModelLayout *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFTreeModelLayoutPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFTreeModelLayoutPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<TreeModelLayout *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TreeModelLayout *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTreeModelLayoutPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TreeModelLayout *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TreeModelLayout *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTreeModelLayoutPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TreeModelLayout *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TreeModelLayout *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTreeModelLayoutPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TreeModelLayout *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TreeModelLayout *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTreeModelLayoutPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TreeModelLayout *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TreeModelLayout *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecTreeModelLayoutPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TreeModelLayout *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TreeModelLayout *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecTreeModelLayoutPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TreeModelLayout *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TreeModelLayout *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakTreeModelLayoutPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TreeModelLayout *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TreeModelLayout *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdTreeModelLayoutPtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<TreeModelLayout *,
-                      RecordedRefCountPolicy  > SFRecTreeModelLayoutPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      RecordedRefCountPolicy, nsOSG  > SFRecTreeModelLayoutPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<TreeModelLayout *,
-                      UnrecordedRefCountPolicy> SFUnrecTreeModelLayoutPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecTreeModelLayoutPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<TreeModelLayout *,
-                      WeakRefCountPolicy      > SFWeakTreeModelLayoutPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      WeakRefCountPolicy, nsOSG      > SFWeakTreeModelLayoutPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<TreeModelLayout *,
-                      NoRefCountPolicy        > SFUncountedTreeModelLayoutPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedTreeModelLayoutPtr;
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<TreeModelLayout *,
-                      RecordedRefCountPolicy  > MFRecTreeModelLayoutPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      RecordedRefCountPolicy, nsOSG  > MFRecTreeModelLayoutPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<TreeModelLayout *,
-                      UnrecordedRefCountPolicy> MFUnrecTreeModelLayoutPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecTreeModelLayoutPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<TreeModelLayout *,
-                      WeakRefCountPolicy      > MFWeakTreeModelLayoutPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      WeakRefCountPolicy, nsOSG      > MFWeakTreeModelLayoutPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<TreeModelLayout *,
-                      NoRefCountPolicy        > MFUncountedTreeModelLayoutPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedTreeModelLayoutPtr;
 
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFRecTreeModelLayoutPtr : 
     public PointerSField<TreeModelLayout *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUnrecTreeModelLayoutPtr : 
     public PointerSField<TreeModelLayout *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFWeakTreeModelLayoutPtr :
     public PointerSField<TreeModelLayout *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUncountedTreeModelLayoutPtr :
     public PointerSField<TreeModelLayout *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFRecTreeModelLayoutPtr :
     public PointerMField<TreeModelLayout *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUnrecTreeModelLayoutPtr :
     public PointerMField<TreeModelLayout *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFWeakTreeModelLayoutPtr :
     public PointerMField<TreeModelLayout *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUncountedTreeModelLayoutPtr :
     public PointerMField<TreeModelLayout *,
                          NoRefCountPolicy        > {};

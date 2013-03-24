@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -52,7 +52,6 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include <boost/assign/list_of.hpp>
 
 #include "OSGConfig.h"
 
@@ -65,8 +64,6 @@
 #include "OSGAbstractWindow.h"
 
 #include <boost/bind.hpp>
-
-#include "OSGEventDetails.h"
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -168,18 +165,22 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AbstractWindow *>::_type("AbstractWindowPtr", "ComponentContainerPtr");
+PointerType FieldTraits<AbstractWindow *, nsOSG>::_type(
+    "AbstractWindowPtr", 
+    "ComponentContainerPtr", 
+    AbstractWindow::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(AbstractWindow *)
+OSG_FIELDTRAITS_GETTYPE_NS(AbstractWindow *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            AbstractWindow *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            AbstractWindow *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -424,7 +425,7 @@ AbstractWindowBase::TypeObject AbstractWindowBase::_type(
     AbstractWindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     AbstractWindow::initMethod,
     AbstractWindow::exitMethod,
@@ -436,7 +437,7 @@ AbstractWindowBase::TypeObject AbstractWindowBase::_type(
     "<FieldContainer\n"
     "    name=\"AbstractWindow\"\n"
     "    parent=\"ComponentContainer\"\n"
-    "    library=\"ContribUserInterface\"\n"
+    "    library=\"ContribToolboxUserInterface\"\n"
     "    pointerfieldtypes=\"both\"\n"
     "    structure=\"abstract\"\n"
     "    systemcomponent=\"true\"\n"
@@ -445,21 +446,20 @@ AbstractWindowBase::TypeObject AbstractWindowBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
-    "    parentProducer=\"Component\"\n"
     "    >\n"
     "    A UI Abstract Window.\n"
-    "\t<Field\n"
-    "\t   name=\"ParentDrawingSurface\"\n"
-    "\t   type=\"FieldContainer\"\n"
-    "\t   cardinality=\"single\"\n"
-    "\t   visibility=\"internal\"\n"
-    "\t   access=\"none\"\n"
+    "    <Field\n"
+    "       name=\"ParentDrawingSurface\"\n"
+    "       type=\"FieldContainer\"\n"
+    "       cardinality=\"single\"\n"
+    "       visibility=\"internal\"\n"
+    "       access=\"none\"\n"
     "       doRefCount=\"false\"\n"
     "       passFieldMask=\"true\"\n"
     "       category=\"parentpointer\"\n"
-    "\t   >\n"
-    "\t  The DrawingSurface this Window is contained in.\n"
-    "\t</Field>\n"
+    "       >\n"
+    "      The DrawingSurface this Window is contained in.\n"
+    "    </Field>\n"
     "    <Field\n"
     "        name=\"Closable\"\n"
     "        type=\"bool\"\n"
@@ -639,140 +639,65 @@ AbstractWindowBase::TypeObject AbstractWindowBase::_type(
     "        defaultValue=\"3\"\n"
     "        >\n"
     "    </Field>\n"
+    "<!--\n"
     "    <ProducedEvent\n"
     "        name=\"WindowOpened\"\n"
     "        detailsType=\"WindowEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
+    "        consumable=\"true\"\n"
     "        >\n"
     "    </ProducedEvent>\n"
     "    <ProducedEvent\n"
     "        name=\"WindowClosing\"\n"
     "        detailsType=\"WindowEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
+    "        consumable=\"true\"\n"
     "        >\n"
     "    </ProducedEvent>\n"
     "    <ProducedEvent\n"
     "        name=\"WindowClosed\"\n"
     "        detailsType=\"WindowEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
+    "        consumable=\"true\"\n"
     "        >\n"
     "    </ProducedEvent>\n"
     "    <ProducedEvent\n"
     "        name=\"WindowIconified\"\n"
     "        detailsType=\"WindowEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
+    "        consumable=\"true\"\n"
     "        >\n"
     "    </ProducedEvent>\n"
     "    <ProducedEvent\n"
     "        name=\"WindowDeiconified\"\n"
     "        detailsType=\"WindowEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
+    "        consumable=\"true\"\n"
     "        >\n"
     "    </ProducedEvent>\n"
     "    <ProducedEvent\n"
     "        name=\"WindowActivated\"\n"
     "        detailsType=\"WindowEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
+    "        consumable=\"true\"\n"
     "        >\n"
     "    </ProducedEvent>\n"
     "    <ProducedEvent\n"
     "        name=\"WindowDeactivated\"\n"
     "        detailsType=\"WindowEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
+    "        consumable=\"true\"\n"
     "        >\n"
     "    </ProducedEvent>\n"
     "    <ProducedEvent\n"
     "        name=\"WindowEntered\"\n"
     "        detailsType=\"WindowEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
+    "        consumable=\"true\"\n"
     "        >\n"
     "    </ProducedEvent>\n"
     "    <ProducedEvent\n"
     "        name=\"WindowExited\"\n"
     "        detailsType=\"WindowEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
+    "        consumable=\"true\"\n"
     "        >\n"
     "    </ProducedEvent>\n"
+    "-->\n"
     "</FieldContainer>\n",
     "A UI Abstract Window.\n"
     );
-
-//! AbstractWindow Produced Events
-
-EventDescription *AbstractWindowBase::_eventDesc[] =
-{
-    new EventDescription("WindowOpened", 
-                          "",
-                          WindowOpenedEventId, 
-                          FieldTraits<WindowEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&AbstractWindowBase::getHandleWindowOpenedSignal)),
-
-    new EventDescription("WindowClosing", 
-                          "",
-                          WindowClosingEventId, 
-                          FieldTraits<WindowEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&AbstractWindowBase::getHandleWindowClosingSignal)),
-
-    new EventDescription("WindowClosed", 
-                          "",
-                          WindowClosedEventId, 
-                          FieldTraits<WindowEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&AbstractWindowBase::getHandleWindowClosedSignal)),
-
-    new EventDescription("WindowIconified", 
-                          "",
-                          WindowIconifiedEventId, 
-                          FieldTraits<WindowEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&AbstractWindowBase::getHandleWindowIconifiedSignal)),
-
-    new EventDescription("WindowDeiconified", 
-                          "",
-                          WindowDeiconifiedEventId, 
-                          FieldTraits<WindowEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&AbstractWindowBase::getHandleWindowDeiconifiedSignal)),
-
-    new EventDescription("WindowActivated", 
-                          "",
-                          WindowActivatedEventId, 
-                          FieldTraits<WindowEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&AbstractWindowBase::getHandleWindowActivatedSignal)),
-
-    new EventDescription("WindowDeactivated", 
-                          "",
-                          WindowDeactivatedEventId, 
-                          FieldTraits<WindowEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&AbstractWindowBase::getHandleWindowDeactivatedSignal)),
-
-    new EventDescription("WindowEntered", 
-                          "",
-                          WindowEnteredEventId, 
-                          FieldTraits<WindowEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&AbstractWindowBase::getHandleWindowEnteredSignal)),
-
-    new EventDescription("WindowExited", 
-                          "",
-                          WindowExitedEventId, 
-                          FieldTraits<WindowEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&AbstractWindowBase::getHandleWindowExitedSignal))
-
-};
-
-EventProducerType AbstractWindowBase::_producerType(
-    "AbstractWindowProducerType",
-    "ComponentProducerType",
-    "",
-    InitEventProducerFunctor(),
-    _eventDesc,
-    sizeof(_eventDesc));
 
 /*------------------------------ get -----------------------------------*/
 
@@ -784,11 +709,6 @@ FieldContainerType &AbstractWindowBase::getType(void)
 const FieldContainerType &AbstractWindowBase::getType(void) const
 {
     return _type;
-}
-
-const EventProducerType &AbstractWindowBase::getProducerType(void) const
-{
-    return _producerType;
 }
 
 UInt32 AbstractWindowBase::getContainerSize(void) const
@@ -1040,9 +960,9 @@ const SFUInt32 *AbstractWindowBase::getSFResizeModifyCursorWidth(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 AbstractWindowBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT AbstractWindowBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ParentDrawingSurfaceFieldMask & whichField))
     {
@@ -1214,379 +1134,102 @@ void AbstractWindowBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ParentDrawingSurfaceFieldMask & whichField))
     {
+        editSField(ParentDrawingSurfaceFieldMask);
         _sfParentDrawingSurface.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ClosableFieldMask & whichField))
     {
+        editSField(ClosableFieldMask);
         _sfClosable.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (IconableFieldMask & whichField))
     {
+        editSField(IconableFieldMask);
         _sfIconable.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MaximizableFieldMask & whichField))
     {
+        editSField(MaximizableFieldMask);
         _sfMaximizable.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (IsClosedFieldMask & whichField))
     {
+        editSField(IsClosedFieldMask);
         _sfIsClosed.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (IsIconFieldMask & whichField))
     {
+        editSField(IsIconFieldMask);
         _sfIsIcon.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (IsMaximizedFieldMask & whichField))
     {
+        editSField(IsMaximizedFieldMask);
         _sfIsMaximized.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ResizableFieldMask & whichField))
     {
+        editSField(ResizableFieldMask);
         _sfResizable.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (IsSelectedFieldMask & whichField))
     {
+        editSField(IsSelectedFieldMask);
         _sfIsSelected.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TitleFieldMask & whichField))
     {
+        editSField(TitleFieldMask);
         _sfTitle.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DesktopIconFieldMask & whichField))
     {
+        editSField(DesktopIconFieldMask);
         _sfDesktopIcon.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ModalFieldMask & whichField))
     {
+        editSField(ModalFieldMask);
         _sfModal.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AllwaysOnTopFieldMask & whichField))
     {
+        editSField(AllwaysOnTopFieldMask);
         _sfAllwaysOnTop.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DrawTitlebarFieldMask & whichField))
     {
+        editSField(DrawTitlebarFieldMask);
         _sfDrawTitlebar.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DrawDecorationsFieldMask & whichField))
     {
+        editSField(DrawDecorationsFieldMask);
         _sfDrawDecorations.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (LockInputFieldMask & whichField))
     {
+        editSField(LockInputFieldMask);
         _sfLockInput.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AlignmentInDrawingSurfaceFieldMask & whichField))
     {
+        editSField(AlignmentInDrawingSurfaceFieldMask);
         _sfAlignmentInDrawingSurface.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ScalingInDrawingSurfaceFieldMask & whichField))
     {
+        editSField(ScalingInDrawingSurfaceFieldMask);
         _sfScalingInDrawingSurface.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ResizeModifyCursorWidthFieldMask & whichField))
     {
+        editSField(ResizeModifyCursorWidthFieldMask);
         _sfResizeModifyCursorWidth.copyFromBin(pMem);
     }
 }
 
 
-
-/*------------------------- event producers ----------------------------------*/
-void AbstractWindowBase::produceEvent(UInt32 eventId, EventDetails* const e)
-{
-    switch(eventId)
-    {
-    case WindowOpenedEventId:
-        OSG_ASSERT(dynamic_cast<WindowOpenedEventDetailsType* const>(e));
-
-        _WindowOpenedEvent.set_combiner(ConsumableEventCombiner(e));
-        _WindowOpenedEvent(dynamic_cast<WindowOpenedEventDetailsType* const>(e), WindowOpenedEventId);
-        break;
-    case WindowClosingEventId:
-        OSG_ASSERT(dynamic_cast<WindowClosingEventDetailsType* const>(e));
-
-        _WindowClosingEvent.set_combiner(ConsumableEventCombiner(e));
-        _WindowClosingEvent(dynamic_cast<WindowClosingEventDetailsType* const>(e), WindowClosingEventId);
-        break;
-    case WindowClosedEventId:
-        OSG_ASSERT(dynamic_cast<WindowClosedEventDetailsType* const>(e));
-
-        _WindowClosedEvent.set_combiner(ConsumableEventCombiner(e));
-        _WindowClosedEvent(dynamic_cast<WindowClosedEventDetailsType* const>(e), WindowClosedEventId);
-        break;
-    case WindowIconifiedEventId:
-        OSG_ASSERT(dynamic_cast<WindowIconifiedEventDetailsType* const>(e));
-
-        _WindowIconifiedEvent.set_combiner(ConsumableEventCombiner(e));
-        _WindowIconifiedEvent(dynamic_cast<WindowIconifiedEventDetailsType* const>(e), WindowIconifiedEventId);
-        break;
-    case WindowDeiconifiedEventId:
-        OSG_ASSERT(dynamic_cast<WindowDeiconifiedEventDetailsType* const>(e));
-
-        _WindowDeiconifiedEvent.set_combiner(ConsumableEventCombiner(e));
-        _WindowDeiconifiedEvent(dynamic_cast<WindowDeiconifiedEventDetailsType* const>(e), WindowDeiconifiedEventId);
-        break;
-    case WindowActivatedEventId:
-        OSG_ASSERT(dynamic_cast<WindowActivatedEventDetailsType* const>(e));
-
-        _WindowActivatedEvent.set_combiner(ConsumableEventCombiner(e));
-        _WindowActivatedEvent(dynamic_cast<WindowActivatedEventDetailsType* const>(e), WindowActivatedEventId);
-        break;
-    case WindowDeactivatedEventId:
-        OSG_ASSERT(dynamic_cast<WindowDeactivatedEventDetailsType* const>(e));
-
-        _WindowDeactivatedEvent.set_combiner(ConsumableEventCombiner(e));
-        _WindowDeactivatedEvent(dynamic_cast<WindowDeactivatedEventDetailsType* const>(e), WindowDeactivatedEventId);
-        break;
-    case WindowEnteredEventId:
-        OSG_ASSERT(dynamic_cast<WindowEnteredEventDetailsType* const>(e));
-
-        _WindowEnteredEvent.set_combiner(ConsumableEventCombiner(e));
-        _WindowEnteredEvent(dynamic_cast<WindowEnteredEventDetailsType* const>(e), WindowEnteredEventId);
-        break;
-    case WindowExitedEventId:
-        OSG_ASSERT(dynamic_cast<WindowExitedEventDetailsType* const>(e));
-
-        _WindowExitedEvent.set_combiner(ConsumableEventCombiner(e));
-        _WindowExitedEvent(dynamic_cast<WindowExitedEventDetailsType* const>(e), WindowExitedEventId);
-        break;
-    default:
-        Inherited::produceEvent(eventId, e);
-        break;
-    }
-}
-
-boost::signals2::connection AbstractWindowBase::connectEvent(UInt32 eventId, 
-                                                             const BaseEventType::slot_type &listener, 
-                                                             boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case WindowOpenedEventId:
-        return _WindowOpenedEvent.connect(listener, at);
-        break;
-    case WindowClosingEventId:
-        return _WindowClosingEvent.connect(listener, at);
-        break;
-    case WindowClosedEventId:
-        return _WindowClosedEvent.connect(listener, at);
-        break;
-    case WindowIconifiedEventId:
-        return _WindowIconifiedEvent.connect(listener, at);
-        break;
-    case WindowDeiconifiedEventId:
-        return _WindowDeiconifiedEvent.connect(listener, at);
-        break;
-    case WindowActivatedEventId:
-        return _WindowActivatedEvent.connect(listener, at);
-        break;
-    case WindowDeactivatedEventId:
-        return _WindowDeactivatedEvent.connect(listener, at);
-        break;
-    case WindowEnteredEventId:
-        return _WindowEnteredEvent.connect(listener, at);
-        break;
-    case WindowExitedEventId:
-        return _WindowExitedEvent.connect(listener, at);
-        break;
-    default:
-        return Inherited::connectEvent(eventId, listener, at);
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-
-boost::signals2::connection  AbstractWindowBase::connectEvent(UInt32 eventId, 
-                                                              const BaseEventType::group_type &group,
-                                                              const BaseEventType::slot_type &listener,
-                                                              boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case WindowOpenedEventId:
-        return _WindowOpenedEvent.connect(group, listener, at);
-        break;
-    case WindowClosingEventId:
-        return _WindowClosingEvent.connect(group, listener, at);
-        break;
-    case WindowClosedEventId:
-        return _WindowClosedEvent.connect(group, listener, at);
-        break;
-    case WindowIconifiedEventId:
-        return _WindowIconifiedEvent.connect(group, listener, at);
-        break;
-    case WindowDeiconifiedEventId:
-        return _WindowDeiconifiedEvent.connect(group, listener, at);
-        break;
-    case WindowActivatedEventId:
-        return _WindowActivatedEvent.connect(group, listener, at);
-        break;
-    case WindowDeactivatedEventId:
-        return _WindowDeactivatedEvent.connect(group, listener, at);
-        break;
-    case WindowEnteredEventId:
-        return _WindowEnteredEvent.connect(group, listener, at);
-        break;
-    case WindowExitedEventId:
-        return _WindowExitedEvent.connect(group, listener, at);
-        break;
-    default:
-        return Inherited::connectEvent(eventId, group, listener, at);
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-    
-void  AbstractWindowBase::disconnectEvent(UInt32 eventId, const BaseEventType::group_type &group)
-{
-    switch(eventId)
-    {
-    case WindowOpenedEventId:
-        _WindowOpenedEvent.disconnect(group);
-        break;
-    case WindowClosingEventId:
-        _WindowClosingEvent.disconnect(group);
-        break;
-    case WindowClosedEventId:
-        _WindowClosedEvent.disconnect(group);
-        break;
-    case WindowIconifiedEventId:
-        _WindowIconifiedEvent.disconnect(group);
-        break;
-    case WindowDeiconifiedEventId:
-        _WindowDeiconifiedEvent.disconnect(group);
-        break;
-    case WindowActivatedEventId:
-        _WindowActivatedEvent.disconnect(group);
-        break;
-    case WindowDeactivatedEventId:
-        _WindowDeactivatedEvent.disconnect(group);
-        break;
-    case WindowEnteredEventId:
-        _WindowEnteredEvent.disconnect(group);
-        break;
-    case WindowExitedEventId:
-        _WindowExitedEvent.disconnect(group);
-        break;
-    default:
-        return Inherited::disconnectEvent(eventId, group);
-        break;
-    }
-}
-
-void  AbstractWindowBase::disconnectAllSlotsEvent(UInt32 eventId)
-{
-    switch(eventId)
-    {
-    case WindowOpenedEventId:
-        _WindowOpenedEvent.disconnect_all_slots();
-        break;
-    case WindowClosingEventId:
-        _WindowClosingEvent.disconnect_all_slots();
-        break;
-    case WindowClosedEventId:
-        _WindowClosedEvent.disconnect_all_slots();
-        break;
-    case WindowIconifiedEventId:
-        _WindowIconifiedEvent.disconnect_all_slots();
-        break;
-    case WindowDeiconifiedEventId:
-        _WindowDeiconifiedEvent.disconnect_all_slots();
-        break;
-    case WindowActivatedEventId:
-        _WindowActivatedEvent.disconnect_all_slots();
-        break;
-    case WindowDeactivatedEventId:
-        _WindowDeactivatedEvent.disconnect_all_slots();
-        break;
-    case WindowEnteredEventId:
-        _WindowEnteredEvent.disconnect_all_slots();
-        break;
-    case WindowExitedEventId:
-        _WindowExitedEvent.disconnect_all_slots();
-        break;
-    default:
-        Inherited::disconnectAllSlotsEvent(eventId);
-        break;
-    }
-}
-
-bool  AbstractWindowBase::isEmptyEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case WindowOpenedEventId:
-        return _WindowOpenedEvent.empty();
-        break;
-    case WindowClosingEventId:
-        return _WindowClosingEvent.empty();
-        break;
-    case WindowClosedEventId:
-        return _WindowClosedEvent.empty();
-        break;
-    case WindowIconifiedEventId:
-        return _WindowIconifiedEvent.empty();
-        break;
-    case WindowDeiconifiedEventId:
-        return _WindowDeiconifiedEvent.empty();
-        break;
-    case WindowActivatedEventId:
-        return _WindowActivatedEvent.empty();
-        break;
-    case WindowDeactivatedEventId:
-        return _WindowDeactivatedEvent.empty();
-        break;
-    case WindowEnteredEventId:
-        return _WindowEnteredEvent.empty();
-        break;
-    case WindowExitedEventId:
-        return _WindowExitedEvent.empty();
-        break;
-    default:
-        return Inherited::isEmptyEvent(eventId);
-        break;
-    }
-}
-
-UInt32  AbstractWindowBase::numSlotsEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case WindowOpenedEventId:
-        return _WindowOpenedEvent.num_slots();
-        break;
-    case WindowClosingEventId:
-        return _WindowClosingEvent.num_slots();
-        break;
-    case WindowClosedEventId:
-        return _WindowClosedEvent.num_slots();
-        break;
-    case WindowIconifiedEventId:
-        return _WindowIconifiedEvent.num_slots();
-        break;
-    case WindowDeiconifiedEventId:
-        return _WindowDeiconifiedEvent.num_slots();
-        break;
-    case WindowActivatedEventId:
-        return _WindowActivatedEvent.num_slots();
-        break;
-    case WindowDeactivatedEventId:
-        return _WindowDeactivatedEvent.num_slots();
-        break;
-    case WindowEnteredEventId:
-        return _WindowEnteredEvent.num_slots();
-        break;
-    case WindowExitedEventId:
-        return _WindowExitedEvent.num_slots();
-        break;
-    default:
-        return Inherited::numSlotsEvent(eventId);
-        break;
-    }
-}
 
 
 /*------------------------- constructors ----------------------------------*/
@@ -1695,7 +1338,7 @@ bool AbstractWindowBase::unlinkParent(
 
         if(pTypedParent != NULL)
         {
-            if(_sfParentDrawingSurface.getValue() == pParent)
+            if(_sfParentDrawingSurface.getValue() == pTypedParent)
             {
                 editSField(ParentDrawingSurfaceFieldMask);
 
@@ -1704,8 +1347,15 @@ bool AbstractWindowBase::unlinkParent(
                 return true;
             }
 
-            FWARNING(("AbstractWindowBase::unlinkParent: "
-                      "Child <-> Parent link inconsistent.\n"));
+            SWARNING << "Child (["          << this
+                     << "] id ["            << this->getId()
+                     << "] type ["          << this->getType().getCName()
+                     << "] parentFieldId [" << parentFieldId
+                     << "]) - Parent (["    << pParent
+                     << "] id ["            << pParent->getId()
+                     << "] type ["          << pParent->getType().getCName()
+                     << "]): link inconsistent!"
+                     << std::endl;
 
             return false;
         }
@@ -2192,106 +1842,6 @@ EditFieldHandlePtr AbstractWindowBase::editHandleResizeModifyCursorWidth(void)
 
 
     editSField(ResizeModifyCursorWidthFieldMask);
-
-    return returnValue;
-}
-
-
-GetEventHandlePtr AbstractWindowBase::getHandleWindowOpenedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<WindowOpenedEventType>(
-             const_cast<WindowOpenedEventType *>(&_WindowOpenedEvent),
-             _producerType.getEventDescription(WindowOpenedEventId),
-             const_cast<AbstractWindowBase *>(this)));
-
-    return returnValue;
-}
-
-GetEventHandlePtr AbstractWindowBase::getHandleWindowClosingSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<WindowClosingEventType>(
-             const_cast<WindowClosingEventType *>(&_WindowClosingEvent),
-             _producerType.getEventDescription(WindowClosingEventId),
-             const_cast<AbstractWindowBase *>(this)));
-
-    return returnValue;
-}
-
-GetEventHandlePtr AbstractWindowBase::getHandleWindowClosedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<WindowClosedEventType>(
-             const_cast<WindowClosedEventType *>(&_WindowClosedEvent),
-             _producerType.getEventDescription(WindowClosedEventId),
-             const_cast<AbstractWindowBase *>(this)));
-
-    return returnValue;
-}
-
-GetEventHandlePtr AbstractWindowBase::getHandleWindowIconifiedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<WindowIconifiedEventType>(
-             const_cast<WindowIconifiedEventType *>(&_WindowIconifiedEvent),
-             _producerType.getEventDescription(WindowIconifiedEventId),
-             const_cast<AbstractWindowBase *>(this)));
-
-    return returnValue;
-}
-
-GetEventHandlePtr AbstractWindowBase::getHandleWindowDeiconifiedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<WindowDeiconifiedEventType>(
-             const_cast<WindowDeiconifiedEventType *>(&_WindowDeiconifiedEvent),
-             _producerType.getEventDescription(WindowDeiconifiedEventId),
-             const_cast<AbstractWindowBase *>(this)));
-
-    return returnValue;
-}
-
-GetEventHandlePtr AbstractWindowBase::getHandleWindowActivatedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<WindowActivatedEventType>(
-             const_cast<WindowActivatedEventType *>(&_WindowActivatedEvent),
-             _producerType.getEventDescription(WindowActivatedEventId),
-             const_cast<AbstractWindowBase *>(this)));
-
-    return returnValue;
-}
-
-GetEventHandlePtr AbstractWindowBase::getHandleWindowDeactivatedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<WindowDeactivatedEventType>(
-             const_cast<WindowDeactivatedEventType *>(&_WindowDeactivatedEvent),
-             _producerType.getEventDescription(WindowDeactivatedEventId),
-             const_cast<AbstractWindowBase *>(this)));
-
-    return returnValue;
-}
-
-GetEventHandlePtr AbstractWindowBase::getHandleWindowEnteredSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<WindowEnteredEventType>(
-             const_cast<WindowEnteredEventType *>(&_WindowEnteredEvent),
-             _producerType.getEventDescription(WindowEnteredEventId),
-             const_cast<AbstractWindowBase *>(this)));
-
-    return returnValue;
-}
-
-GetEventHandlePtr AbstractWindowBase::getHandleWindowExitedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<WindowExitedEventType>(
-             const_cast<WindowExitedEventType *>(&_WindowExitedEvent),
-             _producerType.getEventDescription(WindowExitedEventId),
-             const_cast<AbstractWindowBase *>(this)));
 
     return returnValue;
 }

@@ -48,7 +48,8 @@
 #include "OSGMenuItemFields.h"
 #include "OSGScrollPanelFields.h"
 #include "OSGPanelFields.h"
-
+#include "OSGSelectionEventDetailsFields.h"
+#include <boost/signals2.hpp>
 OSG_BEGIN_NAMESPACE
 
 /*! \brief PopupMenu class. See \ref

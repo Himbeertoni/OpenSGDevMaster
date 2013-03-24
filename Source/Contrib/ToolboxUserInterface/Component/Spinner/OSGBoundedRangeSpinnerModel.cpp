@@ -145,7 +145,7 @@ void BoundedRangeSpinnerModel::setValue(Int32 newValue)
 
 void BoundedRangeSpinnerModel::attachListenersToModels(void)
 {
-    _RangeModelStateChangedConnection = _TheBoundedRangeModel->connectStateChanged(boost::bind(&BoundedRangeSpinnerModel::handleRangeModelStateChanged, this, _1));
+    _RangeModelStateChangedConnection = _TheBoundedRangeModel->getEventSource()->connectStateChanged(boost::bind(&BoundedRangeSpinnerModel::handleRangeModelStateChanged, this, _1));
     _SpinnerModelStateChangedConnection = _TheSpinnerModel->connectStateChanged(boost::bind(&BoundedRangeSpinnerModel::handleSpinnerModelStateChanged, this, _1));
 }
 

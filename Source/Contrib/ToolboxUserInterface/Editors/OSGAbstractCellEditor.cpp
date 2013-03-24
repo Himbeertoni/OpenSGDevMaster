@@ -102,14 +102,14 @@ void AbstractCellEditor::produceEditingCanceled(void)
 {
     ChangeEventDetailsUnrecPtr Details = ChangeEventDetails::create(NULL, getSystemTime());
 
-    Inherited::produceEditingCanceled(Details);
+    getEventSource()->produceEditingCanceled(Details);
 }
 
 void AbstractCellEditor::produceEditingStopped(void)
 {
     ChangeEventDetailsUnrecPtr Details = ChangeEventDetails::create(NULL, getSystemTime());
 
-    Inherited::produceEditingStopped(Details);
+    getEventSource()->produceEditingStopped(Details);
 }
 
 /*-------------------------------------------------------------------------*\

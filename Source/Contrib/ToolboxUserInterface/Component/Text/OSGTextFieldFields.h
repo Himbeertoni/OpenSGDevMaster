@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TextField;
 
 OSG_GEN_CONTAINERPTR(TextField);
-
-/*! \ingroup GrpContribUserInterfaceFieldTraits
-    \ingroup GrpLibOSGContribUserInterface
+/*! \ingroup GrpContribToolboxUserInterfaceFieldTraits
+    \ingroup GrpLibOSGContribToolboxUserInterface
  */
 template <>
-struct FieldTraits<TextField *> :
-    public FieldTraitsFCPtrBase<TextField *>
+struct FieldTraits<TextField *, nsOSG> :
+    public FieldTraitsFCPtrBase<TextField *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<TextField *>  Self;
+    typedef FieldTraits<TextField *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,126 +90,124 @@ struct FieldTraits<TextField *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFTextFieldPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFTextFieldPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<TextField *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TextField *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTextFieldPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextField *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TextField *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTextFieldPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextField *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TextField *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTextFieldPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextField *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TextField *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTextFieldPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextField *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TextField *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecTextFieldPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextField *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TextField *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecTextFieldPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextField *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TextField *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakTextFieldPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TextField *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TextField *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdTextFieldPtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<TextField *,
-                      RecordedRefCountPolicy  > SFRecTextFieldPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      RecordedRefCountPolicy, nsOSG  > SFRecTextFieldPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<TextField *,
-                      UnrecordedRefCountPolicy> SFUnrecTextFieldPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecTextFieldPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<TextField *,
-                      WeakRefCountPolicy      > SFWeakTextFieldPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      WeakRefCountPolicy, nsOSG      > SFWeakTextFieldPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<TextField *,
-                      NoRefCountPolicy        > SFUncountedTextFieldPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedTextFieldPtr;
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<TextField *,
-                      RecordedRefCountPolicy  > MFRecTextFieldPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      RecordedRefCountPolicy, nsOSG  > MFRecTextFieldPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<TextField *,
-                      UnrecordedRefCountPolicy> MFUnrecTextFieldPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecTextFieldPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<TextField *,
-                      WeakRefCountPolicy      > MFWeakTextFieldPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      WeakRefCountPolicy, nsOSG      > MFWeakTextFieldPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<TextField *,
-                      NoRefCountPolicy        > MFUncountedTextFieldPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedTextFieldPtr;
 
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFRecTextFieldPtr : 
     public PointerSField<TextField *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUnrecTextFieldPtr : 
     public PointerSField<TextField *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFWeakTextFieldPtr :
     public PointerSField<TextField *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUncountedTextFieldPtr :
     public PointerSField<TextField *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFRecTextFieldPtr :
     public PointerMField<TextField *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUnrecTextFieldPtr :
     public PointerMField<TextField *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFWeakTextFieldPtr :
     public PointerMField<TextField *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUncountedTextFieldPtr :
     public PointerMField<TextField *,
                          NoRefCountPolicy        > {};

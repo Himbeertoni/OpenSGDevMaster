@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -48,9 +48,8 @@
  *****************************************************************************
 \*****************************************************************************/
 
-#include "OSGChangeEventDetails.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 
 //! access the type of the class
@@ -66,19 +65,6 @@ OSG::UInt32 CellEditorBase::getClassTypeId(void)
 {
     return _type.getId();
 }
-//! access the producer type of the class
-inline
-const EventProducerType &CellEditorBase::getProducerClassType(void)
-{
-    return _producerType;
-}
-
-//! access the producer type id of the class
-inline
-UInt32 CellEditorBase::getProducerClassTypeId(void)
-{
-    return _producerType.getId();
-}
 
 inline
 OSG::UInt16 CellEditorBase::getClassGroupId(void)
@@ -88,6 +74,22 @@ OSG::UInt16 CellEditorBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+
+//! Get the value of the CellEditor::_sfEventSource field.
+inline
+CellEditorEventSource * CellEditorBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the CellEditor::_sfEventSource field.
+inline
+void CellEditorBase::setEventSource(CellEditorEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -99,6 +101,9 @@ void CellEditorBase::execSync (      CellEditorBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+        _sfEventSource.syncWith(pFrom->_sfEventSource);
 }
 #endif
 
@@ -108,119 +113,6 @@ const Char8 *CellEditorBase::getClassname(void)
 {
     return "CellEditor";
 }
-
-inline
-UInt32 CellEditorBase::getNumProducedEvents(void) const
-{
-    return getProducerType().getNumEventDescs();
-}
-
-inline
-const EventDescription *CellEditorBase::getProducedEventDescription(const std::string &ProducedEventName) const
-{
-    return getProducerType().findEventDescription(ProducedEventName);
-}
-
-inline
-const EventDescription *CellEditorBase::getProducedEventDescription(UInt32 ProducedEventId) const
-{
-    return getProducerType().getEventDescription(ProducedEventId);
-}
-
-inline
-UInt32 CellEditorBase::getProducedEventId(const std::string &ProducedEventName) const
-{
-    return getProducerType().getProducedEventId(ProducedEventName);
-}
-
-inline
-boost::signals2::connection  CellEditorBase::connectEditingCanceled(const EditingCanceledEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _EditingCanceledEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  CellEditorBase::connectEditingCanceled(const EditingCanceledEventType::group_type &group,
-                                                    const EditingCanceledEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _EditingCanceledEvent.connect(group, listener, at);
-}
-
-inline
-void  CellEditorBase::disconnectEditingCanceled(const EditingCanceledEventType::group_type &group)
-{
-    _EditingCanceledEvent.disconnect(group);
-}
-
-inline
-void  CellEditorBase::disconnectAllSlotsEditingCanceled(void)
-{
-    _EditingCanceledEvent.disconnect_all_slots();
-}
-
-inline
-bool  CellEditorBase::isEmptyEditingCanceled(void) const
-{
-    return _EditingCanceledEvent.empty();
-}
-
-inline
-UInt32  CellEditorBase::numSlotsEditingCanceled(void) const
-{
-    return _EditingCanceledEvent.num_slots();
-}
-
-inline
-void CellEditorBase::produceEditingCanceled(EditingCanceledEventDetailsType* const e)
-{
-    produceEvent(EditingCanceledEventId, e);
-}
-
-inline
-boost::signals2::connection  CellEditorBase::connectEditingStopped(const EditingStoppedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _EditingStoppedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  CellEditorBase::connectEditingStopped(const EditingStoppedEventType::group_type &group,
-                                                    const EditingStoppedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _EditingStoppedEvent.connect(group, listener, at);
-}
-
-inline
-void  CellEditorBase::disconnectEditingStopped(const EditingStoppedEventType::group_type &group)
-{
-    _EditingStoppedEvent.disconnect(group);
-}
-
-inline
-void  CellEditorBase::disconnectAllSlotsEditingStopped(void)
-{
-    _EditingStoppedEvent.disconnect_all_slots();
-}
-
-inline
-bool  CellEditorBase::isEmptyEditingStopped(void) const
-{
-    return _EditingStoppedEvent.empty();
-}
-
-inline
-UInt32  CellEditorBase::numSlotsEditingStopped(void) const
-{
-    return _EditingStoppedEvent.num_slots();
-}
-
-inline
-void CellEditorBase::produceEditingStopped(EditingStoppedEventDetailsType* const e)
-{
-    produceEvent(EditingStoppedEventId, e);
-}
-
 OSG_GEN_CONTAINERPTR(CellEditor);
 
 OSG_END_NAMESPACE

@@ -224,6 +224,7 @@ typedef TreeModelLayout *TreeModelLayoutP;
 
 OSG_END_NAMESPACE
 
+#include "OSGTreeModelLayoutEventSource.h"
 #include "OSGTreeModelLayoutBase.inl"
 #include "OSGTreeModelLayout.inl"
 

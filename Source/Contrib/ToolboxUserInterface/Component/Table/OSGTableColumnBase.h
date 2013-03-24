@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -67,16 +67,12 @@
 
 #include "OSGSysFields.h"               // MaxWidth type
 #include "OSGTableCellEditorFields.h"   // CellEditor type
+#include "OSGTableColumnEventSourceFields.h" // EventSource type
 
 #include "OSGTableColumnFields.h"
 
-//Event Producer Headers
-#include "OSGActivity.h"
-#include "OSGConsumableEventCombiner.h"
-
-#include "OSGChangeEventDetailsFields.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 class TableColumn;
 
@@ -93,12 +89,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnBase : public FieldC
     typedef TypeObject::InitPhase InitPhase;
 
     OSG_GEN_INTERNALPTR(TableColumn);
-    
-    
-    typedef ChangeEventDetails FieldChangedEventDetailsType;
-
-    typedef boost::signals2::signal<void (EventDetails* const            , UInt32)> BaseEventType;
-    typedef boost::signals2::signal<void (ChangeEventDetails* const, UInt32), ConsumableEventCombiner> FieldChangedEventType;
 
     /*==========================  PUBLIC  =================================*/
 
@@ -113,7 +103,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnBase : public FieldC
         WidthFieldId = PreferredWidthFieldId + 1,
         ResizableFieldId = WidthFieldId + 1,
         CellEditorFieldId = ResizableFieldId + 1,
-        NextFieldId = CellEditorFieldId + 1
+        EventSourceFieldId = CellEditorFieldId + 1,
+        NextFieldId = EventSourceFieldId + 1
     };
 
     static const OSG::BitVector MaxWidthFieldMask =
@@ -130,6 +121,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnBase : public FieldC
         (TypeTraits<BitVector>::One << ResizableFieldId);
     static const OSG::BitVector CellEditorFieldMask =
         (TypeTraits<BitVector>::One << CellEditorFieldId);
+    static const OSG::BitVector EventSourceFieldMask =
+        (TypeTraits<BitVector>::One << EventSourceFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -140,12 +133,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnBase : public FieldC
     typedef SFUInt32          SFWidthType;
     typedef SFBool            SFResizableType;
     typedef SFUnrecTableCellEditorPtr SFCellEditorType;
-
-    enum
-    {
-        FieldChangedEventId = 1,
-        NextProducedEventId = FieldChangedEventId + 1
-    };
+    typedef SFUnrecTableColumnEventSourcePtr SFEventSourceType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -154,8 +142,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnBase : public FieldC
     static FieldContainerType &getClassType   (void);
     static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
-    static const  EventProducerType  &getProducerClassType  (void);
-    static        UInt32              getProducerClassTypeId(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -192,6 +178,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnBase : public FieldC
             const SFBool              *getSFResizable       (void) const;
             const SFUnrecTableCellEditorPtr *getSFCellEditor     (void) const;
                   SFUnrecTableCellEditorPtr *editSFCellEditor     (void);
+            const SFUnrecTableColumnEventSourcePtr *getSFEventSource    (void) const;
+                  SFUnrecTableColumnEventSourcePtr *editSFEventSource    (void);
 
 
                   UInt32              &editMaxWidth       (void);
@@ -214,6 +202,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnBase : public FieldC
 
                   TableCellEditor * getCellEditor     (void) const;
 
+                  TableColumnEventSource * getEventSource    (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -226,6 +216,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnBase : public FieldC
             void setWidth          (const UInt32 value);
             void setResizable      (const bool value);
             void setCellEditor     (TableCellEditor * const value);
+            void setEventSource    (TableColumnEventSource * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -242,55 +233,13 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnBase : public FieldC
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual SizeT  getBinSize (ConstFieldMaskArg  whichField);
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
     virtual void   copyFromBin(BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
 
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Event Produced Get                           */
-    /*! \{                                                                 */
-
-    virtual const EventProducerType &getProducerType(void) const; 
-
-    virtual UInt32                   getNumProducedEvents       (void                                ) const;
-    virtual const EventDescription *getProducedEventDescription(const std::string &ProducedEventName) const;
-    virtual const EventDescription *getProducedEventDescription(UInt32 ProducedEventId              ) const;
-    virtual UInt32                   getProducedEventId         (const std::string &ProducedEventName) const;
-    
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-                                              
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::group_type &group,
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-    
-    virtual void   disconnectEvent        (UInt32 eventId, const BaseEventType::group_type &group);
-    virtual void   disconnectAllSlotsEvent(UInt32 eventId);
-    virtual bool   isEmptyEvent           (UInt32 eventId) const;
-    virtual UInt32 numSlotsEvent          (UInt32 eventId) const;
-
-    /*! \}                                                                 */
-    /*! \name                Event Access                                 */
-    /*! \{                                                                 */
-    
-    //FieldChanged
-    boost::signals2::connection connectFieldChanged   (const FieldChangedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectFieldChanged   (const FieldChangedEventType::group_type &group,
-                                                       const FieldChangedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectFieldChanged           (const FieldChangedEventType::group_type &group);
-    void   disconnectAllSlotsFieldChanged   (void);
-    bool   isEmptyFieldChanged              (void) const;
-    UInt32 numSlotsFieldChanged             (void) const;
-    
-    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Construction                               */
@@ -322,13 +271,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnBase : public FieldC
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Produced Event Signals                   */
-    /*! \{                                                                 */
-
-    //Event Event producers
-    FieldChangedEventType _FieldChangedEvent;
-    /*! \}                                                                 */
 
     static TypeObject _type;
 
@@ -346,6 +288,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnBase : public FieldC
     SFUInt32          _sfWidth;
     SFBool            _sfResizable;
     SFUnrecTableCellEditorPtr _sfCellEditor;
+    SFUnrecTableColumnEventSourcePtr _sfEventSource;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -388,21 +331,9 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnBase : public FieldC
     EditFieldHandlePtr editHandleResizable      (void);
     GetFieldHandlePtr  getHandleCellEditor      (void) const;
     EditFieldHandlePtr editHandleCellEditor     (void);
+    GetFieldHandlePtr  getHandleEventSource     (void) const;
+    EditFieldHandlePtr editHandleEventSource    (void);
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Event Access                     */
-    /*! \{                                                                 */
-
-    GetEventHandlePtr getHandleFieldChangedSignal(void) const;
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Event Producer Firing                    */
-    /*! \{                                                                 */
-
-    virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
-    
-    void produceFieldChanged        (FieldChangedEventDetailsType* const e);
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
@@ -453,9 +384,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnBase : public FieldC
 
   private:
     /*---------------------------------------------------------------------*/
-    static EventDescription   *_eventDesc[];
-    static EventProducerType _producerType;
-
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const TableColumnBase &source);

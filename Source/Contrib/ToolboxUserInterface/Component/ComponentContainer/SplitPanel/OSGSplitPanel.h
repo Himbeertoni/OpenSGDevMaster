@@ -43,7 +43,8 @@
 #endif
 
 #include "OSGSplitPanelBase.h"
-
+#include <boost/signals2.hpp>
+#include "OSGMouseEventDetailsFields.h"
 OSG_BEGIN_NAMESPACE
 
 /*! \brief SplitPanel class. See \ref

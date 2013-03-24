@@ -48,7 +48,7 @@
 #include "OSGLabel.h"
 #include "OSGUIDrawUtils.h"
 #include "OSGStringUtils.h"
-
+#include "OSGMouseEventDetails.h"
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the

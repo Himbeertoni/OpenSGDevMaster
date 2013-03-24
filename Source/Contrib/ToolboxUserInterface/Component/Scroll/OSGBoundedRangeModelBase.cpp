@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -52,19 +52,17 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include <boost/assign/list_of.hpp>
 
 #include "OSGConfig.h"
 
 
 
+#include "OSGBoundedRangeModelEventSource.h" // EventSource Class
 
 #include "OSGBoundedRangeModelBase.h"
 #include "OSGBoundedRangeModel.h"
 
 #include <boost/bind.hpp>
-
-#include "OSGEventDetails.h"
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -84,24 +82,32 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
+/*! \var BoundedRangeModelEventSource * BoundedRangeModelBase::_sfEventSource
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<BoundedRangeModel *>::_type("BoundedRangeModelPtr", "FieldContainerPtr");
+PointerType FieldTraits<BoundedRangeModel *, nsOSG>::_type(
+    "BoundedRangeModelPtr", 
+    "FieldContainerPtr", 
+    BoundedRangeModel::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(BoundedRangeModel *)
+OSG_FIELDTRAITS_GETTYPE_NS(BoundedRangeModel *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            BoundedRangeModel *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            BoundedRangeModel *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -109,6 +115,20 @@ OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
 
 void BoundedRangeModelBase::classDescInserter(TypeObject &oType)
 {
+    FieldDescriptionBase *pDesc = NULL;
+
+
+    pDesc = new SFUnrecBoundedRangeModelEventSourcePtr::Description(
+        SFUnrecBoundedRangeModelEventSourcePtr::getClassType(),
+        "EventSource",
+        "",
+        EventSourceFieldId, EventSourceFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&BoundedRangeModel::editHandleEventSource),
+        static_cast<FieldGetMethodSig >(&BoundedRangeModel::getHandleEventSource));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -116,7 +136,7 @@ BoundedRangeModelBase::TypeObject BoundedRangeModelBase::_type(
     BoundedRangeModelBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     BoundedRangeModel::initMethod,
     BoundedRangeModel::exitMethod,
@@ -126,49 +146,40 @@ BoundedRangeModelBase::TypeObject BoundedRangeModelBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"BoundedRangeModel\"\n"
-    "\tparent=\"FieldContainer\"\n"
-    "    library=\"ContribUserInterface\"\n"
+    "    name=\"BoundedRangeModel\"\n"
+    "    parent=\"FieldContainer\"\n"
+    "    library=\"ContribToolboxUserInterface\"\n"
     "    pointerfieldtypes=\"both\"\n"
-    "\tstructure=\"abstract\"\n"
+    "    structure=\"abstract\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
+    "    decoratable=\"false\"\n"
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
     ">\n"
     "A UI BoundedRangeModel.\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"StateChanged\"\n"
-    "\t\tdetailsType=\"ChangeEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
+    "    <Field\n"
+    "        name=\"EventSource\"\n"
+    "        type=\"BoundedRangeModelEventSource\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "<!--\n"
+    "    <ProducedEvent\n"
+    "        name=\"StateChanged\"\n"
+    "        detailsType=\"ChangeEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "-->\n"
     "</FieldContainer>\n",
     "A UI BoundedRangeModel.\n"
     );
-
-//! BoundedRangeModel Produced Events
-
-EventDescription *BoundedRangeModelBase::_eventDesc[] =
-{
-    new EventDescription("StateChanged", 
-                          "",
-                          StateChangedEventId, 
-                          FieldTraits<ChangeEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&BoundedRangeModelBase::getHandleStateChangedSignal))
-
-};
-
-EventProducerType BoundedRangeModelBase::_producerType(
-    "BoundedRangeModelProducerType",
-    "EventProducerType",
-    "",
-    InitEventProducerFunctor(),
-    _eventDesc,
-    sizeof(_eventDesc));
 
 /*------------------------------ get -----------------------------------*/
 
@@ -182,11 +193,6 @@ const FieldContainerType &BoundedRangeModelBase::getType(void) const
     return _type;
 }
 
-const EventProducerType &BoundedRangeModelBase::getProducerType(void) const
-{
-    return _producerType;
-}
-
 UInt32 BoundedRangeModelBase::getContainerSize(void) const
 {
     return sizeof(BoundedRangeModel);
@@ -195,16 +201,33 @@ UInt32 BoundedRangeModelBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
+//! Get the BoundedRangeModel::_sfEventSource field.
+const SFUnrecBoundedRangeModelEventSourcePtr *BoundedRangeModelBase::getSFEventSource(void) const
+{
+    return &_sfEventSource;
+}
+
+SFUnrecBoundedRangeModelEventSourcePtr *BoundedRangeModelBase::editSFEventSource    (void)
+{
+    editSField(EventSourceFieldMask);
+
+    return &_sfEventSource;
+}
+
 
 
 
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 BoundedRangeModelBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT BoundedRangeModelBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+    {
+        returnValue += _sfEventSource.getBinSize();
+    }
 
     return returnValue;
 }
@@ -214,6 +237,10 @@ void BoundedRangeModelBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+    {
+        _sfEventSource.copyToBin(pMem);
+    }
 }
 
 void BoundedRangeModelBase::copyFromBin(BinaryDataHandler &pMem,
@@ -221,128 +248,27 @@ void BoundedRangeModelBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
-}
-
-
-
-/*------------------------- event producers ----------------------------------*/
-void BoundedRangeModelBase::produceEvent(UInt32 eventId, EventDetails* const e)
-{
-    switch(eventId)
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
     {
-    case StateChangedEventId:
-        OSG_ASSERT(dynamic_cast<StateChangedEventDetailsType* const>(e));
-
-        _StateChangedEvent.set_combiner(ConsumableEventCombiner(e));
-        _StateChangedEvent(dynamic_cast<StateChangedEventDetailsType* const>(e), StateChangedEventId);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        break;
+        editSField(EventSourceFieldMask);
+        _sfEventSource.copyFromBin(pMem);
     }
 }
 
-boost::signals2::connection BoundedRangeModelBase::connectEvent(UInt32 eventId, 
-                                                             const BaseEventType::slot_type &listener, 
-                                                             boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case StateChangedEventId:
-        return _StateChangedEvent.connect(listener, at);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return boost::signals2::connection();
-        break;
-    }
 
-    return boost::signals2::connection();
-}
-
-boost::signals2::connection  BoundedRangeModelBase::connectEvent(UInt32 eventId, 
-                                                              const BaseEventType::group_type &group,
-                                                              const BaseEventType::slot_type &listener,
-                                                              boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case StateChangedEventId:
-        return _StateChangedEvent.connect(group, listener, at);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return boost::signals2::connection();
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-    
-void  BoundedRangeModelBase::disconnectEvent(UInt32 eventId, const BaseEventType::group_type &group)
-{
-    switch(eventId)
-    {
-    case StateChangedEventId:
-        _StateChangedEvent.disconnect(group);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        break;
-    }
-}
-
-void  BoundedRangeModelBase::disconnectAllSlotsEvent(UInt32 eventId)
-{
-    switch(eventId)
-    {
-    case StateChangedEventId:
-        _StateChangedEvent.disconnect_all_slots();
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        break;
-    }
-}
-
-bool  BoundedRangeModelBase::isEmptyEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case StateChangedEventId:
-        return _StateChangedEvent.empty();
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return true;
-        break;
-    }
-}
-
-UInt32  BoundedRangeModelBase::numSlotsEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case StateChangedEventId:
-        return _StateChangedEvent.num_slots();
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return 0;
-        break;
-    }
-}
 
 
 /*------------------------- constructors ----------------------------------*/
 
 BoundedRangeModelBase::BoundedRangeModelBase(void) :
-    Inherited()
+    Inherited(),
+    _sfEventSource            (NULL)
 {
 }
 
 BoundedRangeModelBase::BoundedRangeModelBase(const BoundedRangeModelBase &source) :
-    Inherited(source)
+    Inherited(source),
+    _sfEventSource            (NULL)
 {
 }
 
@@ -353,15 +279,42 @@ BoundedRangeModelBase::~BoundedRangeModelBase(void)
 {
 }
 
-
-
-GetEventHandlePtr BoundedRangeModelBase::getHandleStateChangedSignal(void) const
+void BoundedRangeModelBase::onCreate(const BoundedRangeModel *source)
 {
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<StateChangedEventType>(
-             const_cast<StateChangedEventType *>(&_StateChangedEvent),
-             _producerType.getEventDescription(StateChangedEventId),
+    Inherited::onCreate(source);
+
+    if(source != NULL)
+    {
+        BoundedRangeModel *pThis = static_cast<BoundedRangeModel *>(this);
+
+        pThis->setEventSource(source->getEventSource());
+    }
+}
+
+GetFieldHandlePtr BoundedRangeModelBase::getHandleEventSource     (void) const
+{
+    SFUnrecBoundedRangeModelEventSourcePtr::GetHandlePtr returnValue(
+        new  SFUnrecBoundedRangeModelEventSourcePtr::GetHandle(
+             &_sfEventSource,
+             this->getType().getFieldDesc(EventSourceFieldId),
              const_cast<BoundedRangeModelBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr BoundedRangeModelBase::editHandleEventSource    (void)
+{
+    SFUnrecBoundedRangeModelEventSourcePtr::EditHandlePtr returnValue(
+        new  SFUnrecBoundedRangeModelEventSourcePtr::EditHandle(
+             &_sfEventSource,
+             this->getType().getFieldDesc(EventSourceFieldId),
+             this));
+
+    returnValue->setSetMethod(
+        boost::bind(&BoundedRangeModel::setEventSource,
+                    static_cast<BoundedRangeModel *>(this), _1));
+
+    editSField(EventSourceFieldMask);
 
     return returnValue;
 }
@@ -389,6 +342,8 @@ void BoundedRangeModelBase::execSyncV(      FieldContainer    &oFrom,
 void BoundedRangeModelBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+    static_cast<BoundedRangeModel *>(this)->setEventSource(NULL);
 
 
 }

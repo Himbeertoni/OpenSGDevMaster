@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -52,19 +52,17 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include <boost/assign/list_of.hpp>
 
 #include "OSGConfig.h"
 
 
 
+#include "OSGTreeSelectionModelEventSource.h" // EventSource Class
 
 #include "OSGTreeSelectionModelBase.h"
 #include "OSGTreeSelectionModel.h"
 
 #include <boost/bind.hpp>
-
-#include "OSGEventDetails.h"
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -84,24 +82,32 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
+/*! \var TreeSelectionModelEventSource * TreeSelectionModelBase::_sfEventSource
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TreeSelectionModel *>::_type("TreeSelectionModelPtr", "AttachmentContainerPtr");
+PointerType FieldTraits<TreeSelectionModel *, nsOSG>::_type(
+    "TreeSelectionModelPtr", 
+    "AttachmentContainerPtr", 
+    TreeSelectionModel::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TreeSelectionModel *)
+OSG_FIELDTRAITS_GETTYPE_NS(TreeSelectionModel *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            TreeSelectionModel *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            TreeSelectionModel *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -109,6 +115,20 @@ OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
 
 void TreeSelectionModelBase::classDescInserter(TypeObject &oType)
 {
+    FieldDescriptionBase *pDesc = NULL;
+
+
+    pDesc = new SFUnrecTreeSelectionModelEventSourcePtr::Description(
+        SFUnrecTreeSelectionModelEventSourcePtr::getClassType(),
+        "EventSource",
+        "",
+        EventSourceFieldId, EventSourceFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&TreeSelectionModel::editHandleEventSource),
+        static_cast<FieldGetMethodSig >(&TreeSelectionModel::getHandleEventSource));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -116,7 +136,7 @@ TreeSelectionModelBase::TypeObject TreeSelectionModelBase::_type(
     TreeSelectionModelBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     TreeSelectionModel::initMethod,
     TreeSelectionModel::exitMethod,
@@ -126,11 +146,11 @@ TreeSelectionModelBase::TypeObject TreeSelectionModelBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"TreeSelectionModel\"\n"
-    "\tparent=\"AttachmentContainer\"\n"
-    "    library=\"ContribUserInterface\"\n"
+    "    name=\"TreeSelectionModel\"\n"
+    "    parent=\"AttachmentContainer\"\n"
+    "    library=\"ContribToolboxUserInterface\"\n"
     "    pointerfieldtypes=\"both\"\n"
-    "\tstructure=\"abstract\"\n"
+    "    structure=\"abstract\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"
     "    decoratable=\"false\"\n"
@@ -139,49 +159,33 @@ TreeSelectionModelBase::TypeObject TreeSelectionModelBase::_type(
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
     ">\n"
     "A UI TreeModel.\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"SelectionAdded\"\n"
-    "\t\tdetailsType=\"TreeSelectionEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"SelectionRemoved\"\n"
-    "\t\tdetailsType=\"TreeSelectionEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
+    "    <Field\n"
+    "        name=\"EventSource\"\n"
+    "        type=\"TreeSelectionModelEventSource\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "        access=\"public\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "<!--\n"
+    "    <ProducedEvent\n"
+    "        name=\"SelectionAdded\"\n"
+    "        detailsType=\"TreeSelectionEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "    <ProducedEvent\n"
+    "        name=\"SelectionRemoved\"\n"
+    "        detailsType=\"TreeSelectionEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "-->\n"
     "</FieldContainer>\n",
     "A UI TreeModel.\n"
     );
-
-//! TreeSelectionModel Produced Events
-
-EventDescription *TreeSelectionModelBase::_eventDesc[] =
-{
-    new EventDescription("SelectionAdded", 
-                          "",
-                          SelectionAddedEventId, 
-                          FieldTraits<TreeSelectionEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&TreeSelectionModelBase::getHandleSelectionAddedSignal)),
-
-    new EventDescription("SelectionRemoved", 
-                          "",
-                          SelectionRemovedEventId, 
-                          FieldTraits<TreeSelectionEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&TreeSelectionModelBase::getHandleSelectionRemovedSignal))
-
-};
-
-EventProducerType TreeSelectionModelBase::_producerType(
-    "TreeSelectionModelProducerType",
-    "EventProducerType",
-    "",
-    InitEventProducerFunctor(),
-    _eventDesc,
-    sizeof(_eventDesc));
 
 /*------------------------------ get -----------------------------------*/
 
@@ -195,11 +199,6 @@ const FieldContainerType &TreeSelectionModelBase::getType(void) const
     return _type;
 }
 
-const EventProducerType &TreeSelectionModelBase::getProducerType(void) const
-{
-    return _producerType;
-}
-
 UInt32 TreeSelectionModelBase::getContainerSize(void) const
 {
     return sizeof(TreeSelectionModel);
@@ -208,16 +207,33 @@ UInt32 TreeSelectionModelBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
+//! Get the TreeSelectionModel::_sfEventSource field.
+const SFUnrecTreeSelectionModelEventSourcePtr *TreeSelectionModelBase::getSFEventSource(void) const
+{
+    return &_sfEventSource;
+}
+
+SFUnrecTreeSelectionModelEventSourcePtr *TreeSelectionModelBase::editSFEventSource    (void)
+{
+    editSField(EventSourceFieldMask);
+
+    return &_sfEventSource;
+}
+
 
 
 
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TreeSelectionModelBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TreeSelectionModelBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+    {
+        returnValue += _sfEventSource.getBinSize();
+    }
 
     return returnValue;
 }
@@ -227,6 +243,10 @@ void TreeSelectionModelBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+    {
+        _sfEventSource.copyToBin(pMem);
+    }
 }
 
 void TreeSelectionModelBase::copyFromBin(BinaryDataHandler &pMem,
@@ -234,152 +254,27 @@ void TreeSelectionModelBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
-}
-
-
-
-/*------------------------- event producers ----------------------------------*/
-void TreeSelectionModelBase::produceEvent(UInt32 eventId, EventDetails* const e)
-{
-    switch(eventId)
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
     {
-    case SelectionAddedEventId:
-        OSG_ASSERT(dynamic_cast<SelectionAddedEventDetailsType* const>(e));
-
-        _SelectionAddedEvent.set_combiner(ConsumableEventCombiner(e));
-        _SelectionAddedEvent(dynamic_cast<SelectionAddedEventDetailsType* const>(e), SelectionAddedEventId);
-        break;
-    case SelectionRemovedEventId:
-        OSG_ASSERT(dynamic_cast<SelectionRemovedEventDetailsType* const>(e));
-
-        _SelectionRemovedEvent.set_combiner(ConsumableEventCombiner(e));
-        _SelectionRemovedEvent(dynamic_cast<SelectionRemovedEventDetailsType* const>(e), SelectionRemovedEventId);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        break;
+        editSField(EventSourceFieldMask);
+        _sfEventSource.copyFromBin(pMem);
     }
 }
 
-boost::signals2::connection TreeSelectionModelBase::connectEvent(UInt32 eventId, 
-                                                             const BaseEventType::slot_type &listener, 
-                                                             boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case SelectionAddedEventId:
-        return _SelectionAddedEvent.connect(listener, at);
-        break;
-    case SelectionRemovedEventId:
-        return _SelectionRemovedEvent.connect(listener, at);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return boost::signals2::connection();
-        break;
-    }
 
-    return boost::signals2::connection();
-}
-
-boost::signals2::connection  TreeSelectionModelBase::connectEvent(UInt32 eventId, 
-                                                              const BaseEventType::group_type &group,
-                                                              const BaseEventType::slot_type &listener,
-                                                              boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case SelectionAddedEventId:
-        return _SelectionAddedEvent.connect(group, listener, at);
-        break;
-    case SelectionRemovedEventId:
-        return _SelectionRemovedEvent.connect(group, listener, at);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return boost::signals2::connection();
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-    
-void  TreeSelectionModelBase::disconnectEvent(UInt32 eventId, const BaseEventType::group_type &group)
-{
-    switch(eventId)
-    {
-    case SelectionAddedEventId:
-        _SelectionAddedEvent.disconnect(group);
-        break;
-    case SelectionRemovedEventId:
-        _SelectionRemovedEvent.disconnect(group);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        break;
-    }
-}
-
-void  TreeSelectionModelBase::disconnectAllSlotsEvent(UInt32 eventId)
-{
-    switch(eventId)
-    {
-    case SelectionAddedEventId:
-        _SelectionAddedEvent.disconnect_all_slots();
-        break;
-    case SelectionRemovedEventId:
-        _SelectionRemovedEvent.disconnect_all_slots();
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        break;
-    }
-}
-
-bool  TreeSelectionModelBase::isEmptyEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case SelectionAddedEventId:
-        return _SelectionAddedEvent.empty();
-        break;
-    case SelectionRemovedEventId:
-        return _SelectionRemovedEvent.empty();
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return true;
-        break;
-    }
-}
-
-UInt32  TreeSelectionModelBase::numSlotsEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case SelectionAddedEventId:
-        return _SelectionAddedEvent.num_slots();
-        break;
-    case SelectionRemovedEventId:
-        return _SelectionRemovedEvent.num_slots();
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return 0;
-        break;
-    }
-}
 
 
 /*------------------------- constructors ----------------------------------*/
 
 TreeSelectionModelBase::TreeSelectionModelBase(void) :
-    Inherited()
+    Inherited(),
+    _sfEventSource            (NULL)
 {
 }
 
 TreeSelectionModelBase::TreeSelectionModelBase(const TreeSelectionModelBase &source) :
-    Inherited(source)
+    Inherited(source),
+    _sfEventSource            (NULL)
 {
 }
 
@@ -390,26 +285,42 @@ TreeSelectionModelBase::~TreeSelectionModelBase(void)
 {
 }
 
-
-
-GetEventHandlePtr TreeSelectionModelBase::getHandleSelectionAddedSignal(void) const
+void TreeSelectionModelBase::onCreate(const TreeSelectionModel *source)
 {
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<SelectionAddedEventType>(
-             const_cast<SelectionAddedEventType *>(&_SelectionAddedEvent),
-             _producerType.getEventDescription(SelectionAddedEventId),
+    Inherited::onCreate(source);
+
+    if(source != NULL)
+    {
+        TreeSelectionModel *pThis = static_cast<TreeSelectionModel *>(this);
+
+        pThis->setEventSource(source->getEventSource());
+    }
+}
+
+GetFieldHandlePtr TreeSelectionModelBase::getHandleEventSource     (void) const
+{
+    SFUnrecTreeSelectionModelEventSourcePtr::GetHandlePtr returnValue(
+        new  SFUnrecTreeSelectionModelEventSourcePtr::GetHandle(
+             &_sfEventSource,
+             this->getType().getFieldDesc(EventSourceFieldId),
              const_cast<TreeSelectionModelBase *>(this)));
 
     return returnValue;
 }
 
-GetEventHandlePtr TreeSelectionModelBase::getHandleSelectionRemovedSignal(void) const
+EditFieldHandlePtr TreeSelectionModelBase::editHandleEventSource    (void)
 {
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<SelectionRemovedEventType>(
-             const_cast<SelectionRemovedEventType *>(&_SelectionRemovedEvent),
-             _producerType.getEventDescription(SelectionRemovedEventId),
-             const_cast<TreeSelectionModelBase *>(this)));
+    SFUnrecTreeSelectionModelEventSourcePtr::EditHandlePtr returnValue(
+        new  SFUnrecTreeSelectionModelEventSourcePtr::EditHandle(
+             &_sfEventSource,
+             this->getType().getFieldDesc(EventSourceFieldId),
+             this));
+
+    returnValue->setSetMethod(
+        boost::bind(&TreeSelectionModel::setEventSource,
+                    static_cast<TreeSelectionModel *>(this), _1));
+
+    editSField(EventSourceFieldMask);
 
     return returnValue;
 }
@@ -437,6 +348,8 @@ void TreeSelectionModelBase::execSyncV(      FieldContainer    &oFrom,
 void TreeSelectionModelBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+    static_cast<TreeSelectionModel *>(this)->setEventSource(NULL);
 
 
 }

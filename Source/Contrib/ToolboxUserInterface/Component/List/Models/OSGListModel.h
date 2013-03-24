@@ -124,6 +124,7 @@ typedef ListModel *ListModelP;
 
 OSG_END_NAMESPACE
 
+#include "OSGListModelEventSource.h"
 #include "OSGListModelBase.inl"
 #include "OSGListModel.inl"
 

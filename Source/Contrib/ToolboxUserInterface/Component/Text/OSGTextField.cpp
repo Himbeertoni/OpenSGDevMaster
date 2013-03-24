@@ -52,7 +52,7 @@
 #include "OSGUIDrawingSurface.h"
 #include "OSGWindowEventProducer.h"
 #include "OSGStringUtils.h"
-
+#include "OSGTextFieldEventSource.h"
 #include "OSGLookAndFeelManager.h"
 
 #include <boost/bind.hpp>
@@ -309,9 +309,9 @@ void TextField::mousePressed(MouseEventDetails* const e)
     }
     if(getParentWindow() != NULL && getParentWindow()->getParentDrawingSurface()!=NULL&& getParentWindow()->getParentDrawingSurface()->getEventProducer() != NULL)
     {
-        _MouseDownKeyTypedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectKeyTyped(boost::bind(&TextField::handleMouseDownKeyTyped, this, _1));
-        _MouseDownMouseReleasedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectMouseReleased(boost::bind(&TextField::handleMouseDownMouseReleased, this, _1));
-        _MouseDownMouseDraggedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectMouseDragged(boost::bind(&TextField::handleMouseDownMouseDragged, this, _1));
+        _MouseDownKeyTypedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectKeyTyped(boost::bind(&TextField::handleMouseDownKeyTyped, this, _1));
+        _MouseDownMouseReleasedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectMouseReleased(boost::bind(&TextField::handleMouseDownMouseReleased, this, _1));
+        _MouseDownMouseDraggedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectMouseDragged(boost::bind(&TextField::handleMouseDownMouseDragged, this, _1));
     }
     Inherited::mousePressed(e);
 }
@@ -333,7 +333,11 @@ void TextField::produceActionPerformed(void)
 {
     ActionEventDetailsUnrecPtr Details(ActionEventDetails::create(this, getTimeStamp()));
 
-    Inherited::produceActionPerformed(Details);
+    TextFieldEventSource* ev = dynamic_cast<TextFieldEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceActionPerformed(Details);
+    }
 }
 
 void TextField::focusGained(FocusEventDetails* const e)
@@ -343,7 +347,7 @@ void TextField::focusGained(FocusEventDetails* const e)
         getParentWindow()->getParentDrawingSurface()->getEventProducer() != NULL)
     {
         _CaretUpdateConnection.disconnect();
-        _CaretUpdateConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectUpdate(boost::bind(&TextField::handleCaretUpdate, this, _1));
+        _CaretUpdateConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectUpdate(boost::bind(&TextField::handleCaretUpdate, this, _1));
     }
     Inherited::focusGained(e);
 }

@@ -50,6 +50,8 @@
 #include "OSGListGeneratedPopupMenu.h"
 #include "OSGKeyEventDetails.h"
 #include <boost/any.hpp>
+#include "OSGComboBoxSelectionEventDetailsFields.h"
+#include "OSGPopupMenuEventDetailsFields.h"
 
 OSG_BEGIN_NAMESPACE
 

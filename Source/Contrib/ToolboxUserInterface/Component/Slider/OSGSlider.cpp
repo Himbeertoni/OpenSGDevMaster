@@ -628,7 +628,7 @@ void Slider::changed(ConstFieldMaskArg whichField,
         _KnobMousePressedConnection.disconnect();
         if(getKnobButton() != NULL)
         {
-            _KnobMousePressedConnection = getKnobButton()->connectMousePressed(boost::bind(&Slider::handleKnobMousePressed, this, _1));
+            _KnobMousePressedConnection = getKnobButton()->getEventSource()->connectMousePressed(boost::bind(&Slider::handleKnobMousePressed, this, _1));
         }
     }
     if(whichField & RangeModelFieldMask)
@@ -636,7 +636,7 @@ void Slider::changed(ConstFieldMaskArg whichField,
         _RangeModelStateChangedConnection.disconnect();
         if(getRangeModel() != NULL)
         {
-            _RangeModelStateChangedConnection = getRangeModel()->connectStateChanged(boost::bind(&Slider::handleRangeModelStateChanged, this, _1));
+            _RangeModelStateChangedConnection = getRangeModel()->getEventSource()->connectStateChanged(boost::bind(&Slider::handleRangeModelStateChanged, this, _1));
             if( getDrawLabels() &&
                 _UsingDefaultLabels)
             {
@@ -700,9 +700,9 @@ void Slider::handleKnobMousePressed(MouseEventDetails* const e)
         _KnobDragMouseDraggedConnection.disconnect();
         _KnobDragMouseReleasedConnection.disconnect();
         _KnobDragkeyTypedConnection.disconnect();
-        _KnobDragMouseDraggedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectMouseDragged(boost::bind(&Slider::handleKnobDragMouseDragged, this, _1));
-        _KnobDragMouseReleasedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectMouseReleased(boost::bind(&Slider::handleKnobDragMouseReleased, this, _1));
-        _KnobDragkeyTypedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectKeyTyped(boost::bind(&Slider::handleKnobDragKeyTyped, this, _1));
+        _KnobDragMouseDraggedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectMouseDragged(boost::bind(&Slider::handleKnobDragMouseDragged, this, _1));
+        _KnobDragMouseReleasedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectMouseReleased(boost::bind(&Slider::handleKnobDragMouseReleased, this, _1));
+        _KnobDragkeyTypedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectKeyTyped(boost::bind(&Slider::handleKnobDragKeyTyped, this, _1));
         getRangeModel()->setValueIsAdjusting(true);
     }
 }

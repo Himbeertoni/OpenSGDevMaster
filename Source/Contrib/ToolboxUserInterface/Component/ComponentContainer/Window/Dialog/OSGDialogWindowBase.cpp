@@ -2,11 +2,12 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com), Mark Stenerson             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
+ *          Mark Stenerson                                                   *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -52,7 +53,6 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include <boost/assign/list_of.hpp>
 
 #include "OSGConfig.h"
 
@@ -64,8 +64,6 @@
 #include "OSGDialogWindow.h"
 
 #include <boost/bind.hpp>
-
-#include "OSGEventDetails.h"
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -111,18 +109,22 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DialogWindow *>::_type("DialogWindowPtr", "InternalWindowPtr");
+PointerType FieldTraits<DialogWindow *, nsOSG>::_type(
+    "DialogWindowPtr", 
+    "InternalWindowPtr", 
+    DialogWindow::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DialogWindow *)
+OSG_FIELDTRAITS_GETTYPE_NS(DialogWindow *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            DialogWindow *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            DialogWindow *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -199,7 +201,7 @@ DialogWindowBase::TypeObject DialogWindowBase::_type(
     DialogWindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&DialogWindowBase::createEmptyLocal),
     DialogWindow::initMethod,
     DialogWindow::exitMethod,
@@ -209,9 +211,9 @@ DialogWindowBase::TypeObject DialogWindowBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"DialogWindow\"\n"
-    "\tparent=\"InternalWindow\"\n"
-    "    library=\"ContribUserInterface\"\n"
+    "    name=\"DialogWindow\"\n"
+    "    parent=\"InternalWindow\"\n"
+    "    library=\"ContribToolboxUserInterface\"\n"
     "    pointerfieldtypes=\"both\"\n"
     "    structure=\"concrete\"\n"
     "    systemcomponent=\"true\"\n"
@@ -220,101 +222,75 @@ DialogWindowBase::TypeObject DialogWindowBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com), Mark Stenerson             \"\n"
-    "    parentProducer=\"AbstractWindow\"\n"
     ">\n"
+    "<!-- parentProducer=\"AbstractWindow\" -->\n"
     "A UI Dialog Window.\n"
-    "\t<Field\n"
-    "\t\tname=\"ErrorIcon\"\n"
-    "\t\ttype=\"TextureObjChunk\"\n"
+    "    <Field\n"
+    "        name=\"ErrorIcon\"\n"
+    "        type=\"TextureObjChunk\"\n"
     "        category=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"QuestionIcon\"\n"
-    "\t\ttype=\"TextureObjChunk\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"QuestionIcon\"\n"
+    "        type=\"TextureObjChunk\"\n"
     "        category=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"DefaultIcon\"\n"
-    "\t\ttype=\"TextureObjChunk\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"DefaultIcon\"\n"
+    "        type=\"TextureObjChunk\"\n"
     "        category=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"ShowCancel\"\n"
-    "\t\ttype=\"bool\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"ShowCancel\"\n"
+    "        type=\"bool\"\n"
     "        category=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"true\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"InputValues\"\n"
-    "\t\ttype=\"std::string\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"true\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"InputValues\"\n"
+    "        type=\"std::string\"\n"
     "        category=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"DialogWindowClosing\"\n"
-    "\t\tdetailsType=\"DialogWindowEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"DialogWindowClosed\"\n"
-    "\t\tdetailsType=\"DialogWindowEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "<!--\n"
+    "    <ProducedEvent\n"
+    "        name=\"DialogWindowClosing\"\n"
+    "        detailsType=\"DialogWindowEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "    <ProducedEvent\n"
+    "        name=\"DialogWindowClosed\"\n"
+    "        detailsType=\"DialogWindowEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "-->\n"
     "</FieldContainer>\n",
     "A UI Dialog Window.\n"
     );
-
-//! DialogWindow Produced Events
-
-EventDescription *DialogWindowBase::_eventDesc[] =
-{
-    new EventDescription("DialogWindowClosing", 
-                          "",
-                          DialogWindowClosingEventId, 
-                          FieldTraits<DialogWindowEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&DialogWindowBase::getHandleDialogWindowClosingSignal)),
-
-    new EventDescription("DialogWindowClosed", 
-                          "",
-                          DialogWindowClosedEventId, 
-                          FieldTraits<DialogWindowEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&DialogWindowBase::getHandleDialogWindowClosedSignal))
-
-};
-
-EventProducerType DialogWindowBase::_producerType(
-    "DialogWindowProducerType",
-    "AbstractWindowProducerType",
-    "",
-    InitEventProducerFunctor(),
-    _eventDesc,
-    sizeof(_eventDesc));
 
 /*------------------------------ get -----------------------------------*/
 
@@ -326,11 +302,6 @@ FieldContainerType &DialogWindowBase::getType(void)
 const FieldContainerType &DialogWindowBase::getType(void) const
 {
     return _type;
-}
-
-const EventProducerType &DialogWindowBase::getProducerType(void) const
-{
-    return _producerType;
 }
 
 UInt32 DialogWindowBase::getContainerSize(void) const
@@ -412,9 +383,9 @@ const SFString *DialogWindowBase::getSFInputValues(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 DialogWindowBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT DialogWindowBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ErrorIconFieldMask & whichField))
     {
@@ -474,22 +445,27 @@ void DialogWindowBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ErrorIconFieldMask & whichField))
     {
+        editSField(ErrorIconFieldMask);
         _sfErrorIcon.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (QuestionIconFieldMask & whichField))
     {
+        editSField(QuestionIconFieldMask);
         _sfQuestionIcon.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DefaultIconFieldMask & whichField))
     {
+        editSField(DefaultIconFieldMask);
         _sfDefaultIcon.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShowCancelFieldMask & whichField))
     {
+        editSField(ShowCancelFieldMask);
         _sfShowCancel.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (InputValuesFieldMask & whichField))
     {
+        editSField(InputValuesFieldMask);
         _sfInputValues.copyFromBin(pMem);
     }
 }
@@ -611,134 +587,6 @@ FieldContainerTransitPtr DialogWindowBase::shallowCopy(void) const
 }
 
 
-
-/*------------------------- event producers ----------------------------------*/
-void DialogWindowBase::produceEvent(UInt32 eventId, EventDetails* const e)
-{
-    switch(eventId)
-    {
-    case DialogWindowClosingEventId:
-        OSG_ASSERT(dynamic_cast<DialogWindowClosingEventDetailsType* const>(e));
-
-        _DialogWindowClosingEvent.set_combiner(ConsumableEventCombiner(e));
-        _DialogWindowClosingEvent(dynamic_cast<DialogWindowClosingEventDetailsType* const>(e), DialogWindowClosingEventId);
-        break;
-    case DialogWindowClosedEventId:
-        OSG_ASSERT(dynamic_cast<DialogWindowClosedEventDetailsType* const>(e));
-
-        _DialogWindowClosedEvent.set_combiner(ConsumableEventCombiner(e));
-        _DialogWindowClosedEvent(dynamic_cast<DialogWindowClosedEventDetailsType* const>(e), DialogWindowClosedEventId);
-        break;
-    default:
-        Inherited::produceEvent(eventId, e);
-        break;
-    }
-}
-
-boost::signals2::connection DialogWindowBase::connectEvent(UInt32 eventId, 
-                                                             const BaseEventType::slot_type &listener, 
-                                                             boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case DialogWindowClosingEventId:
-        return _DialogWindowClosingEvent.connect(listener, at);
-        break;
-    case DialogWindowClosedEventId:
-        return _DialogWindowClosedEvent.connect(listener, at);
-        break;
-    default:
-        return Inherited::connectEvent(eventId, listener, at);
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-
-boost::signals2::connection  DialogWindowBase::connectEvent(UInt32 eventId, 
-                                                              const BaseEventType::group_type &group,
-                                                              const BaseEventType::slot_type &listener,
-                                                              boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case DialogWindowClosingEventId:
-        return _DialogWindowClosingEvent.connect(group, listener, at);
-        break;
-    case DialogWindowClosedEventId:
-        return _DialogWindowClosedEvent.connect(group, listener, at);
-        break;
-    default:
-        return Inherited::connectEvent(eventId, group, listener, at);
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-    
-void  DialogWindowBase::disconnectEvent(UInt32 eventId, const BaseEventType::group_type &group)
-{
-    switch(eventId)
-    {
-    case DialogWindowClosingEventId:
-        _DialogWindowClosingEvent.disconnect(group);
-        break;
-    case DialogWindowClosedEventId:
-        _DialogWindowClosedEvent.disconnect(group);
-        break;
-    default:
-        return Inherited::disconnectEvent(eventId, group);
-        break;
-    }
-}
-
-void  DialogWindowBase::disconnectAllSlotsEvent(UInt32 eventId)
-{
-    switch(eventId)
-    {
-    case DialogWindowClosingEventId:
-        _DialogWindowClosingEvent.disconnect_all_slots();
-        break;
-    case DialogWindowClosedEventId:
-        _DialogWindowClosedEvent.disconnect_all_slots();
-        break;
-    default:
-        Inherited::disconnectAllSlotsEvent(eventId);
-        break;
-    }
-}
-
-bool  DialogWindowBase::isEmptyEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case DialogWindowClosingEventId:
-        return _DialogWindowClosingEvent.empty();
-        break;
-    case DialogWindowClosedEventId:
-        return _DialogWindowClosedEvent.empty();
-        break;
-    default:
-        return Inherited::isEmptyEvent(eventId);
-        break;
-    }
-}
-
-UInt32  DialogWindowBase::numSlotsEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case DialogWindowClosingEventId:
-        return _DialogWindowClosingEvent.num_slots();
-        break;
-    case DialogWindowClosedEventId:
-        return _DialogWindowClosedEvent.num_slots();
-        break;
-    default:
-        return Inherited::numSlotsEvent(eventId);
-        break;
-    }
-}
 
 
 /*------------------------- constructors ----------------------------------*/
@@ -916,29 +764,6 @@ EditFieldHandlePtr DialogWindowBase::editHandleInputValues    (void)
 
 
     editSField(InputValuesFieldMask);
-
-    return returnValue;
-}
-
-
-GetEventHandlePtr DialogWindowBase::getHandleDialogWindowClosingSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<DialogWindowClosingEventType>(
-             const_cast<DialogWindowClosingEventType *>(&_DialogWindowClosingEvent),
-             _producerType.getEventDescription(DialogWindowClosingEventId),
-             const_cast<DialogWindowBase *>(this)));
-
-    return returnValue;
-}
-
-GetEventHandlePtr DialogWindowBase::getHandleDialogWindowClosedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<DialogWindowClosedEventType>(
-             const_cast<DialogWindowClosedEventType *>(&_DialogWindowClosedEvent),
-             _producerType.getEventDescription(DialogWindowClosedEventId),
-             const_cast<DialogWindowBase *>(this)));
 
     return returnValue;
 }

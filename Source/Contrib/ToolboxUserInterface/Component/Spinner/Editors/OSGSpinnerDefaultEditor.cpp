@@ -248,9 +248,13 @@ void SpinnerDefaultEditor::changed(ConstFieldMaskArg whichField,
         if(getTextField() != NULL)
         {
             pushToChildren(getTextField());
-            _EditorTextFieldActionConnection = getTextField()->connectActionPerformed(boost::bind(&SpinnerDefaultEditor::handleEditorTextFieldActionPerformed, this, _1));
-            _EditorTextFieldFocusLostConnection = getTextField()->connectFocusLost(boost::bind(&SpinnerDefaultEditor::handleEditorTextFieldFocusLost, this, _1));
-            _EditorTextFieldKeyPressedConnection = getTextField()->connectKeyPressed(boost::bind(&SpinnerDefaultEditor::handleEditorTextFieldKeyPressed, this, _1));
+            ButtonEventSource* ev = dynamic_cast<ButtonEventSource*>( getTextField()->getEventSource() );
+            if ( ev )
+            {
+                _EditorTextFieldActionConnection = ev->connectActionPerformed(boost::bind(&SpinnerDefaultEditor::handleEditorTextFieldActionPerformed, this, _1));
+            }
+            _EditorTextFieldFocusLostConnection = getTextField()->getEventSource()->connectFocusLost(boost::bind(&SpinnerDefaultEditor::handleEditorTextFieldFocusLost, this, _1));
+            _EditorTextFieldKeyPressedConnection = getTextField()->getEventSource()->connectKeyPressed(boost::bind(&SpinnerDefaultEditor::handleEditorTextFieldKeyPressed, this, _1));
         }
     }
 }

@@ -127,35 +127,35 @@ void AbstractTreeModel::produceTreeNodesChanged(TreePath Parent, const std::vect
 {
    TreeModelEventDetailsUnrecPtr Details = TreeModelEventDetails::create(this, getSystemTime(), Parent, ChildIndices, Children);
 
-   Inherited::produceTreeNodesChanged(Details);
+   getEventSource()->produceTreeNodesChanged(Details);
 }
 
 void AbstractTreeModel::produceTreeNodesInserted(TreePath Parent, const std::vector<UInt32>& ChildIndices, const std::vector<boost::any>& Children)
 {
    TreeModelEventDetailsUnrecPtr Details = TreeModelEventDetails::create(this, getSystemTime(), Parent, ChildIndices, Children);
 
-   Inherited::produceTreeNodesInserted(Details);
+   getEventSource()->produceTreeNodesInserted(Details);
 }
 
 void AbstractTreeModel::produceTreeNodesWillBeRemoved(TreePath Parent, const std::vector<UInt32>& ChildIndices, const std::vector<boost::any>& Children)
 {
    TreeModelEventDetailsUnrecPtr Details = TreeModelEventDetails::create(this, getSystemTime(), Parent, ChildIndices, Children);
 
-   Inherited::produceTreeNodesWillBeRemoved(Details);
+   getEventSource()->produceTreeNodesWillBeRemoved(Details);
 }
 
 void AbstractTreeModel::produceTreeNodesRemoved(TreePath Parent, const std::vector<UInt32>& ChildIndices, const std::vector<boost::any>& Children)
 {
    TreeModelEventDetailsUnrecPtr Details = TreeModelEventDetails::create(this, getSystemTime(), Parent, ChildIndices, Children);
 
-   Inherited::produceTreeNodesRemoved(Details);
+   getEventSource()->produceTreeNodesRemoved(Details);
 }
 
 void AbstractTreeModel::produceTreeStructureChanged(TreePath Parent, const std::vector<UInt32>& ChildIndices, const std::vector<boost::any>& Children)
 {
    TreeModelEventDetailsUnrecPtr Details = TreeModelEventDetails::create(this, getSystemTime(), Parent, ChildIndices, Children);
 
-   Inherited::produceTreeStructureChanged(Details);
+   getEventSource()->produceTreeStructureChanged(Details);
 }
 
 /*----------------------- constructors & destructors ----------------------*/

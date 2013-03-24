@@ -120,9 +120,13 @@ ComponentTransitPtr DefaultTableCellEditor::getTableCellEditorComponent(Table* c
     TheTextField->setBorder(tempBorder);
 
     setDefaultStringEditor(TheTextField);
-    _EditorActionConnection = getDefaultStringEditor()->connectActionPerformed(boost::bind(&DefaultTableCellEditor::handleEditorAction, this, _1));
-    _EditorFocusLostConnection = getDefaultStringEditor()->connectFocusLost(boost::bind(&DefaultTableCellEditor::handleEditorFocusLost, this, _1));
-    _EditorKeyPressedConnection = getDefaultStringEditor()->connectKeyPressed(boost::bind(&DefaultTableCellEditor::handleEditorKeyPressed, this, _1));
+    ButtonEventSource* ev = dynamic_cast<ButtonEventSource*>( getDefaultStringEditor()->getEventSource() );
+    if ( ev )
+    {
+        _EditorActionConnection = ev->connectActionPerformed(boost::bind(&DefaultTableCellEditor::handleEditorAction, this, _1));
+    }
+    _EditorFocusLostConnection = getDefaultStringEditor()->getEventSource()->connectFocusLost(boost::bind(&DefaultTableCellEditor::handleEditorFocusLost, this, _1));
+    _EditorKeyPressedConnection = getDefaultStringEditor()->getEventSource()->connectKeyPressed(boost::bind(&DefaultTableCellEditor::handleEditorKeyPressed, this, _1));
     return ComponentTransitPtr(getDefaultStringEditor());
 }
 

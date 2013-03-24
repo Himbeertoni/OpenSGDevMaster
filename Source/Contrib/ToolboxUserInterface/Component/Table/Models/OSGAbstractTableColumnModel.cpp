@@ -83,32 +83,32 @@ void AbstractTableColumnModel::produceColumnAdded(const UInt32& ToIndex)
 {
     TableColumnModelEventDetailsUnrecPtr Details = TableColumnModelEventDetails::create(this, getSystemTime(), 0, ToIndex);
 
-    Inherited::produceColumnAdded(Details);
+    getEventSource()->produceColumnAdded(Details);
 }
 void AbstractTableColumnModel::produceColumnMoved(const UInt32& ToIndex,const UInt32& FromIndex)
 {
     TableColumnModelEventDetailsUnrecPtr Details = TableColumnModelEventDetails::create(this, getSystemTime(), FromIndex, ToIndex);
 
-    Inherited::produceColumnMoved(Details);
+    getEventSource()->produceColumnMoved(Details);
 }
 
 void AbstractTableColumnModel::produceColumnRemoved(const UInt32& FromIndex)
 {
     TableColumnModelEventDetailsUnrecPtr Details = TableColumnModelEventDetails::create(this, getSystemTime(), FromIndex, 0);
 
-    Inherited::produceColumnRemoved(Details);
+    getEventSource()->produceColumnRemoved(Details);
 }
 
 void AbstractTableColumnModel::produceColumnMarginChanged(void)
 {
     ChangeEventDetailsUnrecPtr Details = ChangeEventDetails::create(this, getSystemTime());
 
-    Inherited::produceColumnMarginChanged(Details);
+    getEventSource()->produceColumnMarginChanged(Details);
 }
 
 void AbstractTableColumnModel::produceColumnSelectionChanged(ListSelectionEventDetails* const Details)
 {
-    Inherited::produceColumnSelectionChanged(Details);
+   getEventSource()->produceColumnSelectionChanged(Details);
 }
 
 /*-------------------------------------------------------------------------*\

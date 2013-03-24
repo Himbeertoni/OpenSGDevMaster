@@ -47,6 +47,9 @@
 
 #include "OSGMenu.h"
 
+#include <boost/signals2.hpp>
+#include "OSGPopupMenuEventDetailsFields.h"
+
 OSG_BEGIN_NAMESPACE
 
 /*! \brief MenuBar class. See \ref

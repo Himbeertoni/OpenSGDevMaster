@@ -285,7 +285,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Tree : public TreeBase
     void setAnchorSelectionPath(const TreePath& newPath);
 
     //Sets the dragEnabled property, which must be true to enable automatic drag handling (the first part of drag and drop) on this component.
-    void setDragEnabled(bool b);
+    void setDragEnabled(const bool b);
 
     //Sets the path identifies as the lead.
     void setLeadSelectionPath(const TreePath& newPath);

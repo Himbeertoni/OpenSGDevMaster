@@ -180,6 +180,7 @@ typedef ListSelectionModel *ListSelectionModelP;
 
 OSG_END_NAMESPACE
 
+#include "OSGListSelectionModelEventSource.h"
 #include "OSGListSelectionModelBase.inl"
 #include "OSGListSelectionModel.inl"
 

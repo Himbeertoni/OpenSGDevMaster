@@ -56,7 +56,8 @@
 #include "OSGMenuItem.h"
 #include "OSGInternalWindow.h"
 #include "OSGScrollPanel.h"
-
+#include "OSGPopupMenuEventDetails.h"
+#include "OSGPopupMenuEventSource.h"
 #include <boost/bind.hpp>
 
 OSG_BEGIN_NAMESPACE
@@ -480,28 +481,44 @@ void  PopupMenu::producePopupMenuWillBecomeVisible(void)
 {
     PopupMenuEventDetailsUnrecPtr Details(PopupMenuEventDetails::create(this,getSystemTime()));
 
-    Inherited::producePopupMenuWillBecomeVisible(Details);
+    PopupMenuEventSource* ev = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->producePopupMenuWillBecomeVisible(Details);
+    }
 }
 
 void  PopupMenu::producePopupMenuWillBecomeInvisible(void)
 {
     PopupMenuEventDetailsUnrecPtr Details(PopupMenuEventDetails::create(this,getSystemTime()));
 
-    Inherited::producePopupMenuWillBecomeInvisible(Details);
+    PopupMenuEventSource* ev = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->producePopupMenuWillBecomeInvisible(Details);
+    }
 }
 
 void  PopupMenu::producePopupMenuCanceled(void)
 {
     PopupMenuEventDetailsUnrecPtr Details(PopupMenuEventDetails::create(this,getSystemTime()));
 
-    Inherited::producePopupMenuCanceled(Details);
+    PopupMenuEventSource* ev = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->producePopupMenuCanceled(Details);
+    }
 }
     
 void PopupMenu::producePopupMenuContentsChanged(void)
 {
     PopupMenuEventDetailsUnrecPtr Details(PopupMenuEventDetails::create(this,getSystemTime()));
 
-    Inherited::producePopupMenuContentsChanged(Details);
+    PopupMenuEventSource* ev = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->producePopupMenuContentsChanged(Details);
+    }
 }
 
 void PopupMenu::onCreate(const PopupMenu * Id)
@@ -601,7 +618,7 @@ void PopupMenu::changed(ConstFieldMaskArg whichField,
         _SelectionChangedConnection.disconnect();
         if(getSelectionModel() != NULL)
         {
-            _SelectionChangedConnection = getSelectionModel()->connectSelectionChanged(boost::bind(&PopupMenu::selectionChanged, this, _1));
+            _SelectionChangedConnection = getSelectionModel()->getEventSource()->connectSelectionChanged(boost::bind(&PopupMenu::selectionChanged, this, _1));
         }
     }
 }

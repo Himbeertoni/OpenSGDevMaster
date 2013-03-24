@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -52,7 +52,6 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include <boost/assign/list_of.hpp>
 
 #include "OSGConfig.h"
 
@@ -66,8 +65,6 @@
 #include "OSGPopupMenu.h"
 
 #include <boost/bind.hpp>
-
-#include "OSGEventDetails.h"
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -109,18 +106,22 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PopupMenu *>::_type("PopupMenuPtr", "ComponentContainerPtr");
+PointerType FieldTraits<PopupMenu *, nsOSG>::_type(
+    "PopupMenuPtr", 
+    "ComponentContainerPtr", 
+    PopupMenu::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(PopupMenu *)
+OSG_FIELDTRAITS_GETTYPE_NS(PopupMenu *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            PopupMenu *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            PopupMenu *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -185,7 +186,7 @@ PopupMenuBase::TypeObject PopupMenuBase::_type(
     PopupMenuBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&PopupMenuBase::createEmptyLocal),
     PopupMenu::initMethod,
     PopupMenu::exitMethod,
@@ -195,129 +196,89 @@ PopupMenuBase::TypeObject PopupMenuBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"PopupMenu\"\n"
-    "\tparent=\"ComponentContainer\"\n"
-    "    library=\"ContribUserInterface\"\n"
+    "    name=\"PopupMenu\"\n"
+    "    parent=\"ComponentContainer\"\n"
+    "    library=\"ContribToolboxUserInterface\"\n"
     "    pointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
+    "    structure=\"concrete\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"
     "    decoratable=\"false\"\n"
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
-    "    parentProducer=\"Component\"\n"
-    ">\n"
+    " >\n"
+    "<!--    parentProducer=\"Component\" -->\n"
     "A UI PopupMenu.\n"
-    "\t<Field\n"
-    "\t\tname=\"SubMenuDelay\"\n"
-    "\t\ttype=\"Real32\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"0.5\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"Invoker\"\n"
-    "\t\ttype=\"Component\"\n"
-    "\t\tcategory=\"weakpointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"DefaultSeparator\"\n"
-    "\t\ttype=\"Separator\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"SelectionModel\"\n"
-    "\t\ttype=\"SingleSelectionModel\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"PopupMenuWillBecomeVisible\"\n"
-    "\t\tdetailsType=\"PopupMenuEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"PopupMenuWillBecomeInvisible\"\n"
-    "\t\tdetailsType=\"PopupMenuEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"PopupMenuCanceled\"\n"
-    "\t\tdetailsType=\"PopupMenuEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"PopupMenuContentsChanged\"\n"
-    "\t\tdetailsType=\"PopupMenuEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
+    "    <Field\n"
+    "        name=\"SubMenuDelay\"\n"
+    "        type=\"Real32\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"0.5\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"Invoker\"\n"
+    "        type=\"Component\"\n"
+    "        category=\"weakpointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"DefaultSeparator\"\n"
+    "        type=\"Separator\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"SelectionModel\"\n"
+    "        type=\"SingleSelectionModel\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "<!--\n"
+    "    <ProducedEvent\n"
+    "        name=\"PopupMenuWillBecomeVisible\"\n"
+    "        detailsType=\"PopupMenuEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "    <ProducedEvent\n"
+    "        name=\"PopupMenuWillBecomeInvisible\"\n"
+    "        detailsType=\"PopupMenuEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "    <ProducedEvent\n"
+    "        name=\"PopupMenuCanceled\"\n"
+    "        detailsType=\"PopupMenuEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "    <ProducedEvent\n"
+    "        name=\"PopupMenuContentsChanged\"\n"
+    "        detailsType=\"PopupMenuEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "-->\n"
     "</FieldContainer>\n",
     "A UI PopupMenu.\n"
     );
-
-//! PopupMenu Produced Events
-
-EventDescription *PopupMenuBase::_eventDesc[] =
-{
-    new EventDescription("PopupMenuWillBecomeVisible", 
-                          "",
-                          PopupMenuWillBecomeVisibleEventId, 
-                          FieldTraits<PopupMenuEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&PopupMenuBase::getHandlePopupMenuWillBecomeVisibleSignal)),
-
-    new EventDescription("PopupMenuWillBecomeInvisible", 
-                          "",
-                          PopupMenuWillBecomeInvisibleEventId, 
-                          FieldTraits<PopupMenuEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&PopupMenuBase::getHandlePopupMenuWillBecomeInvisibleSignal)),
-
-    new EventDescription("PopupMenuCanceled", 
-                          "",
-                          PopupMenuCanceledEventId, 
-                          FieldTraits<PopupMenuEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&PopupMenuBase::getHandlePopupMenuCanceledSignal)),
-
-    new EventDescription("PopupMenuContentsChanged", 
-                          "",
-                          PopupMenuContentsChangedEventId, 
-                          FieldTraits<PopupMenuEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&PopupMenuBase::getHandlePopupMenuContentsChangedSignal))
-
-};
-
-EventProducerType PopupMenuBase::_producerType(
-    "PopupMenuProducerType",
-    "ComponentProducerType",
-    "",
-    InitEventProducerFunctor(),
-    _eventDesc,
-    sizeof(_eventDesc));
 
 /*------------------------------ get -----------------------------------*/
 
@@ -329,11 +290,6 @@ FieldContainerType &PopupMenuBase::getType(void)
 const FieldContainerType &PopupMenuBase::getType(void) const
 {
     return _type;
-}
-
-const EventProducerType &PopupMenuBase::getProducerType(void) const
-{
-    return _producerType;
 }
 
 UInt32 PopupMenuBase::getContainerSize(void) const
@@ -402,9 +358,9 @@ SFUnrecSingleSelectionModelPtr *PopupMenuBase::editSFSelectionModel (void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 PopupMenuBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT PopupMenuBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (SubMenuDelayFieldMask & whichField))
     {
@@ -456,18 +412,22 @@ void PopupMenuBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (SubMenuDelayFieldMask & whichField))
     {
+        editSField(SubMenuDelayFieldMask);
         _sfSubMenuDelay.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (InvokerFieldMask & whichField))
     {
+        editSField(InvokerFieldMask);
         _sfInvoker.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (DefaultSeparatorFieldMask & whichField))
     {
+        editSField(DefaultSeparatorFieldMask);
         _sfDefaultSeparator.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SelectionModelFieldMask & whichField))
     {
+        editSField(SelectionModelFieldMask);
         _sfSelectionModel.copyFromBin(pMem);
     }
 }
@@ -589,182 +549,6 @@ FieldContainerTransitPtr PopupMenuBase::shallowCopy(void) const
 }
 
 
-
-/*------------------------- event producers ----------------------------------*/
-void PopupMenuBase::produceEvent(UInt32 eventId, EventDetails* const e)
-{
-    switch(eventId)
-    {
-    case PopupMenuWillBecomeVisibleEventId:
-        OSG_ASSERT(dynamic_cast<PopupMenuWillBecomeVisibleEventDetailsType* const>(e));
-
-        _PopupMenuWillBecomeVisibleEvent.set_combiner(ConsumableEventCombiner(e));
-        _PopupMenuWillBecomeVisibleEvent(dynamic_cast<PopupMenuWillBecomeVisibleEventDetailsType* const>(e), PopupMenuWillBecomeVisibleEventId);
-        break;
-    case PopupMenuWillBecomeInvisibleEventId:
-        OSG_ASSERT(dynamic_cast<PopupMenuWillBecomeInvisibleEventDetailsType* const>(e));
-
-        _PopupMenuWillBecomeInvisibleEvent.set_combiner(ConsumableEventCombiner(e));
-        _PopupMenuWillBecomeInvisibleEvent(dynamic_cast<PopupMenuWillBecomeInvisibleEventDetailsType* const>(e), PopupMenuWillBecomeInvisibleEventId);
-        break;
-    case PopupMenuCanceledEventId:
-        OSG_ASSERT(dynamic_cast<PopupMenuCanceledEventDetailsType* const>(e));
-
-        _PopupMenuCanceledEvent.set_combiner(ConsumableEventCombiner(e));
-        _PopupMenuCanceledEvent(dynamic_cast<PopupMenuCanceledEventDetailsType* const>(e), PopupMenuCanceledEventId);
-        break;
-    case PopupMenuContentsChangedEventId:
-        OSG_ASSERT(dynamic_cast<PopupMenuContentsChangedEventDetailsType* const>(e));
-
-        _PopupMenuContentsChangedEvent.set_combiner(ConsumableEventCombiner(e));
-        _PopupMenuContentsChangedEvent(dynamic_cast<PopupMenuContentsChangedEventDetailsType* const>(e), PopupMenuContentsChangedEventId);
-        break;
-    default:
-        Inherited::produceEvent(eventId, e);
-        break;
-    }
-}
-
-boost::signals2::connection PopupMenuBase::connectEvent(UInt32 eventId, 
-                                                             const BaseEventType::slot_type &listener, 
-                                                             boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case PopupMenuWillBecomeVisibleEventId:
-        return _PopupMenuWillBecomeVisibleEvent.connect(listener, at);
-        break;
-    case PopupMenuWillBecomeInvisibleEventId:
-        return _PopupMenuWillBecomeInvisibleEvent.connect(listener, at);
-        break;
-    case PopupMenuCanceledEventId:
-        return _PopupMenuCanceledEvent.connect(listener, at);
-        break;
-    case PopupMenuContentsChangedEventId:
-        return _PopupMenuContentsChangedEvent.connect(listener, at);
-        break;
-    default:
-        return Inherited::connectEvent(eventId, listener, at);
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-
-boost::signals2::connection  PopupMenuBase::connectEvent(UInt32 eventId, 
-                                                              const BaseEventType::group_type &group,
-                                                              const BaseEventType::slot_type &listener,
-                                                              boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case PopupMenuWillBecomeVisibleEventId:
-        return _PopupMenuWillBecomeVisibleEvent.connect(group, listener, at);
-        break;
-    case PopupMenuWillBecomeInvisibleEventId:
-        return _PopupMenuWillBecomeInvisibleEvent.connect(group, listener, at);
-        break;
-    case PopupMenuCanceledEventId:
-        return _PopupMenuCanceledEvent.connect(group, listener, at);
-        break;
-    case PopupMenuContentsChangedEventId:
-        return _PopupMenuContentsChangedEvent.connect(group, listener, at);
-        break;
-    default:
-        return Inherited::connectEvent(eventId, group, listener, at);
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-    
-void  PopupMenuBase::disconnectEvent(UInt32 eventId, const BaseEventType::group_type &group)
-{
-    switch(eventId)
-    {
-    case PopupMenuWillBecomeVisibleEventId:
-        _PopupMenuWillBecomeVisibleEvent.disconnect(group);
-        break;
-    case PopupMenuWillBecomeInvisibleEventId:
-        _PopupMenuWillBecomeInvisibleEvent.disconnect(group);
-        break;
-    case PopupMenuCanceledEventId:
-        _PopupMenuCanceledEvent.disconnect(group);
-        break;
-    case PopupMenuContentsChangedEventId:
-        _PopupMenuContentsChangedEvent.disconnect(group);
-        break;
-    default:
-        return Inherited::disconnectEvent(eventId, group);
-        break;
-    }
-}
-
-void  PopupMenuBase::disconnectAllSlotsEvent(UInt32 eventId)
-{
-    switch(eventId)
-    {
-    case PopupMenuWillBecomeVisibleEventId:
-        _PopupMenuWillBecomeVisibleEvent.disconnect_all_slots();
-        break;
-    case PopupMenuWillBecomeInvisibleEventId:
-        _PopupMenuWillBecomeInvisibleEvent.disconnect_all_slots();
-        break;
-    case PopupMenuCanceledEventId:
-        _PopupMenuCanceledEvent.disconnect_all_slots();
-        break;
-    case PopupMenuContentsChangedEventId:
-        _PopupMenuContentsChangedEvent.disconnect_all_slots();
-        break;
-    default:
-        Inherited::disconnectAllSlotsEvent(eventId);
-        break;
-    }
-}
-
-bool  PopupMenuBase::isEmptyEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case PopupMenuWillBecomeVisibleEventId:
-        return _PopupMenuWillBecomeVisibleEvent.empty();
-        break;
-    case PopupMenuWillBecomeInvisibleEventId:
-        return _PopupMenuWillBecomeInvisibleEvent.empty();
-        break;
-    case PopupMenuCanceledEventId:
-        return _PopupMenuCanceledEvent.empty();
-        break;
-    case PopupMenuContentsChangedEventId:
-        return _PopupMenuContentsChangedEvent.empty();
-        break;
-    default:
-        return Inherited::isEmptyEvent(eventId);
-        break;
-    }
-}
-
-UInt32  PopupMenuBase::numSlotsEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case PopupMenuWillBecomeVisibleEventId:
-        return _PopupMenuWillBecomeVisibleEvent.num_slots();
-        break;
-    case PopupMenuWillBecomeInvisibleEventId:
-        return _PopupMenuWillBecomeInvisibleEvent.num_slots();
-        break;
-    case PopupMenuCanceledEventId:
-        return _PopupMenuCanceledEvent.num_slots();
-        break;
-    case PopupMenuContentsChangedEventId:
-        return _PopupMenuContentsChangedEvent.num_slots();
-        break;
-    default:
-        return Inherited::numSlotsEvent(eventId);
-        break;
-    }
-}
 
 
 /*------------------------- constructors ----------------------------------*/
@@ -915,51 +699,6 @@ EditFieldHandlePtr PopupMenuBase::editHandleSelectionModel (void)
                     static_cast<PopupMenu *>(this), _1));
 
     editSField(SelectionModelFieldMask);
-
-    return returnValue;
-}
-
-
-GetEventHandlePtr PopupMenuBase::getHandlePopupMenuWillBecomeVisibleSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<PopupMenuWillBecomeVisibleEventType>(
-             const_cast<PopupMenuWillBecomeVisibleEventType *>(&_PopupMenuWillBecomeVisibleEvent),
-             _producerType.getEventDescription(PopupMenuWillBecomeVisibleEventId),
-             const_cast<PopupMenuBase *>(this)));
-
-    return returnValue;
-}
-
-GetEventHandlePtr PopupMenuBase::getHandlePopupMenuWillBecomeInvisibleSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<PopupMenuWillBecomeInvisibleEventType>(
-             const_cast<PopupMenuWillBecomeInvisibleEventType *>(&_PopupMenuWillBecomeInvisibleEvent),
-             _producerType.getEventDescription(PopupMenuWillBecomeInvisibleEventId),
-             const_cast<PopupMenuBase *>(this)));
-
-    return returnValue;
-}
-
-GetEventHandlePtr PopupMenuBase::getHandlePopupMenuCanceledSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<PopupMenuCanceledEventType>(
-             const_cast<PopupMenuCanceledEventType *>(&_PopupMenuCanceledEvent),
-             _producerType.getEventDescription(PopupMenuCanceledEventId),
-             const_cast<PopupMenuBase *>(this)));
-
-    return returnValue;
-}
-
-GetEventHandlePtr PopupMenuBase::getHandlePopupMenuContentsChangedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<PopupMenuContentsChangedEventType>(
-             const_cast<PopupMenuContentsChangedEventType *>(&_PopupMenuContentsChangedEvent),
-             _producerType.getEventDescription(PopupMenuContentsChangedEventId),
-             const_cast<PopupMenuBase *>(this)));
 
     return returnValue;
 }

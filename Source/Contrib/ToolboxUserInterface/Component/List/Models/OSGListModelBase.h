@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -65,16 +65,12 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
+#include "OSGListModelEventSourceFields.h" // EventSource type
 
 #include "OSGListModelFields.h"
 
-//Event Producer Headers
-#include "OSGActivity.h"
-#include "OSGConsumableEventCombiner.h"
-
-#include "OSGListDataEventDetailsFields.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 class ListModel;
 
@@ -91,29 +87,23 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListModelBase : public Attachme
     typedef TypeObject::InitPhase InitPhase;
 
     OSG_GEN_INTERNALPTR(ListModel);
-    
-    
-    typedef ListDataEventDetails ListDataContentsChangedEventDetailsType;
-    typedef ListDataEventDetails ListDataIntervalAddedEventDetailsType;
-    typedef ListDataEventDetails ListDataIntervalRemovedEventDetailsType;
-
-    typedef boost::signals2::signal<void (EventDetails* const            , UInt32)> BaseEventType;
-    typedef boost::signals2::signal<void (ListDataEventDetails* const, UInt32), ConsumableEventCombiner> ListDataContentsChangedEventType;
-    typedef boost::signals2::signal<void (ListDataEventDetails* const, UInt32), ConsumableEventCombiner> ListDataIntervalAddedEventType;
-    typedef boost::signals2::signal<void (ListDataEventDetails* const, UInt32), ConsumableEventCombiner> ListDataIntervalRemovedEventType;
 
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-
     enum
     {
-        ListDataContentsChangedEventId = 1,
-        ListDataIntervalAddedEventId = ListDataContentsChangedEventId + 1,
-        ListDataIntervalRemovedEventId = ListDataIntervalAddedEventId + 1,
-        NextProducedEventId = ListDataIntervalRemovedEventId + 1
+        EventSourceFieldId = Inherited::NextFieldId,
+        NextFieldId = EventSourceFieldId + 1
     };
+
+    static const OSG::BitVector EventSourceFieldMask =
+        (TypeTraits<BitVector>::One << EventSourceFieldId);
+    static const OSG::BitVector NextFieldMask =
+        (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUnrecListModelEventSourcePtr SFEventSourceType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -122,8 +112,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListModelBase : public Attachme
     static FieldContainerType &getClassType   (void);
     static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
-    static const  EventProducerType  &getProducerClassType  (void);
-    static        UInt32              getProducerClassTypeId(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -137,10 +125,38 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListModelBase : public Attachme
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+            const SFUnrecListModelEventSourcePtr *getSFEventSource    (void) const;
+                  SFUnrecListModelEventSourcePtr *editSFEventSource    (void);
+
+
+                  ListModelEventSource * getEventSource    (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setEventSource    (ListModelEventSource * const value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr Field Set                                 */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual SizeT  getBinSize (ConstFieldMaskArg  whichField);
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
     virtual void   copyFromBin(BinaryDataHandler &pMem,
@@ -148,88 +164,22 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListModelBase : public Attachme
 
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Event Produced Get                           */
-    /*! \{                                                                 */
-
-    virtual const EventProducerType &getProducerType(void) const; 
-
-    virtual UInt32                   getNumProducedEvents       (void                                ) const;
-    virtual const EventDescription *getProducedEventDescription(const std::string &ProducedEventName) const;
-    virtual const EventDescription *getProducedEventDescription(UInt32 ProducedEventId              ) const;
-    virtual UInt32                   getProducedEventId         (const std::string &ProducedEventName) const;
-    
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-                                              
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::group_type &group,
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-    
-    virtual void   disconnectEvent        (UInt32 eventId, const BaseEventType::group_type &group);
-    virtual void   disconnectAllSlotsEvent(UInt32 eventId);
-    virtual bool   isEmptyEvent           (UInt32 eventId) const;
-    virtual UInt32 numSlotsEvent          (UInt32 eventId) const;
-
-    /*! \}                                                                 */
-    /*! \name                Event Access                                 */
-    /*! \{                                                                 */
-    
-    //ListDataContentsChanged
-    boost::signals2::connection connectListDataContentsChanged(const ListDataContentsChangedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectListDataContentsChanged(const ListDataContentsChangedEventType::group_type &group,
-                                                       const ListDataContentsChangedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectListDataContentsChanged(const ListDataContentsChangedEventType::group_type &group);
-    void   disconnectAllSlotsListDataContentsChanged(void);
-    bool   isEmptyListDataContentsChanged   (void) const;
-    UInt32 numSlotsListDataContentsChanged  (void) const;
-    
-    //ListDataIntervalAdded
-    boost::signals2::connection connectListDataIntervalAdded(const ListDataIntervalAddedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectListDataIntervalAdded(const ListDataIntervalAddedEventType::group_type &group,
-                                                       const ListDataIntervalAddedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectListDataIntervalAdded  (const ListDataIntervalAddedEventType::group_type &group);
-    void   disconnectAllSlotsListDataIntervalAdded(void);
-    bool   isEmptyListDataIntervalAdded     (void) const;
-    UInt32 numSlotsListDataIntervalAdded    (void) const;
-    
-    //ListDataIntervalRemoved
-    boost::signals2::connection connectListDataIntervalRemoved(const ListDataIntervalRemovedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectListDataIntervalRemoved(const ListDataIntervalRemovedEventType::group_type &group,
-                                                       const ListDataIntervalRemovedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectListDataIntervalRemoved(const ListDataIntervalRemovedEventType::group_type &group);
-    void   disconnectAllSlotsListDataIntervalRemoved(void);
-    bool   isEmptyListDataIntervalRemoved   (void) const;
-    UInt32 numSlotsListDataIntervalRemoved  (void) const;
-    
-    
-    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Produced Event Signals                   */
-    /*! \{                                                                 */
-
-    //Event Event producers
-    ListDataContentsChangedEventType _ListDataContentsChangedEvent;
-    ListDataIntervalAddedEventType _ListDataIntervalAddedEvent;
-    ListDataIntervalRemovedEventType _ListDataIntervalRemovedEvent;
-    /*! \}                                                                 */
 
     static TypeObject _type;
 
     static       void   classDescInserter(TypeObject &oType);
     static const Char8 *getClassname     (void             );
 
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    SFUnrecListModelEventSourcePtr _sfEventSource;
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
@@ -249,31 +199,16 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListModelBase : public Attachme
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
+    void onCreate(const ListModel *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleEventSource     (void) const;
+    EditFieldHandlePtr editHandleEventSource    (void);
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Event Access                     */
-    /*! \{                                                                 */
-
-    GetEventHandlePtr getHandleListDataContentsChangedSignal(void) const;
-    GetEventHandlePtr getHandleListDataIntervalAddedSignal(void) const;
-    GetEventHandlePtr getHandleListDataIntervalRemovedSignal(void) const;
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Event Producer Firing                    */
-    /*! \{                                                                 */
-
-    virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
-    
-    void produceListDataContentsChanged  (ListDataContentsChangedEventDetailsType* const e);
-    void produceListDataIntervalAdded  (ListDataIntervalAddedEventDetailsType* const e);
-    void produceListDataIntervalRemoved  (ListDataIntervalRemovedEventDetailsType* const e);
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
@@ -319,9 +254,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListModelBase : public Attachme
 
   private:
     /*---------------------------------------------------------------------*/
-    static EventDescription   *_eventDesc[];
-    static EventProducerType _producerType;
-
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ListModelBase &source);

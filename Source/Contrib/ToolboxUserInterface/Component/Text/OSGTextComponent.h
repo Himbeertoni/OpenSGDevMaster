@@ -105,6 +105,10 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextComponent : public TextComp
     
 
     void copy(void) const;
+
+    //Moved protected -> public:
+    void produceTextValueChanged(void);
+    void produceCaretChanged(void);
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -136,9 +140,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextComponent : public TextComp
     UInt32 _TextSelectionStart;
     UInt32 _TextSelectionEnd;
 
-    void produceTextValueChanged(void);
-
-    void produceCaretChanged(void);
 
     virtual Color4f getDrawnTextColor(void) const;
     

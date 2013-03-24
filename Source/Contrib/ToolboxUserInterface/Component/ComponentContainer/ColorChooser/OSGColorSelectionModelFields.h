@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ColorSelectionModel;
 
 OSG_GEN_CONTAINERPTR(ColorSelectionModel);
-
-/*! \ingroup GrpContribUserInterfaceFieldTraits
-    \ingroup GrpLibOSGContribUserInterface
+/*! \ingroup GrpContribToolboxUserInterfaceFieldTraits
+    \ingroup GrpLibOSGContribToolboxUserInterface
  */
 template <>
-struct FieldTraits<ColorSelectionModel *> :
-    public FieldTraitsFCPtrBase<ColorSelectionModel *>
+struct FieldTraits<ColorSelectionModel *, nsOSG> :
+    public FieldTraitsFCPtrBase<ColorSelectionModel *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<ColorSelectionModel *>  Self;
+    typedef FieldTraits<ColorSelectionModel *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,126 +90,124 @@ struct FieldTraits<ColorSelectionModel *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFColorSelectionModelPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFColorSelectionModelPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ColorSelectionModel *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorSelectionModel *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecColorSelectionModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorSelectionModel *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorSelectionModel *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecColorSelectionModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorSelectionModel *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorSelectionModel *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakColorSelectionModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorSelectionModel *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorSelectionModel *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdColorSelectionModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorSelectionModel *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorSelectionModel *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecColorSelectionModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorSelectionModel *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorSelectionModel *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecColorSelectionModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorSelectionModel *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorSelectionModel *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakColorSelectionModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ColorSelectionModel *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ColorSelectionModel *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdColorSelectionModelPtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<ColorSelectionModel *,
-                      RecordedRefCountPolicy  > SFRecColorSelectionModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      RecordedRefCountPolicy, nsOSG  > SFRecColorSelectionModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<ColorSelectionModel *,
-                      UnrecordedRefCountPolicy> SFUnrecColorSelectionModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecColorSelectionModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<ColorSelectionModel *,
-                      WeakRefCountPolicy      > SFWeakColorSelectionModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      WeakRefCountPolicy, nsOSG      > SFWeakColorSelectionModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<ColorSelectionModel *,
-                      NoRefCountPolicy        > SFUncountedColorSelectionModelPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedColorSelectionModelPtr;
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<ColorSelectionModel *,
-                      RecordedRefCountPolicy  > MFRecColorSelectionModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      RecordedRefCountPolicy, nsOSG  > MFRecColorSelectionModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<ColorSelectionModel *,
-                      UnrecordedRefCountPolicy> MFUnrecColorSelectionModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecColorSelectionModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<ColorSelectionModel *,
-                      WeakRefCountPolicy      > MFWeakColorSelectionModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      WeakRefCountPolicy, nsOSG      > MFWeakColorSelectionModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<ColorSelectionModel *,
-                      NoRefCountPolicy        > MFUncountedColorSelectionModelPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedColorSelectionModelPtr;
 
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFRecColorSelectionModelPtr : 
     public PointerSField<ColorSelectionModel *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUnrecColorSelectionModelPtr : 
     public PointerSField<ColorSelectionModel *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFWeakColorSelectionModelPtr :
     public PointerSField<ColorSelectionModel *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUncountedColorSelectionModelPtr :
     public PointerSField<ColorSelectionModel *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFRecColorSelectionModelPtr :
     public PointerMField<ColorSelectionModel *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUnrecColorSelectionModelPtr :
     public PointerMField<ColorSelectionModel *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFWeakColorSelectionModelPtr :
     public PointerMField<ColorSelectionModel *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUncountedColorSelectionModelPtr :
     public PointerMField<ColorSelectionModel *,
                          NoRefCountPolicy        > {};

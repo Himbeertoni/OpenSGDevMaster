@@ -43,7 +43,9 @@
 #endif
 
 #include "OSGTextFieldBase.h"
-
+#include "OSGMouseEventDetailsFields.h"
+#include "OSGKeyEventDetailsFields.h"
+#include <boost/signals2.hpp>
 OSG_BEGIN_NAMESPACE
 
 /*! \brief TextField class. See \ref
@@ -160,6 +162,8 @@ typedef TextField *TextFieldP;
 
 OSG_END_NAMESPACE
 
+#include "OSGMouseEventDetails.h"
+#include "OSGKeyEventDetails.h"
 #include "OSGTextFieldBase.inl"
 #include "OSGTextField.inl"
 

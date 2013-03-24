@@ -229,9 +229,9 @@ void ListGeneratedPopupMenu::changed(ConstFieldMaskArg whichField,
         _ListIntervalRemovedConnection.disconnect();
         if(getModel() != NULL)
         {
-            _ListContentsChangedConnection = getModel()->connectListDataContentsChanged(boost::bind(&ListGeneratedPopupMenu::handleListContentsChanged, this, _1));
-            _ListIntervalAddedConnection = getModel()->connectListDataIntervalAdded(boost::bind(&ListGeneratedPopupMenu::handleListIntervalAdded, this, _1));
-            _ListIntervalRemovedConnection = getModel()->connectListDataIntervalRemoved(boost::bind(&ListGeneratedPopupMenu::handleListIntervalRemoved, this, _1));
+            _ListContentsChangedConnection = getModel()->getEventSource()->connectListDataContentsChanged(boost::bind(&ListGeneratedPopupMenu::handleListContentsChanged, this, _1));
+            _ListIntervalAddedConnection   = getModel()->getEventSource()->connectListDataIntervalAdded(boost::bind(&ListGeneratedPopupMenu::handleListIntervalAdded, this, _1));
+            _ListIntervalRemovedConnection = getModel()->getEventSource()->connectListDataIntervalRemoved(boost::bind(&ListGeneratedPopupMenu::handleListIntervalRemoved, this, _1));
         }
     }
 

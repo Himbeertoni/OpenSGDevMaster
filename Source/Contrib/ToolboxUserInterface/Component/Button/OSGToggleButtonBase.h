@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -68,9 +68,8 @@
 
 #include "OSGToggleButtonFields.h"
 
-#include "OSGButtonSelectedEventDetailsFields.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 class ToggleButton;
 
@@ -87,25 +86,11 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonBase : public Butto
     typedef TypeObject::InitPhase InitPhase;
 
     OSG_GEN_INTERNALPTR(ToggleButton);
-    
-    
-    typedef ButtonSelectedEventDetails ButtonSelectedEventDetailsType;
-    typedef ButtonSelectedEventDetails ButtonDeselectedEventDetailsType;
-
-    typedef boost::signals2::signal<void (ButtonSelectedEventDetails* const, UInt32), ConsumableEventCombiner> ButtonSelectedEventType;
-    typedef boost::signals2::signal<void (ButtonSelectedEventDetails* const, UInt32), ConsumableEventCombiner> ButtonDeselectedEventType;
 
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-
-    enum
-    {
-        ButtonSelectedEventId = Inherited::NextProducedEventId,
-        ButtonDeselectedEventId = ButtonSelectedEventId + 1,
-        NextProducedEventId = ButtonDeselectedEventId + 1
-    };
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -114,8 +99,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonBase : public Butto
     static FieldContainerType &getClassType   (void);
     static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
-    static const  EventProducerType  &getProducerClassType  (void);
-    static        UInt32              getProducerClassTypeId(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -132,62 +115,13 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonBase : public Butto
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual SizeT  getBinSize (ConstFieldMaskArg  whichField);
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
     virtual void   copyFromBin(BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
 
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Event Produced Get                           */
-    /*! \{                                                                 */
-
-    virtual const EventProducerType &getProducerType(void) const; 
-
-    
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-                                              
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::group_type &group,
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-    
-    virtual void   disconnectEvent        (UInt32 eventId, const BaseEventType::group_type &group);
-    virtual void   disconnectAllSlotsEvent(UInt32 eventId);
-    virtual bool   isEmptyEvent           (UInt32 eventId) const;
-    virtual UInt32 numSlotsEvent          (UInt32 eventId) const;
-
-    /*! \}                                                                 */
-    /*! \name                Event Access                                 */
-    /*! \{                                                                 */
-    
-    //ButtonSelected
-    boost::signals2::connection connectButtonSelected (const ButtonSelectedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectButtonSelected (const ButtonSelectedEventType::group_type &group,
-                                                       const ButtonSelectedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectButtonSelected         (const ButtonSelectedEventType::group_type &group);
-    void   disconnectAllSlotsButtonSelected (void);
-    bool   isEmptyButtonSelected            (void) const;
-    UInt32 numSlotsButtonSelected           (void) const;
-    
-    //ButtonDeselected
-    boost::signals2::connection connectButtonDeselected(const ButtonDeselectedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectButtonDeselected(const ButtonDeselectedEventType::group_type &group,
-                                                       const ButtonDeselectedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectButtonDeselected       (const ButtonDeselectedEventType::group_type &group);
-    void   disconnectAllSlotsButtonDeselected(void);
-    bool   isEmptyButtonDeselected          (void) const;
-    UInt32 numSlotsButtonDeselected         (void) const;
-    
-    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Construction                               */
@@ -219,14 +153,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonBase : public Butto
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Produced Event Signals                   */
-    /*! \{                                                                 */
-
-    //Event Event producers
-    ButtonSelectedEventType _ButtonSelectedEvent;
-    ButtonDeselectedEventType _ButtonDeselectedEvent;
-    /*! \}                                                                 */
 
     static TypeObject _type;
 
@@ -259,22 +185,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonBase : public Butto
     /*! \{                                                                 */
 
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Event Access                     */
-    /*! \{                                                                 */
-
-    GetEventHandlePtr getHandleButtonSelectedSignal(void) const;
-    GetEventHandlePtr getHandleButtonDeselectedSignal(void) const;
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Event Producer Firing                    */
-    /*! \{                                                                 */
-
-    virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
-    
-    void produceButtonSelected      (ButtonSelectedEventDetailsType* const e);
-    void produceButtonDeselected    (ButtonDeselectedEventDetailsType* const e);
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
@@ -325,9 +235,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonBase : public Butto
 
   private:
     /*---------------------------------------------------------------------*/
-    static EventDescription   *_eventDesc[];
-    static EventProducerType _producerType;
-
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ToggleButtonBase &source);

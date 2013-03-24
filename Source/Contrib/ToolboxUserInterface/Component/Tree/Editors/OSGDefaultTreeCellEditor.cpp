@@ -49,7 +49,7 @@
 #include "OSGTree.h"
 #include "OSGTextField.h"
 #include "OSGStringUtils.h"
-
+#include "OSGTextFieldEventSource.h"
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
@@ -103,9 +103,13 @@ ComponentTransitPtr DefaultTreeCellEditor::getTreeCellEditorComponent(Tree* cons
         getDefaultStringEditor()->selectAll();
         getDefaultStringEditor()->setCaretPosition(getDefaultStringEditor()->getText().size());
 
-        _EditorActionConnection = getDefaultStringEditor()->connectActionPerformed(boost::bind(&DefaultTreeCellEditor::handleEditorAction, this, _1));
-        _EditorFocusLostConnection = getDefaultStringEditor()->connectFocusLost(boost::bind(&DefaultTreeCellEditor::handleEditorFocusLost, this, _1));
-        _EditorKeyPressedConnection = getDefaultStringEditor()->connectKeyPressed(boost::bind(&DefaultTreeCellEditor::handleEditorKeyPressed, this, _1));
+        TextFieldEventSource* ev = dynamic_cast<TextFieldEventSource*>( getDefaultStringEditor()->getEventSource() );
+        if ( ev )
+        {
+            _EditorActionConnection = ev->connectActionPerformed(boost::bind(&DefaultTreeCellEditor::handleEditorAction, this, _1));
+        }
+        _EditorFocusLostConnection = getDefaultStringEditor()->getEventSource()->connectFocusLost(boost::bind(&DefaultTreeCellEditor::handleEditorFocusLost, this, _1));
+        _EditorKeyPressedConnection = getDefaultStringEditor()->getEventSource()->connectKeyPressed(boost::bind(&DefaultTreeCellEditor::handleEditorKeyPressed, this, _1));
 
         return ComponentTransitPtr(getDefaultStringEditor());
     }
@@ -117,9 +121,13 @@ ComponentTransitPtr DefaultTreeCellEditor::getTreeCellEditorComponent(Tree* cons
         getDefaultEditor()->selectAll();
         getDefaultEditor()->setCaretPosition(getDefaultEditor()->getText().size());
 
-        _EditorActionConnection = getDefaultEditor()->connectActionPerformed(boost::bind(&DefaultTreeCellEditor::handleEditorAction, this, _1));
-        _EditorFocusLostConnection = getDefaultEditor()->connectFocusLost(boost::bind(&DefaultTreeCellEditor::handleEditorFocusLost, this, _1));
-        _EditorKeyPressedConnection = getDefaultEditor()->connectKeyPressed(boost::bind(&DefaultTreeCellEditor::handleEditorKeyPressed, this, _1));
+        TextFieldEventSource* ev = dynamic_cast<TextFieldEventSource*>( getDefaultStringEditor()->getEventSource() );
+        if ( ev )
+        {
+            _EditorActionConnection = ev->connectActionPerformed(boost::bind(&DefaultTreeCellEditor::handleEditorAction, this, _1));
+        }
+        _EditorFocusLostConnection = getDefaultEditor()->getEventSource()->connectFocusLost(boost::bind(&DefaultTreeCellEditor::handleEditorFocusLost, this, _1));
+        _EditorKeyPressedConnection = getDefaultEditor()->getEventSource()->connectKeyPressed(boost::bind(&DefaultTreeCellEditor::handleEditorKeyPressed, this, _1));
 
         return ComponentTransitPtr(getDefaultEditor());
     }

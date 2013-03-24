@@ -291,7 +291,7 @@ ComponentDecoratorBase::TypeObject ComponentDecoratorBase::_type(
     "        cardinality=\"single\"\n"
     "        visibility=\"internal\"\n"
     "        defaultValue=\"0.0f,0.0f,0.0f,0.0f\"\n"
-    "        access=\"protected\"\n"
+    "        access=\"public\"\n"
     "        >\n"
     "        The clipping bounds of the Component.  The indexing of the bounds are: 0=Left,\n"
     "        1=Right, 2=Top, 3=Bottom.\n"
@@ -3366,32 +3366,6 @@ void ComponentDecoratorBase::setOpacity(const Real32 value)
     else
     {
         Inherited::setOpacity(value);
-    }
-}
-
-//! Get the value of the ComponentDecorator::_sfParentContainer field.
-FieldContainer * ComponentDecoratorBase::getParentContainer(void) const
-{
-    if(_sfDecoratee.getValue() != NULL)
-    {
-        return getDecoratee()->getParentContainer();
-    }
-    else
-    {
-        return Inherited::getParentContainer();
-    }
-}
-
-//! Set the value of the ComponentDecorator::_sfParentContainer field.
-void ComponentDecoratorBase::setParentContainer(FieldContainer * const value)
-{
-    if(_sfDecoratee.getValue() != NULL)
-    {
-        getDecoratee()->setParentContainer(value);
-    }
-    else
-    {
-        Inherited::setParentContainer(value);
     }
 }
 

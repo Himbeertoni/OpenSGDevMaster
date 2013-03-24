@@ -82,21 +82,33 @@ void AbstractListModel::produceListDataContentsChanged(FieldContainer* const Sou
 {
     ListDataEventDetailsUnrecPtr Details = ListDataEventDetails::create(Source, getSystemTime(), index0, index1);
 
-    Inherited::produceListDataContentsChanged(Details);
+    ListModelEventSource* ev = dynamic_cast<ListModelEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceListDataContentsChanged(Details);
+    }
 }
 
 void AbstractListModel::produceListDataIntervalAdded(FieldContainer* const Source, UInt32 index0, UInt32 index1)
 {
     ListDataEventDetailsUnrecPtr Details = ListDataEventDetails::create(Source, getSystemTime(), index0, index1);
 
-    Inherited::produceListDataIntervalAdded(Details);
+    ListModelEventSource* ev = dynamic_cast<ListModelEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceListDataIntervalAdded(Details);
+    }
 }
 
 void AbstractListModel::produceListDataIntervalRemoved(FieldContainer* const Source, UInt32 index0, UInt32 index1)
 {
     ListDataEventDetailsUnrecPtr Details = ListDataEventDetails::create(Source, getSystemTime(), index0, index1);
 
-    Inherited::produceListDataIntervalRemoved(Details);
+    ListModelEventSource* ev = dynamic_cast<ListModelEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceListDataIntervalRemoved(Details);
+    }
 }
 
 /*-------------------------------------------------------------------------*\

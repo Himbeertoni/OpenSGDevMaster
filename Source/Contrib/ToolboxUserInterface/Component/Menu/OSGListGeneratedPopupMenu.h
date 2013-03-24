@@ -47,6 +47,9 @@
 #include "OSGComponentGenerator.h"
 #include "OSGPopupMenu.h"
 
+#include <boost/signals2.hpp>
+#include "OSGListDataEventDetailsFields.h"
+
 OSG_BEGIN_NAMESPACE
 
 /*! \brief ListGeneratedPopupMenu class. See \ref

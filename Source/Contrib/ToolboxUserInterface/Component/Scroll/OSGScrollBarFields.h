@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ScrollBar;
 
 OSG_GEN_CONTAINERPTR(ScrollBar);
-
-/*! \ingroup GrpContribUserInterfaceFieldTraits
-    \ingroup GrpLibOSGContribUserInterface
+/*! \ingroup GrpContribToolboxUserInterfaceFieldTraits
+    \ingroup GrpLibOSGContribToolboxUserInterface
  */
 template <>
-struct FieldTraits<ScrollBar *> :
-    public FieldTraitsFCPtrBase<ScrollBar *>
+struct FieldTraits<ScrollBar *, nsOSG> :
+    public FieldTraitsFCPtrBase<ScrollBar *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<ScrollBar *>  Self;
+    typedef FieldTraits<ScrollBar *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,126 +90,124 @@ struct FieldTraits<ScrollBar *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFScrollBarPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFScrollBarPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ScrollBar *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ScrollBar *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecScrollBarPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ScrollBar *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ScrollBar *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecScrollBarPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ScrollBar *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ScrollBar *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakScrollBarPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ScrollBar *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ScrollBar *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdScrollBarPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ScrollBar *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ScrollBar *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecScrollBarPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ScrollBar *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ScrollBar *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecScrollBarPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ScrollBar *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ScrollBar *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakScrollBarPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ScrollBar *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ScrollBar *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdScrollBarPtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<ScrollBar *,
-                      RecordedRefCountPolicy  > SFRecScrollBarPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      RecordedRefCountPolicy, nsOSG  > SFRecScrollBarPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<ScrollBar *,
-                      UnrecordedRefCountPolicy> SFUnrecScrollBarPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecScrollBarPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<ScrollBar *,
-                      WeakRefCountPolicy      > SFWeakScrollBarPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      WeakRefCountPolicy, nsOSG      > SFWeakScrollBarPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<ScrollBar *,
-                      NoRefCountPolicy        > SFUncountedScrollBarPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedScrollBarPtr;
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<ScrollBar *,
-                      RecordedRefCountPolicy  > MFRecScrollBarPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      RecordedRefCountPolicy, nsOSG  > MFRecScrollBarPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<ScrollBar *,
-                      UnrecordedRefCountPolicy> MFUnrecScrollBarPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecScrollBarPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<ScrollBar *,
-                      WeakRefCountPolicy      > MFWeakScrollBarPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      WeakRefCountPolicy, nsOSG      > MFWeakScrollBarPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<ScrollBar *,
-                      NoRefCountPolicy        > MFUncountedScrollBarPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedScrollBarPtr;
 
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFRecScrollBarPtr : 
     public PointerSField<ScrollBar *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUnrecScrollBarPtr : 
     public PointerSField<ScrollBar *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFWeakScrollBarPtr :
     public PointerSField<ScrollBar *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUncountedScrollBarPtr :
     public PointerSField<ScrollBar *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFRecScrollBarPtr :
     public PointerMField<ScrollBar *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUnrecScrollBarPtr :
     public PointerMField<ScrollBar *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFWeakScrollBarPtr :
     public PointerMField<ScrollBar *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUncountedScrollBarPtr :
     public PointerMField<ScrollBar *,
                          NoRefCountPolicy        > {};

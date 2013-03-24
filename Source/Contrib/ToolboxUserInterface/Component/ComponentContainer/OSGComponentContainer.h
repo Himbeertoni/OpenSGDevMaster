@@ -44,7 +44,7 @@
 
 #include "OSGComponentContainerBase.h"
 #include <map>
-
+#include "OSGInputEventDetailsFields.h"
 OSG_BEGIN_NAMESPACE
 
 /*! \brief ComponentContainer class. See \ref

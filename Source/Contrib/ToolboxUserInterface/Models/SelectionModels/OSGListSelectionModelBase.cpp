@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -52,19 +52,17 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include <boost/assign/list_of.hpp>
 
 #include "OSGConfig.h"
 
 
 
+#include "OSGListSelectionModelEventSource.h" // EventSource Class
 
 #include "OSGListSelectionModelBase.h"
 #include "OSGListSelectionModel.h"
 
 #include <boost/bind.hpp>
-
-#include "OSGEventDetails.h"
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -88,24 +86,32 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var ListSelectionModelEventSource * ListSelectionModelBase::_sfEventSource
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ListSelectionModel *>::_type("ListSelectionModelPtr", "FieldContainerPtr");
+PointerType FieldTraits<ListSelectionModel *, nsOSG>::_type(
+    "ListSelectionModelPtr", 
+    "FieldContainerPtr", 
+    ListSelectionModel::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ListSelectionModel *)
+OSG_FIELDTRAITS_GETTYPE_NS(ListSelectionModel *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ListSelectionModel *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ListSelectionModel *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -127,6 +133,18 @@ void ListSelectionModelBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&ListSelectionModel::getHandleSelectionMode));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUnrecListSelectionModelEventSourcePtr::Description(
+        SFUnrecListSelectionModelEventSourcePtr::getClassType(),
+        "EventSource",
+        "",
+        EventSourceFieldId, EventSourceFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ListSelectionModel::editHandleEventSource),
+        static_cast<FieldGetMethodSig >(&ListSelectionModel::getHandleEventSource));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -134,7 +152,7 @@ ListSelectionModelBase::TypeObject ListSelectionModelBase::_type(
     ListSelectionModelBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     ListSelectionModel::initMethod,
     ListSelectionModel::exitMethod,
@@ -144,11 +162,11 @@ ListSelectionModelBase::TypeObject ListSelectionModelBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"ListSelectionModel\"\n"
-    "\tparent=\"FieldContainer\"\n"
-    "    library=\"ContribUserInterface\"\n"
+    "    name=\"ListSelectionModel\"\n"
+    "    parent=\"FieldContainer\"\n"
+    "    library=\"ContribToolboxUserInterface\"\n"
     "    pointerfieldtypes=\"both\"\n"
-    "\tstructure=\"abstract\"\n"
+    "    structure=\"abstract\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"
     "    decoratable=\"false\"\n"
@@ -157,46 +175,37 @@ ListSelectionModelBase::TypeObject ListSelectionModelBase::_type(
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
     ">\n"
     "A UI SingleSelectionModel.\n"
-    "\t<Field\n"
-    "\t\tname=\"SelectionMode\"\n"
-    "\t\ttype=\"UInt32\"\n"
+    "    <Field\n"
+    "        name=\"SelectionMode\"\n"
+    "        type=\"UInt32\"\n"
     "        category=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"ListSelectionModel::SINGLE_SELECTION\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"SelectionChanged\"\n"
-    "\t\tdetailsType=\"ListSelectionEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"ListSelectionModel::SINGLE_SELECTION\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"EventSource\"\n"
+    "        type=\"ListSelectionModelEventSource\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\t\n"
+    "<!--\n"
+    "    <ProducedEvent\n"
+    "        name=\"SelectionChanged\"\n"
+    "        detailsType=\"ListSelectionEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "-->\n"
     "</FieldContainer>\n",
     "A UI SingleSelectionModel.\n"
     );
-
-//! ListSelectionModel Produced Events
-
-EventDescription *ListSelectionModelBase::_eventDesc[] =
-{
-    new EventDescription("SelectionChanged", 
-                          "",
-                          SelectionChangedEventId, 
-                          FieldTraits<ListSelectionEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&ListSelectionModelBase::getHandleSelectionChangedSignal))
-
-};
-
-EventProducerType ListSelectionModelBase::_producerType(
-    "ListSelectionModelProducerType",
-    "EventProducerType",
-    "",
-    InitEventProducerFunctor(),
-    _eventDesc,
-    sizeof(_eventDesc));
 
 /*------------------------------ get -----------------------------------*/
 
@@ -208,11 +217,6 @@ FieldContainerType &ListSelectionModelBase::getType(void)
 const FieldContainerType &ListSelectionModelBase::getType(void) const
 {
     return _type;
-}
-
-const EventProducerType &ListSelectionModelBase::getProducerType(void) const
-{
-    return _producerType;
 }
 
 UInt32 ListSelectionModelBase::getContainerSize(void) const
@@ -236,19 +240,36 @@ const SFUInt32 *ListSelectionModelBase::getSFSelectionMode(void) const
 }
 
 
+//! Get the ListSelectionModel::_sfEventSource field.
+const SFUnrecListSelectionModelEventSourcePtr *ListSelectionModelBase::getSFEventSource(void) const
+{
+    return &_sfEventSource;
+}
+
+SFUnrecListSelectionModelEventSourcePtr *ListSelectionModelBase::editSFEventSource    (void)
+{
+    editSField(EventSourceFieldMask);
+
+    return &_sfEventSource;
+}
+
 
 
 
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ListSelectionModelBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ListSelectionModelBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (SelectionModeFieldMask & whichField))
     {
         returnValue += _sfSelectionMode.getBinSize();
+    }
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+    {
+        returnValue += _sfEventSource.getBinSize();
     }
 
     return returnValue;
@@ -263,6 +284,10 @@ void ListSelectionModelBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfSelectionMode.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+    {
+        _sfEventSource.copyToBin(pMem);
+    }
 }
 
 void ListSelectionModelBase::copyFromBin(BinaryDataHandler &pMem,
@@ -272,132 +297,32 @@ void ListSelectionModelBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (SelectionModeFieldMask & whichField))
     {
+        editSField(SelectionModeFieldMask);
         _sfSelectionMode.copyFromBin(pMem);
     }
-}
-
-
-
-/*------------------------- event producers ----------------------------------*/
-void ListSelectionModelBase::produceEvent(UInt32 eventId, EventDetails* const e)
-{
-    switch(eventId)
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
     {
-    case SelectionChangedEventId:
-        OSG_ASSERT(dynamic_cast<SelectionChangedEventDetailsType* const>(e));
-
-        _SelectionChangedEvent.set_combiner(ConsumableEventCombiner(e));
-        _SelectionChangedEvent(dynamic_cast<SelectionChangedEventDetailsType* const>(e), SelectionChangedEventId);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        break;
+        editSField(EventSourceFieldMask);
+        _sfEventSource.copyFromBin(pMem);
     }
 }
 
-boost::signals2::connection ListSelectionModelBase::connectEvent(UInt32 eventId, 
-                                                             const BaseEventType::slot_type &listener, 
-                                                             boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case SelectionChangedEventId:
-        return _SelectionChangedEvent.connect(listener, at);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return boost::signals2::connection();
-        break;
-    }
 
-    return boost::signals2::connection();
-}
-
-boost::signals2::connection  ListSelectionModelBase::connectEvent(UInt32 eventId, 
-                                                              const BaseEventType::group_type &group,
-                                                              const BaseEventType::slot_type &listener,
-                                                              boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case SelectionChangedEventId:
-        return _SelectionChangedEvent.connect(group, listener, at);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return boost::signals2::connection();
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-    
-void  ListSelectionModelBase::disconnectEvent(UInt32 eventId, const BaseEventType::group_type &group)
-{
-    switch(eventId)
-    {
-    case SelectionChangedEventId:
-        _SelectionChangedEvent.disconnect(group);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        break;
-    }
-}
-
-void  ListSelectionModelBase::disconnectAllSlotsEvent(UInt32 eventId)
-{
-    switch(eventId)
-    {
-    case SelectionChangedEventId:
-        _SelectionChangedEvent.disconnect_all_slots();
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        break;
-    }
-}
-
-bool  ListSelectionModelBase::isEmptyEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case SelectionChangedEventId:
-        return _SelectionChangedEvent.empty();
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return true;
-        break;
-    }
-}
-
-UInt32  ListSelectionModelBase::numSlotsEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case SelectionChangedEventId:
-        return _SelectionChangedEvent.num_slots();
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return 0;
-        break;
-    }
-}
 
 
 /*------------------------- constructors ----------------------------------*/
 
 ListSelectionModelBase::ListSelectionModelBase(void) :
     Inherited(),
-    _sfSelectionMode          (UInt32(ListSelectionModel::SINGLE_SELECTION))
+    _sfSelectionMode          (UInt32(ListSelectionModel::SINGLE_SELECTION)),
+    _sfEventSource            (NULL)
 {
 }
 
 ListSelectionModelBase::ListSelectionModelBase(const ListSelectionModelBase &source) :
     Inherited(source),
-    _sfSelectionMode          (source._sfSelectionMode          )
+    _sfSelectionMode          (source._sfSelectionMode          ),
+    _sfEventSource            (NULL)
 {
 }
 
@@ -408,6 +333,17 @@ ListSelectionModelBase::~ListSelectionModelBase(void)
 {
 }
 
+void ListSelectionModelBase::onCreate(const ListSelectionModel *source)
+{
+    Inherited::onCreate(source);
+
+    if(source != NULL)
+    {
+        ListSelectionModel *pThis = static_cast<ListSelectionModel *>(this);
+
+        pThis->setEventSource(source->getEventSource());
+    }
+}
 
 GetFieldHandlePtr ListSelectionModelBase::getHandleSelectionMode   (void) const
 {
@@ -434,14 +370,30 @@ EditFieldHandlePtr ListSelectionModelBase::editHandleSelectionMode  (void)
     return returnValue;
 }
 
-
-GetEventHandlePtr ListSelectionModelBase::getHandleSelectionChangedSignal(void) const
+GetFieldHandlePtr ListSelectionModelBase::getHandleEventSource     (void) const
 {
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<SelectionChangedEventType>(
-             const_cast<SelectionChangedEventType *>(&_SelectionChangedEvent),
-             _producerType.getEventDescription(SelectionChangedEventId),
+    SFUnrecListSelectionModelEventSourcePtr::GetHandlePtr returnValue(
+        new  SFUnrecListSelectionModelEventSourcePtr::GetHandle(
+             &_sfEventSource,
+             this->getType().getFieldDesc(EventSourceFieldId),
              const_cast<ListSelectionModelBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ListSelectionModelBase::editHandleEventSource    (void)
+{
+    SFUnrecListSelectionModelEventSourcePtr::EditHandlePtr returnValue(
+        new  SFUnrecListSelectionModelEventSourcePtr::EditHandle(
+             &_sfEventSource,
+             this->getType().getFieldDesc(EventSourceFieldId),
+             this));
+
+    returnValue->setSetMethod(
+        boost::bind(&ListSelectionModel::setEventSource,
+                    static_cast<ListSelectionModel *>(this), _1));
+
+    editSField(EventSourceFieldMask);
 
     return returnValue;
 }
@@ -469,6 +421,8 @@ void ListSelectionModelBase::execSyncV(      FieldContainer    &oFrom,
 void ListSelectionModelBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+    static_cast<ListSelectionModel *>(this)->setEventSource(NULL);
 
 
 }

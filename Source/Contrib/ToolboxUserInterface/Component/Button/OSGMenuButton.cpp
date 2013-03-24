@@ -51,9 +51,10 @@
 #include "OSGListModel.h"
 #include "OSGUIDrawUtils.h"
 #include "OSGMenuItem.h"
-
+#include "OSGActionEventDetails.h"
 #include <boost/bind.hpp>
-
+#include "OSGPopupMenuEventSource.h"
+#include "OSGMenuButtonEventSource.h"
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
@@ -167,7 +168,11 @@ void MenuButton::updatePopupMenuConnections(void)
     {
         for(UInt32 i(0) ; i<getMenuButtonPopupMenu()->getNumItems() ; ++i)
         {
-            _PopupMenuActionConnections.push_back(getMenuButtonPopupMenu()->getItem(i)->connectActionPerformed(boost::bind(&MenuButton::handlePopupMenuActionPerformed, this, _1)));
+            ButtonEventSource* ev = dynamic_cast<ButtonEventSource*>( getMenuButtonPopupMenu()->getItem(i)->getEventSource() );
+            if ( ev )
+            {
+                _PopupMenuActionConnections.push_back( ev->connectActionPerformed(boost::bind(&MenuButton::handlePopupMenuActionPerformed, this, _1)));
+            }
         }
     }
 }
@@ -176,7 +181,11 @@ void MenuButton::produceMenuActionPerformed(void)
 {
     ActionEventDetailsUnrecPtr Details = ActionEventDetails::create(this, getTimeStamp());
 
-    Inherited::produceMenuActionPerformed(Details);
+    MenuButtonEventSource* ev = dynamic_cast<MenuButtonEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceMenuActionPerformed(Details);
+    }
 }
 
 void MenuButton::onCreate(const MenuButton *Id)
@@ -228,10 +237,13 @@ void MenuButton::changed(ConstFieldMaskArg whichField,
         _PopupMenuContentsChangedConnection.disconnect();
         if(getMenuButtonPopupMenu() != NULL)
         {
-            _PopupMenuCanceledConnection = getMenuButtonPopupMenu()->connectPopupMenuCanceled(boost::bind(&MenuButton::handlePopupMenuCanceled, this, _1));
-            _PopupMenuWillBecomeInvisibleConnection = getMenuButtonPopupMenu()->connectPopupMenuWillBecomeInvisible(boost::bind(&MenuButton::handlePopupMenuWillBecomeInvisible, this, _1));
-            _PopupMenuContentsChangedConnection = getMenuButtonPopupMenu()->connectPopupMenuContentsChanged(boost::bind(&MenuButton::handlePopupMenuContentsChanged, this, _1));
-
+            PopupMenuEventSource* ev = dynamic_cast<PopupMenuEventSource*>( getMenuButtonPopupMenu()->getEventSource() );
+            if ( ev )
+            {
+                _PopupMenuCanceledConnection            = ev->connectPopupMenuCanceled(boost::bind(&MenuButton::handlePopupMenuCanceled, this, _1));
+                _PopupMenuWillBecomeInvisibleConnection = ev->connectPopupMenuWillBecomeInvisible(boost::bind(&MenuButton::handlePopupMenuWillBecomeInvisible, this, _1));
+                _PopupMenuContentsChangedConnection     = ev->connectPopupMenuContentsChanged(boost::bind(&MenuButton::handlePopupMenuContentsChanged, this, _1));
+            }            
             updatePopupMenuConnections();
         }
     }

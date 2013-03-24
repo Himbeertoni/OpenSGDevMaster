@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -52,7 +52,6 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include <boost/assign/list_of.hpp>
 
 #include "OSGConfig.h"
 
@@ -65,8 +64,6 @@
 #include "OSGScrollBar.h"
 
 #include <boost/bind.hpp>
-
-#include "OSGEventDetails.h"
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -144,18 +141,22 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ScrollBar *>::_type("ScrollBarPtr", "ComponentContainerPtr");
+PointerType FieldTraits<ScrollBar *, nsOSG>::_type(
+    "ScrollBarPtr", 
+    "ComponentContainerPtr", 
+    ScrollBar::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ScrollBar *)
+OSG_FIELDTRAITS_GETTYPE_NS(ScrollBar *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ScrollBar *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ScrollBar *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -328,7 +329,7 @@ ScrollBarBase::TypeObject ScrollBarBase::_type(
     ScrollBarBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&ScrollBarBase::createEmptyLocal),
     ScrollBar::initMethod,
     ScrollBar::exitMethod,
@@ -338,180 +339,161 @@ ScrollBarBase::TypeObject ScrollBarBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"ScrollBar\"\n"
-    "\tparent=\"ComponentContainer\"\n"
-    "    library=\"ContribUserInterface\"\n"
+    "    name=\"ScrollBar\"\n"
+    "    parent=\"ComponentContainer\"\n"
+    "    library=\"ContribToolboxUserInterface\"\n"
     "    pointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
+    "    structure=\"concrete\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
+    "    decoratable=\"false\"\n"
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
-    "    parentProducer=\"Component\"\n"
     ">\n"
+    "<!--     parentProducer=\"Component\" -->\n"
     "A UI ScrollBar.\n"
-    "\t<Field\n"
-    "\t\tname=\"Orientation\"\n"
-    "\t\ttype=\"UInt32\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t\tdefaultValue=\"ScrollBar::VERTICAL_ORIENTATION\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"UnitIncrement\"\n"
-    "\t\ttype=\"UInt32\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t\tdefaultValue=\"1\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"BlockIncrement\"\n"
-    "\t\ttype=\"UInt32\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t\tdefaultValue=\"2\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"VerticalMinButton\"\n"
-    "\t\ttype=\"Button\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"VerticalMaxButton\"\n"
-    "\t\ttype=\"Button\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"VerticalScrollBar\"\n"
-    "\t\ttype=\"Button\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"VerticalScrollField\"\n"
-    "\t\ttype=\"Button\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"HorizontalMinButton\"\n"
-    "\t\ttype=\"Button\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"HorizontalMaxButton\"\n"
-    "\t\ttype=\"Button\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"HorizontalScrollBar\"\n"
-    "\t\ttype=\"Button\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"HorizontalScrollField\"\n"
-    "\t\ttype=\"Button\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"ScrollBarMinLength\"\n"
-    "\t\ttype=\"UInt32\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t\tdefaultValue=\"20\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"RangeModel\"\n"
-    "\t\ttype=\"BoundedRangeModel\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"AdjustmentValueChanged\"\n"
-    "\t\tdetailsType=\"AdjustmentEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
+    "    <Field\n"
+    "        name=\"Orientation\"\n"
+    "        type=\"UInt32\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"ScrollBar::VERTICAL_ORIENTATION\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"UnitIncrement\"\n"
+    "        type=\"UInt32\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"1\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"BlockIncrement\"\n"
+    "        type=\"UInt32\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"2\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"VerticalMinButton\"\n"
+    "        type=\"Button\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"VerticalMaxButton\"\n"
+    "        type=\"Button\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"VerticalScrollBar\"\n"
+    "        type=\"Button\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"VerticalScrollField\"\n"
+    "        type=\"Button\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"HorizontalMinButton\"\n"
+    "        type=\"Button\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"HorizontalMaxButton\"\n"
+    "        type=\"Button\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"HorizontalScrollBar\"\n"
+    "        type=\"Button\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"HorizontalScrollField\"\n"
+    "        type=\"Button\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"ScrollBarMinLength\"\n"
+    "        type=\"UInt32\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"20\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"RangeModel\"\n"
+    "        type=\"BoundedRangeModel\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "<!--\n"
+    "    <ProducedEvent\n"
+    "        name=\"AdjustmentValueChanged\"\n"
+    "        detailsType=\"AdjustmentEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "-->\n"
     "</FieldContainer>\n",
     "A UI ScrollBar.\n"
     );
-
-//! ScrollBar Produced Events
-
-EventDescription *ScrollBarBase::_eventDesc[] =
-{
-    new EventDescription("AdjustmentValueChanged", 
-                          "",
-                          AdjustmentValueChangedEventId, 
-                          FieldTraits<AdjustmentEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&ScrollBarBase::getHandleAdjustmentValueChangedSignal))
-
-};
-
-EventProducerType ScrollBarBase::_producerType(
-    "ScrollBarProducerType",
-    "ComponentProducerType",
-    "",
-    InitEventProducerFunctor(),
-    _eventDesc,
-    sizeof(_eventDesc));
 
 /*------------------------------ get -----------------------------------*/
 
@@ -523,11 +505,6 @@ FieldContainerType &ScrollBarBase::getType(void)
 const FieldContainerType &ScrollBarBase::getType(void) const
 {
     return _type;
-}
-
-const EventProducerType &ScrollBarBase::getProducerType(void) const
-{
-    return _producerType;
 }
 
 UInt32 ScrollBarBase::getContainerSize(void) const
@@ -713,9 +690,9 @@ SFUnrecBoundedRangeModelPtr *ScrollBarBase::editSFRangeModel     (void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ScrollBarBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ScrollBarBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (OrientationFieldMask & whichField))
     {
@@ -839,54 +816,67 @@ void ScrollBarBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (OrientationFieldMask & whichField))
     {
+        editSField(OrientationFieldMask);
         _sfOrientation.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (UnitIncrementFieldMask & whichField))
     {
+        editSField(UnitIncrementFieldMask);
         _sfUnitIncrement.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (BlockIncrementFieldMask & whichField))
     {
+        editSField(BlockIncrementFieldMask);
         _sfBlockIncrement.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VerticalMinButtonFieldMask & whichField))
     {
+        editSField(VerticalMinButtonFieldMask);
         _sfVerticalMinButton.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VerticalMaxButtonFieldMask & whichField))
     {
+        editSField(VerticalMaxButtonFieldMask);
         _sfVerticalMaxButton.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VerticalScrollBarFieldMask & whichField))
     {
+        editSField(VerticalScrollBarFieldMask);
         _sfVerticalScrollBar.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (VerticalScrollFieldFieldMask & whichField))
     {
+        editSField(VerticalScrollFieldFieldMask);
         _sfVerticalScrollField.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HorizontalMinButtonFieldMask & whichField))
     {
+        editSField(HorizontalMinButtonFieldMask);
         _sfHorizontalMinButton.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HorizontalMaxButtonFieldMask & whichField))
     {
+        editSField(HorizontalMaxButtonFieldMask);
         _sfHorizontalMaxButton.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HorizontalScrollBarFieldMask & whichField))
     {
+        editSField(HorizontalScrollBarFieldMask);
         _sfHorizontalScrollBar.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (HorizontalScrollFieldFieldMask & whichField))
     {
+        editSField(HorizontalScrollFieldFieldMask);
         _sfHorizontalScrollField.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ScrollBarMinLengthFieldMask & whichField))
     {
+        editSField(ScrollBarMinLengthFieldMask);
         _sfScrollBarMinLength.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (RangeModelFieldMask & whichField))
     {
+        editSField(RangeModelFieldMask);
         _sfRangeModel.copyFromBin(pMem);
     }
 }
@@ -1008,110 +998,6 @@ FieldContainerTransitPtr ScrollBarBase::shallowCopy(void) const
 }
 
 
-
-/*------------------------- event producers ----------------------------------*/
-void ScrollBarBase::produceEvent(UInt32 eventId, EventDetails* const e)
-{
-    switch(eventId)
-    {
-    case AdjustmentValueChangedEventId:
-        OSG_ASSERT(dynamic_cast<AdjustmentValueChangedEventDetailsType* const>(e));
-
-        _AdjustmentValueChangedEvent.set_combiner(ConsumableEventCombiner(e));
-        _AdjustmentValueChangedEvent(dynamic_cast<AdjustmentValueChangedEventDetailsType* const>(e), AdjustmentValueChangedEventId);
-        break;
-    default:
-        Inherited::produceEvent(eventId, e);
-        break;
-    }
-}
-
-boost::signals2::connection ScrollBarBase::connectEvent(UInt32 eventId, 
-                                                             const BaseEventType::slot_type &listener, 
-                                                             boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case AdjustmentValueChangedEventId:
-        return _AdjustmentValueChangedEvent.connect(listener, at);
-        break;
-    default:
-        return Inherited::connectEvent(eventId, listener, at);
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-
-boost::signals2::connection  ScrollBarBase::connectEvent(UInt32 eventId, 
-                                                              const BaseEventType::group_type &group,
-                                                              const BaseEventType::slot_type &listener,
-                                                              boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case AdjustmentValueChangedEventId:
-        return _AdjustmentValueChangedEvent.connect(group, listener, at);
-        break;
-    default:
-        return Inherited::connectEvent(eventId, group, listener, at);
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-    
-void  ScrollBarBase::disconnectEvent(UInt32 eventId, const BaseEventType::group_type &group)
-{
-    switch(eventId)
-    {
-    case AdjustmentValueChangedEventId:
-        _AdjustmentValueChangedEvent.disconnect(group);
-        break;
-    default:
-        return Inherited::disconnectEvent(eventId, group);
-        break;
-    }
-}
-
-void  ScrollBarBase::disconnectAllSlotsEvent(UInt32 eventId)
-{
-    switch(eventId)
-    {
-    case AdjustmentValueChangedEventId:
-        _AdjustmentValueChangedEvent.disconnect_all_slots();
-        break;
-    default:
-        Inherited::disconnectAllSlotsEvent(eventId);
-        break;
-    }
-}
-
-bool  ScrollBarBase::isEmptyEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case AdjustmentValueChangedEventId:
-        return _AdjustmentValueChangedEvent.empty();
-        break;
-    default:
-        return Inherited::isEmptyEvent(eventId);
-        break;
-    }
-}
-
-UInt32  ScrollBarBase::numSlotsEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case AdjustmentValueChangedEventId:
-        return _AdjustmentValueChangedEvent.num_slots();
-        break;
-    default:
-        return Inherited::numSlotsEvent(eventId);
-        break;
-    }
-}
 
 
 /*------------------------- constructors ----------------------------------*/
@@ -1535,18 +1421,6 @@ EditFieldHandlePtr ScrollBarBase::editHandleRangeModel     (void)
                     static_cast<ScrollBar *>(this), _1));
 
     editSField(RangeModelFieldMask);
-
-    return returnValue;
-}
-
-
-GetEventHandlePtr ScrollBarBase::getHandleAdjustmentValueChangedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<AdjustmentValueChangedEventType>(
-             const_cast<AdjustmentValueChangedEventType *>(&_AdjustmentValueChangedEvent),
-             _producerType.getEventDescription(AdjustmentValueChangedEventId),
-             const_cast<ScrollBarBase *>(this)));
 
     return returnValue;
 }

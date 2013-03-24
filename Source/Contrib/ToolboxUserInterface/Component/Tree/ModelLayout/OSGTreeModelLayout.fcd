@@ -3,7 +3,7 @@
 <FieldContainer
     name="TreeModelLayout"
     parent="TreeRowMapper"
-    library="ContribUserInterface"
+    library="ContribToolboxUserInterface"
     pointerfieldtypes="both"
     structure="abstract"
     systemcomponent="true"
@@ -14,6 +14,17 @@
     authors="David Kabala (djkabala@gmail.com)                             "
 >
 A UI Tree Model Layout.
+    <Field
+        name="EventSource"
+        type="TreeModelLayoutEventSource"
+        category="pointer"
+        cardinality="single"
+        visibility="external"
+        defaultValue="NULL"
+        access="public"
+        >
+    </Field>
+<!--
     <ProducedEvent
         name="TreeCollapsed"
         detailsType="TreeModelLayoutEventDetails"
@@ -68,4 +79,5 @@ A UI Tree Model Layout.
         consumable="true"
     >
     </ProducedEvent>
+-->
 </FieldContainer>

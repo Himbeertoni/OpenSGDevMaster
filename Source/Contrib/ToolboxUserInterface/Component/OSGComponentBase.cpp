@@ -757,7 +757,7 @@ ComponentBase::TypeObject ComponentBase::_type(
     "        cardinality=\"single\"\n"
     "        visibility=\"internal\"\n"
     "        defaultValue=\"0.0f,0.0f,0.0f,0.0f\"\n"
-    "        access=\"protected\"\n"
+    "        access=\"public\"\n"
     "        >\n"
     "        The clipping bounds of the Component.  The indexing of the bounds are: 0=Left,\n"
     "        1=Right, 2=Top, 3=Bottom.\n"
@@ -3563,19 +3563,6 @@ void ComponentBase::setOpacity(const Real32 value)
     _sfOpacity.setValue(value);
 }
 
-//! Get the value of the Component::_sfParentContainer field.
-FieldContainer * ComponentBase::getParentContainer(void) const
-{
-    return _sfParentContainer.getValue();
-}
-
-//! Set the value of the Component::_sfParentContainer field.
-void ComponentBase::setParentContainer(FieldContainer * const value)
-{
-    editSField(ParentContainerFieldMask);
-
-    _sfParentContainer.setValue(value);
-}
 //! Get the value of the Component::_sfClipping field.
 
 bool &ComponentBase::editClipping(void)

@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TreeSelectionModel;
 
 OSG_GEN_CONTAINERPTR(TreeSelectionModel);
-
-/*! \ingroup GrpContribUserInterfaceFieldTraits
-    \ingroup GrpLibOSGContribUserInterface
+/*! \ingroup GrpContribToolboxUserInterfaceFieldTraits
+    \ingroup GrpLibOSGContribToolboxUserInterface
  */
 template <>
-struct FieldTraits<TreeSelectionModel *> :
-    public FieldTraitsFCPtrBase<TreeSelectionModel *>
+struct FieldTraits<TreeSelectionModel *, nsOSG> :
+    public FieldTraitsFCPtrBase<TreeSelectionModel *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<TreeSelectionModel *>  Self;
+    typedef FieldTraits<TreeSelectionModel *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,126 +90,124 @@ struct FieldTraits<TreeSelectionModel *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFTreeSelectionModelPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFTreeSelectionModelPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<TreeSelectionModel *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TreeSelectionModel *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTreeSelectionModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TreeSelectionModel *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TreeSelectionModel *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTreeSelectionModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TreeSelectionModel *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TreeSelectionModel *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTreeSelectionModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TreeSelectionModel *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TreeSelectionModel *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTreeSelectionModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TreeSelectionModel *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TreeSelectionModel *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecTreeSelectionModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TreeSelectionModel *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TreeSelectionModel *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecTreeSelectionModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TreeSelectionModel *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TreeSelectionModel *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakTreeSelectionModelPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TreeSelectionModel *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TreeSelectionModel *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdTreeSelectionModelPtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<TreeSelectionModel *,
-                      RecordedRefCountPolicy  > SFRecTreeSelectionModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      RecordedRefCountPolicy, nsOSG  > SFRecTreeSelectionModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<TreeSelectionModel *,
-                      UnrecordedRefCountPolicy> SFUnrecTreeSelectionModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecTreeSelectionModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<TreeSelectionModel *,
-                      WeakRefCountPolicy      > SFWeakTreeSelectionModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      WeakRefCountPolicy, nsOSG      > SFWeakTreeSelectionModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<TreeSelectionModel *,
-                      NoRefCountPolicy        > SFUncountedTreeSelectionModelPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedTreeSelectionModelPtr;
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<TreeSelectionModel *,
-                      RecordedRefCountPolicy  > MFRecTreeSelectionModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      RecordedRefCountPolicy, nsOSG  > MFRecTreeSelectionModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<TreeSelectionModel *,
-                      UnrecordedRefCountPolicy> MFUnrecTreeSelectionModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecTreeSelectionModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<TreeSelectionModel *,
-                      WeakRefCountPolicy      > MFWeakTreeSelectionModelPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      WeakRefCountPolicy, nsOSG      > MFWeakTreeSelectionModelPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<TreeSelectionModel *,
-                      NoRefCountPolicy        > MFUncountedTreeSelectionModelPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedTreeSelectionModelPtr;
 
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFRecTreeSelectionModelPtr : 
     public PointerSField<TreeSelectionModel *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUnrecTreeSelectionModelPtr : 
     public PointerSField<TreeSelectionModel *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFWeakTreeSelectionModelPtr :
     public PointerSField<TreeSelectionModel *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUncountedTreeSelectionModelPtr :
     public PointerSField<TreeSelectionModel *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFRecTreeSelectionModelPtr :
     public PointerMField<TreeSelectionModel *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUnrecTreeSelectionModelPtr :
     public PointerMField<TreeSelectionModel *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFWeakTreeSelectionModelPtr :
     public PointerMField<TreeSelectionModel *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUncountedTreeSelectionModelPtr :
     public PointerMField<TreeSelectionModel *,
                          NoRefCountPolicy        > {};

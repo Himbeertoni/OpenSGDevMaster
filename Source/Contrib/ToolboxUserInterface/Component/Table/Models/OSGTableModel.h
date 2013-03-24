@@ -146,6 +146,7 @@ typedef TableModel *TableModelP;
 
 OSG_END_NAMESPACE
 
+#include "OSGTableModelEventSource.h"
 #include "OSGTableModelBase.inl"
 #include "OSGTableModel.inl"
 

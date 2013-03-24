@@ -44,6 +44,12 @@
 
 #include "OSGListModelEventSourceBase.h"
 
+//Event Producer Headers
+#include "OSGActivity.h"
+#include "OSGConsumableEventCombiner.h"
+
+#include "OSGListDataEventDetailsFields.h"
+
 OSG_BEGIN_NAMESPACE
 
 /*! \brief ListModelEventSource class. See \ref
@@ -60,7 +66,94 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListModelEventSource : public L
 
     typedef ListModelEventSourceBase Inherited;
     typedef ListModelEventSource     Self;
+    
+    typedef ListDataEventDetails ListDataContentsChangedEventDetailsType;
+    typedef ListDataEventDetails ListDataIntervalAddedEventDetailsType;
+    typedef ListDataEventDetails ListDataIntervalRemovedEventDetailsType;
 
+    typedef boost::signals2::signal<void (EventDetails* const            , UInt32)> BaseEventType;
+    typedef boost::signals2::signal<void (ListDataEventDetails* const, UInt32), ConsumableEventCombiner> ListDataContentsChangedEventType;
+    typedef boost::signals2::signal<void (ListDataEventDetails* const, UInt32), ConsumableEventCombiner> ListDataIntervalAddedEventType;
+    typedef boost::signals2::signal<void (ListDataEventDetails* const, UInt32), ConsumableEventCombiner> ListDataIntervalRemovedEventType;
+
+    enum
+    {
+        ListDataContentsChangedEventId = 1,
+        ListDataIntervalAddedEventId = ListDataContentsChangedEventId + 1,
+        ListDataIntervalRemovedEventId = ListDataIntervalAddedEventId + 1,
+        NextProducedEventId = ListDataIntervalRemovedEventId + 1
+    };
+    static const  EventProducerType  &getProducerClassType  (void);
+    static        UInt32              getProducerClassTypeId(void);
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                Event Produced Get                           */
+    /*! \{                                                                 */
+
+    virtual const EventProducerType &getProducerType(void) const; 
+
+    virtual UInt32                   getNumProducedEvents       (void                                ) const;
+    virtual const EventDescription *getProducedEventDescription(const std::string &ProducedEventName) const;
+    virtual const EventDescription *getProducedEventDescription(UInt32 ProducedEventId              ) const;
+    virtual UInt32                   getProducedEventId         (const std::string &ProducedEventName) const;
+    
+    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
+                                              const BaseEventType::slot_type &listener,
+                                              boost::signals2::connect_position at= boost::signals2::at_back);
+                                              
+    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
+                                              const BaseEventType::group_type &group,
+                                              const BaseEventType::slot_type &listener,
+                                              boost::signals2::connect_position at= boost::signals2::at_back);
+    
+    virtual void   disconnectEvent        (UInt32 eventId, const BaseEventType::group_type &group);
+    virtual void   disconnectAllSlotsEvent(UInt32 eventId);
+    virtual bool   isEmptyEvent           (UInt32 eventId) const;
+    virtual UInt32 numSlotsEvent          (UInt32 eventId) const;
+
+    /*! \}                                                                 */
+    /*! \name                Event Access                                 */
+    /*! \{                                                                 */
+    
+    //ListDataContentsChanged
+    boost::signals2::connection connectListDataContentsChanged(const ListDataContentsChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectListDataContentsChanged(const ListDataContentsChangedEventType::group_type &group,
+                                                       const ListDataContentsChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectListDataContentsChanged(const ListDataContentsChangedEventType::group_type &group);
+    void   disconnectAllSlotsListDataContentsChanged(void);
+    bool   isEmptyListDataContentsChanged   (void) const;
+    UInt32 numSlotsListDataContentsChanged  (void) const;
+    
+    //ListDataIntervalAdded
+    boost::signals2::connection connectListDataIntervalAdded(const ListDataIntervalAddedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectListDataIntervalAdded(const ListDataIntervalAddedEventType::group_type &group,
+                                                       const ListDataIntervalAddedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectListDataIntervalAdded  (const ListDataIntervalAddedEventType::group_type &group);
+    void   disconnectAllSlotsListDataIntervalAdded(void);
+    bool   isEmptyListDataIntervalAdded     (void) const;
+    UInt32 numSlotsListDataIntervalAdded    (void) const;
+    
+    //ListDataIntervalRemoved
+    boost::signals2::connection connectListDataIntervalRemoved(const ListDataIntervalRemovedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectListDataIntervalRemoved(const ListDataIntervalRemovedEventType::group_type &group,
+                                                       const ListDataIntervalRemovedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectListDataIntervalRemoved(const ListDataIntervalRemovedEventType::group_type &group);
+    void   disconnectAllSlotsListDataIntervalRemoved(void);
+    bool   isEmptyListDataIntervalRemoved   (void) const;
+    UInt32 numSlotsListDataIntervalRemoved  (void) const;
+    
+    //Moved protected -> public:
+    void produceListDataContentsChanged  (ListDataContentsChangedEventDetailsType* const e);
+    void produceListDataIntervalAdded  (ListDataIntervalAddedEventDetailsType* const e);
+    void produceListDataIntervalRemoved  (ListDataIntervalRemovedEventDetailsType* const e);
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -81,6 +174,30 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListModelEventSource : public L
     /*=========================  PROTECTED  ===============================*/
 
   protected:
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Produced Event Signals                   */
+    /*! \{                                                                 */
+
+    //Event Event producers
+    ListDataContentsChangedEventType _ListDataContentsChangedEvent;
+    ListDataIntervalAddedEventType _ListDataIntervalAddedEvent;
+    ListDataIntervalRemovedEventType _ListDataIntervalRemovedEvent;
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Event Access                     */
+    /*! \{                                                                 */
+
+    GetEventHandlePtr getHandleListDataContentsChangedSignal(void) const;
+    GetEventHandlePtr getHandleListDataIntervalAddedSignal(void) const;
+    GetEventHandlePtr getHandleListDataIntervalRemovedSignal(void) const;
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Event Producer Firing                    */
+    /*! \{                                                                 */
+
+    virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
+    
+    /*! \}                                                                 */
 
     // Variables should all be in ListModelEventSourceBase.
 
@@ -109,6 +226,9 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListModelEventSource : public L
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
+    static EventDescription   *_eventDesc[];
+    static EventProducerType _producerType;
 
     friend class FieldContainer;
     friend class ListModelEventSourceBase;

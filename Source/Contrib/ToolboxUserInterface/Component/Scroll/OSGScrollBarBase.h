@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -71,9 +71,8 @@
 
 #include "OSGScrollBarFields.h"
 
-#include "OSGAdjustmentEventDetailsFields.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 class ScrollBar;
 
@@ -90,11 +89,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ScrollBarBase : public Componen
     typedef TypeObject::InitPhase InitPhase;
 
     OSG_GEN_INTERNALPTR(ScrollBar);
-    
-    
-    typedef AdjustmentEventDetails AdjustmentValueChangedEventDetailsType;
-
-    typedef boost::signals2::signal<void (AdjustmentEventDetails* const, UInt32), ConsumableEventCombiner> AdjustmentValueChangedEventType;
 
     /*==========================  PUBLIC  =================================*/
 
@@ -161,12 +155,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ScrollBarBase : public Componen
     typedef SFUInt32          SFScrollBarMinLengthType;
     typedef SFUnrecBoundedRangeModelPtr SFRangeModelType;
 
-    enum
-    {
-        AdjustmentValueChangedEventId = Inherited::NextProducedEventId,
-        NextProducedEventId = AdjustmentValueChangedEventId + 1
-    };
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
@@ -174,8 +162,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ScrollBarBase : public Componen
     static FieldContainerType &getClassType   (void);
     static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
-    static const  EventProducerType  &getProducerClassType  (void);
-    static        UInt32              getProducerClassTypeId(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -288,51 +274,13 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ScrollBarBase : public Componen
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual SizeT  getBinSize (ConstFieldMaskArg  whichField);
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
     virtual void   copyFromBin(BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
 
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Event Produced Get                           */
-    /*! \{                                                                 */
-
-    virtual const EventProducerType &getProducerType(void) const; 
-
-    
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-                                              
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::group_type &group,
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-    
-    virtual void   disconnectEvent        (UInt32 eventId, const BaseEventType::group_type &group);
-    virtual void   disconnectAllSlotsEvent(UInt32 eventId);
-    virtual bool   isEmptyEvent           (UInt32 eventId) const;
-    virtual UInt32 numSlotsEvent          (UInt32 eventId) const;
-
-    /*! \}                                                                 */
-    /*! \name                Event Access                                 */
-    /*! \{                                                                 */
-    
-    //AdjustmentValueChanged
-    boost::signals2::connection connectAdjustmentValueChanged(const AdjustmentValueChangedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectAdjustmentValueChanged(const AdjustmentValueChangedEventType::group_type &group,
-                                                       const AdjustmentValueChangedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectAdjustmentValueChanged (const AdjustmentValueChangedEventType::group_type &group);
-    void   disconnectAllSlotsAdjustmentValueChanged(void);
-    bool   isEmptyAdjustmentValueChanged    (void) const;
-    UInt32 numSlotsAdjustmentValueChanged   (void) const;
-    
-    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Construction                               */
@@ -364,13 +312,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ScrollBarBase : public Componen
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Produced Event Signals                   */
-    /*! \{                                                                 */
-
-    //Event Event producers
-    AdjustmentValueChangedEventType _AdjustmentValueChangedEvent;
-    /*! \}                                                                 */
 
     static TypeObject _type;
 
@@ -451,20 +392,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ScrollBarBase : public Componen
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Event Access                     */
-    /*! \{                                                                 */
-
-    GetEventHandlePtr getHandleAdjustmentValueChangedSignal(void) const;
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Event Producer Firing                    */
-    /*! \{                                                                 */
-
-    virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
-    
-    void produceAdjustmentValueChanged  (AdjustmentValueChangedEventDetailsType* const e);
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 
@@ -513,9 +440,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ScrollBarBase : public Componen
 
   private:
     /*---------------------------------------------------------------------*/
-    static EventDescription   *_eventDesc[];
-    static EventProducerType _producerType;
-
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ScrollBarBase &source);

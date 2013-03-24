@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class TableColumn;
 
 OSG_GEN_CONTAINERPTR(TableColumn);
-
-/*! \ingroup GrpContribUserInterfaceFieldTraits
-    \ingroup GrpLibOSGContribUserInterface
+/*! \ingroup GrpContribToolboxUserInterfaceFieldTraits
+    \ingroup GrpLibOSGContribToolboxUserInterface
  */
 template <>
-struct FieldTraits<TableColumn *> :
-    public FieldTraitsFCPtrBase<TableColumn *>
+struct FieldTraits<TableColumn *, nsOSG> :
+    public FieldTraitsFCPtrBase<TableColumn *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<TableColumn *>  Self;
+    typedef FieldTraits<TableColumn *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,126 +90,124 @@ struct FieldTraits<TableColumn *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFTableColumnPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFTableColumnPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<TableColumn *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TableColumn *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecTableColumnPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TableColumn *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TableColumn *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecTableColumnPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TableColumn *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TableColumn *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakTableColumnPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TableColumn *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TableColumn *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdTableColumnPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TableColumn *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TableColumn *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecTableColumnPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TableColumn *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<TableColumn *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecTableColumnPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TableColumn *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<TableColumn *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakTableColumnPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<TableColumn *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<TableColumn *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdTableColumnPtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<TableColumn *,
-                      RecordedRefCountPolicy  > SFRecTableColumnPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      RecordedRefCountPolicy, nsOSG  > SFRecTableColumnPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<TableColumn *,
-                      UnrecordedRefCountPolicy> SFUnrecTableColumnPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecTableColumnPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<TableColumn *,
-                      WeakRefCountPolicy      > SFWeakTableColumnPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      WeakRefCountPolicy, nsOSG      > SFWeakTableColumnPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<TableColumn *,
-                      NoRefCountPolicy        > SFUncountedTableColumnPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedTableColumnPtr;
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<TableColumn *,
-                      RecordedRefCountPolicy  > MFRecTableColumnPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      RecordedRefCountPolicy, nsOSG  > MFRecTableColumnPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<TableColumn *,
-                      UnrecordedRefCountPolicy> MFUnrecTableColumnPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecTableColumnPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<TableColumn *,
-                      WeakRefCountPolicy      > MFWeakTableColumnPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      WeakRefCountPolicy, nsOSG      > MFWeakTableColumnPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<TableColumn *,
-                      NoRefCountPolicy        > MFUncountedTableColumnPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedTableColumnPtr;
 
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFRecTableColumnPtr : 
     public PointerSField<TableColumn *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUnrecTableColumnPtr : 
     public PointerSField<TableColumn *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFWeakTableColumnPtr :
     public PointerSField<TableColumn *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUncountedTableColumnPtr :
     public PointerSField<TableColumn *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFRecTableColumnPtr :
     public PointerMField<TableColumn *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUnrecTableColumnPtr :
     public PointerMField<TableColumn *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFWeakTableColumnPtr :
     public PointerMField<TableColumn *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUncountedTableColumnPtr :
     public PointerMField<TableColumn *,
                          NoRefCountPolicy        > {};

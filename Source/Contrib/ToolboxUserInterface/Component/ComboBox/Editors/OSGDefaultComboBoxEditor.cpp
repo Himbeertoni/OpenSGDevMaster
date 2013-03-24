@@ -47,6 +47,7 @@
 
 #include "OSGDefaultComboBoxEditor.h"
 #include "OSGStringUtils.h"
+#include "OSGTextFieldEventSource.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -110,17 +111,19 @@ void DefaultComboBoxEditor::setItem(const boost::any& anObject)
     getEditor()->setText(TheText);
 }
 
-boost::signals2::connection DefaultComboBoxEditor::connectActionPerformed(const Button::ActionPerformedEventType::slot_type &listener,
+boost::signals2::connection DefaultComboBoxEditor::connectActionPerformed(const ButtonEventSource::ActionPerformedEventType::slot_type &listener,
                                            boost::signals2::connect_position at)
 {
-    return getEditor()->connectActionPerformed(listener, at);
+    TextFieldEventSource* ev = dynamic_cast<TextFieldEventSource*>( getEditor()->getEventSource() );
+    return ev->connectActionPerformed(listener, at);
 }
 
-boost::signals2::connection DefaultComboBoxEditor::connectActionPerformed(const Button::ActionPerformedEventType::group_type &group,
-                                                       const Button::ActionPerformedEventType::slot_type &listener,
+boost::signals2::connection DefaultComboBoxEditor::connectActionPerformed(const ButtonEventSource::ActionPerformedEventType::group_type &group,
+                                                       const ButtonEventSource::ActionPerformedEventType::slot_type &listener,
                                                        boost::signals2::connect_position at)
 {
-    return getEditor()->connectActionPerformed(group, listener, at);
+    TextFieldEventSource* ev = dynamic_cast<TextFieldEventSource*>( getEditor()->getEventSource() );
+    return ev->connectActionPerformed(group, listener, at);
 }
 
 /*-------------------------------------------------------------------------*\
@@ -174,8 +177,12 @@ void DefaultComboBoxEditor::changed(ConstFieldMaskArg whichField,
 
     if((whichField & EditorFieldMask) && getEditor() != NULL)
     {
-        _TextFieldFocusGainedConnection = getEditor()->connectFocusGained(boost::bind(&DefaultComboBoxEditor::handleTextFieldFocusGained, this, _1));
-        _TextFieldFocusLostConnection = getEditor()->connectFocusLost(boost::bind(&DefaultComboBoxEditor::handleTextFieldFocusLost, this, _1));
+        TextFieldEventSource* ev = dynamic_cast<TextFieldEventSource*>( getEditor()->getEventSource() );
+        if ( ev )
+        {
+            _TextFieldFocusGainedConnection = ev->connectFocusGained(boost::bind(&DefaultComboBoxEditor::handleTextFieldFocusGained, this, _1));
+            _TextFieldFocusLostConnection   = ev->connectFocusLost(boost::bind(&DefaultComboBoxEditor::handleTextFieldFocusLost, this, _1));
+        }
     }
 }
 

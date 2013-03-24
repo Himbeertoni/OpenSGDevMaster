@@ -148,6 +148,7 @@ typedef TableColumn *TableColumnP;
 
 OSG_END_NAMESPACE
 
+#include "OSGTableColumnEventSource.h"
 #include "OSGTableCellEditor.h"
 #include "OSGTableColumnBase.inl"
 #include "OSGTableColumn.inl"

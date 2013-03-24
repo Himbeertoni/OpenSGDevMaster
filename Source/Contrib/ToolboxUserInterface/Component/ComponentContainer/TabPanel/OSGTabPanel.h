@@ -44,7 +44,8 @@
 
 #include "OSGTabPanelBase.h"
 #include "OSGSingleSelectionModel.h"
-
+#include <boost/signals2.hpp>
+#include "OSGMouseEventDetails.h"
 OSG_BEGIN_NAMESPACE
 
 /*! \brief TabPanel class. See \ref

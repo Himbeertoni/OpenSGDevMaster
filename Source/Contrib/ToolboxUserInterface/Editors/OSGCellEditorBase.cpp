@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -52,19 +52,17 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include <boost/assign/list_of.hpp>
 
 #include "OSGConfig.h"
 
 
 
+#include "OSGCellEditorEventSource.h"   // EventSource Class
 
 #include "OSGCellEditorBase.h"
 #include "OSGCellEditor.h"
 
 #include <boost/bind.hpp>
-
-#include "OSGEventDetails.h"
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -84,24 +82,32 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
+/*! \var CellEditorEventSource * CellEditorBase::_sfEventSource
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CellEditor *>::_type("CellEditorPtr", "FieldContainerPtr");
+PointerType FieldTraits<CellEditor *, nsOSG>::_type(
+    "CellEditorPtr", 
+    "FieldContainerPtr", 
+    CellEditor::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(CellEditor *)
+OSG_FIELDTRAITS_GETTYPE_NS(CellEditor *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            CellEditor *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            CellEditor *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -109,6 +115,20 @@ OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
 
 void CellEditorBase::classDescInserter(TypeObject &oType)
 {
+    FieldDescriptionBase *pDesc = NULL;
+
+
+    pDesc = new SFUnrecCellEditorEventSourcePtr::Description(
+        SFUnrecCellEditorEventSourcePtr::getClassType(),
+        "EventSource",
+        "",
+        EventSourceFieldId, EventSourceFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CellEditor::editHandleEventSource),
+        static_cast<FieldGetMethodSig >(&CellEditor::getHandleEventSource));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -116,7 +136,7 @@ CellEditorBase::TypeObject CellEditorBase::_type(
     CellEditorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     CellEditor::initMethod,
     CellEditor::exitMethod,
@@ -126,11 +146,11 @@ CellEditorBase::TypeObject CellEditorBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"CellEditor\"\n"
-    "\tparent=\"FieldContainer\"\n"
-    "    library=\"ContribUserInterface\"\n"
+    "    name=\"CellEditor\"\n"
+    "    parent=\"FieldContainer\"\n"
+    "    library=\"ContribToolboxUserInterface\"\n"
     "    pointerfieldtypes=\"both\"\n"
-    "\tstructure=\"abstract\"\n"
+    "    structure=\"abstract\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"
     "    decoratable=\"false\"\n"
@@ -139,49 +159,33 @@ CellEditorBase::TypeObject CellEditorBase::_type(
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
     ">\n"
     "A UI Cell Editor.\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"EditingCanceled\"\n"
-    "\t\tdetailsType=\"ChangeEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"EditingStopped\"\n"
-    "\t\tdetailsType=\"ChangeEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
+    "    <Field\n"
+    "        name=\"EventSource\"\n"
+    "        type=\"CellEditorEventSource\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "        access=\"public\"\n"
+    "        >\n"
+    "    </Field>\n"
+    "<!--\n"
+    "    <ProducedEvent\n"
+    "        name=\"EditingCanceled\"\n"
+    "        detailsType=\"ChangeEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "    <ProducedEvent\n"
+    "        name=\"EditingStopped\"\n"
+    "        detailsType=\"ChangeEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "-->\n"
     "</FieldContainer>\n",
     "A UI Cell Editor.\n"
     );
-
-//! CellEditor Produced Events
-
-EventDescription *CellEditorBase::_eventDesc[] =
-{
-    new EventDescription("EditingCanceled", 
-                          "",
-                          EditingCanceledEventId, 
-                          FieldTraits<ChangeEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&CellEditorBase::getHandleEditingCanceledSignal)),
-
-    new EventDescription("EditingStopped", 
-                          "",
-                          EditingStoppedEventId, 
-                          FieldTraits<ChangeEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&CellEditorBase::getHandleEditingStoppedSignal))
-
-};
-
-EventProducerType CellEditorBase::_producerType(
-    "CellEditorProducerType",
-    "EventProducerType",
-    "",
-    InitEventProducerFunctor(),
-    _eventDesc,
-    sizeof(_eventDesc));
 
 /*------------------------------ get -----------------------------------*/
 
@@ -195,11 +199,6 @@ const FieldContainerType &CellEditorBase::getType(void) const
     return _type;
 }
 
-const EventProducerType &CellEditorBase::getProducerType(void) const
-{
-    return _producerType;
-}
-
 UInt32 CellEditorBase::getContainerSize(void) const
 {
     return sizeof(CellEditor);
@@ -208,16 +207,33 @@ UInt32 CellEditorBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
+//! Get the CellEditor::_sfEventSource field.
+const SFUnrecCellEditorEventSourcePtr *CellEditorBase::getSFEventSource(void) const
+{
+    return &_sfEventSource;
+}
+
+SFUnrecCellEditorEventSourcePtr *CellEditorBase::editSFEventSource    (void)
+{
+    editSField(EventSourceFieldMask);
+
+    return &_sfEventSource;
+}
+
 
 
 
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 CellEditorBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT CellEditorBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+    {
+        returnValue += _sfEventSource.getBinSize();
+    }
 
     return returnValue;
 }
@@ -227,6 +243,10 @@ void CellEditorBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+    {
+        _sfEventSource.copyToBin(pMem);
+    }
 }
 
 void CellEditorBase::copyFromBin(BinaryDataHandler &pMem,
@@ -234,152 +254,27 @@ void CellEditorBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
-}
-
-
-
-/*------------------------- event producers ----------------------------------*/
-void CellEditorBase::produceEvent(UInt32 eventId, EventDetails* const e)
-{
-    switch(eventId)
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
     {
-    case EditingCanceledEventId:
-        OSG_ASSERT(dynamic_cast<EditingCanceledEventDetailsType* const>(e));
-
-        _EditingCanceledEvent.set_combiner(ConsumableEventCombiner(e));
-        _EditingCanceledEvent(dynamic_cast<EditingCanceledEventDetailsType* const>(e), EditingCanceledEventId);
-        break;
-    case EditingStoppedEventId:
-        OSG_ASSERT(dynamic_cast<EditingStoppedEventDetailsType* const>(e));
-
-        _EditingStoppedEvent.set_combiner(ConsumableEventCombiner(e));
-        _EditingStoppedEvent(dynamic_cast<EditingStoppedEventDetailsType* const>(e), EditingStoppedEventId);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        break;
+        editSField(EventSourceFieldMask);
+        _sfEventSource.copyFromBin(pMem);
     }
 }
 
-boost::signals2::connection CellEditorBase::connectEvent(UInt32 eventId, 
-                                                             const BaseEventType::slot_type &listener, 
-                                                             boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case EditingCanceledEventId:
-        return _EditingCanceledEvent.connect(listener, at);
-        break;
-    case EditingStoppedEventId:
-        return _EditingStoppedEvent.connect(listener, at);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return boost::signals2::connection();
-        break;
-    }
 
-    return boost::signals2::connection();
-}
-
-boost::signals2::connection  CellEditorBase::connectEvent(UInt32 eventId, 
-                                                              const BaseEventType::group_type &group,
-                                                              const BaseEventType::slot_type &listener,
-                                                              boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case EditingCanceledEventId:
-        return _EditingCanceledEvent.connect(group, listener, at);
-        break;
-    case EditingStoppedEventId:
-        return _EditingStoppedEvent.connect(group, listener, at);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return boost::signals2::connection();
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-    
-void  CellEditorBase::disconnectEvent(UInt32 eventId, const BaseEventType::group_type &group)
-{
-    switch(eventId)
-    {
-    case EditingCanceledEventId:
-        _EditingCanceledEvent.disconnect(group);
-        break;
-    case EditingStoppedEventId:
-        _EditingStoppedEvent.disconnect(group);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        break;
-    }
-}
-
-void  CellEditorBase::disconnectAllSlotsEvent(UInt32 eventId)
-{
-    switch(eventId)
-    {
-    case EditingCanceledEventId:
-        _EditingCanceledEvent.disconnect_all_slots();
-        break;
-    case EditingStoppedEventId:
-        _EditingStoppedEvent.disconnect_all_slots();
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        break;
-    }
-}
-
-bool  CellEditorBase::isEmptyEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case EditingCanceledEventId:
-        return _EditingCanceledEvent.empty();
-        break;
-    case EditingStoppedEventId:
-        return _EditingStoppedEvent.empty();
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return true;
-        break;
-    }
-}
-
-UInt32  CellEditorBase::numSlotsEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case EditingCanceledEventId:
-        return _EditingCanceledEvent.num_slots();
-        break;
-    case EditingStoppedEventId:
-        return _EditingStoppedEvent.num_slots();
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return 0;
-        break;
-    }
-}
 
 
 /*------------------------- constructors ----------------------------------*/
 
 CellEditorBase::CellEditorBase(void) :
-    Inherited()
+    Inherited(),
+    _sfEventSource            (NULL)
 {
 }
 
 CellEditorBase::CellEditorBase(const CellEditorBase &source) :
-    Inherited(source)
+    Inherited(source),
+    _sfEventSource            (NULL)
 {
 }
 
@@ -390,26 +285,42 @@ CellEditorBase::~CellEditorBase(void)
 {
 }
 
-
-
-GetEventHandlePtr CellEditorBase::getHandleEditingCanceledSignal(void) const
+void CellEditorBase::onCreate(const CellEditor *source)
 {
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<EditingCanceledEventType>(
-             const_cast<EditingCanceledEventType *>(&_EditingCanceledEvent),
-             _producerType.getEventDescription(EditingCanceledEventId),
+    Inherited::onCreate(source);
+
+    if(source != NULL)
+    {
+        CellEditor *pThis = static_cast<CellEditor *>(this);
+
+        pThis->setEventSource(source->getEventSource());
+    }
+}
+
+GetFieldHandlePtr CellEditorBase::getHandleEventSource     (void) const
+{
+    SFUnrecCellEditorEventSourcePtr::GetHandlePtr returnValue(
+        new  SFUnrecCellEditorEventSourcePtr::GetHandle(
+             &_sfEventSource,
+             this->getType().getFieldDesc(EventSourceFieldId),
              const_cast<CellEditorBase *>(this)));
 
     return returnValue;
 }
 
-GetEventHandlePtr CellEditorBase::getHandleEditingStoppedSignal(void) const
+EditFieldHandlePtr CellEditorBase::editHandleEventSource    (void)
 {
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<EditingStoppedEventType>(
-             const_cast<EditingStoppedEventType *>(&_EditingStoppedEvent),
-             _producerType.getEventDescription(EditingStoppedEventId),
-             const_cast<CellEditorBase *>(this)));
+    SFUnrecCellEditorEventSourcePtr::EditHandlePtr returnValue(
+        new  SFUnrecCellEditorEventSourcePtr::EditHandle(
+             &_sfEventSource,
+             this->getType().getFieldDesc(EventSourceFieldId),
+             this));
+
+    returnValue->setSetMethod(
+        boost::bind(&CellEditor::setEventSource,
+                    static_cast<CellEditor *>(this), _1));
+
+    editSField(EventSourceFieldMask);
 
     return returnValue;
 }
@@ -437,6 +348,8 @@ void CellEditorBase::execSyncV(      FieldContainer    &oFrom,
 void CellEditorBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+    static_cast<CellEditor *>(this)->setEventSource(NULL);
 
 
 }

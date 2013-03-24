@@ -3,7 +3,7 @@
 <FieldContainer
     name="ListSelectionModel"
     parent="FieldContainer"
-    library="ContribUserInterface"
+    library="ContribToolboxUserInterface"
     pointerfieldtypes="both"
     structure="abstract"
     systemcomponent="true"
@@ -24,10 +24,22 @@ A UI SingleSelectionModel.
         access="public"
     >
     </Field>
+    <Field
+        name="EventSource"
+        type="ListSelectionModelEventSource"
+        category="pointer"
+        cardinality="single"
+        visibility="external"
+        defaultValue="NULL"
+        access="public"
+    >
+    </Field>	
+<!--
     <ProducedEvent
         name="SelectionChanged"
         detailsType="ListSelectionEventDetails"
         consumable="true"
     >
     </ProducedEvent>
+-->
 </FieldContainer>

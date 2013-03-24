@@ -51,8 +51,8 @@
 #include "OSGInternalWindow.h"
 #include "OSGUIDrawingSurface.h"
 #include "OSGWindowEventProducer.h"
-
-
+#include "OSGTextEventDetails.h"
+#include "OSGTextComponentEventSource.h"
 #include <boost/bind.hpp>
 
 OSG_BEGIN_NAMESPACE
@@ -124,14 +124,22 @@ void  TextComponent::produceTextValueChanged(void)
 {
     TextEventDetailsUnrecPtr Details(TextEventDetails::create(this, getTimeStamp()));
 
-    Inherited::produceTextValueChanged(Details);
+    TextComponentEventSource* ev = dynamic_cast<TextComponentEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceTextValueChanged(Details);
+    }
 }
 
 void  TextComponent::produceCaretChanged(void)
 {
     CaretEventDetailsUnrecPtr Details(CaretEventDetails::create(this, getTimeStamp(), getCaretPosition()));
 
-    Inherited::produceCaretChanged(Details);
+    TextComponentEventSource* ev = dynamic_cast<TextComponentEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceCaretChanged(Details);
+    }
 }
 
 Color4f TextComponent::getDrawnTextColor(void) const
@@ -289,7 +297,9 @@ void TextComponent::moveCaretToBegin(void)
     //Move the caret to the begining
     if(getCaretPosition() != 0)
     {
-        moveCaret(-getCaretPosition());
+        Int32 caretPos = static_cast<Int32>( getCaretPosition() );
+        caretPos = -caretPos;
+        moveCaret(-caretPos);
     }
 }
 

@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -48,9 +48,8 @@
  *****************************************************************************
 \*****************************************************************************/
 
-#include "OSGChangeEventDetails.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 
 //! access the type of the class
@@ -65,19 +64,6 @@ inline
 OSG::UInt32 TableColumnBase::getClassTypeId(void)
 {
     return _type.getId();
-}
-//! access the producer type of the class
-inline
-const EventProducerType &TableColumnBase::getProducerClassType(void)
-{
-    return _producerType;
-}
-
-//! access the producer type id of the class
-inline
-UInt32 TableColumnBase::getProducerClassTypeId(void)
-{
-    return _producerType.getId();
 }
 
 inline
@@ -255,6 +241,22 @@ void TableColumnBase::setCellEditor(TableCellEditor * const value)
     _sfCellEditor.setValue(value);
 }
 
+//! Get the value of the TableColumn::_sfEventSource field.
+inline
+TableColumnEventSource * TableColumnBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the TableColumn::_sfEventSource field.
+inline
+void TableColumnBase::setEventSource(TableColumnEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -286,6 +288,9 @@ void TableColumnBase::execSync (      TableColumnBase *pFrom,
 
     if(FieldBits::NoField != (CellEditorFieldMask & whichField))
         _sfCellEditor.syncWith(pFrom->_sfCellEditor);
+
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+        _sfEventSource.syncWith(pFrom->_sfEventSource);
 }
 #endif
 
@@ -295,75 +300,6 @@ const Char8 *TableColumnBase::getClassname(void)
 {
     return "TableColumn";
 }
-
-inline
-UInt32 TableColumnBase::getNumProducedEvents(void) const
-{
-    return getProducerType().getNumEventDescs();
-}
-
-inline
-const EventDescription *TableColumnBase::getProducedEventDescription(const std::string &ProducedEventName) const
-{
-    return getProducerType().findEventDescription(ProducedEventName);
-}
-
-inline
-const EventDescription *TableColumnBase::getProducedEventDescription(UInt32 ProducedEventId) const
-{
-    return getProducerType().getEventDescription(ProducedEventId);
-}
-
-inline
-UInt32 TableColumnBase::getProducedEventId(const std::string &ProducedEventName) const
-{
-    return getProducerType().getProducedEventId(ProducedEventName);
-}
-
-inline
-boost::signals2::connection  TableColumnBase::connectFieldChanged(const FieldChangedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _FieldChangedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  TableColumnBase::connectFieldChanged(const FieldChangedEventType::group_type &group,
-                                                    const FieldChangedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _FieldChangedEvent.connect(group, listener, at);
-}
-
-inline
-void  TableColumnBase::disconnectFieldChanged(const FieldChangedEventType::group_type &group)
-{
-    _FieldChangedEvent.disconnect(group);
-}
-
-inline
-void  TableColumnBase::disconnectAllSlotsFieldChanged(void)
-{
-    _FieldChangedEvent.disconnect_all_slots();
-}
-
-inline
-bool  TableColumnBase::isEmptyFieldChanged(void) const
-{
-    return _FieldChangedEvent.empty();
-}
-
-inline
-UInt32  TableColumnBase::numSlotsFieldChanged(void) const
-{
-    return _FieldChangedEvent.num_slots();
-}
-
-inline
-void TableColumnBase::produceFieldChanged(FieldChangedEventDetailsType* const e)
-{
-    produceEvent(FieldChangedEventId, e);
-}
-
 OSG_GEN_CONTAINERPTR(TableColumn);
 
 OSG_END_NAMESPACE

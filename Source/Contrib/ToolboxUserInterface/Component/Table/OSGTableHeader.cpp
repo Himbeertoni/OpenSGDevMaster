@@ -194,8 +194,8 @@ void TableHeader::mousePressed(MouseEventDetails* const e)
             if(MousePosInComponent.x() >= CumulativeHeaderWidth - getResizingCursorDriftAllowance() &&
                MousePosInComponent.x() <= CumulativeHeaderWidth + getColumnModel()->getColumnMargin() + getResizingCursorDriftAllowance())
             {
-                _ColBorderMouseDraggedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectMouseDragged(boost::bind(&TableHeader::handleColBorderMouseDragged, this, _1));
-                _ColBorderMouseReleasedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->connectMouseReleased(boost::bind(&TableHeader::mouseColBorderMouseReleased, this, _1));
+                _ColBorderMouseDraggedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectMouseDragged(boost::bind(&TableHeader::handleColBorderMouseDragged, this, _1));
+                _ColBorderMouseReleasedConnection = getParentWindow()->getParentDrawingSurface()->getEventProducer()->getEventSource()->connectMouseReleased(boost::bind(&TableHeader::mouseColBorderMouseReleased, this, _1));
                 _ResizingColumn = i;
                 return;
             }
@@ -255,11 +255,11 @@ void TableHeader::setColumnModel(TableColumnModel * const value)
     updateColumnHeadersComponents();
     if(getColumnModel() != NULL)
     {
-        _ColumnAddedConnection = getColumnModel()->connectColumnAdded(boost::bind(&TableHeader::handleColumnAdded, this, _1));
-        _ColumnMarginChangedConnection = getColumnModel()->connectColumnMarginChanged(boost::bind(&TableHeader::handleColumnMarginChanged, this, _1));
-        _ColumnMovedConnection = getColumnModel()->connectColumnMoved(boost::bind(&TableHeader::handleColumnMoved, this, _1));
-        _ColumnRemovedConnection = getColumnModel()->connectColumnRemoved(boost::bind(&TableHeader::handleColumnRemoved, this, _1));
-        _ColumnSelectionChangedConnection = getColumnModel()->connectColumnSelectionChanged(boost::bind(&TableHeader::handleColumnSelectionChanged, this, _1));
+        _ColumnAddedConnection = getColumnModel()->getEventSource()->connectColumnAdded(boost::bind(&TableHeader::handleColumnAdded, this, _1));
+        _ColumnMarginChangedConnection = getColumnModel()->getEventSource()->connectColumnMarginChanged(boost::bind(&TableHeader::handleColumnMarginChanged, this, _1));
+        _ColumnMovedConnection = getColumnModel()->getEventSource()->connectColumnMoved(boost::bind(&TableHeader::handleColumnMoved, this, _1));
+        _ColumnRemovedConnection = getColumnModel()->getEventSource()->connectColumnRemoved(boost::bind(&TableHeader::handleColumnRemoved, this, _1));
+        _ColumnSelectionChangedConnection = getColumnModel()->getEventSource()->connectColumnSelectionChanged(boost::bind(&TableHeader::handleColumnSelectionChanged, this, _1));
     }
 }
 
@@ -273,11 +273,11 @@ void TableHeader::onCreate(const TableHeader * Id)
 
     if(getColumnModel() != NULL)
     {
-        _ColumnAddedConnection = getColumnModel()->connectColumnAdded(boost::bind(&TableHeader::handleColumnAdded, this, _1));
-        _ColumnMarginChangedConnection = getColumnModel()->connectColumnMarginChanged(boost::bind(&TableHeader::handleColumnMarginChanged, this, _1));
-        _ColumnMovedConnection = getColumnModel()->connectColumnMoved(boost::bind(&TableHeader::handleColumnMoved, this, _1));
-        _ColumnRemovedConnection = getColumnModel()->connectColumnRemoved(boost::bind(&TableHeader::handleColumnRemoved, this, _1));
-        _ColumnSelectionChangedConnection = getColumnModel()->connectColumnSelectionChanged(boost::bind(&TableHeader::handleColumnSelectionChanged, this, _1));
+        _ColumnAddedConnection = getColumnModel()->getEventSource()->connectColumnAdded(boost::bind(&TableHeader::handleColumnAdded, this, _1));
+        _ColumnMarginChangedConnection = getColumnModel()->getEventSource()->connectColumnMarginChanged(boost::bind(&TableHeader::handleColumnMarginChanged, this, _1));
+        _ColumnMovedConnection = getColumnModel()->getEventSource()->connectColumnMoved(boost::bind(&TableHeader::handleColumnMoved, this, _1));
+        _ColumnRemovedConnection = getColumnModel()->getEventSource()->connectColumnRemoved(boost::bind(&TableHeader::handleColumnRemoved, this, _1));
+        _ColumnSelectionChangedConnection = getColumnModel()->getEventSource()->connectColumnSelectionChanged(boost::bind(&TableHeader::handleColumnSelectionChanged, this, _1));
     }
 }
 

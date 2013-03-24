@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -48,10 +48,8 @@
  *****************************************************************************
 \*****************************************************************************/
 
-#include "OSGTreeModelLayoutEventDetails.h"
-#include "OSGTreeModelEventDetails.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 
 //! access the type of the class
@@ -67,19 +65,6 @@ OSG::UInt32 TreeModelLayoutBase::getClassTypeId(void)
 {
     return _type.getId();
 }
-//! access the producer type of the class
-inline
-const EventProducerType &TreeModelLayoutBase::getProducerClassType(void)
-{
-    return _producerType;
-}
-
-//! access the producer type id of the class
-inline
-UInt32 TreeModelLayoutBase::getProducerClassTypeId(void)
-{
-    return _producerType.getId();
-}
 
 inline
 OSG::UInt16 TreeModelLayoutBase::getClassGroupId(void)
@@ -89,6 +74,22 @@ OSG::UInt16 TreeModelLayoutBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+
+//! Get the value of the TreeModelLayout::_sfEventSource field.
+inline
+TreeModelLayoutEventSource * TreeModelLayoutBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the TreeModelLayout::_sfEventSource field.
+inline
+void TreeModelLayoutBase::setEventSource(TreeModelLayoutEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -100,6 +101,9 @@ void TreeModelLayoutBase::execSync (      TreeModelLayoutBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+        _sfEventSource.syncWith(pFrom->_sfEventSource);
 }
 #endif
 
@@ -109,427 +113,6 @@ const Char8 *TreeModelLayoutBase::getClassname(void)
 {
     return "TreeModelLayout";
 }
-
-inline
-UInt32 TreeModelLayoutBase::getNumProducedEvents(void) const
-{
-    return getProducerType().getNumEventDescs();
-}
-
-inline
-const EventDescription *TreeModelLayoutBase::getProducedEventDescription(const std::string &ProducedEventName) const
-{
-    return getProducerType().findEventDescription(ProducedEventName);
-}
-
-inline
-const EventDescription *TreeModelLayoutBase::getProducedEventDescription(UInt32 ProducedEventId) const
-{
-    return getProducerType().getEventDescription(ProducedEventId);
-}
-
-inline
-UInt32 TreeModelLayoutBase::getProducedEventId(const std::string &ProducedEventName) const
-{
-    return getProducerType().getProducedEventId(ProducedEventName);
-}
-
-inline
-boost::signals2::connection  TreeModelLayoutBase::connectTreeCollapsed(const TreeCollapsedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _TreeCollapsedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  TreeModelLayoutBase::connectTreeCollapsed(const TreeCollapsedEventType::group_type &group,
-                                                    const TreeCollapsedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _TreeCollapsedEvent.connect(group, listener, at);
-}
-
-inline
-void  TreeModelLayoutBase::disconnectTreeCollapsed(const TreeCollapsedEventType::group_type &group)
-{
-    _TreeCollapsedEvent.disconnect(group);
-}
-
-inline
-void  TreeModelLayoutBase::disconnectAllSlotsTreeCollapsed(void)
-{
-    _TreeCollapsedEvent.disconnect_all_slots();
-}
-
-inline
-bool  TreeModelLayoutBase::isEmptyTreeCollapsed(void) const
-{
-    return _TreeCollapsedEvent.empty();
-}
-
-inline
-UInt32  TreeModelLayoutBase::numSlotsTreeCollapsed(void) const
-{
-    return _TreeCollapsedEvent.num_slots();
-}
-
-inline
-void TreeModelLayoutBase::produceTreeCollapsed(TreeCollapsedEventDetailsType* const e)
-{
-    produceEvent(TreeCollapsedEventId, e);
-}
-
-inline
-boost::signals2::connection  TreeModelLayoutBase::connectTreeExpanded(const TreeExpandedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _TreeExpandedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  TreeModelLayoutBase::connectTreeExpanded(const TreeExpandedEventType::group_type &group,
-                                                    const TreeExpandedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _TreeExpandedEvent.connect(group, listener, at);
-}
-
-inline
-void  TreeModelLayoutBase::disconnectTreeExpanded(const TreeExpandedEventType::group_type &group)
-{
-    _TreeExpandedEvent.disconnect(group);
-}
-
-inline
-void  TreeModelLayoutBase::disconnectAllSlotsTreeExpanded(void)
-{
-    _TreeExpandedEvent.disconnect_all_slots();
-}
-
-inline
-bool  TreeModelLayoutBase::isEmptyTreeExpanded(void) const
-{
-    return _TreeExpandedEvent.empty();
-}
-
-inline
-UInt32  TreeModelLayoutBase::numSlotsTreeExpanded(void) const
-{
-    return _TreeExpandedEvent.num_slots();
-}
-
-inline
-void TreeModelLayoutBase::produceTreeExpanded(TreeExpandedEventDetailsType* const e)
-{
-    produceEvent(TreeExpandedEventId, e);
-}
-
-inline
-boost::signals2::connection  TreeModelLayoutBase::connectTreeWillCollapse(const TreeWillCollapseEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _TreeWillCollapseEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  TreeModelLayoutBase::connectTreeWillCollapse(const TreeWillCollapseEventType::group_type &group,
-                                                    const TreeWillCollapseEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _TreeWillCollapseEvent.connect(group, listener, at);
-}
-
-inline
-void  TreeModelLayoutBase::disconnectTreeWillCollapse(const TreeWillCollapseEventType::group_type &group)
-{
-    _TreeWillCollapseEvent.disconnect(group);
-}
-
-inline
-void  TreeModelLayoutBase::disconnectAllSlotsTreeWillCollapse(void)
-{
-    _TreeWillCollapseEvent.disconnect_all_slots();
-}
-
-inline
-bool  TreeModelLayoutBase::isEmptyTreeWillCollapse(void) const
-{
-    return _TreeWillCollapseEvent.empty();
-}
-
-inline
-UInt32  TreeModelLayoutBase::numSlotsTreeWillCollapse(void) const
-{
-    return _TreeWillCollapseEvent.num_slots();
-}
-
-inline
-void TreeModelLayoutBase::produceTreeWillCollapse(TreeWillCollapseEventDetailsType* const e)
-{
-    produceEvent(TreeWillCollapseEventId, e);
-}
-
-inline
-boost::signals2::connection  TreeModelLayoutBase::connectTreeWillExpand(const TreeWillExpandEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _TreeWillExpandEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  TreeModelLayoutBase::connectTreeWillExpand(const TreeWillExpandEventType::group_type &group,
-                                                    const TreeWillExpandEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _TreeWillExpandEvent.connect(group, listener, at);
-}
-
-inline
-void  TreeModelLayoutBase::disconnectTreeWillExpand(const TreeWillExpandEventType::group_type &group)
-{
-    _TreeWillExpandEvent.disconnect(group);
-}
-
-inline
-void  TreeModelLayoutBase::disconnectAllSlotsTreeWillExpand(void)
-{
-    _TreeWillExpandEvent.disconnect_all_slots();
-}
-
-inline
-bool  TreeModelLayoutBase::isEmptyTreeWillExpand(void) const
-{
-    return _TreeWillExpandEvent.empty();
-}
-
-inline
-UInt32  TreeModelLayoutBase::numSlotsTreeWillExpand(void) const
-{
-    return _TreeWillExpandEvent.num_slots();
-}
-
-inline
-void TreeModelLayoutBase::produceTreeWillExpand(TreeWillExpandEventDetailsType* const e)
-{
-    produceEvent(TreeWillExpandEventId, e);
-}
-
-inline
-boost::signals2::connection  TreeModelLayoutBase::connectTreeNodesChanged(const TreeNodesChangedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _TreeNodesChangedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  TreeModelLayoutBase::connectTreeNodesChanged(const TreeNodesChangedEventType::group_type &group,
-                                                    const TreeNodesChangedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _TreeNodesChangedEvent.connect(group, listener, at);
-}
-
-inline
-void  TreeModelLayoutBase::disconnectTreeNodesChanged(const TreeNodesChangedEventType::group_type &group)
-{
-    _TreeNodesChangedEvent.disconnect(group);
-}
-
-inline
-void  TreeModelLayoutBase::disconnectAllSlotsTreeNodesChanged(void)
-{
-    _TreeNodesChangedEvent.disconnect_all_slots();
-}
-
-inline
-bool  TreeModelLayoutBase::isEmptyTreeNodesChanged(void) const
-{
-    return _TreeNodesChangedEvent.empty();
-}
-
-inline
-UInt32  TreeModelLayoutBase::numSlotsTreeNodesChanged(void) const
-{
-    return _TreeNodesChangedEvent.num_slots();
-}
-
-inline
-void TreeModelLayoutBase::produceTreeNodesChanged(TreeNodesChangedEventDetailsType* const e)
-{
-    produceEvent(TreeNodesChangedEventId, e);
-}
-
-inline
-boost::signals2::connection  TreeModelLayoutBase::connectTreeNodesInserted(const TreeNodesInsertedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _TreeNodesInsertedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  TreeModelLayoutBase::connectTreeNodesInserted(const TreeNodesInsertedEventType::group_type &group,
-                                                    const TreeNodesInsertedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _TreeNodesInsertedEvent.connect(group, listener, at);
-}
-
-inline
-void  TreeModelLayoutBase::disconnectTreeNodesInserted(const TreeNodesInsertedEventType::group_type &group)
-{
-    _TreeNodesInsertedEvent.disconnect(group);
-}
-
-inline
-void  TreeModelLayoutBase::disconnectAllSlotsTreeNodesInserted(void)
-{
-    _TreeNodesInsertedEvent.disconnect_all_slots();
-}
-
-inline
-bool  TreeModelLayoutBase::isEmptyTreeNodesInserted(void) const
-{
-    return _TreeNodesInsertedEvent.empty();
-}
-
-inline
-UInt32  TreeModelLayoutBase::numSlotsTreeNodesInserted(void) const
-{
-    return _TreeNodesInsertedEvent.num_slots();
-}
-
-inline
-void TreeModelLayoutBase::produceTreeNodesInserted(TreeNodesInsertedEventDetailsType* const e)
-{
-    produceEvent(TreeNodesInsertedEventId, e);
-}
-
-inline
-boost::signals2::connection  TreeModelLayoutBase::connectTreeNodesRemoved(const TreeNodesRemovedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _TreeNodesRemovedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  TreeModelLayoutBase::connectTreeNodesRemoved(const TreeNodesRemovedEventType::group_type &group,
-                                                    const TreeNodesRemovedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _TreeNodesRemovedEvent.connect(group, listener, at);
-}
-
-inline
-void  TreeModelLayoutBase::disconnectTreeNodesRemoved(const TreeNodesRemovedEventType::group_type &group)
-{
-    _TreeNodesRemovedEvent.disconnect(group);
-}
-
-inline
-void  TreeModelLayoutBase::disconnectAllSlotsTreeNodesRemoved(void)
-{
-    _TreeNodesRemovedEvent.disconnect_all_slots();
-}
-
-inline
-bool  TreeModelLayoutBase::isEmptyTreeNodesRemoved(void) const
-{
-    return _TreeNodesRemovedEvent.empty();
-}
-
-inline
-UInt32  TreeModelLayoutBase::numSlotsTreeNodesRemoved(void) const
-{
-    return _TreeNodesRemovedEvent.num_slots();
-}
-
-inline
-void TreeModelLayoutBase::produceTreeNodesRemoved(TreeNodesRemovedEventDetailsType* const e)
-{
-    produceEvent(TreeNodesRemovedEventId, e);
-}
-
-inline
-boost::signals2::connection  TreeModelLayoutBase::connectTreeNodesWillBeRemoved(const TreeNodesWillBeRemovedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _TreeNodesWillBeRemovedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  TreeModelLayoutBase::connectTreeNodesWillBeRemoved(const TreeNodesWillBeRemovedEventType::group_type &group,
-                                                    const TreeNodesWillBeRemovedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _TreeNodesWillBeRemovedEvent.connect(group, listener, at);
-}
-
-inline
-void  TreeModelLayoutBase::disconnectTreeNodesWillBeRemoved(const TreeNodesWillBeRemovedEventType::group_type &group)
-{
-    _TreeNodesWillBeRemovedEvent.disconnect(group);
-}
-
-inline
-void  TreeModelLayoutBase::disconnectAllSlotsTreeNodesWillBeRemoved(void)
-{
-    _TreeNodesWillBeRemovedEvent.disconnect_all_slots();
-}
-
-inline
-bool  TreeModelLayoutBase::isEmptyTreeNodesWillBeRemoved(void) const
-{
-    return _TreeNodesWillBeRemovedEvent.empty();
-}
-
-inline
-UInt32  TreeModelLayoutBase::numSlotsTreeNodesWillBeRemoved(void) const
-{
-    return _TreeNodesWillBeRemovedEvent.num_slots();
-}
-
-inline
-void TreeModelLayoutBase::produceTreeNodesWillBeRemoved(TreeNodesWillBeRemovedEventDetailsType* const e)
-{
-    produceEvent(TreeNodesWillBeRemovedEventId, e);
-}
-
-inline
-boost::signals2::connection  TreeModelLayoutBase::connectTreeStructureChanged(const TreeStructureChangedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _TreeStructureChangedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  TreeModelLayoutBase::connectTreeStructureChanged(const TreeStructureChangedEventType::group_type &group,
-                                                    const TreeStructureChangedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _TreeStructureChangedEvent.connect(group, listener, at);
-}
-
-inline
-void  TreeModelLayoutBase::disconnectTreeStructureChanged(const TreeStructureChangedEventType::group_type &group)
-{
-    _TreeStructureChangedEvent.disconnect(group);
-}
-
-inline
-void  TreeModelLayoutBase::disconnectAllSlotsTreeStructureChanged(void)
-{
-    _TreeStructureChangedEvent.disconnect_all_slots();
-}
-
-inline
-bool  TreeModelLayoutBase::isEmptyTreeStructureChanged(void) const
-{
-    return _TreeStructureChangedEvent.empty();
-}
-
-inline
-UInt32  TreeModelLayoutBase::numSlotsTreeStructureChanged(void) const
-{
-    return _TreeStructureChangedEvent.num_slots();
-}
-
-inline
-void TreeModelLayoutBase::produceTreeStructureChanged(TreeStructureChangedEventDetailsType* const e)
-{
-    produceEvent(TreeStructureChangedEventId, e);
-}
-
 OSG_GEN_CONTAINERPTR(TreeModelLayout);
 
 OSG_END_NAMESPACE

@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -52,7 +52,6 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include <boost/assign/list_of.hpp>
 
 #include "OSGConfig.h"
 
@@ -64,8 +63,6 @@
 #include "OSGUIViewport.h"
 
 #include <boost/bind.hpp>
-
-#include "OSGEventDetails.h"
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -103,18 +100,22 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<UIViewport *>::_type("UIViewportPtr", "ComponentContainerPtr");
+PointerType FieldTraits<UIViewport *, nsOSG>::_type(
+    "UIViewportPtr", 
+    "ComponentContainerPtr", 
+    UIViewport::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(UIViewport *)
+OSG_FIELDTRAITS_GETTYPE_NS(UIViewport *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            UIViewport *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            UIViewport *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -167,7 +168,7 @@ UIViewportBase::TypeObject UIViewportBase::_type(
     UIViewportBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&UIViewportBase::createEmptyLocal),
     UIViewport::initMethod,
     UIViewport::exitMethod,
@@ -177,80 +178,61 @@ UIViewportBase::TypeObject UIViewportBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"UIViewport\"\n"
-    "\tparent=\"ComponentContainer\"\n"
-    "    library=\"ContribUserInterface\"\n"
+    "    name=\"UIViewport\"\n"
+    "    parent=\"ComponentContainer\"\n"
+    "    library=\"ContribToolboxUserInterface\"\n"
     "    pointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
+    "    structure=\"concrete\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
+    "    decoratable=\"false\"\n"
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
-    "    parentProducer=\"Component\"\n"
     ">\n"
+    "<!-- parentProducer=\"Component\" -->\n"
     "A UI UIViewport\n"
-    "\t<Field\n"
-    "\t\tname=\"ViewPosition\"\n"
-    "\t\ttype=\"Pnt2f\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t\tdefaultValue=\"0.0f,0.0f\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"ViewComponent\"\n"
-    "\t\ttype=\"Component\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"ViewSize\"\n"
-    "\t\ttype=\"Vec2f\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t\tdefaultValue=\"-1.0f,-1.0f\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"StateChanged\"\n"
-    "\t\tdetailsType=\"ChangeEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
+    "    <Field\n"
+    "        name=\"ViewPosition\"\n"
+    "        type=\"Pnt2f\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"0.0f,0.0f\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"ViewComponent\"\n"
+    "        type=\"Component\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"ViewSize\"\n"
+    "        type=\"Vec2f\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"-1.0f,-1.0f\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "<!--\t\n"
+    "    <ProducedEvent\n"
+    "        name=\"StateChanged\"\n"
+    "        detailsType=\"ChangeEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "-->\n"
     "</FieldContainer>\n",
     "A UI UIViewport\n"
     );
-
-//! UIViewport Produced Events
-
-EventDescription *UIViewportBase::_eventDesc[] =
-{
-    new EventDescription("StateChanged", 
-                          "",
-                          StateChangedEventId, 
-                          FieldTraits<ChangeEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&UIViewportBase::getHandleStateChangedSignal))
-
-};
-
-EventProducerType UIViewportBase::_producerType(
-    "UIViewportProducerType",
-    "ComponentProducerType",
-    "",
-    InitEventProducerFunctor(),
-    _eventDesc,
-    sizeof(_eventDesc));
 
 /*------------------------------ get -----------------------------------*/
 
@@ -262,11 +244,6 @@ FieldContainerType &UIViewportBase::getType(void)
 const FieldContainerType &UIViewportBase::getType(void) const
 {
     return _type;
-}
-
-const EventProducerType &UIViewportBase::getProducerType(void) const
-{
-    return _producerType;
 }
 
 UInt32 UIViewportBase::getContainerSize(void) const
@@ -322,9 +299,9 @@ const SFVec2f *UIViewportBase::getSFViewSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 UIViewportBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT UIViewportBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ViewPositionFieldMask & whichField))
     {
@@ -368,14 +345,17 @@ void UIViewportBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ViewPositionFieldMask & whichField))
     {
+        editSField(ViewPositionFieldMask);
         _sfViewPosition.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ViewComponentFieldMask & whichField))
     {
+        editSField(ViewComponentFieldMask);
         _sfViewComponent.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ViewSizeFieldMask & whichField))
     {
+        editSField(ViewSizeFieldMask);
         _sfViewSize.copyFromBin(pMem);
     }
 }
@@ -498,110 +478,6 @@ FieldContainerTransitPtr UIViewportBase::shallowCopy(void) const
 
 
 
-/*------------------------- event producers ----------------------------------*/
-void UIViewportBase::produceEvent(UInt32 eventId, EventDetails* const e)
-{
-    switch(eventId)
-    {
-    case StateChangedEventId:
-        OSG_ASSERT(dynamic_cast<StateChangedEventDetailsType* const>(e));
-
-        _StateChangedEvent.set_combiner(ConsumableEventCombiner(e));
-        _StateChangedEvent(dynamic_cast<StateChangedEventDetailsType* const>(e), StateChangedEventId);
-        break;
-    default:
-        Inherited::produceEvent(eventId, e);
-        break;
-    }
-}
-
-boost::signals2::connection UIViewportBase::connectEvent(UInt32 eventId, 
-                                                             const BaseEventType::slot_type &listener, 
-                                                             boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case StateChangedEventId:
-        return _StateChangedEvent.connect(listener, at);
-        break;
-    default:
-        return Inherited::connectEvent(eventId, listener, at);
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-
-boost::signals2::connection  UIViewportBase::connectEvent(UInt32 eventId, 
-                                                              const BaseEventType::group_type &group,
-                                                              const BaseEventType::slot_type &listener,
-                                                              boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case StateChangedEventId:
-        return _StateChangedEvent.connect(group, listener, at);
-        break;
-    default:
-        return Inherited::connectEvent(eventId, group, listener, at);
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-    
-void  UIViewportBase::disconnectEvent(UInt32 eventId, const BaseEventType::group_type &group)
-{
-    switch(eventId)
-    {
-    case StateChangedEventId:
-        _StateChangedEvent.disconnect(group);
-        break;
-    default:
-        return Inherited::disconnectEvent(eventId, group);
-        break;
-    }
-}
-
-void  UIViewportBase::disconnectAllSlotsEvent(UInt32 eventId)
-{
-    switch(eventId)
-    {
-    case StateChangedEventId:
-        _StateChangedEvent.disconnect_all_slots();
-        break;
-    default:
-        Inherited::disconnectAllSlotsEvent(eventId);
-        break;
-    }
-}
-
-bool  UIViewportBase::isEmptyEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case StateChangedEventId:
-        return _StateChangedEvent.empty();
-        break;
-    default:
-        return Inherited::isEmptyEvent(eventId);
-        break;
-    }
-}
-
-UInt32  UIViewportBase::numSlotsEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case StateChangedEventId:
-        return _StateChangedEvent.num_slots();
-        break;
-    default:
-        return Inherited::numSlotsEvent(eventId);
-        break;
-    }
-}
-
 
 /*------------------------- constructors ----------------------------------*/
 
@@ -714,18 +590,6 @@ EditFieldHandlePtr UIViewportBase::editHandleViewSize       (void)
 
 
     editSField(ViewSizeFieldMask);
-
-    return returnValue;
-}
-
-
-GetEventHandlePtr UIViewportBase::getHandleStateChangedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<StateChangedEventType>(
-             const_cast<StateChangedEventType *>(&_StateChangedEvent),
-             _producerType.getEventDescription(StateChangedEventId),
-             const_cast<UIViewportBase *>(this)));
 
     return returnValue;
 }

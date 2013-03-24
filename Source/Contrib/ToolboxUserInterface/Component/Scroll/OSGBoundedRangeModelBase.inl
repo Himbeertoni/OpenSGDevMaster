@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -48,9 +48,8 @@
  *****************************************************************************
 \*****************************************************************************/
 
-#include "OSGChangeEventDetails.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 
 //! access the type of the class
@@ -66,19 +65,6 @@ OSG::UInt32 BoundedRangeModelBase::getClassTypeId(void)
 {
     return _type.getId();
 }
-//! access the producer type of the class
-inline
-const EventProducerType &BoundedRangeModelBase::getProducerClassType(void)
-{
-    return _producerType;
-}
-
-//! access the producer type id of the class
-inline
-UInt32 BoundedRangeModelBase::getProducerClassTypeId(void)
-{
-    return _producerType.getId();
-}
 
 inline
 OSG::UInt16 BoundedRangeModelBase::getClassGroupId(void)
@@ -88,6 +74,22 @@ OSG::UInt16 BoundedRangeModelBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+
+//! Get the value of the BoundedRangeModel::_sfEventSource field.
+inline
+BoundedRangeModelEventSource * BoundedRangeModelBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the BoundedRangeModel::_sfEventSource field.
+inline
+void BoundedRangeModelBase::setEventSource(BoundedRangeModelEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -99,6 +101,9 @@ void BoundedRangeModelBase::execSync (      BoundedRangeModelBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+        _sfEventSource.syncWith(pFrom->_sfEventSource);
 }
 #endif
 
@@ -108,75 +113,6 @@ const Char8 *BoundedRangeModelBase::getClassname(void)
 {
     return "BoundedRangeModel";
 }
-
-inline
-UInt32 BoundedRangeModelBase::getNumProducedEvents(void) const
-{
-    return getProducerType().getNumEventDescs();
-}
-
-inline
-const EventDescription *BoundedRangeModelBase::getProducedEventDescription(const std::string &ProducedEventName) const
-{
-    return getProducerType().findEventDescription(ProducedEventName);
-}
-
-inline
-const EventDescription *BoundedRangeModelBase::getProducedEventDescription(UInt32 ProducedEventId) const
-{
-    return getProducerType().getEventDescription(ProducedEventId);
-}
-
-inline
-UInt32 BoundedRangeModelBase::getProducedEventId(const std::string &ProducedEventName) const
-{
-    return getProducerType().getProducedEventId(ProducedEventName);
-}
-
-inline
-boost::signals2::connection  BoundedRangeModelBase::connectStateChanged(const StateChangedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _StateChangedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  BoundedRangeModelBase::connectStateChanged(const StateChangedEventType::group_type &group,
-                                                    const StateChangedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _StateChangedEvent.connect(group, listener, at);
-}
-
-inline
-void  BoundedRangeModelBase::disconnectStateChanged(const StateChangedEventType::group_type &group)
-{
-    _StateChangedEvent.disconnect(group);
-}
-
-inline
-void  BoundedRangeModelBase::disconnectAllSlotsStateChanged(void)
-{
-    _StateChangedEvent.disconnect_all_slots();
-}
-
-inline
-bool  BoundedRangeModelBase::isEmptyStateChanged(void) const
-{
-    return _StateChangedEvent.empty();
-}
-
-inline
-UInt32  BoundedRangeModelBase::numSlotsStateChanged(void) const
-{
-    return _StateChangedEvent.num_slots();
-}
-
-inline
-void BoundedRangeModelBase::produceStateChanged(StateChangedEventDetailsType* const e)
-{
-    produceEvent(StateChangedEventId, e);
-}
-
 OSG_GEN_CONTAINERPTR(BoundedRangeModel);
 
 OSG_END_NAMESPACE

@@ -939,22 +939,22 @@ void Component::drawForeground(Graphics* const TheGraphics, const Layer* Foregro
 
 void Component::mouseClicked(MouseEventDetails* const e)
 {
-    produceMouseClicked(e);
+    getEventSource()->produceMouseClicked(e);
 }
 
 void Component::mouseEntered(MouseEventDetails* const e)
 {
-    produceMouseEntered(e);
+    getEventSource()->produceMouseEntered(e);
 }
 
 void Component::mouseExited(MouseEventDetails* const e)
 {
-    produceMouseExited(e);
+    getEventSource()->produceMouseExited(e);
 }
 
 void Component::mousePressed(MouseEventDetails* const e)
 {
-    produceMousePressed(e);
+    getEventSource()->produceMousePressed(e);
 
     if(e->getButton() == MouseEventDetails::BUTTON3
        && getPopupMenu() != NULL)
@@ -969,7 +969,7 @@ void Component::mousePressed(MouseEventDetails* const e)
 
 void Component::mouseReleased(MouseEventDetails* const e)
 {
-    produceMouseReleased(e);
+    getEventSource()->produceMouseReleased(e);
 }
 
 
@@ -980,32 +980,32 @@ void Component::mouseMoved(MouseEventDetails* const e)
     {
         getParentWindow()->getParentDrawingSurface()->getEventProducer()->setCursorType(queryCursor(e->getLocation()));
     }
-    produceMouseMoved(e);
+    getEventSource()->produceMouseMoved(e);
 }
 
 void Component::mouseDragged(MouseEventDetails* const e)
 {
-    produceMouseDragged(e);
+    getEventSource()->produceMouseDragged(e);
 }
 
 void Component::mouseWheelMoved(MouseWheelEventDetails* const e)
 {
-    produceMouseWheelMoved(e);
+    getEventSource()->produceMouseWheelMoved(e);
 }
 
 void Component::keyPressed(KeyEventDetails* const e)
 {
-    produceKeyPressed(e);
+    getEventSource()->produceKeyPressed(e);
 }
 
 void Component::keyReleased(KeyEventDetails* const e)
 {
-    produceKeyReleased(e);
+    getEventSource()->produceKeyReleased(e);
 }
 
 void Component::keyTyped(KeyEventDetails* const e)
 {
-    produceKeyTyped(e);
+    getEventSource()->produceKeyTyped(e);
 
     if(getFocused() &&
        !e->isConsumed() &&
@@ -1024,12 +1024,12 @@ void Component::keyTyped(KeyEventDetails* const e)
 
 void Component::focusGained(FocusEventDetails* const e)
 {
-    produceFocusGained(e);
+    getEventSource()->produceFocusGained(e);
 }
 
 void Component::focusLost(FocusEventDetails* const e)
 {
-    produceFocusLost(e);
+    getEventSource()->produceFocusLost(e);
 }
 
 bool Component::giveFocus(Component* const NewFocusedComponent, bool Temporary)
@@ -1311,8 +1311,8 @@ void Component::changed(ConstFieldMaskArg whichField,
 
             getToolTip()->setPosition(Pnt2f(0.0f,0.0f));
 
-            _ToolTipActivateMouseEnterConnection = connectMouseEntered(boost::bind(&Component::handleToolTipActivateMouseEntered, this, _1));
-            _ToolTipActivateMouseExitConnection = connectMouseExited(boost::bind(&Component::handleToolTipActivateMouseExited, this, _1));
+            _ToolTipActivateMouseEnterConnection = getEventSource()->connectMouseEntered(boost::bind(&Component::handleToolTipActivateMouseEntered, this, _1));
+            _ToolTipActivateMouseExitConnection = getEventSource()->connectMouseExited(boost::bind(&Component::handleToolTipActivateMouseExited, this, _1));
         }
     }
 
@@ -1336,56 +1336,56 @@ void Component::produceComponentResized(void)
 {
     ComponentEventDetailsUnrecPtr Details(ComponentEventDetails::create(this,getSystemTime()));
 
-    Inherited::produceComponentResized(Details);
+    getEventSource()->produceComponentResized(Details);
 }
 
 void Component::produceComponentMoved(void)
 {
     ComponentEventDetailsUnrecPtr Details(ComponentEventDetails::create(this,getSystemTime()));
 
-    Inherited::produceComponentMoved(Details);
+    getEventSource()->produceComponentMoved(Details);
 }
 
 void Component::produceComponentEnabled(void)
 {
     ComponentEventDetailsUnrecPtr Details(ComponentEventDetails::create(this,getSystemTime()));
 
-    Inherited::produceComponentEnabled(Details);
+    getEventSource()->produceComponentEnabled(Details);
 }
 
 void Component::produceComponentDisabled(void)
 {
     ComponentEventDetailsUnrecPtr Details(ComponentEventDetails::create(this,getSystemTime()));
 
-    Inherited::produceComponentDisabled(Details);
+    getEventSource()->produceComponentDisabled(Details);
 }
 
 void Component::produceComponentVisible(void)
 {
     ComponentEventDetailsUnrecPtr Details(ComponentEventDetails::create(this,getSystemTime()));
 
-    Inherited::produceComponentVisible(Details);
+    getEventSource()->produceComponentVisible(Details);
 }
 
 void Component::produceComponentHidden(void)
 {
     ComponentEventDetailsUnrecPtr Details(ComponentEventDetails::create(this,getSystemTime()));
 
-    Inherited::produceComponentHidden(Details);
+    getEventSource()->produceComponentHidden(Details);
 }
 
 void Component::produceToolTipActivated  (void)
 {
     ComponentEventDetailsUnrecPtr Details(ComponentEventDetails::create(this,getSystemTime()));
 
-    Inherited::produceToolTipActivated(Details);
+    getEventSource()->produceToolTipActivated(Details);
 }
 
 void Component::produceToolTipDeactivated(void)
 {
     ComponentEventDetailsUnrecPtr Details(ComponentEventDetails::create(this,getSystemTime()));
 
-    Inherited::produceToolTipDeactivated(Details);
+    getEventSource()->produceToolTipDeactivated(Details);
 }
 
 void Component::updateContainerLayout(void)
@@ -1417,10 +1417,10 @@ void Component::activateToolTip(void)
         setToolTipActive(true);
         getParentWindow()->pushToToolTips(getToolTip());
 
-        _ActiveTooltipClickConnection = connectMouseClicked(boost::bind(&Component::handleDeactivateToolTipEvent, this, _1));
-        _ActiveTooltipExitConnection = connectMouseExited(boost::bind(&Component::handleDeactivateToolTipEvent, this, _1));
-        _ActiveTooltipPressConnection = connectMousePressed(boost::bind(&Component::handleDeactivateToolTipEvent, this, _1));
-        _ActiveTooltipReleaseConnection = connectMouseReleased(boost::bind(&Component::handleDeactivateToolTipEvent, this, _1));
+        _ActiveTooltipClickConnection   = getEventSource()->connectMouseClicked(boost::bind(&Component::handleDeactivateToolTipEvent, this, _1));
+        _ActiveTooltipExitConnection    = getEventSource()->connectMouseExited(boost::bind(&Component::handleDeactivateToolTipEvent, this, _1));
+        _ActiveTooltipPressConnection   = getEventSource()->connectMousePressed(boost::bind(&Component::handleDeactivateToolTipEvent, this, _1));
+        _ActiveTooltipReleaseConnection = getEventSource()->connectMouseReleased(boost::bind(&Component::handleDeactivateToolTipEvent, this, _1));
 
         produceToolTipActivated();
     }
