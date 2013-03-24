@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -48,9 +48,8 @@
  *****************************************************************************
 \*****************************************************************************/
 
-#include "OSGChangeEventDetails.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 
 //! access the type of the class
@@ -65,19 +64,6 @@ inline
 OSG::UInt32 UIViewportBase::getClassTypeId(void)
 {
     return _type.getId();
-}
-//! access the producer type of the class
-inline
-const EventProducerType &UIViewportBase::getProducerClassType(void)
-{
-    return _producerType;
-}
-
-//! access the producer type id of the class
-inline
-UInt32 UIViewportBase::getProducerClassTypeId(void)
-{
-    return _producerType.getId();
 }
 
 inline
@@ -183,50 +169,6 @@ const Char8 *UIViewportBase::getClassname(void)
 {
     return "UIViewport";
 }
-inline
-boost::signals2::connection  UIViewportBase::connectStateChanged(const StateChangedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _StateChangedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  UIViewportBase::connectStateChanged(const StateChangedEventType::group_type &group,
-                                                    const StateChangedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _StateChangedEvent.connect(group, listener, at);
-}
-
-inline
-void  UIViewportBase::disconnectStateChanged(const StateChangedEventType::group_type &group)
-{
-    _StateChangedEvent.disconnect(group);
-}
-
-inline
-void  UIViewportBase::disconnectAllSlotsStateChanged(void)
-{
-    _StateChangedEvent.disconnect_all_slots();
-}
-
-inline
-bool  UIViewportBase::isEmptyStateChanged(void) const
-{
-    return _StateChangedEvent.empty();
-}
-
-inline
-UInt32  UIViewportBase::numSlotsStateChanged(void) const
-{
-    return _StateChangedEvent.num_slots();
-}
-
-inline
-void UIViewportBase::produceStateChanged(StateChangedEventDetailsType* const e)
-{
-    produceEvent(StateChangedEventId, e);
-}
-
 OSG_GEN_CONTAINERPTR(UIViewport);
 
 OSG_END_NAMESPACE

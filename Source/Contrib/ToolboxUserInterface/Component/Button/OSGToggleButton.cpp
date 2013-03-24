@@ -50,6 +50,8 @@
 
 #include <boost/bind.hpp>
 
+#include "OSGButtonSelectedEventDetails.h"
+#include "OSGToggleButtonEventSource.h"
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
@@ -113,7 +115,7 @@ void ToggleButton::setSelected(const bool value)
 
 }
 
-void ToggleButton::actionPreformed(ActionEventDetails* const e)
+void ToggleButton::actionPerformed(ActionEventDetails* const e)
 {
     setSelected(!getSelected());
 }
@@ -179,12 +181,20 @@ Color4f ToggleButton::getDrawnTextColor(void) const
 
 void  ToggleButton::produceButtonSelected(ButtonSelectedEventDetails* const Details)
 {
-    Inherited::produceButtonSelected(Details);
+    ToggleButtonEventSource* ev = dynamic_cast<ToggleButtonEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceButtonSelected(Details);
+    }
 }
 
 void  ToggleButton::produceButtonDeselected(ButtonSelectedEventDetails* const Details)
 {
-    Inherited::produceButtonDeselected(Details);
+    ToggleButtonEventSource* ev = dynamic_cast<ToggleButtonEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceButtonDeselected(Details);
+    }
 }
 
 /*-------------------------------------------------------------------------*\

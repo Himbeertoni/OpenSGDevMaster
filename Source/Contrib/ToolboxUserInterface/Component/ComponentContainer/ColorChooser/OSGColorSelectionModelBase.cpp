@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -52,19 +52,17 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include <boost/assign/list_of.hpp>
 
 #include "OSGConfig.h"
 
 
 
+#include "OSGColorSelectionModelEventSource.h" // EventSource Class
 
 #include "OSGColorSelectionModelBase.h"
 #include "OSGColorSelectionModel.h"
 
 #include <boost/bind.hpp>
-
-#include "OSGEventDetails.h"
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -84,24 +82,32 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
+/*! \var ColorSelectionModelEventSource * ColorSelectionModelBase::_sfEventSource
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ColorSelectionModel *>::_type("ColorSelectionModelPtr", "EventContainerPtr");
+PointerType FieldTraits<ColorSelectionModel *, nsOSG>::_type(
+    "ColorSelectionModelPtr", 
+    "AttachmentContainerPtr", 
+    ColorSelectionModel::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ColorSelectionModel *)
+OSG_FIELDTRAITS_GETTYPE_NS(ColorSelectionModel *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ColorSelectionModel *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ColorSelectionModel *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -109,6 +115,20 @@ OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
 
 void ColorSelectionModelBase::classDescInserter(TypeObject &oType)
 {
+    FieldDescriptionBase *pDesc = NULL;
+
+
+    pDesc = new SFUnrecColorSelectionModelEventSourcePtr::Description(
+        SFUnrecColorSelectionModelEventSourcePtr::getClassType(),
+        "EventSource",
+        "",
+        EventSourceFieldId, EventSourceFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ColorSelectionModel::editHandleEventSource),
+        static_cast<FieldGetMethodSig >(&ColorSelectionModel::getHandleEventSource));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -116,7 +136,7 @@ ColorSelectionModelBase::TypeObject ColorSelectionModelBase::_type(
     ColorSelectionModelBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     ColorSelectionModel::initMethod,
     ColorSelectionModel::exitMethod,
@@ -126,49 +146,40 @@ ColorSelectionModelBase::TypeObject ColorSelectionModelBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"ColorSelectionModel\"\n"
-    "\tparent=\"AttachmentContainer\"\n"
-    "    library=\"ContribUserInterface\"\n"
+    "    name=\"ColorSelectionModel\"\n"
+    "    parent=\"AttachmentContainer\"\n"
+    "    library=\"ContribToolboxUserInterface\"\n"
     "    pointerfieldtypes=\"both\"\n"
-    "\tstructure=\"abstract\"\n"
+    "    structure=\"abstract\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
+    "    decoratable=\"false\"\n"
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
     ">\n"
     "A UI ColorSelectionModel.\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"StateChanged\"\n"
-    "\t\tdetailsType=\"ChangeEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
+    "\t<Field\n"
+    "        name=\"EventSource\"\n"
+    "        type=\"ColorSelectionModelEventSource\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "        defaultValue=\"NULL\"\t\n"
     "\t>\n"
-    "\t</ProducedEvent>\n"
+    "\t</Field>\n"
+    "<!--\n"
+    "    <ProducedEvent\n"
+    "        name=\"StateChanged\"\n"
+    "        detailsType=\"ChangeEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "-->\n"
     "</FieldContainer>\n",
     "A UI ColorSelectionModel.\n"
     );
-
-//! ColorSelectionModel Produced Events
-
-EventDescription *ColorSelectionModelBase::_eventDesc[] =
-{
-    new EventDescription("StateChanged", 
-                          "",
-                          StateChangedEventId, 
-                          FieldTraits<ChangeEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&ColorSelectionModelBase::getHandleStateChangedSignal))
-
-};
-
-EventProducerType ColorSelectionModelBase::_producerType(
-    "ColorSelectionModelProducerType",
-    "EventProducerType",
-    "",
-    InitEventProducerFunctor(),
-    _eventDesc,
-    sizeof(_eventDesc));
 
 /*------------------------------ get -----------------------------------*/
 
@@ -182,11 +193,6 @@ const FieldContainerType &ColorSelectionModelBase::getType(void) const
     return _type;
 }
 
-const EventProducerType &ColorSelectionModelBase::getProducerType(void) const
-{
-    return _producerType;
-}
-
 UInt32 ColorSelectionModelBase::getContainerSize(void) const
 {
     return sizeof(ColorSelectionModel);
@@ -195,16 +201,33 @@ UInt32 ColorSelectionModelBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
+//! Get the ColorSelectionModel::_sfEventSource field.
+const SFUnrecColorSelectionModelEventSourcePtr *ColorSelectionModelBase::getSFEventSource(void) const
+{
+    return &_sfEventSource;
+}
+
+SFUnrecColorSelectionModelEventSourcePtr *ColorSelectionModelBase::editSFEventSource    (void)
+{
+    editSField(EventSourceFieldMask);
+
+    return &_sfEventSource;
+}
+
 
 
 
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ColorSelectionModelBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ColorSelectionModelBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+    {
+        returnValue += _sfEventSource.getBinSize();
+    }
 
     return returnValue;
 }
@@ -214,6 +237,10 @@ void ColorSelectionModelBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+    {
+        _sfEventSource.copyToBin(pMem);
+    }
 }
 
 void ColorSelectionModelBase::copyFromBin(BinaryDataHandler &pMem,
@@ -221,128 +248,27 @@ void ColorSelectionModelBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
-}
-
-
-
-/*------------------------- event producers ----------------------------------*/
-void ColorSelectionModelBase::produceEvent(UInt32 eventId, EventDetails* const e)
-{
-    switch(eventId)
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
     {
-    case StateChangedEventId:
-        OSG_ASSERT(dynamic_cast<StateChangedEventDetailsType* const>(e));
-
-        _StateChangedEvent.set_combiner(ConsumableEventCombiner(e));
-        _StateChangedEvent(dynamic_cast<StateChangedEventDetailsType* const>(e), StateChangedEventId);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        break;
+        editSField(EventSourceFieldMask);
+        _sfEventSource.copyFromBin(pMem);
     }
 }
 
-boost::signals2::connection ColorSelectionModelBase::connectEvent(UInt32 eventId, 
-                                                             const BaseEventType::slot_type &listener, 
-                                                             boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case StateChangedEventId:
-        return _StateChangedEvent.connect(listener, at);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return boost::signals2::connection();
-        break;
-    }
 
-    return boost::signals2::connection();
-}
-
-boost::signals2::connection  ColorSelectionModelBase::connectEvent(UInt32 eventId, 
-                                                              const BaseEventType::group_type &group,
-                                                              const BaseEventType::slot_type &listener,
-                                                              boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case StateChangedEventId:
-        return _StateChangedEvent.connect(group, listener, at);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return boost::signals2::connection();
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-    
-void  ColorSelectionModelBase::disconnectEvent(UInt32 eventId, const BaseEventType::group_type &group)
-{
-    switch(eventId)
-    {
-    case StateChangedEventId:
-        _StateChangedEvent.disconnect(group);
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        break;
-    }
-}
-
-void  ColorSelectionModelBase::disconnectAllSlotsEvent(UInt32 eventId)
-{
-    switch(eventId)
-    {
-    case StateChangedEventId:
-        _StateChangedEvent.disconnect_all_slots();
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        break;
-    }
-}
-
-bool  ColorSelectionModelBase::isEmptyEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case StateChangedEventId:
-        return _StateChangedEvent.empty();
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return true;
-        break;
-    }
-}
-
-UInt32  ColorSelectionModelBase::numSlotsEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case StateChangedEventId:
-        return _StateChangedEvent.num_slots();
-        break;
-    default:
-        SWARNING << "No event defined with that ID";
-        return 0;
-        break;
-    }
-}
 
 
 /*------------------------- constructors ----------------------------------*/
 
 ColorSelectionModelBase::ColorSelectionModelBase(void) :
-    Inherited()
+    Inherited(),
+    _sfEventSource            (NULL)
 {
 }
 
 ColorSelectionModelBase::ColorSelectionModelBase(const ColorSelectionModelBase &source) :
-    Inherited(source)
+    Inherited(source),
+    _sfEventSource            (NULL)
 {
 }
 
@@ -353,15 +279,42 @@ ColorSelectionModelBase::~ColorSelectionModelBase(void)
 {
 }
 
-
-
-GetEventHandlePtr ColorSelectionModelBase::getHandleStateChangedSignal(void) const
+void ColorSelectionModelBase::onCreate(const ColorSelectionModel *source)
 {
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<StateChangedEventType>(
-             const_cast<StateChangedEventType *>(&_StateChangedEvent),
-             _producerType.getEventDescription(StateChangedEventId),
+    Inherited::onCreate(source);
+
+    if(source != NULL)
+    {
+        ColorSelectionModel *pThis = static_cast<ColorSelectionModel *>(this);
+
+        pThis->setEventSource(source->getEventSource());
+    }
+}
+
+GetFieldHandlePtr ColorSelectionModelBase::getHandleEventSource     (void) const
+{
+    SFUnrecColorSelectionModelEventSourcePtr::GetHandlePtr returnValue(
+        new  SFUnrecColorSelectionModelEventSourcePtr::GetHandle(
+             &_sfEventSource,
+             this->getType().getFieldDesc(EventSourceFieldId),
              const_cast<ColorSelectionModelBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ColorSelectionModelBase::editHandleEventSource    (void)
+{
+    SFUnrecColorSelectionModelEventSourcePtr::EditHandlePtr returnValue(
+        new  SFUnrecColorSelectionModelEventSourcePtr::EditHandle(
+             &_sfEventSource,
+             this->getType().getFieldDesc(EventSourceFieldId),
+             this));
+
+    returnValue->setSetMethod(
+        boost::bind(&ColorSelectionModel::setEventSource,
+                    static_cast<ColorSelectionModel *>(this), _1));
+
+    editSField(EventSourceFieldMask);
 
     return returnValue;
 }
@@ -389,6 +342,8 @@ void ColorSelectionModelBase::execSyncV(      FieldContainer    &oFrom,
 void ColorSelectionModelBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+    static_cast<ColorSelectionModel *>(this)->setEventSource(NULL);
 
 
 }

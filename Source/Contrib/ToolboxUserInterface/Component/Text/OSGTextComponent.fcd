@@ -3,7 +3,7 @@
 <FieldContainer
     name="TextComponent"
     parent="Component"
-    library="ContribUserInterface"
+    library="ContribToolboxUserInterface"
     pointerfieldtypes="both"
     structure="abstract"
     systemcomponent="true"
@@ -12,8 +12,8 @@
     useLocalIncludes="false"
     isNodeCore="false"
     authors="David Kabala (djkabala@gmail.com)                             "
-    parentProducer="Component"
 >
+<!--     parentProducer="Component" -->
 A UI Button.
     <Field
         name="Text"
@@ -109,6 +109,7 @@ A UI Button.
         access="public"
     >
     </Field>
+<!--
     <ProducedEvent
         name="TextValueChanged"
         detailsType="TextEventDetails"
@@ -121,4 +122,5 @@ A UI Button.
         consumable="true"
     >
     </ProducedEvent>
+-->
 </FieldContainer>

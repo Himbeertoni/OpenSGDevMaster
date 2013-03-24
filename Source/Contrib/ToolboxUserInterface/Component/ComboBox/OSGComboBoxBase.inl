@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
@@ -48,9 +48,8 @@
  *****************************************************************************
 \*****************************************************************************/
 
-#include "OSGActionEventDetails.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 
 //! access the type of the class
@@ -65,19 +64,6 @@ inline
 OSG::UInt32 ComboBoxBase::getClassTypeId(void)
 {
     return _type.getId();
-}
-//! access the producer type of the class
-inline
-const EventProducerType &ComboBoxBase::getProducerClassType(void)
-{
-    return _producerType;
-}
-
-//! access the producer type id of the class
-inline
-UInt32 ComboBoxBase::getProducerClassTypeId(void)
-{
-    return _producerType.getId();
 }
 
 inline
@@ -250,50 +236,6 @@ const Char8 *ComboBoxBase::getClassname(void)
 {
     return "ComboBox";
 }
-inline
-boost::signals2::connection  ComboBoxBase::connectActionPerformed(const ActionPerformedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _ActionPerformedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  ComboBoxBase::connectActionPerformed(const ActionPerformedEventType::group_type &group,
-                                                    const ActionPerformedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _ActionPerformedEvent.connect(group, listener, at);
-}
-
-inline
-void  ComboBoxBase::disconnectActionPerformed(const ActionPerformedEventType::group_type &group)
-{
-    _ActionPerformedEvent.disconnect(group);
-}
-
-inline
-void  ComboBoxBase::disconnectAllSlotsActionPerformed(void)
-{
-    _ActionPerformedEvent.disconnect_all_slots();
-}
-
-inline
-bool  ComboBoxBase::isEmptyActionPerformed(void) const
-{
-    return _ActionPerformedEvent.empty();
-}
-
-inline
-UInt32  ComboBoxBase::numSlotsActionPerformed(void) const
-{
-    return _ActionPerformedEvent.num_slots();
-}
-
-inline
-void ComboBoxBase::produceActionPerformed(ActionPerformedEventDetailsType* const e)
-{
-    produceEvent(ActionPerformedEventId, e);
-}
-
 OSG_GEN_CONTAINERPTR(ComboBox);
 
 OSG_END_NAMESPACE

@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class UIViewport;
 
 OSG_GEN_CONTAINERPTR(UIViewport);
-
-/*! \ingroup GrpContribUserInterfaceFieldTraits
-    \ingroup GrpLibOSGContribUserInterface
+/*! \ingroup GrpContribToolboxUserInterfaceFieldTraits
+    \ingroup GrpLibOSGContribToolboxUserInterface
  */
 template <>
-struct FieldTraits<UIViewport *> :
-    public FieldTraitsFCPtrBase<UIViewport *>
+struct FieldTraits<UIViewport *, nsOSG> :
+    public FieldTraitsFCPtrBase<UIViewport *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<UIViewport *>  Self;
+    typedef FieldTraits<UIViewport *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,126 +90,124 @@ struct FieldTraits<UIViewport *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFUIViewportPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFUIViewportPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<UIViewport *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<UIViewport *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecUIViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<UIViewport *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<UIViewport *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecUIViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<UIViewport *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<UIViewport *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakUIViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<UIViewport *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<UIViewport *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdUIViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<UIViewport *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<UIViewport *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecUIViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<UIViewport *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<UIViewport *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecUIViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<UIViewport *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<UIViewport *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakUIViewportPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<UIViewport *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<UIViewport *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdUIViewportPtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<UIViewport *,
-                      RecordedRefCountPolicy  > SFRecUIViewportPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      RecordedRefCountPolicy, nsOSG  > SFRecUIViewportPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<UIViewport *,
-                      UnrecordedRefCountPolicy> SFUnrecUIViewportPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecUIViewportPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<UIViewport *,
-                      WeakRefCountPolicy      > SFWeakUIViewportPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      WeakRefCountPolicy, nsOSG      > SFWeakUIViewportPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<UIViewport *,
-                      NoRefCountPolicy        > SFUncountedUIViewportPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedUIViewportPtr;
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<UIViewport *,
-                      RecordedRefCountPolicy  > MFRecUIViewportPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      RecordedRefCountPolicy, nsOSG  > MFRecUIViewportPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<UIViewport *,
-                      UnrecordedRefCountPolicy> MFUnrecUIViewportPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecUIViewportPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<UIViewport *,
-                      WeakRefCountPolicy      > MFWeakUIViewportPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      WeakRefCountPolicy, nsOSG      > MFWeakUIViewportPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<UIViewport *,
-                      NoRefCountPolicy        > MFUncountedUIViewportPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedUIViewportPtr;
 
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFRecUIViewportPtr : 
     public PointerSField<UIViewport *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUnrecUIViewportPtr : 
     public PointerSField<UIViewport *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFWeakUIViewportPtr :
     public PointerSField<UIViewport *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUncountedUIViewportPtr :
     public PointerSField<UIViewport *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFRecUIViewportPtr :
     public PointerMField<UIViewport *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUnrecUIViewportPtr :
     public PointerMField<UIViewport *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFWeakUIViewportPtr :
     public PointerMField<UIViewport *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUncountedUIViewportPtr :
     public PointerMField<UIViewport *,
                          NoRefCountPolicy        > {};

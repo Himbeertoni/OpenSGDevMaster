@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGBaseDef.h"
+#include "OSGContribToolboxDef.h"
 
 #include "OSGFieldContainerFields.h"
 #include "OSGPointerSField.h"

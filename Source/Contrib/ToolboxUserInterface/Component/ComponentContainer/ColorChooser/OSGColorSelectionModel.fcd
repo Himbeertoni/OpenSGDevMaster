@@ -3,7 +3,7 @@
 <FieldContainer
     name="ColorSelectionModel"
     parent="AttachmentContainer"
-    library="ContribUserInterface"
+    library="ContribToolboxUserInterface"
     pointerfieldtypes="both"
     structure="abstract"
     systemcomponent="true"
@@ -14,10 +14,22 @@
     authors="David Kabala (djkabala@gmail.com)                             "
 >
 A UI ColorSelectionModel.
+	<Field
+        name="EventSource"
+        type="ColorSelectionModelEventSource"
+        category="pointer"
+        cardinality="single"
+        visibility="external"
+        access="public"
+        defaultValue="NULL"	
+	>
+	</Field>
+<!--
     <ProducedEvent
         name="StateChanged"
         detailsType="ChangeEventDetails"
         consumable="true"
     >
     </ProducedEvent>
+-->
 </FieldContainer>

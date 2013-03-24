@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -48,9 +48,8 @@
  *****************************************************************************
 \*****************************************************************************/
 
-#include "OSGChangeEventDetails.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 
 //! access the type of the class
@@ -66,19 +65,6 @@ OSG::UInt32 ColorSelectionModelBase::getClassTypeId(void)
 {
     return _type.getId();
 }
-//! access the producer type of the class
-inline
-const EventProducerType &ColorSelectionModelBase::getProducerClassType(void)
-{
-    return _producerType;
-}
-
-//! access the producer type id of the class
-inline
-UInt32 ColorSelectionModelBase::getProducerClassTypeId(void)
-{
-    return _producerType.getId();
-}
 
 inline
 OSG::UInt16 ColorSelectionModelBase::getClassGroupId(void)
@@ -88,6 +74,22 @@ OSG::UInt16 ColorSelectionModelBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+
+//! Get the value of the ColorSelectionModel::_sfEventSource field.
+inline
+ColorSelectionModelEventSource * ColorSelectionModelBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the ColorSelectionModel::_sfEventSource field.
+inline
+void ColorSelectionModelBase::setEventSource(ColorSelectionModelEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -99,6 +101,9 @@ void ColorSelectionModelBase::execSync (      ColorSelectionModelBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (EventSourceFieldMask & whichField))
+        _sfEventSource.syncWith(pFrom->_sfEventSource);
 }
 #endif
 
@@ -108,75 +113,6 @@ const Char8 *ColorSelectionModelBase::getClassname(void)
 {
     return "ColorSelectionModel";
 }
-
-inline
-UInt32 ColorSelectionModelBase::getNumProducedEvents(void) const
-{
-    return getProducerType().getNumEventDescs();
-}
-
-inline
-const EventDescription *ColorSelectionModelBase::getProducedEventDescription(const std::string &ProducedEventName) const
-{
-    return getProducerType().findEventDescription(ProducedEventName);
-}
-
-inline
-const EventDescription *ColorSelectionModelBase::getProducedEventDescription(UInt32 ProducedEventId) const
-{
-    return getProducerType().getEventDescription(ProducedEventId);
-}
-
-inline
-UInt32 ColorSelectionModelBase::getProducedEventId(const std::string &ProducedEventName) const
-{
-    return getProducerType().getProducedEventId(ProducedEventName);
-}
-
-inline
-boost::signals2::connection  ColorSelectionModelBase::connectStateChanged(const StateChangedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _StateChangedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  ColorSelectionModelBase::connectStateChanged(const StateChangedEventType::group_type &group,
-                                                    const StateChangedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _StateChangedEvent.connect(group, listener, at);
-}
-
-inline
-void  ColorSelectionModelBase::disconnectStateChanged(const StateChangedEventType::group_type &group)
-{
-    _StateChangedEvent.disconnect(group);
-}
-
-inline
-void  ColorSelectionModelBase::disconnectAllSlotsStateChanged(void)
-{
-    _StateChangedEvent.disconnect_all_slots();
-}
-
-inline
-bool  ColorSelectionModelBase::isEmptyStateChanged(void) const
-{
-    return _StateChangedEvent.empty();
-}
-
-inline
-UInt32  ColorSelectionModelBase::numSlotsStateChanged(void) const
-{
-    return _StateChangedEvent.num_slots();
-}
-
-inline
-void ColorSelectionModelBase::produceStateChanged(StateChangedEventDetailsType* const e)
-{
-    produceEvent(StateChangedEventId, e);
-}
-
 OSG_GEN_CONTAINERPTR(ColorSelectionModel);
 
 OSG_END_NAMESPACE

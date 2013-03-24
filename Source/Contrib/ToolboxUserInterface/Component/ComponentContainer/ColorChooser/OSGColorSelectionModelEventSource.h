@@ -43,6 +43,13 @@
 #endif
 
 #include "OSGColorSelectionModelEventSourceBase.h"
+//Event Producer Headers
+#include "OSGActivity.h"
+#include "OSGConsumableEventCombiner.h"
+
+#include "OSGChangeEventDetailsFields.h"
+
+#include "OSGWindowEventProducerBase.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -61,6 +68,61 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ColorSelectionModelEventSource 
     typedef ColorSelectionModelEventSourceBase Inherited;
     typedef ColorSelectionModelEventSource     Self;
 
+    static const  EventProducerType  &getProducerClassType  (void);
+    static        UInt32              getProducerClassTypeId(void);
+    
+    typedef ChangeEventDetails StateChangedEventDetailsType;
+
+    typedef boost::signals2::signal<void (EventDetails* const            , UInt32)> BaseEventType;
+    typedef boost::signals2::signal<void (ChangeEventDetails* const, UInt32), ConsumableEventCombiner> StateChangedEventType;
+    enum
+    {
+        StateChangedEventId = 1,
+        NextProducedEventId = StateChangedEventId + 1
+    };
+    /*---------------------------------------------------------------------*/
+    /*! \name                Event Produced Get                           */
+    /*! \{                                                                 */
+
+    virtual const EventProducerType &getProducerType(void) const; 
+
+    virtual UInt32                   getNumProducedEvents       (void                                ) const;
+    virtual const EventDescription *getProducedEventDescription(const std::string &ProducedEventName) const;
+    virtual const EventDescription *getProducedEventDescription(UInt32 ProducedEventId              ) const;
+    virtual UInt32                   getProducedEventId         (const std::string &ProducedEventName) const;
+    
+    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
+                                              const BaseEventType::slot_type &listener,
+                                              boost::signals2::connect_position at= boost::signals2::at_back);
+                                              
+    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
+                                              const BaseEventType::group_type &group,
+                                              const BaseEventType::slot_type &listener,
+                                              boost::signals2::connect_position at= boost::signals2::at_back);
+    
+    virtual void   disconnectEvent        (UInt32 eventId, const BaseEventType::group_type &group);
+    virtual void   disconnectAllSlotsEvent(UInt32 eventId);
+    virtual bool   isEmptyEvent           (UInt32 eventId) const;
+    virtual UInt32 numSlotsEvent          (UInt32 eventId) const;
+
+    /*! \}                                                                 */
+    /*! \name                Event Access                                 */
+    /*! \{                                                                 */
+    
+    //StateChanged
+    boost::signals2::connection connectStateChanged   (const StateChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectStateChanged   (const StateChangedEventType::group_type &group,
+                                                       const StateChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectStateChanged           (const StateChangedEventType::group_type &group);
+    void   disconnectAllSlotsStateChanged   (void);
+    bool   isEmptyStateChanged              (void) const;
+    UInt32 numSlotsStateChanged             (void) const;
+    
+    //Moved protected -> public:
+    void produceStateChanged        (StateChangedEventDetailsType* const e);
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -83,7 +145,26 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ColorSelectionModelEventSource 
   protected:
 
     // Variables should all be in ColorSelectionModelEventSourceBase.
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Produced Event Signals                   */
+    /*! \{                                                                 */
 
+    //Event Event producers
+    StateChangedEventType _StateChangedEvent;
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Event Access                     */
+    /*! \{                                                                 */
+
+    GetEventHandlePtr getHandleStateChangedSignal(void) const;
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Event Producer Firing                    */
+    /*! \{                                                                 */
+
+    virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
+    
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -109,6 +190,9 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ColorSelectionModelEventSource 
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
+    static EventDescription   *_eventDesc[];
+    static EventProducerType _producerType;
 
     friend class FieldContainer;
     friend class ColorSelectionModelEventSourceBase;

@@ -56,7 +56,9 @@
 #include "OSGComboBoxComponentGenerator.h"
 #include "OSGUIDrawUtils.h"
 #include "OSGStringUtils.h"
-
+#include "OSGToggleButtonEventSource.h"
+#include "OSGPopupMenuEventSource.h"
+#include "OSGComboBoxModelEventSource.h"
 #include <boost/bind.hpp>
 
 OSG_BEGIN_NAMESPACE
@@ -359,7 +361,11 @@ void ComboBox::produceActionPerformed(void)
 {
     ActionEventDetailsUnrecPtr Details = ActionEventDetails::create(this, getTimeStamp());
 
-    Inherited::produceActionPerformed(Details);
+    ButtonEventSource* ev = dynamic_cast<ButtonEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceActionPerformed(Details);
+    }
 }
 
 void ComboBox::keyTyped(KeyEventDetails* const e)
@@ -457,7 +463,8 @@ void ComboBox::attachMenuItems(void)
 
     for(UInt32 i(0) ; i<getComboListPopupMenu()->getNumItems() ; ++i)
     {
-        _MenuItemActionConnections.push_back(getComboListPopupMenu()->getItem(i)->connectActionPerformed(boost::bind(&ComboBox::handleMenuItemActionPerformed, this, _1)));
+        ButtonEventSource* ev = dynamic_cast<ButtonEventSource*>( getComboListPopupMenu()->getItem(i)->getEventSource() ); 
+        _MenuItemActionConnections.push_back( ev->connectActionPerformed( boost::bind(&ComboBox::handleMenuItemActionPerformed, this, _1) ) );
     }
 }
 
@@ -529,13 +536,24 @@ void ComboBox::changed(ConstFieldMaskArg whichField,
     if((whichField & ExpandButtonFieldMask) &&
        getExpandButton() != NULL)
     {
-        _ExpandButtonSelectedConnection = getExpandButton()->connectButtonSelected(boost::bind(&ComboBox::handleExpandButtonSelected, this, _1));
-        _ExpandButtonDeselectedConnection = getExpandButton()->connectButtonDeselected(boost::bind(&ComboBox::handleExpandButtonDeselected, this, _1));
-        
-        _ExpandPopupMenuCanceledConnection = getComboListPopupMenu()->connectPopupMenuCanceled(boost::bind(&ComboBox::handleExpandPopupMenuCanceled, this, _1));
-        _ExpandPopupMenuWillBecomeInvisibleConnection = getComboListPopupMenu()->connectPopupMenuWillBecomeInvisible(boost::bind(&ComboBox::handleExpandPopupMenuWillBecomeInvisible, this, _1));
-        _ExpandPopupMenuWillBecomeVisibleConnection = getComboListPopupMenu()->connectPopupMenuWillBecomeVisible(boost::bind(&ComboBox::handleExpandPopupMenuWillBecomeVisible, this, _1));
-        _ExpandPopupMenuContentsChangedConnection = getComboListPopupMenu()->connectPopupMenuContentsChanged(boost::bind(&ComboBox::handleExpandPopupMenuContentsChanged, this, _1));
+        {
+            ToggleButtonEventSource* ev = dynamic_cast<ToggleButtonEventSource*>( getExpandButton()->getEventSource() );
+            if ( ev )
+            {
+                _ExpandButtonSelectedConnection   = ev->connectButtonSelected(boost::bind(&ComboBox::handleExpandButtonSelected, this, _1));
+                _ExpandButtonDeselectedConnection = ev->connectButtonDeselected(boost::bind(&ComboBox::handleExpandButtonDeselected, this, _1));
+            }
+        }
+        {
+            PopupMenuEventSource* ev = dynamic_cast<PopupMenuEventSource*>( getComboListPopupMenu()->getEventSource() );
+            if ( ev )
+            {
+                _ExpandPopupMenuCanceledConnection            = ev->connectPopupMenuCanceled(boost::bind(&ComboBox::handleExpandPopupMenuCanceled, this, _1));
+                _ExpandPopupMenuWillBecomeInvisibleConnection = ev->connectPopupMenuWillBecomeInvisible(boost::bind(&ComboBox::handleExpandPopupMenuWillBecomeInvisible, this, _1));
+                _ExpandPopupMenuWillBecomeVisibleConnection   = ev->connectPopupMenuWillBecomeVisible(boost::bind(&ComboBox::handleExpandPopupMenuWillBecomeVisible, this, _1));
+                _ExpandPopupMenuContentsChangedConnection     = ev->connectPopupMenuContentsChanged(boost::bind(&ComboBox::handleExpandPopupMenuContentsChanged, this, _1));
+            }
+        }
     }
 
     if( (whichField & ExpandButtonFieldMask) ||
@@ -572,10 +590,14 @@ void ComboBox::changed(ConstFieldMaskArg whichField,
         {
             getComboListPopupMenu()->setModel(getModel());
 
-            _ContentsChangedConnection = getModel()->connectListDataContentsChanged(boost::bind(&ComboBox::handleContentsChanged, this, _1));
-            _ContentsIntervalAddedConnection = getModel()->connectListDataIntervalAdded(boost::bind(&ComboBox::handleContentsIntervalAdded, this, _1));
-            _ContentsIntervalRemovedConnection = getModel()->connectListDataIntervalRemoved(boost::bind(&ComboBox::handleContentsIntervalRemoved, this, _1));
-            _SelectionChangedConnection = getModel()->connectSelectionChanged(boost::bind(&ComboBox::handleSelectionChanged, this, _1));
+            ComboBoxModelEventSource* ev = dynamic_cast<ComboBoxModelEventSource*>( getModel()->getEventSource() );
+            if ( ev )
+            {
+                _ContentsChangedConnection         = ev->connectListDataContentsChanged(boost::bind(&ComboBox::handleContentsChanged, this, _1));
+                _ContentsIntervalAddedConnection   = ev->connectListDataIntervalAdded(boost::bind(&ComboBox::handleContentsIntervalAdded, this, _1));
+                _ContentsIntervalRemovedConnection = ev->connectListDataIntervalRemoved(boost::bind(&ComboBox::handleContentsIntervalRemoved, this, _1));
+                _SelectionChangedConnection        = ev->connectSelectionChanged(boost::bind(&ComboBox::handleSelectionChanged, this, _1));
+            }
             updateListFromModel();
         }
     }

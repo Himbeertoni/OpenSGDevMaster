@@ -51,6 +51,9 @@
 
 #include "OSGActionEventDetailsFields.h"
 
+#include "OSGButtonEventSource.h"
+#include <boost/signals2.hpp>
+
 OSG_BEGIN_NAMESPACE
 
 /*! \brief Button class. See \ref
@@ -163,6 +166,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Button : public ButtonBase
 
     virtual bool isFocusInteractable(void) const;
 
+
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -207,8 +211,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Button : public ButtonBase
     /*! \}                                                                 */
     static UIDrawObjectCanvasTransitPtr createTexturedDrawObjectCanvas(TextureObjChunk* const TheTexture, Vec2f Size = Vec2f(-1.0f,-1.0f));
 
-    virtual void actionPreformed(ActionEventDetails* const e);
-    virtual void mousePressedActionPreformed(ActionEventDetails* const e);
+    virtual void actionPerformed(ActionEventDetails* const e);
+    virtual void mousePressedActionPerformed(ActionEventDetails* const e);
 
     virtual void drawInternal(Graphics* const TheGraphics, Real32 Opacity = 1.0f) const;
     virtual void drawText(Graphics* const TheGraphics, const Pnt2f& TopLeft, Real32 Opacity = 1.0f) const;

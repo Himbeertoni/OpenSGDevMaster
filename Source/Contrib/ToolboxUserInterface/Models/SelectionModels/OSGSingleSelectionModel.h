@@ -134,6 +134,7 @@ typedef SingleSelectionModel *SingleSelectionModelP;
 
 OSG_END_NAMESPACE
 
+#include "OSGSingleSelectionModelEventSource.h"
 #include "OSGSingleSelectionModelBase.inl"
 #include "OSGSingleSelectionModel.inl"
 

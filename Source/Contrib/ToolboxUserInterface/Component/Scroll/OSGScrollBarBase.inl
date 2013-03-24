@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -48,9 +48,8 @@
  *****************************************************************************
 \*****************************************************************************/
 
-#include "OSGAdjustmentEventDetails.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 
 //! access the type of the class
@@ -65,19 +64,6 @@ inline
 OSG::UInt32 ScrollBarBase::getClassTypeId(void)
 {
     return _type.getId();
-}
-//! access the producer type of the class
-inline
-const EventProducerType &ScrollBarBase::getProducerClassType(void)
-{
-    return _producerType;
-}
-
-//! access the producer type id of the class
-inline
-UInt32 ScrollBarBase::getProducerClassTypeId(void)
-{
-    return _producerType.getId();
 }
 
 inline
@@ -391,50 +377,6 @@ const Char8 *ScrollBarBase::getClassname(void)
 {
     return "ScrollBar";
 }
-inline
-boost::signals2::connection  ScrollBarBase::connectAdjustmentValueChanged(const AdjustmentValueChangedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _AdjustmentValueChangedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  ScrollBarBase::connectAdjustmentValueChanged(const AdjustmentValueChangedEventType::group_type &group,
-                                                    const AdjustmentValueChangedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _AdjustmentValueChangedEvent.connect(group, listener, at);
-}
-
-inline
-void  ScrollBarBase::disconnectAdjustmentValueChanged(const AdjustmentValueChangedEventType::group_type &group)
-{
-    _AdjustmentValueChangedEvent.disconnect(group);
-}
-
-inline
-void  ScrollBarBase::disconnectAllSlotsAdjustmentValueChanged(void)
-{
-    _AdjustmentValueChangedEvent.disconnect_all_slots();
-}
-
-inline
-bool  ScrollBarBase::isEmptyAdjustmentValueChanged(void) const
-{
-    return _AdjustmentValueChangedEvent.empty();
-}
-
-inline
-UInt32  ScrollBarBase::numSlotsAdjustmentValueChanged(void) const
-{
-    return _AdjustmentValueChangedEvent.num_slots();
-}
-
-inline
-void ScrollBarBase::produceAdjustmentValueChanged(AdjustmentValueChangedEventDetailsType* const e)
-{
-    produceEvent(AdjustmentValueChangedEventId, e);
-}
-
 OSG_GEN_CONTAINERPTR(ScrollBar);
 
 OSG_END_NAMESPACE

@@ -47,6 +47,10 @@
 
 #include "OSGRadioButtonGroup.h"
 #include "OSGRadioButton.h"
+#include "OSGSelectionEventDetails.h"
+#include "OSGButtonSelectedEventDetails.h"
+
+#include "OSGToggleButtonEventSource.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -194,8 +198,12 @@ void RadioButtonGroup::changed(ConstFieldMaskArg whichField,
         _ButtonConnections.clear();
         for(UInt32 i(0) ; i<getMFGroupButtons()->size() ; ++i)
         {
-            _ButtonConnections.push_back(getGroupButtons(i)->connectButtonSelected(boost::bind(&RadioButtonGroup::handleButtonSelected, this, _1)));
-            _ButtonConnections.push_back(getGroupButtons(i)->connectButtonDeselected(boost::bind(&RadioButtonGroup::handleButtonDeselected, this, _1)));
+            ToggleButtonEventSource* ev = dynamic_cast<ToggleButtonEventSource*>( getGroupButtons(i)->getEventSource() );
+            if ( ev )
+            {
+                _ButtonConnections.push_back( ev->connectButtonSelected(boost::bind(&RadioButtonGroup::handleButtonSelected, this, _1)));
+                _ButtonConnections.push_back( ev->connectButtonDeselected(boost::bind(&RadioButtonGroup::handleButtonDeselected, this, _1)));
+            }
         }
     }
 

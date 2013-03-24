@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -48,9 +48,8 @@
  *****************************************************************************
 \*****************************************************************************/
 
-#include "OSGActionEventDetails.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 
 //! access the type of the class
@@ -65,19 +64,6 @@ inline
 OSG::UInt32 TextFieldBase::getClassTypeId(void)
 {
     return _type.getId();
-}
-//! access the producer type of the class
-inline
-const EventProducerType &TextFieldBase::getProducerClassType(void)
-{
-    return _producerType;
-}
-
-//! access the producer type id of the class
-inline
-UInt32 TextFieldBase::getProducerClassTypeId(void)
-{
-    return _producerType.getId();
 }
 
 inline
@@ -211,50 +197,6 @@ const Char8 *TextFieldBase::getClassname(void)
 {
     return "TextField";
 }
-inline
-boost::signals2::connection  TextFieldBase::connectActionPerformed(const ActionPerformedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _ActionPerformedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  TextFieldBase::connectActionPerformed(const ActionPerformedEventType::group_type &group,
-                                                    const ActionPerformedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _ActionPerformedEvent.connect(group, listener, at);
-}
-
-inline
-void  TextFieldBase::disconnectActionPerformed(const ActionPerformedEventType::group_type &group)
-{
-    _ActionPerformedEvent.disconnect(group);
-}
-
-inline
-void  TextFieldBase::disconnectAllSlotsActionPerformed(void)
-{
-    _ActionPerformedEvent.disconnect_all_slots();
-}
-
-inline
-bool  TextFieldBase::isEmptyActionPerformed(void) const
-{
-    return _ActionPerformedEvent.empty();
-}
-
-inline
-UInt32  TextFieldBase::numSlotsActionPerformed(void) const
-{
-    return _ActionPerformedEvent.num_slots();
-}
-
-inline
-void TextFieldBase::produceActionPerformed(ActionPerformedEventDetailsType* const e)
-{
-    produceEvent(ActionPerformedEventId, e);
-}
-
 OSG_GEN_CONTAINERPTR(TextField);
 
 OSG_END_NAMESPACE

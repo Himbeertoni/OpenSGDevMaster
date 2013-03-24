@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -72,9 +72,8 @@
 
 #include "OSGPopupMenuFields.h"
 
-#include "OSGPopupMenuEventDetailsFields.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 class PopupMenu;
 
@@ -91,17 +90,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PopupMenuBase : public Componen
     typedef TypeObject::InitPhase InitPhase;
 
     OSG_GEN_INTERNALPTR(PopupMenu);
-    
-    
-    typedef PopupMenuEventDetails PopupMenuWillBecomeVisibleEventDetailsType;
-    typedef PopupMenuEventDetails PopupMenuWillBecomeInvisibleEventDetailsType;
-    typedef PopupMenuEventDetails PopupMenuCanceledEventDetailsType;
-    typedef PopupMenuEventDetails PopupMenuContentsChangedEventDetailsType;
-
-    typedef boost::signals2::signal<void (PopupMenuEventDetails* const, UInt32), ConsumableEventCombiner> PopupMenuWillBecomeVisibleEventType;
-    typedef boost::signals2::signal<void (PopupMenuEventDetails* const, UInt32), ConsumableEventCombiner> PopupMenuWillBecomeInvisibleEventType;
-    typedef boost::signals2::signal<void (PopupMenuEventDetails* const, UInt32), ConsumableEventCombiner> PopupMenuCanceledEventType;
-    typedef boost::signals2::signal<void (PopupMenuEventDetails* const, UInt32), ConsumableEventCombiner> PopupMenuContentsChangedEventType;
 
     /*==========================  PUBLIC  =================================*/
 
@@ -132,15 +120,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PopupMenuBase : public Componen
     typedef SFUnrecSeparatorPtr SFDefaultSeparatorType;
     typedef SFUnrecSingleSelectionModelPtr SFSelectionModelType;
 
-    enum
-    {
-        PopupMenuWillBecomeVisibleEventId = Inherited::NextProducedEventId,
-        PopupMenuWillBecomeInvisibleEventId = PopupMenuWillBecomeVisibleEventId + 1,
-        PopupMenuCanceledEventId = PopupMenuWillBecomeInvisibleEventId + 1,
-        PopupMenuContentsChangedEventId = PopupMenuCanceledEventId + 1,
-        NextProducedEventId = PopupMenuContentsChangedEventId + 1
-    };
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
@@ -148,8 +127,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PopupMenuBase : public Componen
     static FieldContainerType &getClassType   (void);
     static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
-    static const  EventProducerType  &getProducerClassType  (void);
-    static        UInt32              getProducerClassTypeId(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -211,84 +188,13 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PopupMenuBase : public Componen
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual SizeT  getBinSize (ConstFieldMaskArg  whichField);
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
     virtual void   copyFromBin(BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
 
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Event Produced Get                           */
-    /*! \{                                                                 */
-
-    virtual const EventProducerType &getProducerType(void) const; 
-
-    
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-                                              
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::group_type &group,
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-    
-    virtual void   disconnectEvent        (UInt32 eventId, const BaseEventType::group_type &group);
-    virtual void   disconnectAllSlotsEvent(UInt32 eventId);
-    virtual bool   isEmptyEvent           (UInt32 eventId) const;
-    virtual UInt32 numSlotsEvent          (UInt32 eventId) const;
-
-    /*! \}                                                                 */
-    /*! \name                Event Access                                 */
-    /*! \{                                                                 */
-    
-    //PopupMenuWillBecomeVisible
-    boost::signals2::connection connectPopupMenuWillBecomeVisible(const PopupMenuWillBecomeVisibleEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectPopupMenuWillBecomeVisible(const PopupMenuWillBecomeVisibleEventType::group_type &group,
-                                                       const PopupMenuWillBecomeVisibleEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectPopupMenuWillBecomeVisible(const PopupMenuWillBecomeVisibleEventType::group_type &group);
-    void   disconnectAllSlotsPopupMenuWillBecomeVisible(void);
-    bool   isEmptyPopupMenuWillBecomeVisible(void) const;
-    UInt32 numSlotsPopupMenuWillBecomeVisible(void) const;
-    
-    //PopupMenuWillBecomeInvisible
-    boost::signals2::connection connectPopupMenuWillBecomeInvisible(const PopupMenuWillBecomeInvisibleEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectPopupMenuWillBecomeInvisible(const PopupMenuWillBecomeInvisibleEventType::group_type &group,
-                                                       const PopupMenuWillBecomeInvisibleEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectPopupMenuWillBecomeInvisible(const PopupMenuWillBecomeInvisibleEventType::group_type &group);
-    void   disconnectAllSlotsPopupMenuWillBecomeInvisible(void);
-    bool   isEmptyPopupMenuWillBecomeInvisible(void) const;
-    UInt32 numSlotsPopupMenuWillBecomeInvisible(void) const;
-    
-    //PopupMenuCanceled
-    boost::signals2::connection connectPopupMenuCanceled(const PopupMenuCanceledEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectPopupMenuCanceled(const PopupMenuCanceledEventType::group_type &group,
-                                                       const PopupMenuCanceledEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectPopupMenuCanceled      (const PopupMenuCanceledEventType::group_type &group);
-    void   disconnectAllSlotsPopupMenuCanceled(void);
-    bool   isEmptyPopupMenuCanceled         (void) const;
-    UInt32 numSlotsPopupMenuCanceled        (void) const;
-    
-    //PopupMenuContentsChanged
-    boost::signals2::connection connectPopupMenuContentsChanged(const PopupMenuContentsChangedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectPopupMenuContentsChanged(const PopupMenuContentsChangedEventType::group_type &group,
-                                                       const PopupMenuContentsChangedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectPopupMenuContentsChanged(const PopupMenuContentsChangedEventType::group_type &group);
-    void   disconnectAllSlotsPopupMenuContentsChanged(void);
-    bool   isEmptyPopupMenuContentsChanged  (void) const;
-    UInt32 numSlotsPopupMenuContentsChanged (void) const;
-    
-    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Construction                               */
@@ -320,16 +226,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PopupMenuBase : public Componen
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Produced Event Signals                   */
-    /*! \{                                                                 */
-
-    //Event Event producers
-    PopupMenuWillBecomeVisibleEventType _PopupMenuWillBecomeVisibleEvent;
-    PopupMenuWillBecomeInvisibleEventType _PopupMenuWillBecomeInvisibleEvent;
-    PopupMenuCanceledEventType _PopupMenuCanceledEvent;
-    PopupMenuContentsChangedEventType _PopupMenuContentsChangedEvent;
-    /*! \}                                                                 */
 
     static TypeObject _type;
 
@@ -383,26 +279,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PopupMenuBase : public Componen
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Event Access                     */
-    /*! \{                                                                 */
-
-    GetEventHandlePtr getHandlePopupMenuWillBecomeVisibleSignal(void) const;
-    GetEventHandlePtr getHandlePopupMenuWillBecomeInvisibleSignal(void) const;
-    GetEventHandlePtr getHandlePopupMenuCanceledSignal(void) const;
-    GetEventHandlePtr getHandlePopupMenuContentsChangedSignal(void) const;
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Event Producer Firing                    */
-    /*! \{                                                                 */
-
-    virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
-    
-    void producePopupMenuWillBecomeVisible  (PopupMenuWillBecomeVisibleEventDetailsType* const e);
-    void producePopupMenuWillBecomeInvisible  (PopupMenuWillBecomeInvisibleEventDetailsType* const e);
-    void producePopupMenuCanceled   (PopupMenuCanceledEventDetailsType* const e);
-    void producePopupMenuContentsChanged  (PopupMenuContentsChangedEventDetailsType* const e);
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 
@@ -451,9 +327,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PopupMenuBase : public Componen
 
   private:
     /*---------------------------------------------------------------------*/
-    static EventDescription   *_eventDesc[];
-    static EventProducerType _producerType;
-
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const PopupMenuBase &source);

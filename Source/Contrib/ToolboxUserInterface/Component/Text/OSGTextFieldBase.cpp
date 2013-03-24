@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -52,7 +52,6 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include <boost/assign/list_of.hpp>
 
 #include "OSGConfig.h"
 
@@ -64,8 +63,6 @@
 #include "OSGTextField.h"
 
 #include <boost/bind.hpp>
-
-#include "OSGEventDetails.h"
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -107,18 +104,22 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextField *>::_type("TextFieldPtr", "EditableTextComponentPtr");
+PointerType FieldTraits<TextField *, nsOSG>::_type(
+    "TextFieldPtr", 
+    "EditableTextComponentPtr", 
+    TextField::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(TextField *)
+OSG_FIELDTRAITS_GETTYPE_NS(TextField *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            TextField *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            TextField *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -183,7 +184,7 @@ TextFieldBase::TypeObject TextFieldBase::_type(
     TextFieldBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&TextFieldBase::createEmptyLocal),
     TextField::initMethod,
     TextField::exitMethod,
@@ -193,89 +194,70 @@ TextFieldBase::TypeObject TextFieldBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"TextField\"\n"
-    "\tparent=\"EditableTextComponent\"\n"
-    "    library=\"ContribUserInterface\"\n"
+    "    name=\"TextField\"\n"
+    "    parent=\"EditableTextComponent\"\n"
+    "    library=\"ContribToolboxUserInterface\"\n"
     "    pointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
+    "    structure=\"concrete\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"
     "    decoratable=\"false\"\n"
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
-    "    parentProducer=\"TextComponent\"\n"
     ">\n"
+    "<!-- parentProducer=\"TextComponent\" --> \n"
     "A UI Text Field\n"
-    "\t<Field\n"
-    "\t\tname=\"Alignment\"\n"
-    "\t\ttype=\"Vec2f\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"0.0f, 0.5f\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"EmptyDescTextFont\"\n"
-    "\t\ttype=\"UIFont\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"EmptyDescText\"\n"
-    "\t\ttype=\"std::string\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"EmptyDescTextColor\"\n"
-    "\t\ttype=\"Color4f\"\n"
-    "\t\tcategory=\"data\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"0.3,0.3,0.3,1.0\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"ActionPerformed\"\n"
-    "\t\tdetailsType=\"ActionEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
+    "    <Field\n"
+    "        name=\"Alignment\"\n"
+    "        type=\"Vec2f\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"0.0f, 0.5f\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"EmptyDescTextFont\"\n"
+    "        type=\"UIFont\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"EmptyDescText\"\n"
+    "        type=\"std::string\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"EmptyDescTextColor\"\n"
+    "        type=\"Color4f\"\n"
+    "        category=\"data\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"0.3,0.3,0.3,1.0\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "<!--\n"
+    "    <ProducedEvent\n"
+    "        name=\"ActionPerformed\"\n"
+    "        detailsType=\"ActionEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "-->\n"
     "</FieldContainer>\n",
     "A UI Text Field\n"
     );
-
-//! TextField Produced Events
-
-EventDescription *TextFieldBase::_eventDesc[] =
-{
-    new EventDescription("ActionPerformed", 
-                          "",
-                          ActionPerformedEventId, 
-                          FieldTraits<ActionEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&TextFieldBase::getHandleActionPerformedSignal))
-
-};
-
-EventProducerType TextFieldBase::_producerType(
-    "TextFieldProducerType",
-    "TextComponentProducerType",
-    "",
-    InitEventProducerFunctor(),
-    _eventDesc,
-    sizeof(_eventDesc));
 
 /*------------------------------ get -----------------------------------*/
 
@@ -287,11 +269,6 @@ FieldContainerType &TextFieldBase::getType(void)
 const FieldContainerType &TextFieldBase::getType(void) const
 {
     return _type;
-}
-
-const EventProducerType &TextFieldBase::getProducerType(void) const
-{
-    return _producerType;
 }
 
 UInt32 TextFieldBase::getContainerSize(void) const
@@ -360,9 +337,9 @@ const SFColor4f *TextFieldBase::getSFEmptyDescTextColor(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 TextFieldBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT TextFieldBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (AlignmentFieldMask & whichField))
     {
@@ -414,18 +391,22 @@ void TextFieldBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (AlignmentFieldMask & whichField))
     {
+        editSField(AlignmentFieldMask);
         _sfAlignment.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EmptyDescTextFontFieldMask & whichField))
     {
+        editSField(EmptyDescTextFontFieldMask);
         _sfEmptyDescTextFont.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EmptyDescTextFieldMask & whichField))
     {
+        editSField(EmptyDescTextFieldMask);
         _sfEmptyDescText.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (EmptyDescTextColorFieldMask & whichField))
     {
+        editSField(EmptyDescTextColorFieldMask);
         _sfEmptyDescTextColor.copyFromBin(pMem);
     }
 }
@@ -547,110 +528,6 @@ FieldContainerTransitPtr TextFieldBase::shallowCopy(void) const
 }
 
 
-
-/*------------------------- event producers ----------------------------------*/
-void TextFieldBase::produceEvent(UInt32 eventId, EventDetails* const e)
-{
-    switch(eventId)
-    {
-    case ActionPerformedEventId:
-        OSG_ASSERT(dynamic_cast<ActionPerformedEventDetailsType* const>(e));
-
-        _ActionPerformedEvent.set_combiner(ConsumableEventCombiner(e));
-        _ActionPerformedEvent(dynamic_cast<ActionPerformedEventDetailsType* const>(e), ActionPerformedEventId);
-        break;
-    default:
-        Inherited::produceEvent(eventId, e);
-        break;
-    }
-}
-
-boost::signals2::connection TextFieldBase::connectEvent(UInt32 eventId, 
-                                                             const BaseEventType::slot_type &listener, 
-                                                             boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case ActionPerformedEventId:
-        return _ActionPerformedEvent.connect(listener, at);
-        break;
-    default:
-        return Inherited::connectEvent(eventId, listener, at);
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-
-boost::signals2::connection  TextFieldBase::connectEvent(UInt32 eventId, 
-                                                              const BaseEventType::group_type &group,
-                                                              const BaseEventType::slot_type &listener,
-                                                              boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case ActionPerformedEventId:
-        return _ActionPerformedEvent.connect(group, listener, at);
-        break;
-    default:
-        return Inherited::connectEvent(eventId, group, listener, at);
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-    
-void  TextFieldBase::disconnectEvent(UInt32 eventId, const BaseEventType::group_type &group)
-{
-    switch(eventId)
-    {
-    case ActionPerformedEventId:
-        _ActionPerformedEvent.disconnect(group);
-        break;
-    default:
-        return Inherited::disconnectEvent(eventId, group);
-        break;
-    }
-}
-
-void  TextFieldBase::disconnectAllSlotsEvent(UInt32 eventId)
-{
-    switch(eventId)
-    {
-    case ActionPerformedEventId:
-        _ActionPerformedEvent.disconnect_all_slots();
-        break;
-    default:
-        Inherited::disconnectAllSlotsEvent(eventId);
-        break;
-    }
-}
-
-bool  TextFieldBase::isEmptyEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case ActionPerformedEventId:
-        return _ActionPerformedEvent.empty();
-        break;
-    default:
-        return Inherited::isEmptyEvent(eventId);
-        break;
-    }
-}
-
-UInt32  TextFieldBase::numSlotsEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case ActionPerformedEventId:
-        return _ActionPerformedEvent.num_slots();
-        break;
-    default:
-        return Inherited::numSlotsEvent(eventId);
-        break;
-    }
-}
 
 
 /*------------------------- constructors ----------------------------------*/
@@ -791,18 +668,6 @@ EditFieldHandlePtr TextFieldBase::editHandleEmptyDescTextColor(void)
 
 
     editSField(EmptyDescTextColorFieldMask);
-
-    return returnValue;
-}
-
-
-GetEventHandlePtr TextFieldBase::getHandleActionPerformedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<ActionPerformedEventType>(
-             const_cast<ActionPerformedEventType *>(&_ActionPerformedEvent),
-             _producerType.getEventDescription(ActionPerformedEventId),
-             const_cast<TextFieldBase *>(this)));
 
     return returnValue;
 }

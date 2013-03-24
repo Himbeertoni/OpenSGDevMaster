@@ -47,6 +47,7 @@
 
 #include "OSGColorSelectionModelEventSource.h"
 
+#include "OSGEventDetails.h"
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
@@ -57,6 +58,26 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
+//! ColorSelectionModel Produced Events
+
+EventDescription *ColorSelectionModelEventSource::_eventDesc[] =
+{
+    new EventDescription("StateChanged", 
+                          "",
+                          StateChangedEventId, 
+                          FieldTraits<ChangeEventDetails *>::getType(),
+                          true,
+                          static_cast<EventGetMethod>(&ColorSelectionModelEventSource::getHandleStateChangedSignal))
+
+};
+
+EventProducerType ColorSelectionModelEventSource::_producerType(
+    "ColorSelectionModelProducerType",
+    "EventProducerType",
+    "",
+    InitEventProducerFunctor(),
+    _eventDesc,
+    sizeof(_eventDesc));
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -72,13 +93,136 @@ void ColorSelectionModelEventSource::initMethod(InitPhase ePhase)
 }
 
 
+const EventProducerType &ColorSelectionModelEventSource::getProducerType(void) const
+{
+    return _producerType;
+}
+
 /***************************************************************************\
  *                           Instance methods                              *
 \***************************************************************************/
+/*------------------------- event producers ----------------------------------*/
+void ColorSelectionModelEventSource::produceEvent(UInt32 eventId, EventDetails* const e)
+{
+    switch(eventId)
+    {
+    case StateChangedEventId:
+        OSG_ASSERT(dynamic_cast<StateChangedEventDetailsType* const>(e));
+
+        _StateChangedEvent.set_combiner(ConsumableEventCombiner(e));
+        _StateChangedEvent(dynamic_cast<StateChangedEventDetailsType* const>(e), StateChangedEventId);
+        break;
+    default:
+        SWARNING << "No event defined with that ID";
+        break;
+    }
+}
+
+boost::signals2::connection ColorSelectionModelEventSource::connectEvent(UInt32 eventId, 
+                                                             const BaseEventType::slot_type &listener, 
+                                                             boost::signals2::connect_position at)
+{
+    switch(eventId)
+    {
+    case StateChangedEventId:
+        return _StateChangedEvent.connect(listener, at);
+        break;
+    default:
+        SWARNING << "No event defined with that ID";
+        return boost::signals2::connection();
+        break;
+    }
+
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ColorSelectionModelEventSource::connectEvent(UInt32 eventId, 
+                                                              const BaseEventType::group_type &group,
+                                                              const BaseEventType::slot_type &listener,
+                                                              boost::signals2::connect_position at)
+{
+    switch(eventId)
+    {
+    case StateChangedEventId:
+        return _StateChangedEvent.connect(group, listener, at);
+        break;
+    default:
+        SWARNING << "No event defined with that ID";
+        return boost::signals2::connection();
+        break;
+    }
+
+    return boost::signals2::connection();
+}
+    
+void  ColorSelectionModelEventSource::disconnectEvent(UInt32 eventId, const BaseEventType::group_type &group)
+{
+    switch(eventId)
+    {
+    case StateChangedEventId:
+        _StateChangedEvent.disconnect(group);
+        break;
+    default:
+        SWARNING << "No event defined with that ID";
+        break;
+    }
+}
+
+void  ColorSelectionModelEventSource::disconnectAllSlotsEvent(UInt32 eventId)
+{
+    switch(eventId)
+    {
+    case StateChangedEventId:
+        _StateChangedEvent.disconnect_all_slots();
+        break;
+    default:
+        SWARNING << "No event defined with that ID";
+        break;
+    }
+}
+
+bool  ColorSelectionModelEventSource::isEmptyEvent(UInt32 eventId) const
+{
+    switch(eventId)
+    {
+    case StateChangedEventId:
+        return _StateChangedEvent.empty();
+        break;
+    default:
+        SWARNING << "No event defined with that ID";
+        return true;
+        break;
+    }
+}
+
+UInt32  ColorSelectionModelEventSource::numSlotsEvent(UInt32 eventId) const
+{
+    switch(eventId)
+    {
+    case StateChangedEventId:
+        return _StateChangedEvent.num_slots();
+        break;
+    default:
+        SWARNING << "No event defined with that ID";
+        return 0;
+        break;
+    }
+}
+
 
 /*-------------------------------------------------------------------------*\
  -  private                                                                 -
 \*-------------------------------------------------------------------------*/
+GetEventHandlePtr ColorSelectionModelEventSource::getHandleStateChangedSignal(void) const
+{
+    GetEventHandlePtr returnValue(
+        new  GetTypedEventHandle<StateChangedEventType>(
+             const_cast<StateChangedEventType *>(&_StateChangedEvent),
+             _producerType.getEventDescription(StateChangedEventId),
+             const_cast<ColorSelectionModelEventSource *>(this)));
+
+    return returnValue;
+}
 
 /*----------------------- constructors & destructors ----------------------*/
 

@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -70,9 +70,8 @@
 
 #include "OSGUIViewportFields.h"
 
-#include "OSGChangeEventDetailsFields.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 class UIViewport;
 
@@ -89,11 +88,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportBase : public Compone
     typedef TypeObject::InitPhase InitPhase;
 
     OSG_GEN_INTERNALPTR(UIViewport);
-    
-    
-    typedef ChangeEventDetails StateChangedEventDetailsType;
-
-    typedef boost::signals2::signal<void (ChangeEventDetails* const, UInt32), ConsumableEventCombiner> StateChangedEventType;
 
     /*==========================  PUBLIC  =================================*/
 
@@ -120,12 +114,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportBase : public Compone
     typedef SFUnrecComponentPtr SFViewComponentType;
     typedef SFVec2f           SFViewSizeType;
 
-    enum
-    {
-        StateChangedEventId = Inherited::NextProducedEventId,
-        NextProducedEventId = StateChangedEventId + 1
-    };
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
@@ -133,8 +121,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportBase : public Compone
     static FieldContainerType &getClassType   (void);
     static UInt32              getClassTypeId (void);
     static UInt16              getClassGroupId(void);
-    static const  EventProducerType  &getProducerClassType  (void);
-    static        UInt32              getProducerClassTypeId(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -193,51 +179,13 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportBase : public Compone
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual SizeT  getBinSize (ConstFieldMaskArg  whichField);
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
     virtual void   copyFromBin(BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
 
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Event Produced Get                           */
-    /*! \{                                                                 */
-
-    virtual const EventProducerType &getProducerType(void) const; 
-
-    
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-                                              
-    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
-                                              const BaseEventType::group_type &group,
-                                              const BaseEventType::slot_type &listener,
-                                              boost::signals2::connect_position at= boost::signals2::at_back);
-    
-    virtual void   disconnectEvent        (UInt32 eventId, const BaseEventType::group_type &group);
-    virtual void   disconnectAllSlotsEvent(UInt32 eventId);
-    virtual bool   isEmptyEvent           (UInt32 eventId) const;
-    virtual UInt32 numSlotsEvent          (UInt32 eventId) const;
-
-    /*! \}                                                                 */
-    /*! \name                Event Access                                 */
-    /*! \{                                                                 */
-    
-    //StateChanged
-    boost::signals2::connection connectStateChanged   (const StateChangedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectStateChanged   (const StateChangedEventType::group_type &group,
-                                                       const StateChangedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectStateChanged           (const StateChangedEventType::group_type &group);
-    void   disconnectAllSlotsStateChanged   (void);
-    bool   isEmptyStateChanged              (void) const;
-    UInt32 numSlotsStateChanged             (void) const;
-    
-    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Construction                               */
@@ -269,13 +217,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportBase : public Compone
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Produced Event Signals                   */
-    /*! \{                                                                 */
-
-    //Event Event producers
-    StateChangedEventType _StateChangedEvent;
-    /*! \}                                                                 */
 
     static TypeObject _type;
 
@@ -326,20 +267,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportBase : public Compone
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Event Access                     */
-    /*! \{                                                                 */
-
-    GetEventHandlePtr getHandleStateChangedSignal(void) const;
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Event Producer Firing                    */
-    /*! \{                                                                 */
-
-    virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
-    
-    void produceStateChanged        (StateChangedEventDetailsType* const e);
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 
@@ -388,9 +315,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportBase : public Compone
 
   private:
     /*---------------------------------------------------------------------*/
-    static EventDescription   *_eventDesc[];
-    static EventProducerType _producerType;
-
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const UIViewportBase &source);

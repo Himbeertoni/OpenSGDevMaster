@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -52,7 +52,6 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include <boost/assign/list_of.hpp>
 
 #include "OSGConfig.h"
 
@@ -63,8 +62,6 @@
 #include "OSGComboBoxModel.h"
 
 #include <boost/bind.hpp>
-
-#include "OSGEventDetails.h"
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -90,18 +87,22 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ComboBoxModel *>::_type("ComboBoxModelPtr", "ListModelPtr");
+PointerType FieldTraits<ComboBoxModel *, nsOSG>::_type(
+    "ComboBoxModelPtr", 
+    "ListModelPtr", 
+    ComboBoxModel::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ComboBoxModel *)
+OSG_FIELDTRAITS_GETTYPE_NS(ComboBoxModel *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            ComboBoxModel *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ComboBoxModel *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -116,7 +117,7 @@ ComboBoxModelBase::TypeObject ComboBoxModelBase::_type(
     ComboBoxModelBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     NULL,
     ComboBoxModel::initMethod,
     ComboBoxModel::exitMethod,
@@ -126,50 +127,31 @@ ComboBoxModelBase::TypeObject ComboBoxModelBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"ComboBoxModel\"\n"
-    "\tparent=\"ListModel\"\n"
-    "    library=\"ContribUserInterface\"\n"
+    "    name=\"ComboBoxModel\"\n"
+    "    parent=\"ListModel\"\n"
+    "    library=\"ContribToolboxUserInterface\"\n"
     "    pointerfieldtypes=\"both\"\n"
-    "\tstructure=\"abstract\"\n"
+    "    structure=\"abstract\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"
     "    decoratable=\"false\"\n"
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
-    "    parentProducer=\"ListModel\"\n"
     ">\n"
+    "<!-- parentProducer=\"ListModel\" -->\n"
     "A UI ComboBoxModel.\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"SelectionChanged\"\n"
-    "\t\tdetailsType=\"ComboBoxSelectionEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
+    "<!--\n"
+    "    <ProducedEvent\n"
+    "        name=\"SelectionChanged\"\n"
+    "        detailsType=\"ComboBoxSelectionEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "-->\n"
     "</FieldContainer>\n",
     "A UI ComboBoxModel.\n"
     );
-
-//! ComboBoxModel Produced Events
-
-EventDescription *ComboBoxModelBase::_eventDesc[] =
-{
-    new EventDescription("SelectionChanged", 
-                          "",
-                          SelectionChangedEventId, 
-                          FieldTraits<ComboBoxSelectionEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&ComboBoxModelBase::getHandleSelectionChangedSignal))
-
-};
-
-EventProducerType ComboBoxModelBase::_producerType(
-    "ComboBoxModelProducerType",
-    "ListModelProducerType",
-    "",
-    InitEventProducerFunctor(),
-    _eventDesc,
-    sizeof(_eventDesc));
 
 /*------------------------------ get -----------------------------------*/
 
@@ -181,11 +163,6 @@ FieldContainerType &ComboBoxModelBase::getType(void)
 const FieldContainerType &ComboBoxModelBase::getType(void) const
 {
     return _type;
-}
-
-const EventProducerType &ComboBoxModelBase::getProducerType(void) const
-{
-    return _producerType;
 }
 
 UInt32 ComboBoxModelBase::getContainerSize(void) const
@@ -202,9 +179,9 @@ UInt32 ComboBoxModelBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ComboBoxModelBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT ComboBoxModelBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
 
     return returnValue;
@@ -226,110 +203,6 @@ void ComboBoxModelBase::copyFromBin(BinaryDataHandler &pMem,
 
 
 
-/*------------------------- event producers ----------------------------------*/
-void ComboBoxModelBase::produceEvent(UInt32 eventId, EventDetails* const e)
-{
-    switch(eventId)
-    {
-    case SelectionChangedEventId:
-        OSG_ASSERT(dynamic_cast<SelectionChangedEventDetailsType* const>(e));
-
-        _SelectionChangedEvent.set_combiner(ConsumableEventCombiner(e));
-        _SelectionChangedEvent(dynamic_cast<SelectionChangedEventDetailsType* const>(e), SelectionChangedEventId);
-        break;
-    default:
-        Inherited::produceEvent(eventId, e);
-        break;
-    }
-}
-
-boost::signals2::connection ComboBoxModelBase::connectEvent(UInt32 eventId, 
-                                                             const BaseEventType::slot_type &listener, 
-                                                             boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case SelectionChangedEventId:
-        return _SelectionChangedEvent.connect(listener, at);
-        break;
-    default:
-        return Inherited::connectEvent(eventId, listener, at);
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-
-boost::signals2::connection  ComboBoxModelBase::connectEvent(UInt32 eventId, 
-                                                              const BaseEventType::group_type &group,
-                                                              const BaseEventType::slot_type &listener,
-                                                              boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case SelectionChangedEventId:
-        return _SelectionChangedEvent.connect(group, listener, at);
-        break;
-    default:
-        return Inherited::connectEvent(eventId, group, listener, at);
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-    
-void  ComboBoxModelBase::disconnectEvent(UInt32 eventId, const BaseEventType::group_type &group)
-{
-    switch(eventId)
-    {
-    case SelectionChangedEventId:
-        _SelectionChangedEvent.disconnect(group);
-        break;
-    default:
-        return Inherited::disconnectEvent(eventId, group);
-        break;
-    }
-}
-
-void  ComboBoxModelBase::disconnectAllSlotsEvent(UInt32 eventId)
-{
-    switch(eventId)
-    {
-    case SelectionChangedEventId:
-        _SelectionChangedEvent.disconnect_all_slots();
-        break;
-    default:
-        Inherited::disconnectAllSlotsEvent(eventId);
-        break;
-    }
-}
-
-bool  ComboBoxModelBase::isEmptyEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case SelectionChangedEventId:
-        return _SelectionChangedEvent.empty();
-        break;
-    default:
-        return Inherited::isEmptyEvent(eventId);
-        break;
-    }
-}
-
-UInt32  ComboBoxModelBase::numSlotsEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case SelectionChangedEventId:
-        return _SelectionChangedEvent.num_slots();
-        break;
-    default:
-        return Inherited::numSlotsEvent(eventId);
-        break;
-    }
-}
-
 
 /*------------------------- constructors ----------------------------------*/
 
@@ -350,18 +223,6 @@ ComboBoxModelBase::~ComboBoxModelBase(void)
 {
 }
 
-
-
-GetEventHandlePtr ComboBoxModelBase::getHandleSelectionChangedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<SelectionChangedEventType>(
-             const_cast<SelectionChangedEventType *>(&_SelectionChangedEvent),
-             _producerType.getEventDescription(SelectionChangedEventId),
-             const_cast<ComboBoxModelBase *>(this)));
-
-    return returnValue;
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

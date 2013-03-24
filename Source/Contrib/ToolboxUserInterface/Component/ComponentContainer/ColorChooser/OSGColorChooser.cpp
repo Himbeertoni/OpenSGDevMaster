@@ -319,7 +319,7 @@ void ColorChooser::onCreate(const ColorChooser * Id)
 
     DefaultColorSelectionModelUnrecPtr Model = DefaultColorSelectionModel::create();
     setSelectionModel(Model);
-    _ColorSelectedStateChangedConnection = getSelectionModel()->connectStateChanged(boost::bind(&ColorChooser::handleColorSelectedStateChanged, this, _1));
+    _ColorSelectedStateChangedConnection = getSelectionModel()->getEventSource()->connectStateChanged(boost::bind(&ColorChooser::handleColorSelectedStateChanged, this, _1));
 
     createDefaultPanel();
 
@@ -401,7 +401,7 @@ void ColorChooser::changed(ConstFieldMaskArg whichField,
         _ColorSelectedStateChangedConnection.disconnect();
         if(getSelectionModel())
         {
-            _ColorSelectedStateChangedConnection = getSelectionModel()->connectStateChanged(boost::bind(&ColorChooser::handleColorSelectedStateChanged, this, _1));
+            _ColorSelectedStateChangedConnection = getSelectionModel()->getEventSource()->connectStateChanged(boost::bind(&ColorChooser::handleColorSelectedStateChanged, this, _1));
             updateChoosers();
         }
     }

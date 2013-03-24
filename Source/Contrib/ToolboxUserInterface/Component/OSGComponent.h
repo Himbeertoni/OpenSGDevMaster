@@ -52,7 +52,7 @@
 #include "OSGMouseWheelEventDetailsFields.h"
 #include "OSGKeyEventDetailsFields.h"
 #include "OSGFocusEventDetailsFields.h"
-
+#include <boost/signals2.hpp>
 OSG_BEGIN_NAMESPACE
 
 /*!\class Component
@@ -970,7 +970,15 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING Component : public ComponentBas
 
     InternalWindow* _ParentWindow;
 
+    boost::signals2::connection _ToolTipActivateUpdateConnection;
 
+    boost::signals2::connection _ToolTipActivateMouseEnterConnection,
+        _ToolTipActivateMouseExitConnection;
+
+    boost::signals2::connection _ActiveTooltipClickConnection,
+                                _ActiveTooltipExitConnection,
+                                _ActiveTooltipPressConnection,
+                                _ActiveTooltipReleaseConnection;
     /*==========================  PRIVATE  ================================*/
 
   private:

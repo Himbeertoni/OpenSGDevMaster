@@ -939,22 +939,22 @@ void Component::drawForeground(Graphics* const TheGraphics, const Layer* Foregro
 
 void Component::mouseClicked(MouseEventDetails* const e)
 {
-    produceMouseClicked(e);
+    getEventSource()->produceMouseClicked(e);
 }
 
 void Component::mouseEntered(MouseEventDetails* const e)
 {
-    produceMouseEntered(e);
+    getEventSource()->produceMouseEntered(e);
 }
 
 void Component::mouseExited(MouseEventDetails* const e)
 {
-    produceMouseExited(e);
+    getEventSource()->produceMouseExited(e);
 }
 
 void Component::mousePressed(MouseEventDetails* const e)
 {
-    produceMousePressed(e);
+    getEventSource()->produceMousePressed(e);
 
     if(e->getButton() == MouseEventDetails::BUTTON3
        && getPopupMenu() != NULL)
@@ -969,7 +969,7 @@ void Component::mousePressed(MouseEventDetails* const e)
 
 void Component::mouseReleased(MouseEventDetails* const e)
 {
-    produceMouseReleased(e);
+    getEventSource()->produceMouseReleased(e);
 }
 
 
@@ -980,32 +980,32 @@ void Component::mouseMoved(MouseEventDetails* const e)
     {
         getParentWindow()->getParentDrawingSurface()->getEventProducer()->setCursorType(queryCursor(e->getLocation()));
     }
-    produceMouseMoved(e);
+    getEventSource()->produceMouseMoved(e);
 }
 
 void Component::mouseDragged(MouseEventDetails* const e)
 {
-    produceMouseDragged(e);
+    getEventSource()->produceMouseDragged(e);
 }
 
 void Component::mouseWheelMoved(MouseWheelEventDetails* const e)
 {
-    produceMouseWheelMoved(e);
+    getEventSource()->produceMouseWheelMoved(e);
 }
 
 void Component::keyPressed(KeyEventDetails* const e)
 {
-    produceKeyPressed(e);
+    getEventSource()->produceKeyPressed(e);
 }
 
 void Component::keyReleased(KeyEventDetails* const e)
 {
-    produceKeyReleased(e);
+    getEventSource()->produceKeyReleased(e);
 }
 
 void Component::keyTyped(KeyEventDetails* const e)
 {
-    produceKeyTyped(e);
+    getEventSource()->produceKeyTyped(e);
 
     if(getFocused() &&
        !e->isConsumed() &&
@@ -1024,12 +1024,12 @@ void Component::keyTyped(KeyEventDetails* const e)
 
 void Component::focusGained(FocusEventDetails* const e)
 {
-    produceFocusGained(e);
+    getEventSource()->produceFocusGained(e);
 }
 
 void Component::focusLost(FocusEventDetails* const e)
 {
-    produceFocusLost(e);
+    getEventSource()->produceFocusLost(e);
 }
 
 bool Component::giveFocus(Component* const NewFocusedComponent, bool Temporary)
@@ -1281,20 +1281,20 @@ void Component::changed(ConstFieldMaskArg whichField,
     {
         if(getEnabled())
         {
-            produceComponentEnabled();    
+            getEventSource()->produceComponentEnabled();    
         }
         else
         {
-            produceComponentDisabled();    
+            getEventSource()->produceComponentDisabled();    
         }
 
         if(getVisible())
         {
-            produceComponentVisible();    
+            getEventSource()->produceComponentVisible();    
         }
         else
         {
-            produceComponentHidden();    
+            getEventSource()->produceComponentHidden();    
         }
     }
 

@@ -56,6 +56,8 @@
 
 #include <boost/bind.hpp>
 
+#include "OSGActionEventDetails.h"
+
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
@@ -506,11 +508,11 @@ void Button::detachFromEventProducer(void)
     _ArmedMouseReleasedConnection.disconnect();
 }
 
-void Button::actionPreformed(ActionEventDetails* const e)
+void Button::actionPerformed(ActionEventDetails* const e)
 {
 }
 
-void Button::mousePressedActionPreformed(ActionEventDetails* const e)
+void Button::mousePressedActionPerformed(ActionEventDetails* const e)
 {
 }
 
@@ -592,20 +594,28 @@ void Button::mouseReleased(MouseEventDetails* const e)
 
 void Button::produceActionPerformed(void)
 {
-    ActionEventDetailsUnrecPtr Details = ActionEventDetails::create(this, getTimeStamp());
+    ActionEventDetailsUnrecPtr details = ActionEventDetails::create(this, getTimeStamp());
 
-    actionPreformed(Details);
+    actionPerformed( details );
 
-    Inherited::produceActionPerformed(Details);
+    ButtonEventSource* ev = dynamic_cast<ButtonEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceActionPerformed( details );
+    }
 }
 
 void Button::produceMousePressedActionPerformed(void)
 {
-    ActionEventDetailsUnrecPtr Details = ActionEventDetails::create(this, getTimeStamp());
+    ActionEventDetailsUnrecPtr details = ActionEventDetails::create(this, getTimeStamp());
 
-    mousePressedActionPreformed(Details);
+    mousePressedActionPerformed( details );
 
-    Inherited::produceMousePressedActionPerformed(Details);
+    ButtonEventSource* ev = dynamic_cast<ButtonEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceMousePressedActionPerformed( details );
+    }
 }
 
 void Button::setTexture(TextureObjChunk* const TheTexture, Vec2f Size)

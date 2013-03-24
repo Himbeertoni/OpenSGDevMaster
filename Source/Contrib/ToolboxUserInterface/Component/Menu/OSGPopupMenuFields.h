@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class PopupMenu;
 
 OSG_GEN_CONTAINERPTR(PopupMenu);
-
-/*! \ingroup GrpContribUserInterfaceFieldTraits
-    \ingroup GrpLibOSGContribUserInterface
+/*! \ingroup GrpContribToolboxUserInterfaceFieldTraits
+    \ingroup GrpLibOSGContribToolboxUserInterface
  */
 template <>
-struct FieldTraits<PopupMenu *> :
-    public FieldTraitsFCPtrBase<PopupMenu *>
+struct FieldTraits<PopupMenu *, nsOSG> :
+    public FieldTraitsFCPtrBase<PopupMenu *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<PopupMenu *>  Self;
+    typedef FieldTraits<PopupMenu *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,126 +90,124 @@ struct FieldTraits<PopupMenu *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFPopupMenuPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFPopupMenuPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<PopupMenu *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PopupMenu *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecPopupMenuPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PopupMenu *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PopupMenu *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecPopupMenuPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PopupMenu *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<PopupMenu *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakPopupMenuPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PopupMenu *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<PopupMenu *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdPopupMenuPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PopupMenu *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PopupMenu *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecPopupMenuPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PopupMenu *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<PopupMenu *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecPopupMenuPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PopupMenu *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<PopupMenu *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakPopupMenuPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<PopupMenu *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<PopupMenu *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdPopupMenuPtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<PopupMenu *,
-                      RecordedRefCountPolicy  > SFRecPopupMenuPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      RecordedRefCountPolicy, nsOSG  > SFRecPopupMenuPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<PopupMenu *,
-                      UnrecordedRefCountPolicy> SFUnrecPopupMenuPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecPopupMenuPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<PopupMenu *,
-                      WeakRefCountPolicy      > SFWeakPopupMenuPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      WeakRefCountPolicy, nsOSG      > SFWeakPopupMenuPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<PopupMenu *,
-                      NoRefCountPolicy        > SFUncountedPopupMenuPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedPopupMenuPtr;
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<PopupMenu *,
-                      RecordedRefCountPolicy  > MFRecPopupMenuPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      RecordedRefCountPolicy, nsOSG  > MFRecPopupMenuPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<PopupMenu *,
-                      UnrecordedRefCountPolicy> MFUnrecPopupMenuPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecPopupMenuPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<PopupMenu *,
-                      WeakRefCountPolicy      > MFWeakPopupMenuPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      WeakRefCountPolicy, nsOSG      > MFWeakPopupMenuPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<PopupMenu *,
-                      NoRefCountPolicy        > MFUncountedPopupMenuPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedPopupMenuPtr;
 
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFRecPopupMenuPtr : 
     public PointerSField<PopupMenu *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUnrecPopupMenuPtr : 
     public PointerSField<PopupMenu *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFWeakPopupMenuPtr :
     public PointerSField<PopupMenu *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUncountedPopupMenuPtr :
     public PointerSField<PopupMenu *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFRecPopupMenuPtr :
     public PointerMField<PopupMenu *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUnrecPopupMenuPtr :
     public PointerMField<PopupMenu *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFWeakPopupMenuPtr :
     public PointerMField<PopupMenu *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUncountedPopupMenuPtr :
     public PointerMField<PopupMenu *,
                          NoRefCountPolicy        > {};

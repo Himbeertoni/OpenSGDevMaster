@@ -368,9 +368,9 @@ void SplitPanel::changed(ConstFieldMaskArg whichField,
 
         if (getDividerDrawObject() != NULL)
         {
-            _MouseEnteredConnection = getDividerDrawObject()->connectMouseEntered(boost::bind(&SplitPanel::dividerMouseEntered, this, _1));
-            _MouseExitedConnection = getDividerDrawObject()->connectMouseExited(boost::bind(&SplitPanel::dividerMouseExited, this, _1));
-            _MousePressedConnection = getDividerDrawObject()->connectMousePressed(boost::bind(&SplitPanel::dividerMousePressed, this, _1));
+            _MouseEnteredConnection = getDividerDrawObject()->getEventSource()->connectMouseEntered(boost::bind(&SplitPanel::dividerMouseEntered, this, _1));
+            _MouseExitedConnection = getDividerDrawObject()->getEventSource()->connectMouseExited(boost::bind(&SplitPanel::dividerMouseExited, this, _1));
+            _MousePressedConnection = getDividerDrawObject()->getEventSource()->connectMousePressed(boost::bind(&SplitPanel::dividerMousePressed, this, _1));
         }
     }
 

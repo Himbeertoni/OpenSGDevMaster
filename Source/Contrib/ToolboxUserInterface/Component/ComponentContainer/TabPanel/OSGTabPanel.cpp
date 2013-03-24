@@ -50,9 +50,10 @@
 #include "OSGBorder.h"
 #include "OSGLayer.h"
 #include "OSGDefaultSingleSelectionModel.h"
-
+#include "OSGFocusEventDetails.h"
+#include "OSGMouseWheelEventDetails.h"
 #include <boost/bind.hpp>
-
+#include "OSGComponentEventSource.h"
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
@@ -427,7 +428,7 @@ void TabPanel::updateTabFocusConnections(void)
     _TabFocusGainedConnections.clear();
     for(UInt32 i(0) ; i<getMFTabs()->size() ; ++i)
     {
-        _TabFocusGainedConnections.push_back(getTabs(i)->connectFocusGained(boost::bind(&TabPanel::handleTabFocusGained, this, _1)));
+        _TabFocusGainedConnections.push_back(getTabs(i)->getEventSource()->connectFocusGained(boost::bind(&TabPanel::handleTabFocusGained, this, _1)));
     }
 }
 
@@ -948,7 +949,7 @@ void TabPanel::changed(ConstFieldMaskArg whichField,
         _TabSelectionChangedConnection.disconnect();
         if(getSelectionModel() != NULL)
         {
-            _TabSelectionChangedConnection = getSelectionModel()->connectSelectionChanged(boost::bind(&TabPanel::handleTabSelectionChanged, this, _1));
+            _TabSelectionChangedConnection = getSelectionModel()->getEventSource()->connectSelectionChanged(boost::bind(&TabPanel::handleTabSelectionChanged, this, _1));
         }
     }
 }

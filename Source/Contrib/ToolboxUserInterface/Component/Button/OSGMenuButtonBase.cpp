@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -52,7 +52,6 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include <boost/assign/list_of.hpp>
 
 #include "OSGConfig.h"
 
@@ -66,8 +65,6 @@
 #include "OSGMenuButton.h"
 
 #include <boost/bind.hpp>
-
-#include "OSGEventDetails.h"
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -105,18 +102,22 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MenuButton *>::_type("MenuButtonPtr", "ToggleButtonPtr");
+PointerType FieldTraits<MenuButton *, nsOSG>::_type(
+    "MenuButtonPtr", 
+    "ToggleButtonPtr", 
+    MenuButton::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(MenuButton *)
+OSG_FIELDTRAITS_GETTYPE_NS(MenuButton *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            MenuButton *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            MenuButton *,
-                           0);
+                           nsOSG);
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -169,7 +170,7 @@ MenuButtonBase::TypeObject MenuButtonBase::_type(
     MenuButtonBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&MenuButtonBase::createEmptyLocal),
     MenuButton::initMethod,
     MenuButton::exitMethod,
@@ -179,80 +180,61 @@ MenuButtonBase::TypeObject MenuButtonBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"MenuButton\"\n"
-    "\tparent=\"ToggleButton\"\n"
-    "    library=\"ContribUserInterface\"\n"
+    "    name=\"MenuButton\"\n"
+    "    parent=\"ToggleButton\"\n"
+    "    library=\"ContribToolboxUserInterface\"\n"
     "    pointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
+    "    structure=\"concrete\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"
     "    decoratable=\"false\"\n"
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
-    "    parentProducer=\"ToggleButton\"\n"
     ">\n"
+    "<!--    parentProducer=\"ToggleButton\" -->\n"
     "A UI MenuButton\n"
-    "\t<Field\n"
-    "\t\tname=\"Model\"\n"
-    "\t\ttype=\"ListModel\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
+    "    <Field\n"
+    "        name=\"Model\"\n"
+    "        type=\"ListModel\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
     "      visibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
+    "        defaultValue=\"NULL\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
     "   </Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"CellGenerator\"\n"
-    "\t\ttype=\"ComponentGenerator\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
+    "    <Field\n"
+    "        name=\"CellGenerator\"\n"
+    "        type=\"ComponentGenerator\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
     "      visibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
+    "        defaultValue=\"NULL\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
     "   </Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"MenuButtonPopupMenu\"\n"
-    "\t\ttype=\"ListGeneratedPopupMenu\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"protected\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<ProducedEvent\n"
-    "\t\tname=\"MenuActionPerformed\"\n"
-    "\t\tdetailsType=\"ActionEventDetails\"\n"
-    "\t\tconsumable=\"true\"\n"
-    "\t>\n"
-    "\t</ProducedEvent>\n"
+    "    <Field\n"
+    "        name=\"MenuButtonPopupMenu\"\n"
+    "        type=\"ListGeneratedPopupMenu\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"protected\"\n"
+    "        defaultValue=\"NULL\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "<!--\n"
+    "    <ProducedEvent\n"
+    "        name=\"MenuActionPerformed\"\n"
+    "        detailsType=\"ActionEventDetails\"\n"
+    "        consumable=\"true\"\n"
+    "    >\n"
+    "    </ProducedEvent>\n"
+    "-->\n"
     "</FieldContainer>\n",
     "A UI MenuButton\n"
     );
-
-//! MenuButton Produced Events
-
-EventDescription *MenuButtonBase::_eventDesc[] =
-{
-    new EventDescription("MenuActionPerformed", 
-                          "",
-                          MenuActionPerformedEventId, 
-                          FieldTraits<ActionEventDetails *>::getType(),
-                          true,
-                          static_cast<EventGetMethod>(&MenuButtonBase::getHandleMenuActionPerformedSignal))
-
-};
-
-EventProducerType MenuButtonBase::_producerType(
-    "MenuButtonProducerType",
-    "ToggleButtonProducerType",
-    "",
-    InitEventProducerFunctor(),
-    _eventDesc,
-    sizeof(_eventDesc));
 
 /*------------------------------ get -----------------------------------*/
 
@@ -264,11 +246,6 @@ FieldContainerType &MenuButtonBase::getType(void)
 const FieldContainerType &MenuButtonBase::getType(void) const
 {
     return _type;
-}
-
-const EventProducerType &MenuButtonBase::getProducerType(void) const
-{
-    return _producerType;
 }
 
 UInt32 MenuButtonBase::getContainerSize(void) const
@@ -324,9 +301,9 @@ SFUnrecListGeneratedPopupMenuPtr *MenuButtonBase::editSFMenuButtonPopupMenu(void
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 MenuButtonBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT MenuButtonBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (ModelFieldMask & whichField))
     {
@@ -370,14 +347,17 @@ void MenuButtonBase::copyFromBin(BinaryDataHandler &pMem,
 
     if(FieldBits::NoField != (ModelFieldMask & whichField))
     {
+        editSField(ModelFieldMask);
         _sfModel.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CellGeneratorFieldMask & whichField))
     {
+        editSField(CellGeneratorFieldMask);
         _sfCellGenerator.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (MenuButtonPopupMenuFieldMask & whichField))
     {
+        editSField(MenuButtonPopupMenuFieldMask);
         _sfMenuButtonPopupMenu.copyFromBin(pMem);
     }
 }
@@ -499,110 +479,6 @@ FieldContainerTransitPtr MenuButtonBase::shallowCopy(void) const
 }
 
 
-
-/*------------------------- event producers ----------------------------------*/
-void MenuButtonBase::produceEvent(UInt32 eventId, EventDetails* const e)
-{
-    switch(eventId)
-    {
-    case MenuActionPerformedEventId:
-        OSG_ASSERT(dynamic_cast<MenuActionPerformedEventDetailsType* const>(e));
-
-        _MenuActionPerformedEvent.set_combiner(ConsumableEventCombiner(e));
-        _MenuActionPerformedEvent(dynamic_cast<MenuActionPerformedEventDetailsType* const>(e), MenuActionPerformedEventId);
-        break;
-    default:
-        Inherited::produceEvent(eventId, e);
-        break;
-    }
-}
-
-boost::signals2::connection MenuButtonBase::connectEvent(UInt32 eventId, 
-                                                             const BaseEventType::slot_type &listener, 
-                                                             boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case MenuActionPerformedEventId:
-        return _MenuActionPerformedEvent.connect(listener, at);
-        break;
-    default:
-        return Inherited::connectEvent(eventId, listener, at);
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-
-boost::signals2::connection  MenuButtonBase::connectEvent(UInt32 eventId, 
-                                                              const BaseEventType::group_type &group,
-                                                              const BaseEventType::slot_type &listener,
-                                                              boost::signals2::connect_position at)
-{
-    switch(eventId)
-    {
-    case MenuActionPerformedEventId:
-        return _MenuActionPerformedEvent.connect(group, listener, at);
-        break;
-    default:
-        return Inherited::connectEvent(eventId, group, listener, at);
-        break;
-    }
-
-    return boost::signals2::connection();
-}
-    
-void  MenuButtonBase::disconnectEvent(UInt32 eventId, const BaseEventType::group_type &group)
-{
-    switch(eventId)
-    {
-    case MenuActionPerformedEventId:
-        _MenuActionPerformedEvent.disconnect(group);
-        break;
-    default:
-        return Inherited::disconnectEvent(eventId, group);
-        break;
-    }
-}
-
-void  MenuButtonBase::disconnectAllSlotsEvent(UInt32 eventId)
-{
-    switch(eventId)
-    {
-    case MenuActionPerformedEventId:
-        _MenuActionPerformedEvent.disconnect_all_slots();
-        break;
-    default:
-        Inherited::disconnectAllSlotsEvent(eventId);
-        break;
-    }
-}
-
-bool  MenuButtonBase::isEmptyEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case MenuActionPerformedEventId:
-        return _MenuActionPerformedEvent.empty();
-        break;
-    default:
-        return Inherited::isEmptyEvent(eventId);
-        break;
-    }
-}
-
-UInt32  MenuButtonBase::numSlotsEvent(UInt32 eventId) const
-{
-    switch(eventId)
-    {
-    case MenuActionPerformedEventId:
-        return _MenuActionPerformedEvent.num_slots();
-        break;
-    default:
-        return Inherited::numSlotsEvent(eventId);
-        break;
-    }
-}
 
 
 /*------------------------- constructors ----------------------------------*/
@@ -726,18 +602,6 @@ EditFieldHandlePtr MenuButtonBase::editHandleMenuButtonPopupMenu(void)
                     static_cast<MenuButton *>(this), _1));
 
     editSField(MenuButtonPopupMenuFieldMask);
-
-    return returnValue;
-}
-
-
-GetEventHandlePtr MenuButtonBase::getHandleMenuActionPerformedSignal(void) const
-{
-    GetEventHandlePtr returnValue(
-        new  GetTypedEventHandle<MenuActionPerformedEventType>(
-             const_cast<MenuActionPerformedEventType *>(&_MenuActionPerformedEvent),
-             _producerType.getEventDescription(MenuActionPerformedEventId),
-             const_cast<MenuButtonBase *>(this)));
 
     return returnValue;
 }

@@ -537,15 +537,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSource : public C
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
 
-    boost::signals2::connection _ToolTipActivateUpdateConnection;
-
-    boost::signals2::connection _ToolTipActivateMouseEnterConnection,
-        _ToolTipActivateMouseExitConnection;
-
-    boost::signals2::connection _ActiveTooltipClickConnection,
-                                _ActiveTooltipExitConnection,
-                                _ActiveTooltipPressConnection,
-                                _ActiveTooltipReleaseConnection;
 
     friend class FieldContainer;
     friend class ComponentEventSourceBase;

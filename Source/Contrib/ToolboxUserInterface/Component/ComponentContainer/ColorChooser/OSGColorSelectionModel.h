@@ -127,6 +127,7 @@ typedef ColorSelectionModel *ColorSelectionModelP;
 
 OSG_END_NAMESPACE
 
+#include "OSGColorSelectionModelEventSource.h"
 #include "OSGColorSelectionModelBase.inl"
 #include "OSGColorSelectionModel.inl"
 

@@ -49,6 +49,7 @@
 #include "OSGUIDrawUtils.h"
 
 #include "OSGMouseEventDetails.h"
+#include "OSGMouseWheelEventDetails.h"
 #include "OSGNameAttachment.h"
 
 OSG_BEGIN_NAMESPACE

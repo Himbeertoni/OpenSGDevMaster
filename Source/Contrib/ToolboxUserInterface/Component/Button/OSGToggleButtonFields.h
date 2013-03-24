@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class ToggleButton;
 
 OSG_GEN_CONTAINERPTR(ToggleButton);
-
-/*! \ingroup GrpContribUserInterfaceFieldTraits
-    \ingroup GrpLibOSGContribUserInterface
+/*! \ingroup GrpContribToolboxUserInterfaceFieldTraits
+    \ingroup GrpLibOSGContribToolboxUserInterface
  */
 template <>
-struct FieldTraits<ToggleButton *> :
-    public FieldTraitsFCPtrBase<ToggleButton *>
+struct FieldTraits<ToggleButton *, nsOSG> :
+    public FieldTraitsFCPtrBase<ToggleButton *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<ToggleButton *>  Self;
+    typedef FieldTraits<ToggleButton *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,126 +90,124 @@ struct FieldTraits<ToggleButton *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFToggleButtonPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFToggleButtonPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<ToggleButton *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ToggleButton *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecToggleButtonPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ToggleButton *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ToggleButton *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecToggleButtonPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ToggleButton *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ToggleButton *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakToggleButtonPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ToggleButton *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ToggleButton *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdToggleButtonPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ToggleButton *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ToggleButton *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecToggleButtonPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ToggleButton *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<ToggleButton *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecToggleButtonPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ToggleButton *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<ToggleButton *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakToggleButtonPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<ToggleButton *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<ToggleButton *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdToggleButtonPtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<ToggleButton *,
-                      RecordedRefCountPolicy  > SFRecToggleButtonPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      RecordedRefCountPolicy, nsOSG  > SFRecToggleButtonPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<ToggleButton *,
-                      UnrecordedRefCountPolicy> SFUnrecToggleButtonPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecToggleButtonPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<ToggleButton *,
-                      WeakRefCountPolicy      > SFWeakToggleButtonPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      WeakRefCountPolicy, nsOSG      > SFWeakToggleButtonPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<ToggleButton *,
-                      NoRefCountPolicy        > SFUncountedToggleButtonPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedToggleButtonPtr;
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<ToggleButton *,
-                      RecordedRefCountPolicy  > MFRecToggleButtonPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      RecordedRefCountPolicy, nsOSG  > MFRecToggleButtonPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<ToggleButton *,
-                      UnrecordedRefCountPolicy> MFUnrecToggleButtonPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecToggleButtonPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<ToggleButton *,
-                      WeakRefCountPolicy      > MFWeakToggleButtonPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      WeakRefCountPolicy, nsOSG      > MFWeakToggleButtonPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<ToggleButton *,
-                      NoRefCountPolicy        > MFUncountedToggleButtonPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedToggleButtonPtr;
 
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFRecToggleButtonPtr : 
     public PointerSField<ToggleButton *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUnrecToggleButtonPtr : 
     public PointerSField<ToggleButton *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFWeakToggleButtonPtr :
     public PointerSField<ToggleButton *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUncountedToggleButtonPtr :
     public PointerSField<ToggleButton *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFRecToggleButtonPtr :
     public PointerMField<ToggleButton *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUnrecToggleButtonPtr :
     public PointerMField<ToggleButton *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFWeakToggleButtonPtr :
     public PointerMField<ToggleButton *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUncountedToggleButtonPtr :
     public PointerMField<ToggleButton *,
                          NoRefCountPolicy        > {};

@@ -43,7 +43,7 @@
 #endif
 
 #include "OSGToggleButtonBase.h"
-
+#include "OSGButtonSelectedEventDetailsFields.h"
 OSG_BEGIN_NAMESPACE
 
 /*! \brief ToggleButton class. See \ref
@@ -160,7 +160,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButton : public ToggleBut
 
     /*! \}                                                                 */
     
-    virtual void actionPreformed(ActionEventDetails* const e);
+    virtual void actionPerformed(ActionEventDetails* const e);
 
     void produceButtonSelected(ButtonSelectedEventDetails* const e);
     void produceButtonDeselected(ButtonSelectedEventDetails* const e);

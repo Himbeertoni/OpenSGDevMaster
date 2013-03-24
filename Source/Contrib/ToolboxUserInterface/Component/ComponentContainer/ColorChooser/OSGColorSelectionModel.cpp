@@ -46,7 +46,8 @@
 #include <OSGConfig.h>
 
 #include "OSGColorSelectionModel.h"
-
+#include "OSGChangeEventDetails.h"
+#include "OSGColorSelectionModelEventSource.h"
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
@@ -82,9 +83,13 @@ void ColorSelectionModel::initMethod(InitPhase ePhase)
 
 void ColorSelectionModel::produceStateChanged(void)
 {
-    ChangeEventDetailsUnrecPtr Details = ChangeEventDetails::create(NULL, getSystemTime());
+    ChangeEventDetailsUnrecPtr details = ChangeEventDetails::create(NULL, getSystemTime());
    
-    Inherited::produceStateChanged(Details);
+    ColorSelectionModelEventSource* ev = dynamic_cast<ColorSelectionModelEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceStateChanged( details );
+    }
 }
 
 /*----------------------- constructors & destructors ----------------------*/

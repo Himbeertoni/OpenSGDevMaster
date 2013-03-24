@@ -44,6 +44,7 @@
 
 #include "OSGComboBoxEditorBase.h"
 #include "OSGButton.h"
+#include "OSGButtonEventSource.h"
 
 #include <boost/any.hpp>
 
@@ -82,10 +83,10 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxEditor : public ComboBo
 
     /*! \}                                                                 */
     //ActionPerformed
-    virtual boost::signals2::connection connectActionPerformed(const Button::ActionPerformedEventType::slot_type &listener,
+    virtual boost::signals2::connection connectActionPerformed(const ButtonEventSource::ActionPerformedEventType::slot_type &listener,
                                                        boost::signals2::connect_position at= boost::signals2::at_back) = 0;
-    virtual boost::signals2::connection connectActionPerformed(const Button::ActionPerformedEventType::group_type &group,
-                                                       const Button::ActionPerformedEventType::slot_type &listener,
+    virtual boost::signals2::connection connectActionPerformed(const ButtonEventSource::ActionPerformedEventType::group_type &group,
+                                                       const ButtonEventSource::ActionPerformedEventType::slot_type &listener,
                                                        boost::signals2::connect_position at= boost::signals2::at_back) = 0;
 
     //Return the component that should be added to the tree hierarchy for this editor

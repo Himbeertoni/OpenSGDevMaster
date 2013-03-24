@@ -95,14 +95,14 @@ void InternalWindow::setIconify(bool Iconify)
         //TODO: Implement
         setIsIcon(Iconify);
 
-        produceWindowIconified();
+        getEventSource()->produceWindowIconified();
     }
     else if(!Iconify && getIsIcon())
     {
         //TODO: Implement
         setIsIcon(Iconify);
 
-        produceWindowDeiconified();
+        getEventSource()->produceWindowDeiconified();
     }
 }
 
@@ -152,19 +152,19 @@ bool InternalWindow::getMaximize(void) const
 
 void InternalWindow::open(void)
 {
-    produceWindowOpened();
+    getEventSource()->produceWindowOpened();
 }
 
 void InternalWindow::close(void)
 {
     _VetoWindowClose = false;
 
-    produceWindowClosing();
+    getEventSource()->produceWindowClosing();
 
     if(!_VetoWindowClose && getParentDrawingSurface() != NULL)
     {
         getParentDrawingSurface()->closeWindow(this);
-        produceWindowClosed();
+        getEventSource()->produceWindowClosed();
     }
 }
 
@@ -177,8 +177,8 @@ bool InternalWindow::giveFocus(Component* const NewFocusedComponent, bool Tempor
     else
     {
         setFocused(false);
-        FocusEventDetailsUnrecPtr Details(FocusEventDetails::create(this,getSystemTime(),Temporary, NewFocusedComponent));
-        focusLost(Details);
+        FocusEventDetailsUnrecPtr details(FocusEventDetails::create(this,getSystemTime(),Temporary, NewFocusedComponent));
+        focusLost(details);
         return true;
     }
 }
@@ -195,9 +195,9 @@ bool InternalWindow::takeFocus(bool Temporary)
     setFocused(true);
     if(Temporary || getParentDrawingSurface() == NULL)
     {
-        FocusEventDetailsUnrecPtr Details(FocusEventDetails::create(this,getSystemTime(),Temporary, NULL));
+        FocusEventDetailsUnrecPtr details(FocusEventDetails::create(this,getSystemTime(),Temporary, NULL));
 
-        focusGained(Details);
+        focusGained(details);
     }
     else
     {
@@ -206,8 +206,8 @@ bool InternalWindow::takeFocus(bool Temporary)
             getParentDrawingSurface()->getFocusedWindow()->giveFocus(this);
         }
         getParentDrawingSurface()->setFocusedWindow(this);
-        FocusEventDetailsUnrecPtr Details(FocusEventDetails::create(this,getSystemTime(),Temporary, getParentDrawingSurface()->getFocusedWindow()));
-        focusGained(Details);
+        FocusEventDetailsUnrecPtr details(FocusEventDetails::create(this,getSystemTime(),Temporary, getParentDrawingSurface()->getFocusedWindow()));
+        focusGained(details);
     }
     return true;
 }
@@ -294,7 +294,7 @@ void InternalWindow::keyTyped(KeyEventDetails* const e)
                 ParentContainer = dynamic_cast<ComponentContainer*>(ParentContainer->getParentContainer());
             }
         }
-        produceKeyTyped(e);
+        getEventSource()->produceKeyTyped(e);
     }
 }
 

@@ -2,9 +2,10 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com), Mark Stenerson             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
+ *          Mark Stenerson                                                   *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -48,9 +49,8 @@
  *****************************************************************************
 \*****************************************************************************/
 
-#include "OSGDialogWindowEventDetails.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 
 //! access the type of the class
@@ -65,19 +65,6 @@ inline
 OSG::UInt32 DialogWindowBase::getClassTypeId(void)
 {
     return _type.getId();
-}
-//! access the producer type of the class
-inline
-const EventProducerType &DialogWindowBase::getProducerClassType(void)
-{
-    return _producerType;
-}
-
-//! access the producer type id of the class
-inline
-UInt32 DialogWindowBase::getProducerClassTypeId(void)
-{
-    return _producerType.getId();
 }
 
 inline
@@ -221,94 +208,6 @@ const Char8 *DialogWindowBase::getClassname(void)
 {
     return "DialogWindow";
 }
-inline
-boost::signals2::connection  DialogWindowBase::connectDialogWindowClosing(const DialogWindowClosingEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _DialogWindowClosingEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  DialogWindowBase::connectDialogWindowClosing(const DialogWindowClosingEventType::group_type &group,
-                                                    const DialogWindowClosingEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _DialogWindowClosingEvent.connect(group, listener, at);
-}
-
-inline
-void  DialogWindowBase::disconnectDialogWindowClosing(const DialogWindowClosingEventType::group_type &group)
-{
-    _DialogWindowClosingEvent.disconnect(group);
-}
-
-inline
-void  DialogWindowBase::disconnectAllSlotsDialogWindowClosing(void)
-{
-    _DialogWindowClosingEvent.disconnect_all_slots();
-}
-
-inline
-bool  DialogWindowBase::isEmptyDialogWindowClosing(void) const
-{
-    return _DialogWindowClosingEvent.empty();
-}
-
-inline
-UInt32  DialogWindowBase::numSlotsDialogWindowClosing(void) const
-{
-    return _DialogWindowClosingEvent.num_slots();
-}
-
-inline
-void DialogWindowBase::produceDialogWindowClosing(DialogWindowClosingEventDetailsType* const e)
-{
-    produceEvent(DialogWindowClosingEventId, e);
-}
-
-inline
-boost::signals2::connection  DialogWindowBase::connectDialogWindowClosed(const DialogWindowClosedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _DialogWindowClosedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  DialogWindowBase::connectDialogWindowClosed(const DialogWindowClosedEventType::group_type &group,
-                                                    const DialogWindowClosedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _DialogWindowClosedEvent.connect(group, listener, at);
-}
-
-inline
-void  DialogWindowBase::disconnectDialogWindowClosed(const DialogWindowClosedEventType::group_type &group)
-{
-    _DialogWindowClosedEvent.disconnect(group);
-}
-
-inline
-void  DialogWindowBase::disconnectAllSlotsDialogWindowClosed(void)
-{
-    _DialogWindowClosedEvent.disconnect_all_slots();
-}
-
-inline
-bool  DialogWindowBase::isEmptyDialogWindowClosed(void) const
-{
-    return _DialogWindowClosedEvent.empty();
-}
-
-inline
-UInt32  DialogWindowBase::numSlotsDialogWindowClosed(void) const
-{
-    return _DialogWindowClosedEvent.num_slots();
-}
-
-inline
-void DialogWindowBase::produceDialogWindowClosed(DialogWindowClosedEventDetailsType* const e)
-{
-    produceEvent(DialogWindowClosedEventId, e);
-}
-
 OSG_GEN_CONTAINERPTR(DialogWindow);
 
 OSG_END_NAMESPACE

@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
- *   contact:  David Kabala (djkabala@gmail.com)                             *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -48,9 +48,8 @@
  *****************************************************************************
 \*****************************************************************************/
 
-#include "OSGComboBoxSelectionEventDetails.h"
-
 OSG_BEGIN_NAMESPACE
+
 
 
 //! access the type of the class
@@ -65,19 +64,6 @@ inline
 OSG::UInt32 ComboBoxModelBase::getClassTypeId(void)
 {
     return _type.getId();
-}
-//! access the producer type of the class
-inline
-const EventProducerType &ComboBoxModelBase::getProducerClassType(void)
-{
-    return _producerType;
-}
-
-//! access the producer type id of the class
-inline
-UInt32 ComboBoxModelBase::getProducerClassTypeId(void)
-{
-    return _producerType.getId();
 }
 
 inline
@@ -108,50 +94,6 @@ const Char8 *ComboBoxModelBase::getClassname(void)
 {
     return "ComboBoxModel";
 }
-inline
-boost::signals2::connection  ComboBoxModelBase::connectSelectionChanged(const SelectionChangedEventType::slot_type &listener, 
-                                                                               boost::signals2::connect_position at)
-{
-    return _SelectionChangedEvent.connect(listener, at);
-}
-
-inline
-boost::signals2::connection  ComboBoxModelBase::connectSelectionChanged(const SelectionChangedEventType::group_type &group,
-                                                    const SelectionChangedEventType::slot_type &listener, boost::signals2::connect_position at)
-{
-    return _SelectionChangedEvent.connect(group, listener, at);
-}
-
-inline
-void  ComboBoxModelBase::disconnectSelectionChanged(const SelectionChangedEventType::group_type &group)
-{
-    _SelectionChangedEvent.disconnect(group);
-}
-
-inline
-void  ComboBoxModelBase::disconnectAllSlotsSelectionChanged(void)
-{
-    _SelectionChangedEvent.disconnect_all_slots();
-}
-
-inline
-bool  ComboBoxModelBase::isEmptySelectionChanged(void) const
-{
-    return _SelectionChangedEvent.empty();
-}
-
-inline
-UInt32  ComboBoxModelBase::numSlotsSelectionChanged(void) const
-{
-    return _SelectionChangedEvent.num_slots();
-}
-
-inline
-void ComboBoxModelBase::produceSelectionChanged(SelectionChangedEventDetailsType* const e)
-{
-    produceEvent(SelectionChangedEventId, e);
-}
-
 OSG_GEN_CONTAINERPTR(ComboBoxModel);
 
 OSG_END_NAMESPACE

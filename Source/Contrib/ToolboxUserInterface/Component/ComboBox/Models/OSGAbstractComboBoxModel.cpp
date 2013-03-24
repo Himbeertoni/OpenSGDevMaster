@@ -48,6 +48,8 @@
 #include "OSGAbstractComboBoxModel.h"
 
 #include <boost/bind.hpp>
+#include "OSGComboBoxModelEventSource.h"
+#include "OSGComboBoxSelectionEventDetails.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -80,30 +82,46 @@ void AbstractComboBoxModel::initMethod(InitPhase ePhase)
 
 void AbstractComboBoxModel::produceListDataContentsChanged(FieldContainer* const Source, UInt32 index0, UInt32 index1)
 {
-    ListDataEventDetailsUnrecPtr Details = ListDataEventDetails::create(Source, getSystemTime(), index0, index1);
+    ListDataEventDetailsUnrecPtr details = ListDataEventDetails::create(Source, getSystemTime(), index0, index1);
 
-    Inherited::produceListDataContentsChanged(Details);
+    ListModelEventSource* ev = dynamic_cast<ListModelEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceListDataContentsChanged( details );
+    }
 }
 
 void AbstractComboBoxModel::produceListDataIntervalAdded(FieldContainer* const Source, UInt32 index0, UInt32 index1)
 {
-    ListDataEventDetailsUnrecPtr Details = ListDataEventDetails::create(Source, getSystemTime(), index0, index1);
+    ListDataEventDetailsUnrecPtr details = ListDataEventDetails::create(Source, getSystemTime(), index0, index1);
 
-    Inherited::produceListDataIntervalAdded(Details);
+    ListModelEventSource* ev = dynamic_cast<ListModelEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceListDataIntervalAdded( details );
+    }
 }
 
 void AbstractComboBoxModel::produceListDataIntervalRemoved(FieldContainer* const Source, UInt32 index0, UInt32 index1)
 {
-    ListDataEventDetailsUnrecPtr Details = ListDataEventDetails::create(Source, getSystemTime(), index0, index1);
+    ListDataEventDetailsUnrecPtr details = ListDataEventDetails::create(Source, getSystemTime(), index0, index1);
 
-    Inherited::produceListDataIntervalRemoved(Details);
+    ListModelEventSource* ev = dynamic_cast<ListModelEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceListDataIntervalRemoved( details );
+    }
 }
 
 void AbstractComboBoxModel::produceSelectionChanged(FieldContainer* const Source, const Int32& CurrentIndex, const Int32& PreviousIndex)
 {
-    ComboBoxSelectionEventDetailsUnrecPtr Details = ComboBoxSelectionEventDetails::create(Source, getSystemTime(), CurrentIndex, PreviousIndex);
+    ComboBoxSelectionEventDetailsUnrecPtr details = ComboBoxSelectionEventDetails::create(Source, getSystemTime(), CurrentIndex, PreviousIndex);
 
-    Inherited::produceSelectionChanged(Details);
+    ComboBoxModelEventSource* ev = dynamic_cast<ComboBoxModelEventSource*>( getEventSource() );
+    if ( ev )
+    {
+        ev->produceSelectionChanged( details );
+    }
 }
 
 /*-------------------------------------------------------------------------*\

@@ -48,7 +48,7 @@
 #include "OSGListSelectionEventDetailsFields.h"
 #include "OSGListDataEventDetailsFields.h"
 #include <boost/any.hpp>
-
+#include <boost/signals2.hpp>
 #include <deque>
 
 OSG_BEGIN_NAMESPACE

@@ -3,7 +3,7 @@
 <FieldContainer
     name="UIViewport"
     parent="ComponentContainer"
-    library="ContribUserInterface"
+    library="ContribToolboxUserInterface"
     pointerfieldtypes="both"
     structure="concrete"
     systemcomponent="true"
@@ -12,8 +12,8 @@
     useLocalIncludes="false"
     isNodeCore="false"
     authors="David Kabala (djkabala@gmail.com)                             "
-    parentProducer="Component"
 >
+<!-- parentProducer="Component" -->
 A UI UIViewport
     <Field
         name="ViewPosition"
@@ -45,10 +45,12 @@ A UI UIViewport
         defaultValue="-1.0f,-1.0f"
     >
     </Field>
+<!--	
     <ProducedEvent
         name="StateChanged"
         detailsType="ChangeEventDetails"
         consumable="true"
     >
     </ProducedEvent>
+-->
 </FieldContainer>
