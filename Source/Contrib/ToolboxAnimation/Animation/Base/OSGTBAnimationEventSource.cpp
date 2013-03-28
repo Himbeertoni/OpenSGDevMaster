@@ -520,11 +520,8 @@ TBAnimationEventSource::connectToEvent(EventDescription const * eventDesc,
 {
     //Validate the EventDescription and producer
     EventDescription const * localDesc( eventProducer->getEventDescription(eventDesc->getName().c_str()) );
-#if 0
-	if( this->getEventProducer()->validateConnectable(eventDesc,eventProducer))
-#else
-	if ( true )
-#endif
+
+	if( validateConnectable(eventDesc,eventProducer))
     {
         return eventProducer->connectEvent(localDesc->getEventId(),
                                            boost::bind(&TBAnimationEventSource::handleUpdate,
