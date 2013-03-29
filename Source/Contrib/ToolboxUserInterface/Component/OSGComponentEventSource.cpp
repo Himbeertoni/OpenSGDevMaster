@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -228,15 +228,9 @@ EventProducerType ComponentEventSource::_producerType(
     InitEventProducerFunctor(),
     _eventDesc,
     sizeof(_eventDesc));
-
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
-
-const EventProducerType &ComponentEventSource::getProducerType(void) const
-{
-    return _producerType;
-}
 
 void ComponentEventSource::initMethod(InitPhase ePhase)
 {
@@ -248,11 +242,14 @@ void ComponentEventSource::initMethod(InitPhase ePhase)
 }
 
 
+const EventProducerType &ComponentEventSource::getProducerType(void) const
+{
+    return _producerType;
+}
+
 /***************************************************************************\
  *                           Instance methods                              *
 \***************************************************************************/
-
-
 /*------------------------- event producers ----------------------------------*/
 void ComponentEventSource::produceEvent(UInt32 eventId, EventDetails* const e)
 {
@@ -840,10 +837,6 @@ UInt32  ComponentEventSource::numSlotsEvent(UInt32 eventId) const
         break;
     }
 }
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
-
 
 GetEventHandlePtr ComponentEventSource::getHandleMouseMovedSignal(void) const
 {
@@ -1075,6 +1068,8 @@ GetEventHandlePtr ComponentEventSource::getHandleToolTipDeactivatedSignal(void) 
 
     return returnValue;
 }
+
+
 /*----------------------- constructors & destructors ----------------------*/
 
 ComponentEventSource::ComponentEventSource(void) :
@@ -1103,7 +1098,7 @@ void ComponentEventSource::changed(ConstFieldMaskArg whichField,
 void ComponentEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump ComponentEventSource NI" << std::endl;
+    SLOG << "Dump Component NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

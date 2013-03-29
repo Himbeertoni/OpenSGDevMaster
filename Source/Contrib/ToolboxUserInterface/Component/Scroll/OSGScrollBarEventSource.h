@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -43,7 +43,10 @@
 #endif
 
 #include "OSGScrollBarEventSourceBase.h"
+
+    
 #include "OSGAdjustmentEventDetailsFields.h"
+
 OSG_BEGIN_NAMESPACE
 
 /*! \brief ScrollBarEventSource class. See \ref
@@ -60,10 +63,11 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ScrollBarEventSource : public S
 
     typedef ScrollBarEventSourceBase Inherited;
     typedef ScrollBarEventSource     Self;
-    
+
     typedef AdjustmentEventDetails AdjustmentValueChangedEventDetailsType;
 
     typedef boost::signals2::signal<void (AdjustmentEventDetails* const, UInt32), ConsumableEventCombiner> AdjustmentValueChangedEventType;
+
 
     enum
     {
@@ -73,6 +77,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ScrollBarEventSource : public S
 
     static const  EventProducerType  &getProducerClassType  (void);
     static        UInt32              getProducerClassTypeId(void);
+
     /*---------------------------------------------------------------------*/
     /*! \name                Event Produced Get                           */
     /*! \{                                                                 */
@@ -109,9 +114,10 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ScrollBarEventSource : public S
     bool   isEmptyAdjustmentValueChanged    (void) const;
     UInt32 numSlotsAdjustmentValueChanged   (void) const;
     
-    //Moved protected -> public:
+    
     void produceAdjustmentValueChanged  (AdjustmentValueChangedEventDetailsType* const e);
     /*! \}                                                                 */
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -133,7 +139,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ScrollBarEventSource : public S
 
   protected:
 
-    // Variables should all be in ScrollBarEventSourceBase.
+    // Variables should all be in ScrollBarBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
@@ -147,6 +153,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ScrollBarEventSource : public S
 
     GetEventHandlePtr getHandleAdjustmentValueChangedSignal(void) const;
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Event Producer Firing                    */
     /*! \{                                                                 */
@@ -154,6 +161,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ScrollBarEventSource : public S
     virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
     
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -179,7 +187,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ScrollBarEventSource : public S
     /*==========================  PRIVATE  ================================*/
 
   private:
-    /*---------------------------------------------------------------------*/
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
 
@@ -194,8 +201,7 @@ typedef ScrollBarEventSource *ScrollBarEventSourceP;
 
 OSG_END_NAMESPACE
 
-
 #include "OSGScrollBarEventSourceBase.inl"
 #include "OSGScrollBarEventSource.inl"
 
-#endif /* _OSGSCROLLBAREVENTSOURCE_H_ */
+#endif /* _OSGSCROLLBAR_H_ */

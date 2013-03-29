@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -43,8 +43,11 @@
 #endif
 
 #include "OSGTextComponentEventSourceBase.h"
+
+    
 #include "OSGTextEventDetailsFields.h"
 #include "OSGCaretEventDetailsFields.h"
+
 OSG_BEGIN_NAMESPACE
 
 /*! \brief TextComponentEventSource class. See \ref
@@ -61,12 +64,13 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextComponentEventSource : publ
 
     typedef TextComponentEventSourceBase Inherited;
     typedef TextComponentEventSource     Self;
-    
+
     typedef TextEventDetails   TextValueChangedEventDetailsType;
     typedef CaretEventDetails  CaretChangedEventDetailsType;
 
     typedef boost::signals2::signal<void (TextEventDetails* const , UInt32), ConsumableEventCombiner> TextValueChangedEventType;
     typedef boost::signals2::signal<void (CaretEventDetails* const, UInt32), ConsumableEventCombiner> CaretChangedEventType;
+
 
     enum
     {
@@ -74,8 +78,10 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextComponentEventSource : publ
         CaretChangedEventId = TextValueChangedEventId + 1,
         NextProducedEventId = CaretChangedEventId + 1
     };
+
     static const  EventProducerType  &getProducerClassType  (void);
     static        UInt32              getProducerClassTypeId(void);
+
     /*---------------------------------------------------------------------*/
     /*! \name                Event Produced Get                           */
     /*! \{                                                                 */
@@ -123,10 +129,11 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextComponentEventSource : publ
     bool   isEmptyCaretChanged              (void) const;
     UInt32 numSlotsCaretChanged             (void) const;
     
-    //Moved protected -> public:
+    
     void produceTextValueChanged    (TextValueChangedEventDetailsType* const e);
     void produceCaretChanged        (CaretChangedEventDetailsType* const e);
     /*! \}                                                                 */
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -148,7 +155,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextComponentEventSource : publ
 
   protected:
 
-    // Variables should all be in TextComponentEventSourceBase.
+    // Variables should all be in TextComponentBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
@@ -164,6 +171,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextComponentEventSource : publ
     GetEventHandlePtr getHandleTextValueChangedSignal(void) const;
     GetEventHandlePtr getHandleCaretChangedSignal(void) const;
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Event Producer Firing                    */
     /*! \{                                                                 */
@@ -171,6 +179,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextComponentEventSource : publ
     virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
     
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -196,7 +205,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextComponentEventSource : publ
     /*==========================  PRIVATE  ================================*/
 
   private:
-    /*---------------------------------------------------------------------*/
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
 
@@ -211,9 +219,7 @@ typedef TextComponentEventSource *TextComponentEventSourceP;
 
 OSG_END_NAMESPACE
 
-#include "OSGTextEventDetails.h"
-#include "OSGCaretEventDetails.h"
 #include "OSGTextComponentEventSourceBase.inl"
 #include "OSGTextComponentEventSource.inl"
 
-#endif /* _OSGTEXTCOMPONENTEVENTSOURCE_H_ */
+#endif /* _OSGTEXTCOMPONENT_H_ */

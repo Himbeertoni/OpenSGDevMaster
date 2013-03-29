@@ -75,54 +75,6 @@ OSG::UInt16 DialogWindowBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the DialogWindow::_sfErrorIcon field.
-inline
-TextureObjChunk * DialogWindowBase::getErrorIcon(void) const
-{
-    return _sfErrorIcon.getValue();
-}
-
-//! Set the value of the DialogWindow::_sfErrorIcon field.
-inline
-void DialogWindowBase::setErrorIcon(TextureObjChunk * const value)
-{
-    editSField(ErrorIconFieldMask);
-
-    _sfErrorIcon.setValue(value);
-}
-
-//! Get the value of the DialogWindow::_sfQuestionIcon field.
-inline
-TextureObjChunk * DialogWindowBase::getQuestionIcon(void) const
-{
-    return _sfQuestionIcon.getValue();
-}
-
-//! Set the value of the DialogWindow::_sfQuestionIcon field.
-inline
-void DialogWindowBase::setQuestionIcon(TextureObjChunk * const value)
-{
-    editSField(QuestionIconFieldMask);
-
-    _sfQuestionIcon.setValue(value);
-}
-
-//! Get the value of the DialogWindow::_sfDefaultIcon field.
-inline
-TextureObjChunk * DialogWindowBase::getDefaultIcon(void) const
-{
-    return _sfDefaultIcon.getValue();
-}
-
-//! Set the value of the DialogWindow::_sfDefaultIcon field.
-inline
-void DialogWindowBase::setDefaultIcon(TextureObjChunk * const value)
-{
-    editSField(DefaultIconFieldMask);
-
-    _sfDefaultIcon.setValue(value);
-}
 //! Get the value of the DialogWindow::_sfShowCancel field.
 
 inline

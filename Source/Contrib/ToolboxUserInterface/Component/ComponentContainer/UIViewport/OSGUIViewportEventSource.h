@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -43,6 +43,8 @@
 #endif
 
 #include "OSGUIViewportEventSourceBase.h"
+
+    
 #include "OSGChangeEventDetailsFields.h"
 
 OSG_BEGIN_NAMESPACE
@@ -66,11 +68,13 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportEventSource : public 
 
     typedef boost::signals2::signal<void (ChangeEventDetails* const, UInt32), ConsumableEventCombiner> StateChangedEventType;
 
+
     enum
     {
         StateChangedEventId = Inherited::NextProducedEventId,
         NextProducedEventId = StateChangedEventId + 1
     };
+
     static const  EventProducerType  &getProducerClassType  (void);
     static        UInt32              getProducerClassTypeId(void);
 
@@ -110,9 +114,10 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportEventSource : public 
     bool   isEmptyStateChanged              (void) const;
     UInt32 numSlotsStateChanged             (void) const;
     
-    //Moved protected -> public:
+    
     void produceStateChanged        (StateChangedEventDetailsType* const e);
     /*! \}                                                                 */
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -134,7 +139,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportEventSource : public 
 
   protected:
 
-    // Variables should all be in UIViewportEventSourceBase.
+    // Variables should all be in UIViewportBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
@@ -148,6 +153,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportEventSource : public 
 
     GetEventHandlePtr getHandleStateChangedSignal(void) const;
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Event Producer Firing                    */
     /*! \{                                                                 */
@@ -181,7 +187,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportEventSource : public 
     /*==========================  PRIVATE  ================================*/
 
   private:
-    /*---------------------------------------------------------------------*/
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
 
@@ -199,4 +204,4 @@ OSG_END_NAMESPACE
 #include "OSGUIViewportEventSourceBase.inl"
 #include "OSGUIViewportEventSource.inl"
 
-#endif /* _OSGUIVIEWPORTEVENTSOURCE_H_ */
+#endif /* _OSGUIVIEWPORT_H_ */

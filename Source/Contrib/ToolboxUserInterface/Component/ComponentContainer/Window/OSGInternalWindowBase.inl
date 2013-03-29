@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
@@ -48,8 +48,8 @@
  *****************************************************************************
 \*****************************************************************************/
 
-
 OSG_BEGIN_NAMESPACE
+
 
 
 //! access the type of the class
@@ -75,67 +75,7 @@ OSG::UInt16 InternalWindowBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the InternalWindow::_sfFocusedComponent field.
-inline
-Component * InternalWindowBase::getFocusedComponent(void) const
-{
-    return _sfFocusedComponent.getValue();
-}
 
-//! Set the value of the InternalWindow::_sfFocusedComponent field.
-inline
-void InternalWindowBase::setFocusedComponent(Component * const value)
-{
-    editSField(FocusedComponentFieldMask);
-
-    _sfFocusedComponent.setValue(value);
-}
-
-//! Get the value of the InternalWindow::_sfMenuBar field.
-inline
-MenuBar * InternalWindowBase::getMenuBar(void) const
-{
-    return _sfMenuBar.getValue();
-}
-
-//! Set the value of the InternalWindow::_sfMenuBar field.
-inline
-void InternalWindowBase::setMenuBar(MenuBar * const value)
-{
-    editSField(MenuBarFieldMask);
-
-    _sfMenuBar.setValue(value);
-}
-
-//! Get the value of the InternalWindow::_sfTitlebar field.
-inline
-Titlebar * InternalWindowBase::getTitlebar(void) const
-{
-    return _sfTitlebar.getValue();
-}
-
-//! Set the value of the InternalWindow::_sfTitlebar field.
-inline
-void InternalWindowBase::setTitlebar(Titlebar * const value)
-{
-    editSField(TitlebarFieldMask);
-
-    _sfTitlebar.setValue(value);
-}
-
-//! Get the value of the \a index element the InternalWindow::_mfActivePopupMenus field.
-inline
-PopupMenu * InternalWindowBase::getActivePopupMenus(const UInt32 index) const
-{
-    return _mfActivePopupMenus[index];
-}
-
-//! Get the value of the \a index element the InternalWindow::_mfToolTips field.
-inline
-Component * InternalWindowBase::getToolTips(const UInt32 index) const
-{
-    return _mfToolTips[index];
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

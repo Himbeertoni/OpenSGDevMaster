@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -51,8 +51,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGTABLECOLUMNEVENTSOURCEBASE_H_
-#define _OSGTABLECOLUMNEVENTSOURCEBASE_H_
+#ifndef _OSGTableColumnEVENTSOURCEBASE_H_
+#define _OSGTableColumnEVENTSOURCEBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,8 +63,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGEventContainer.h" // Parent
-
+#include "OSGEventContainer.h"
 
 #include "OSGTableColumnEventSourceFields.h"
 
@@ -73,15 +72,16 @@ OSG_BEGIN_NAMESPACE
 
 class TableColumnEventSource;
 
-//! \brief TableColumnEventSource Base Class.
+//! \brief TableColumnEventSourceBase Base Class.
 
-class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnEventSourceBase : public EventContainer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnEventSourceBase
+    : public EventContainer
 {
   public:
 
     typedef EventContainer Inherited;
     typedef EventContainer ParentContainer;
-
+    
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
@@ -90,8 +90,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnEventSourceBase : pu
     /*==========================  PUBLIC  =================================*/
 
   public:
-
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
@@ -123,6 +121,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnEventSourceBase : pu
 
 
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                   Construction                               */
     /*! \{                                                                 */
@@ -150,6 +149,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnEventSourceBase : pu
                                                       BitVector bFlags) const;
 
     /*! \}                                                                 */
+
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -177,13 +177,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnEventSourceBase : pu
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
-
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Field Access                      */
-    /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -214,10 +207,12 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnEventSourceBase : pu
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
 
+
 #ifdef OSG_MT_CPTR_ASPECT
     virtual FieldContainer *createAspectCopy(
                                     const FieldContainer *pRefAspect) const;
 #endif
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -232,10 +227,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnEventSourceBase : pu
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
-
   private:
     /*---------------------------------------------------------------------*/
-
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const TableColumnEventSourceBase &source);
 };
@@ -244,4 +237,4 @@ typedef TableColumnEventSourceBase *TableColumnEventSourceBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGTABLECOLUMNEVENTSOURCEBASE_H_ */
+#endif /* _OSGTableColumnEventSourceBASE_H_ */

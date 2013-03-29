@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -74,6 +74,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class InternalWindow;
 
 //! \brief InternalWindow Base Class.
@@ -89,8 +90,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING InternalWindowBase : public Abs
     typedef TypeObject::InitPhase InitPhase;
 
     OSG_GEN_INTERNALPTR(InternalWindow);
-    
-    
 
     /*==========================  PUBLIC  =================================*/
 
@@ -206,7 +205,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING InternalWindowBase : public Abs
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual SizeT  getBinSize (ConstFieldMaskArg  whichField);
     virtual void   copyToBin  (BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
     virtual void   copyFromBin(BinaryDataHandler &pMem,

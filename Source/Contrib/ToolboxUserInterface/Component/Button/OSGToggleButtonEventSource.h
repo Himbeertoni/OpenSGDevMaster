@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -43,6 +43,8 @@
 #endif
 
 #include "OSGToggleButtonEventSourceBase.h"
+
+    
 #include "OSGButtonSelectedEventDetailsFields.h"
 
 OSG_BEGIN_NAMESPACE
@@ -61,12 +63,13 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonEventSource : publi
 
     typedef ToggleButtonEventSourceBase Inherited;
     typedef ToggleButtonEventSource     Self;
-    
+
     typedef ButtonSelectedEventDetails ButtonSelectedEventDetailsType;
     typedef ButtonSelectedEventDetails ButtonDeselectedEventDetailsType;
 
     typedef boost::signals2::signal<void (ButtonSelectedEventDetails* const, UInt32), ConsumableEventCombiner> ButtonSelectedEventType;
     typedef boost::signals2::signal<void (ButtonSelectedEventDetails* const, UInt32), ConsumableEventCombiner> ButtonDeselectedEventType;
+
 
     enum
     {
@@ -77,6 +80,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonEventSource : publi
 
     static const  EventProducerType  &getProducerClassType  (void);
     static        UInt32              getProducerClassTypeId(void);
+
     /*---------------------------------------------------------------------*/
     /*! \name                Event Produced Get                           */
     /*! \{                                                                 */
@@ -124,10 +128,11 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonEventSource : publi
     bool   isEmptyButtonDeselected          (void) const;
     UInt32 numSlotsButtonDeselected         (void) const;
     
-    //Moved protected -> public:
+    
     void produceButtonSelected      (ButtonSelectedEventDetailsType* const e);
-    void produceButtonDeselected    (ButtonDeselectedEventDetailsType* const e);    
+    void produceButtonDeselected    (ButtonDeselectedEventDetailsType* const e);
     /*! \}                                                                 */
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -148,6 +153,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonEventSource : publi
     /*=========================  PROTECTED  ===============================*/
 
   protected:
+
+    // Variables should all be in ToggleButtonBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
@@ -163,6 +170,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonEventSource : publi
     GetEventHandlePtr getHandleButtonSelectedSignal(void) const;
     GetEventHandlePtr getHandleButtonDeselectedSignal(void) const;
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Event Producer Firing                    */
     /*! \{                                                                 */
@@ -170,7 +178,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonEventSource : publi
     virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
     
     /*! \}                                                                 */
-    // Variables should all be in ToggleButtonEventSourceBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
@@ -197,7 +204,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonEventSource : publi
     /*==========================  PRIVATE  ================================*/
 
   private:
-    /*---------------------------------------------------------------------*/
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
 
@@ -215,4 +221,4 @@ OSG_END_NAMESPACE
 #include "OSGToggleButtonEventSourceBase.inl"
 #include "OSGToggleButtonEventSource.inl"
 
-#endif /* _OSGTOGGLEBUTTONEVENTSOURCE_H_ */
+#endif /* _OSGTOGGLEBUTTON_H_ */

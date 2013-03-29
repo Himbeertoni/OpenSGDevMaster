@@ -6,7 +6,8 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
+ *          Mark Stenerson                                                   *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -51,8 +52,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGDIALOGWINDOWEVENTSOURCEBASE_H_
-#define _OSGDIALOGWINDOWEVENTSOURCEBASE_H_
+#ifndef _OSGDialogWindowEVENTSOURCEBASE_H_
+#define _OSGDialogWindowEVENTSOURCEBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,8 +64,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGAbstractWindowEventSource.h" // Parent
-
+#include "OSGAbstractWindowEventSource.h" // Parent Event Producer
 
 #include "OSGDialogWindowEventSourceFields.h"
 
@@ -73,15 +73,16 @@ OSG_BEGIN_NAMESPACE
 
 class DialogWindowEventSource;
 
-//! \brief DialogWindowEventSource Base Class.
+//! \brief DialogWindowEventSourceBase Base Class.
 
-class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DialogWindowEventSourceBase : public AbstractWindowEventSource
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DialogWindowEventSourceBase
+    : public AbstractWindowEventSource
 {
   public:
 
     typedef AbstractWindowEventSource Inherited;
     typedef AbstractWindowEventSource ParentContainer;
-
+    
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
@@ -90,8 +91,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DialogWindowEventSourceBase : p
     /*==========================  PUBLIC  =================================*/
 
   public:
-
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
@@ -123,6 +122,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DialogWindowEventSourceBase : p
 
 
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                   Construction                               */
     /*! \{                                                                 */
@@ -150,6 +150,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DialogWindowEventSourceBase : p
                                                       BitVector bFlags) const;
 
     /*! \}                                                                 */
+
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -177,13 +178,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DialogWindowEventSourceBase : p
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
-
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Field Access                      */
-    /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -214,10 +208,12 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DialogWindowEventSourceBase : p
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
 
+
 #ifdef OSG_MT_CPTR_ASPECT
     virtual FieldContainer *createAspectCopy(
                                     const FieldContainer *pRefAspect) const;
 #endif
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -232,10 +228,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DialogWindowEventSourceBase : p
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
-
   private:
     /*---------------------------------------------------------------------*/
-
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const DialogWindowEventSourceBase &source);
 };
@@ -244,4 +238,4 @@ typedef DialogWindowEventSourceBase *DialogWindowEventSourceBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGDIALOGWINDOWEVENTSOURCEBASE_H_ */
+#endif /* _OSGDialogWindowEventSourceBASE_H_ */

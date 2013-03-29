@@ -34,7 +34,6 @@ A UI TableColumnModel.
         access="public"
     >
     </Field>
-<!--
     <ProducedEvent
         name="ColumnAdded"
         detailsType="TableColumnModelEventDetails"
@@ -65,5 +64,4 @@ A UI TableColumnModel.
         consumable="true"
     >
     </ProducedEvent>
--->
 </FieldContainer>

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -52,7 +52,6 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include <boost/assign/list_of.hpp>
 
 #include "OSGConfig.h"
 
@@ -65,7 +64,6 @@
 
 #include "OSGInternalWindowBase.h"
 #include "OSGInternalWindow.h"
-
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -112,29 +110,33 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<InternalWindow *>::_type("InternalWindowPtr", "AbstractWindowPtr");
+PointerType FieldTraits<InternalWindow *, nsOSG>::_type(
+    "InternalWindowPtr", 
+    "AbstractWindowPtr", 
+    InternalWindow::getClassType(),
+    nsOSG);
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(InternalWindow *)
+OSG_FIELDTRAITS_GETTYPE_NS(InternalWindow *, nsOSG)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
                            InternalWindow *,
-                           0);
+                           nsOSG);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            InternalWindow *,
-                           0);
+                           nsOSG);
 
-DataType &FieldTraits< InternalWindow *, 1 >::getType(void)
+DataType &FieldTraits< InternalWindow *, nsOSG + 1 >::getType(void)
 {
-    return FieldTraits<InternalWindow *, 0>::getType();
+    return FieldTraits<InternalWindow *, nsOSG>::getType();
 }
 
 
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
                       InternalWindow *,
                       UnrecordedRefCountPolicy,
-                      1);
+                      nsOSG + 1);
 
 
 /***************************************************************************\
@@ -212,7 +214,7 @@ InternalWindowBase::TypeObject InternalWindowBase::_type(
     InternalWindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
-    0,
+    nsOSG, //Namespace
     reinterpret_cast<PrototypeCreateF>(&InternalWindowBase::createEmptyLocal),
     InternalWindow::initMethod,
     InternalWindow::exitMethod,
@@ -224,7 +226,7 @@ InternalWindowBase::TypeObject InternalWindowBase::_type(
     "<FieldContainer\n"
     "    name=\"InternalWindow\"\n"
     "    parent=\"AbstractWindow\"\n"
-    "    library=\"ContribUserInterface\"\n"
+    "    library=\"ContribToolboxUserInterface\"\n"
     "    pointerfieldtypes=\"both\"\n"
     "    structure=\"concrete\"\n"
     "    systemcomponent=\"true\"\n"
@@ -275,15 +277,15 @@ InternalWindowBase::TypeObject InternalWindowBase::_type(
     "        defaultValue=\"NULL\"\n"
     "        >\n"
     "    </Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"ToolTips\"\n"
-    "\t\ttype=\"Component\"\n"
-    "\t\tcategory=\"pointer\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
+    "    <Field\n"
+    "        name=\"ToolTips\"\n"
+    "        type=\"Component\"\n"
+    "        category=\"pointer\"\n"
+    "        cardinality=\"multi\"\n"
+    "        visibility=\"external\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     "A UI Internal Window.\n"
     );
@@ -321,6 +323,21 @@ SFUnrecComponentPtr *InternalWindowBase::editSFFocusedComponent(void)
     return &_sfFocusedComponent;
 }
 
+//! Get the value of the InternalWindow::_sfFocusedComponent field.
+Component * InternalWindowBase::getFocusedComponent(void) const
+{
+    return _sfFocusedComponent.getValue();
+}
+
+//! Set the value of the InternalWindow::_sfFocusedComponent field.
+void InternalWindowBase::setFocusedComponent(Component * const value)
+{
+    editSField(FocusedComponentFieldMask);
+
+    _sfFocusedComponent.setValue(value);
+}
+
+
 //! Get the InternalWindow::_mfActivePopupMenus field.
 const MFUnrecPopupMenuPtr *InternalWindowBase::getMFActivePopupMenus(void) const
 {
@@ -332,6 +349,10 @@ MFUnrecPopupMenuPtr *InternalWindowBase::editMFActivePopupMenus(void)
     editMField(ActivePopupMenusFieldMask, _mfActivePopupMenus);
 
     return &_mfActivePopupMenus;
+}
+PopupMenu * InternalWindowBase::getActivePopupMenus(const UInt32 index) const
+{
+    return _mfActivePopupMenus[index];
 }
 
 //! Get the InternalWindow::_sfMenuBar field.
@@ -347,6 +368,21 @@ SFUnrecMenuBarPtr   *InternalWindowBase::editSFMenuBar        (void)
     return &_sfMenuBar;
 }
 
+//! Get the value of the InternalWindow::_sfMenuBar field.
+MenuBar * InternalWindowBase::getMenuBar(void) const
+{
+    return _sfMenuBar.getValue();
+}
+
+//! Set the value of the InternalWindow::_sfMenuBar field.
+void InternalWindowBase::setMenuBar(MenuBar * const value)
+{
+    editSField(MenuBarFieldMask);
+
+    _sfMenuBar.setValue(value);
+}
+
+
 //! Get the InternalWindow::_sfTitlebar field.
 const SFUnrecTitlebarPtr *InternalWindowBase::getSFTitlebar(void) const
 {
@@ -360,6 +396,21 @@ SFUnrecTitlebarPtr  *InternalWindowBase::editSFTitlebar       (void)
     return &_sfTitlebar;
 }
 
+//! Get the value of the InternalWindow::_sfTitlebar field.
+Titlebar * InternalWindowBase::getTitlebar(void) const
+{
+    return _sfTitlebar.getValue();
+}
+
+//! Set the value of the InternalWindow::_sfTitlebar field.
+void InternalWindowBase::setTitlebar(Titlebar * const value)
+{
+    editSField(TitlebarFieldMask);
+
+    _sfTitlebar.setValue(value);
+}
+
+
 //! Get the InternalWindow::_mfToolTips field.
 const MFUnrecComponentPtr *InternalWindowBase::getMFToolTips(void) const
 {
@@ -371,6 +422,10 @@ MFUnrecComponentPtr *InternalWindowBase::editMFToolTips       (void)
     editMField(ToolTipsFieldMask, _mfToolTips);
 
     return &_mfToolTips;
+}
+Component * InternalWindowBase::getToolTips(const UInt32 index) const
+{
+    return _mfToolTips[index];
 }
 
 
@@ -485,9 +540,9 @@ void InternalWindowBase::clearToolTips(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 InternalWindowBase::getBinSize(ConstFieldMaskArg whichField)
+SizeT InternalWindowBase::getBinSize(ConstFieldMaskArg whichField)
 {
-    UInt32 returnValue = Inherited::getBinSize(whichField);
+    SizeT returnValue = Inherited::getBinSize(whichField);
 
     if(FieldBits::NoField != (FocusedComponentFieldMask & whichField))
     {
@@ -644,6 +699,7 @@ InternalWindow *InternalWindowBase::createEmpty(void)
     return returnValue;
 }
 
+
 FieldContainerTransitPtr InternalWindowBase::shallowCopyLocal(
     BitVector bFlags) const
 {
@@ -689,6 +745,7 @@ FieldContainerTransitPtr InternalWindowBase::shallowCopy(void) const
 
 
 
+
 /*------------------------- constructors ----------------------------------*/
 
 InternalWindowBase::InternalWindowBase(void) :
@@ -722,7 +779,7 @@ void InternalWindowBase::onCreate(const InternalWindow *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         InternalWindow *pThis = static_cast<InternalWindow *>(this);
 
@@ -915,7 +972,6 @@ EditFieldHandlePtr InternalWindowBase::editHandleToolTips       (void)
 
     return returnValue;
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT

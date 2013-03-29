@@ -75,22 +75,6 @@ OSG::UInt16 ListModelBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the ListModel::_sfEventSource field.
-inline
-ListModelEventSource * ListModelBase::getEventSource(void) const
-{
-    return _sfEventSource.getValue();
-}
-
-//! Set the value of the ListModel::_sfEventSource field.
-inline
-void ListModelBase::setEventSource(ListModelEventSource * const value)
-{
-    editSField(EventSourceFieldMask);
-
-    _sfEventSource.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

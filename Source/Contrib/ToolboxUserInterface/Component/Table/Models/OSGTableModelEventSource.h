@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -43,10 +43,11 @@
 #endif
 
 #include "OSGTableModelEventSourceBase.h"
+
 //Event Producer Headers
 #include "OSGActivity.h"
 #include "OSGConsumableEventCombiner.h"
-
+    
 #include "OSGTableModelEventDetailsFields.h"
 
 OSG_BEGIN_NAMESPACE
@@ -65,7 +66,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableModelEventSource : public 
 
     typedef TableModelEventSourceBase Inherited;
     typedef TableModelEventSource     Self;
-    
+
     typedef TableModelEventDetails ContentsHeaderRowChangedEventDetailsType;
     typedef TableModelEventDetails ContentsChangedEventDetailsType;
     typedef TableModelEventDetails IntervalAddedEventDetailsType;
@@ -77,6 +78,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableModelEventSource : public 
     typedef boost::signals2::signal<void (TableModelEventDetails* const, UInt32), ConsumableEventCombiner> IntervalAddedEventType;
     typedef boost::signals2::signal<void (TableModelEventDetails* const, UInt32), ConsumableEventCombiner> IntervalRemovedEventType;
 
+
     enum
     {
         ContentsHeaderRowChangedEventId = 1,
@@ -85,8 +87,10 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableModelEventSource : public 
         IntervalRemovedEventId = IntervalAddedEventId + 1,
         NextProducedEventId = IntervalRemovedEventId + 1
     };
+
     static const  EventProducerType  &getProducerClassType  (void);
     static        UInt32              getProducerClassTypeId(void);
+
     /*---------------------------------------------------------------------*/
     /*! \name                Event Produced Get                           */
     /*! \{                                                                 */
@@ -160,12 +164,13 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableModelEventSource : public 
     bool   isEmptyIntervalRemoved           (void) const;
     UInt32 numSlotsIntervalRemoved          (void) const;
     
-    //Moved protected -> public:    
+    
     void produceContentsHeaderRowChanged  (ContentsHeaderRowChangedEventDetailsType* const e);
     void produceContentsChanged     (ContentsChangedEventDetailsType* const e);
     void produceIntervalAdded       (IntervalAddedEventDetailsType* const e);
     void produceIntervalRemoved     (IntervalRemovedEventDetailsType* const e);
     /*! \}                                                                 */
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -187,7 +192,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableModelEventSource : public 
 
   protected:
 
-    // Variables should all be in TableModelEventSourceBase.
+    // Variables should all be in TableModelBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
@@ -207,13 +212,15 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableModelEventSource : public 
     GetEventHandlePtr getHandleIntervalAddedSignal(void) const;
     GetEventHandlePtr getHandleIntervalRemovedSignal(void) const;
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Event Producer Firing                    */
     /*! \{                                                                 */
 
     virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
-
+    
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -239,7 +246,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableModelEventSource : public 
     /*==========================  PRIVATE  ================================*/
 
   private:
-    /*---------------------------------------------------------------------*/
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
 
@@ -257,4 +263,4 @@ OSG_END_NAMESPACE
 #include "OSGTableModelEventSourceBase.inl"
 #include "OSGTableModelEventSource.inl"
 
-#endif /* _OSGTABLEMODELEVENTSOURCE_H_ */
+#endif /* _OSGTABLEMODEL_H_ */

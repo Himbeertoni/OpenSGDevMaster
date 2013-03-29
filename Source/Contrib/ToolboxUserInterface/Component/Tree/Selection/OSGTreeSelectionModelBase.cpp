@@ -61,7 +61,7 @@
 
 #include "OSGTreeSelectionModelBase.h"
 #include "OSGTreeSelectionModel.h"
-
+#include "OSGTreeSelectionModelEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -169,7 +169,6 @@ TreeSelectionModelBase::TypeObject TreeSelectionModelBase::_type(
     "        access=\"public\"\n"
     "        >\n"
     "    </Field>\n"
-    "<!--\n"
     "    <ProducedEvent\n"
     "        name=\"SelectionAdded\"\n"
     "        detailsType=\"TreeSelectionEventDetails\"\n"
@@ -182,7 +181,6 @@ TreeSelectionModelBase::TypeObject TreeSelectionModelBase::_type(
     "        consumable=\"true\"\n"
     "    >\n"
     "    </ProducedEvent>\n"
-    "-->\n"
     "</FieldContainer>\n",
     "A UI TreeModel.\n"
     );
@@ -219,6 +217,21 @@ SFUnrecTreeSelectionModelEventSourcePtr *TreeSelectionModelBase::editSFEventSour
 
     return &_sfEventSource;
 }
+
+//! Get the value of the TreeSelectionModel::_sfEventSource field.
+TreeSelectionModelEventSource * TreeSelectionModelBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the TreeSelectionModel::_sfEventSource field.
+void TreeSelectionModelBase::setEventSource(TreeSelectionModelEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
+
 
 
 
@@ -289,11 +302,16 @@ void TreeSelectionModelBase::onCreate(const TreeSelectionModel *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         TreeSelectionModel *pThis = static_cast<TreeSelectionModel *>(this);
 
         pThis->setEventSource(source->getEventSource());
+    }
+    else
+    {
+        TreeSelectionModelEventSourceUnrecPtr evSrc = TreeSelectionModelEventSource::create();
+        setEventSource( evSrc );
     }
 }
 

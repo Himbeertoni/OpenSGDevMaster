@@ -24,7 +24,6 @@ A UI TableModel.
         access="public"
     >
     </Field>
-<!--
     <ProducedEvent
         name="ContentsHeaderRowChanged"
         detailsType="TableModelEventDetails"
@@ -49,5 +48,4 @@ A UI TableModel.
         consumable="true"
     >
     </ProducedEvent>
--->
 </FieldContainer>

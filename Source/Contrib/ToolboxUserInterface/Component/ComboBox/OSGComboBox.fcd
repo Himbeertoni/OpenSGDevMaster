@@ -12,8 +12,8 @@
     useLocalIncludes="false"
     isNodeCore="false"
     authors="David Kabala (djkabala@gmail.com)"
+    parentProducer="Component"
     >
-<!--     parentProducer="Component" -->
     A UI ComboBox
     <Field
         name="ExpandButton"
@@ -85,12 +85,10 @@
         defaultValue="NULL"
         >
     </Field>
-<!--
     <ProducedEvent
         name="ActionPerformed"
         detailsType="ActionEventDetails"
         consumable="true"
         >
     </ProducedEvent>
--->
 </FieldContainer>

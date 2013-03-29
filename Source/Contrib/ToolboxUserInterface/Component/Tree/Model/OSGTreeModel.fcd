@@ -24,7 +24,6 @@ A UI TreeModel.
         access="public"
         >
     </Field>
-<!--
     <ProducedEvent
         name="TreeNodesChanged"
         detailsType="TreeModelEventDetails"
@@ -55,5 +54,4 @@ A UI TreeModel.
         consumable="true"
     >
     </ProducedEvent>
--->
 </FieldContainer>

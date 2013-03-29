@@ -62,7 +62,7 @@
 
 #include "OSGDialogWindowBase.h"
 #include "OSGDialogWindow.h"
-
+#include "OSGDialogWindowEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -222,8 +222,8 @@ DialogWindowBase::TypeObject DialogWindowBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com), Mark Stenerson             \"\n"
+    "    parentProducer=\"AbstractWindow\"\n"
     ">\n"
-    "<!-- parentProducer=\"AbstractWindow\" -->\n"
     "A UI Dialog Window.\n"
     "    <Field\n"
     "        name=\"ErrorIcon\"\n"
@@ -274,7 +274,6 @@ DialogWindowBase::TypeObject DialogWindowBase::_type(
     "        access=\"public\"\n"
     "    >\n"
     "    </Field>\n"
-    "<!--\n"
     "    <ProducedEvent\n"
     "        name=\"DialogWindowClosing\"\n"
     "        detailsType=\"DialogWindowEventDetails\"\n"
@@ -287,7 +286,6 @@ DialogWindowBase::TypeObject DialogWindowBase::_type(
     "        consumable=\"true\"\n"
     "    >\n"
     "    </ProducedEvent>\n"
-    "-->\n"
     "</FieldContainer>\n",
     "A UI Dialog Window.\n"
     );
@@ -325,6 +323,21 @@ SFUnrecTextureObjChunkPtr *DialogWindowBase::editSFErrorIcon      (void)
     return &_sfErrorIcon;
 }
 
+//! Get the value of the DialogWindow::_sfErrorIcon field.
+TextureObjChunk * DialogWindowBase::getErrorIcon(void) const
+{
+    return _sfErrorIcon.getValue();
+}
+
+//! Set the value of the DialogWindow::_sfErrorIcon field.
+void DialogWindowBase::setErrorIcon(TextureObjChunk * const value)
+{
+    editSField(ErrorIconFieldMask);
+
+    _sfErrorIcon.setValue(value);
+}
+
+
 //! Get the DialogWindow::_sfQuestionIcon field.
 const SFUnrecTextureObjChunkPtr *DialogWindowBase::getSFQuestionIcon(void) const
 {
@@ -338,6 +351,21 @@ SFUnrecTextureObjChunkPtr *DialogWindowBase::editSFQuestionIcon   (void)
     return &_sfQuestionIcon;
 }
 
+//! Get the value of the DialogWindow::_sfQuestionIcon field.
+TextureObjChunk * DialogWindowBase::getQuestionIcon(void) const
+{
+    return _sfQuestionIcon.getValue();
+}
+
+//! Set the value of the DialogWindow::_sfQuestionIcon field.
+void DialogWindowBase::setQuestionIcon(TextureObjChunk * const value)
+{
+    editSField(QuestionIconFieldMask);
+
+    _sfQuestionIcon.setValue(value);
+}
+
+
 //! Get the DialogWindow::_sfDefaultIcon field.
 const SFUnrecTextureObjChunkPtr *DialogWindowBase::getSFDefaultIcon(void) const
 {
@@ -350,6 +378,21 @@ SFUnrecTextureObjChunkPtr *DialogWindowBase::editSFDefaultIcon    (void)
 
     return &_sfDefaultIcon;
 }
+
+//! Get the value of the DialogWindow::_sfDefaultIcon field.
+TextureObjChunk * DialogWindowBase::getDefaultIcon(void) const
+{
+    return _sfDefaultIcon.getValue();
+}
+
+//! Set the value of the DialogWindow::_sfDefaultIcon field.
+void DialogWindowBase::setDefaultIcon(TextureObjChunk * const value)
+{
+    editSField(DefaultIconFieldMask);
+
+    _sfDefaultIcon.setValue(value);
+}
+
 
 SFBool *DialogWindowBase::editSFShowCancel(void)
 {
@@ -622,7 +665,7 @@ void DialogWindowBase::onCreate(const DialogWindow *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         DialogWindow *pThis = static_cast<DialogWindow *>(this);
 
@@ -631,6 +674,11 @@ void DialogWindowBase::onCreate(const DialogWindow *source)
         pThis->setQuestionIcon(source->getQuestionIcon());
 
         pThis->setDefaultIcon(source->getDefaultIcon());
+    }
+    else
+    {
+        DialogWindowEventSourceUnrecPtr evSrc = DialogWindowEventSource::create();
+        setEventSource( evSrc );
     }
 }
 

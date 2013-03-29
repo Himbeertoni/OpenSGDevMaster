@@ -24,12 +24,10 @@ A UI ColorSelectionModel.
         defaultValue="NULL"	
 	>
 	</Field>
-<!--
     <ProducedEvent
         name="StateChanged"
         detailsType="ChangeEventDetails"
         consumable="true"
     >
     </ProducedEvent>
--->
 </FieldContainer>

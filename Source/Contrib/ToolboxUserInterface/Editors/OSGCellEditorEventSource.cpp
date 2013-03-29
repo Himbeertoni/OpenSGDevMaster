@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -59,6 +59,7 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
+
 //! CellEditor Produced Events
 
 EventDescription *CellEditorEventSource::_eventDesc[] =
@@ -86,15 +87,9 @@ EventProducerType CellEditorEventSource::_producerType(
     InitEventProducerFunctor(),
     _eventDesc,
     sizeof(_eventDesc));
-
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
-
-const EventProducerType &CellEditorEventSource::getProducerType(void) const
-{
-    return _producerType;
-}
 
 void CellEditorEventSource::initMethod(InitPhase ePhase)
 {
@@ -105,6 +100,11 @@ void CellEditorEventSource::initMethod(InitPhase ePhase)
     }
 }
 
+
+const EventProducerType &CellEditorEventSource::getProducerType(void) const
+{
+    return _producerType;
+}
 
 /***************************************************************************\
  *                           Instance methods                              *
@@ -127,7 +127,7 @@ void CellEditorEventSource::produceEvent(UInt32 eventId, EventDetails* const e)
         _EditingStoppedEvent(dynamic_cast<EditingStoppedEventDetailsType* const>(e), EditingStoppedEventId);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -145,7 +145,7 @@ boost::signals2::connection CellEditorEventSource::connectEvent(UInt32 eventId,
         return _EditingStoppedEvent.connect(listener, at);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -167,7 +167,7 @@ boost::signals2::connection  CellEditorEventSource::connectEvent(UInt32 eventId,
         return _EditingStoppedEvent.connect(group, listener, at);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -186,7 +186,7 @@ void  CellEditorEventSource::disconnectEvent(UInt32 eventId, const BaseEventType
         _EditingStoppedEvent.disconnect(group);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -202,7 +202,7 @@ void  CellEditorEventSource::disconnectAllSlotsEvent(UInt32 eventId)
         _EditingStoppedEvent.disconnect_all_slots();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -218,7 +218,7 @@ bool  CellEditorEventSource::isEmptyEvent(UInt32 eventId) const
         return _EditingStoppedEvent.empty();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return true;
         break;
     }
@@ -235,16 +235,12 @@ UInt32  CellEditorEventSource::numSlotsEvent(UInt32 eventId) const
         return _EditingStoppedEvent.num_slots();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return 0;
         break;
     }
 }
 
-
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
 GetEventHandlePtr CellEditorEventSource::getHandleEditingCanceledSignal(void) const
 {
     GetEventHandlePtr returnValue(
@@ -266,6 +262,8 @@ GetEventHandlePtr CellEditorEventSource::getHandleEditingStoppedSignal(void) con
 
     return returnValue;
 }
+
+
 /*----------------------- constructors & destructors ----------------------*/
 
 CellEditorEventSource::CellEditorEventSource(void) :
@@ -294,7 +292,7 @@ void CellEditorEventSource::changed(ConstFieldMaskArg whichField,
 void CellEditorEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump CellEditorEventSource NI" << std::endl;
+    SLOG << "Dump CellEditor NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

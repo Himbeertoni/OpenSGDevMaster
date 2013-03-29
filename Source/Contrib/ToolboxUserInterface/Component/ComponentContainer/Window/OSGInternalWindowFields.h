@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -64,24 +64,24 @@
 
 OSG_BEGIN_NAMESPACE
 
+
 class InternalWindow;
 
 OSG_GEN_CONTAINERPTR(InternalWindow);
-
-/*! \ingroup GrpContribUserInterfaceFieldTraits
-    \ingroup GrpLibOSGContribUserInterface
+/*! \ingroup GrpContribToolboxUserInterfaceFieldTraits
+    \ingroup GrpLibOSGContribToolboxUserInterface
  */
 template <>
-struct FieldTraits<InternalWindow *> :
-    public FieldTraitsFCPtrBase<InternalWindow *>
+struct FieldTraits<InternalWindow *, nsOSG> :
+    public FieldTraitsFCPtrBase<InternalWindow *, nsOSG>
 {
   private:
 
-    static DataType             _type;
+    static PointerType             _type;
 
   public:
 
-    typedef FieldTraits<InternalWindow *>  Self;
+    typedef FieldTraits<InternalWindow *, nsOSG>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -90,72 +90,70 @@ struct FieldTraits<InternalWindow *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFInternalWindowPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFInternalWindowPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<InternalWindow *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<InternalWindow *, nsOSG>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecInternalWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InternalWindow *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<InternalWindow *, nsOSG>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecInternalWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InternalWindow *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<InternalWindow *, nsOSG>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakInternalWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InternalWindow *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<InternalWindow *, nsOSG>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdInternalWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InternalWindow *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<InternalWindow *, nsOSG>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecInternalWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InternalWindow *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<InternalWindow *, nsOSG>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecInternalWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InternalWindow *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<InternalWindow *, nsOSG>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakInternalWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InternalWindow *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<InternalWindow *, nsOSG>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdInternalWindowPtr"; 
 }
 
 
-/*! \ingroup GrpContribUserInterfaceFieldTraits
+/*! \ingroup GrpContribToolboxUserInterfaceFieldTraits
  */
 template <>
-struct FieldTraits<InternalWindow *, 1> :
-    public FieldTraitsFCPtrBase<InternalWindow *, 1>
+struct FieldTraits<InternalWindow *, nsOSG + 1> :
+    public FieldTraitsFCPtrBase<InternalWindow *, nsOSG + 1>
 {
   private:
 
   public:
-    typedef FieldTraits<InternalWindow *, 1>  Self;
+    typedef FieldTraits<InternalWindow *, nsOSG + 1>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -169,137 +167,137 @@ struct FieldTraits<InternalWindow *, 1> :
 };
 
 template<> inline
-const Char8 *FieldTraits<InternalWindow *, 1>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<InternalWindow *, nsOSG + 1>::getSName<RecordedRefCountPolicy>(void)
 {
     return "SFRecChildInternalWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InternalWindow *, 1>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<InternalWindow *, nsOSG + 1>::getSName<UnrecordedRefCountPolicy>(void)
 {
     return "SFUnrecChildInternalWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InternalWindow *, 1>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<InternalWindow *, nsOSG + 1>::getSName<WeakRefCountPolicy>(void)
 {
     return "SFWeakChildInternalWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InternalWindow *, 1>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<InternalWindow *, nsOSG + 1>::getSName<NoRefCountPolicy>(void)
 {
     return "SFUnrefdChildInternalWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InternalWindow *, 1>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<InternalWindow *, nsOSG + 1>::getMName<RecordedRefCountPolicy>(void)
 {
     return "MFRecChildInternalWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InternalWindow *, 1>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<InternalWindow *, nsOSG + 1>::getMName<UnrecordedRefCountPolicy>(void)
 {
     return "MFUnrecChildInternalWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InternalWindow *, 1>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<InternalWindow *, nsOSG + 1>::getMName<WeakRefCountPolicy>(void)
 {
     return "MFWeakChildInternalWindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<InternalWindow *, 1>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<InternalWindow *, nsOSG + 1>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdChildInternalWindowPtr"; 
 }
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<InternalWindow *,
-                      RecordedRefCountPolicy  > SFRecInternalWindowPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      RecordedRefCountPolicy, nsOSG  > SFRecInternalWindowPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<InternalWindow *,
-                      UnrecordedRefCountPolicy> SFUnrecInternalWindowPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      UnrecordedRefCountPolicy, nsOSG> SFUnrecInternalWindowPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<InternalWindow *,
-                      WeakRefCountPolicy      > SFWeakInternalWindowPtr;
-/*! \ingroup GrpContribUserInterfaceFieldSFields */
+                      WeakRefCountPolicy, nsOSG      > SFWeakInternalWindowPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<InternalWindow *,
-                      NoRefCountPolicy        > SFUncountedInternalWindowPtr;
+                      NoRefCountPolicy, nsOSG        > SFUncountedInternalWindowPtr;
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<InternalWindow *,
-                      RecordedRefCountPolicy  > MFRecInternalWindowPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      RecordedRefCountPolicy, nsOSG  > MFRecInternalWindowPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<InternalWindow *,
-                      UnrecordedRefCountPolicy> MFUnrecInternalWindowPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      UnrecordedRefCountPolicy, nsOSG> MFUnrecInternalWindowPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<InternalWindow *,
-                      WeakRefCountPolicy      > MFWeakInternalWindowPtr;
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+                      WeakRefCountPolicy, nsOSG      > MFWeakInternalWindowPtr;
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef PointerMField<InternalWindow *,
-                      NoRefCountPolicy        > MFUncountedInternalWindowPtr;
+                      NoRefCountPolicy, nsOSG        > MFUncountedInternalWindowPtr;
 
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
 typedef ChildPointerMField<
           InternalWindow *, 
           UnrecordedRefCountPolicy,
-          1             > MFUnrecChildInternalWindowPtr;
+          nsOSG + 1             > MFUnrecChildInternalWindowPtr;
 
 
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFRecInternalWindowPtr : 
     public PointerSField<InternalWindow *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUnrecInternalWindowPtr : 
     public PointerSField<InternalWindow *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFWeakInternalWindowPtr :
     public PointerSField<InternalWindow *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldSFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldSFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct SFUncountedInternalWindowPtr :
     public PointerSField<InternalWindow *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFRecInternalWindowPtr :
     public PointerMField<InternalWindow *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUnrecInternalWindowPtr :
     public PointerMField<InternalWindow *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFWeakInternalWindowPtr :
     public PointerMField<InternalWindow *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUncountedInternalWindowPtr :
     public PointerMField<InternalWindow *,
                          NoRefCountPolicy        > {};
 
 
 
-/*! \ingroup GrpContribUserInterfaceFieldMFields \ingroup GrpLibOSGContribUserInterface */
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
 struct MFUnrecChildInternalWindowPtr :
     public ChildPointerMField<
         InternalWindow *, 
         UnrecordedRefCountPolicy,
-        1             > {};
+        nsOSG + 1             > {};
 
 
 #endif // these are the doxygen hacks

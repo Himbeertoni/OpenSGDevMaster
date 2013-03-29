@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -59,6 +59,7 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
+
 //! BoundedRangeModel Produced Events
 
 EventDescription *BoundedRangeModelEventSource::_eventDesc[] =
@@ -83,11 +84,6 @@ EventProducerType BoundedRangeModelEventSource::_producerType(
  *                           Class methods                                 *
 \***************************************************************************/
 
-const EventProducerType &BoundedRangeModelEventSource::getProducerType(void) const
-{
-    return _producerType;
-}
-
 void BoundedRangeModelEventSource::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
@@ -98,10 +94,14 @@ void BoundedRangeModelEventSource::initMethod(InitPhase ePhase)
 }
 
 
+const EventProducerType &BoundedRangeModelEventSource::getProducerType(void) const
+{
+    return _producerType;
+}
+
 /***************************************************************************\
  *                           Instance methods                              *
 \***************************************************************************/
-
 /*------------------------- event producers ----------------------------------*/
 void BoundedRangeModelEventSource::produceEvent(UInt32 eventId, EventDetails* const e)
 {
@@ -114,7 +114,7 @@ void BoundedRangeModelEventSource::produceEvent(UInt32 eventId, EventDetails* co
         _StateChangedEvent(dynamic_cast<StateChangedEventDetailsType* const>(e), StateChangedEventId);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -129,7 +129,7 @@ boost::signals2::connection BoundedRangeModelEventSource::connectEvent(UInt32 ev
         return _StateChangedEvent.connect(listener, at);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -148,7 +148,7 @@ boost::signals2::connection  BoundedRangeModelEventSource::connectEvent(UInt32 e
         return _StateChangedEvent.connect(group, listener, at);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -164,7 +164,7 @@ void  BoundedRangeModelEventSource::disconnectEvent(UInt32 eventId, const BaseEv
         _StateChangedEvent.disconnect(group);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -177,7 +177,7 @@ void  BoundedRangeModelEventSource::disconnectAllSlotsEvent(UInt32 eventId)
         _StateChangedEvent.disconnect_all_slots();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -190,7 +190,7 @@ bool  BoundedRangeModelEventSource::isEmptyEvent(UInt32 eventId) const
         return _StateChangedEvent.empty();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return true;
         break;
     }
@@ -204,15 +204,11 @@ UInt32  BoundedRangeModelEventSource::numSlotsEvent(UInt32 eventId) const
         return _StateChangedEvent.num_slots();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return 0;
         break;
     }
 }
-
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
 
 GetEventHandlePtr BoundedRangeModelEventSource::getHandleStateChangedSignal(void) const
 {
@@ -224,6 +220,7 @@ GetEventHandlePtr BoundedRangeModelEventSource::getHandleStateChangedSignal(void
 
     return returnValue;
 }
+
 
 /*----------------------- constructors & destructors ----------------------*/
 
@@ -253,7 +250,7 @@ void BoundedRangeModelEventSource::changed(ConstFieldMaskArg whichField,
 void BoundedRangeModelEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump BoundedRangeModelEventSource NI" << std::endl;
+    SLOG << "Dump BoundedRangeModel NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

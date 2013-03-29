@@ -61,7 +61,7 @@
 
 #include "OSGListSelectionModelBase.h"
 #include "OSGListSelectionModel.h"
-
+#include "OSGListSelectionModelEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -195,14 +195,12 @@ ListSelectionModelBase::TypeObject ListSelectionModelBase::_type(
     "        access=\"public\"\n"
     "    >\n"
     "    </Field>\t\n"
-    "<!--\n"
     "    <ProducedEvent\n"
     "        name=\"SelectionChanged\"\n"
     "        detailsType=\"ListSelectionEventDetails\"\n"
     "        consumable=\"true\"\n"
     "    >\n"
     "    </ProducedEvent>\n"
-    "-->\n"
     "</FieldContainer>\n",
     "A UI SingleSelectionModel.\n"
     );
@@ -252,6 +250,21 @@ SFUnrecListSelectionModelEventSourcePtr *ListSelectionModelBase::editSFEventSour
 
     return &_sfEventSource;
 }
+
+//! Get the value of the ListSelectionModel::_sfEventSource field.
+ListSelectionModelEventSource * ListSelectionModelBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the ListSelectionModel::_sfEventSource field.
+void ListSelectionModelBase::setEventSource(ListSelectionModelEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
+
 
 
 
@@ -337,11 +350,16 @@ void ListSelectionModelBase::onCreate(const ListSelectionModel *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         ListSelectionModel *pThis = static_cast<ListSelectionModel *>(this);
 
         pThis->setEventSource(source->getEventSource());
+    }
+    else
+    {
+        ListSelectionModelEventSourceUnrecPtr evSrc = ListSelectionModelEventSource::create();
+        setEventSource( evSrc );
     }
 }
 

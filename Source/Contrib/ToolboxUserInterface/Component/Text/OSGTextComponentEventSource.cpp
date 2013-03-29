@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -100,11 +100,15 @@ void TextComponentEventSource::initMethod(InitPhase ePhase)
     }
 }
 
+
 const EventProducerType &TextComponentEventSource::getProducerType(void) const
 {
     return _producerType;
 }
 
+/***************************************************************************\
+ *                           Instance methods                              *
+\***************************************************************************/
 /*------------------------- event producers ----------------------------------*/
 void TextComponentEventSource::produceEvent(UInt32 eventId, EventDetails* const e)
 {
@@ -233,14 +237,6 @@ UInt32  TextComponentEventSource::numSlotsEvent(UInt32 eventId) const
     }
 }
 
-/***************************************************************************\
- *                           Instance methods                              *
-\***************************************************************************/
-
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
-
 GetEventHandlePtr TextComponentEventSource::getHandleTextValueChangedSignal(void) const
 {
     GetEventHandlePtr returnValue(
@@ -262,6 +258,7 @@ GetEventHandlePtr TextComponentEventSource::getHandleCaretChangedSignal(void) co
 
     return returnValue;
 }
+
 
 /*----------------------- constructors & destructors ----------------------*/
 
@@ -291,7 +288,7 @@ void TextComponentEventSource::changed(ConstFieldMaskArg whichField,
 void TextComponentEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump TextComponentEventSource NI" << std::endl;
+    SLOG << "Dump TextComponent NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

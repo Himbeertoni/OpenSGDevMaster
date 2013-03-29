@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -37,7 +37,6 @@
 //---------------------------------------------------------------------------
 //  Includes
 //---------------------------------------------------------------------------
-
 #include "OSGMouseEventDetails.h"
 #include "OSGMouseWheelEventDetails.h"
 #include "OSGKeyEventDetails.h"
@@ -58,6 +57,7 @@ UInt32 ComponentEventSource::getProducerClassTypeId(void)
 {
     return _producerType.getId();
 }
+
 
 inline
 UInt32 ComponentEventSource::getNumProducedEvents(void) const
@@ -1006,4 +1006,5 @@ void ComponentEventSource::produceToolTipDeactivated(ToolTipDeactivatedEventDeta
 {
     produceEvent(ToolTipDeactivatedEventId, e);
 }
+
 OSG_END_NAMESPACE

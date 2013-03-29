@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -51,8 +51,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGABSTRACTWINDOWEVENTSOURCEBASE_H_
-#define _OSGABSTRACTWINDOWEVENTSOURCEBASE_H_
+#ifndef _OSGAbstractWindowEVENTSOURCEBASE_H_
+#define _OSGAbstractWindowEVENTSOURCEBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,8 +63,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGComponentEventSource.h" // Parent
-
+#include "OSGComponentEventSource.h" // Parent Event Source
 
 #include "OSGAbstractWindowEventSourceFields.h"
 
@@ -73,15 +72,16 @@ OSG_BEGIN_NAMESPACE
 
 class AbstractWindowEventSource;
 
-//! \brief AbstractWindowEventSource Base Class.
+//! \brief AbstractWindowEventSourceBase Base Class.
 
-class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowEventSourceBase : public ComponentEventSource
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowEventSourceBase
+    : public ComponentEventSource
 {
   public:
 
     typedef ComponentEventSource Inherited;
     typedef ComponentEventSource ParentContainer;
-
+    
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
@@ -90,8 +90,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowEventSourceBase :
     /*==========================  PUBLIC  =================================*/
 
   public:
-
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
@@ -123,6 +121,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowEventSourceBase :
 
 
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                   Construction                               */
     /*! \{                                                                 */
@@ -150,6 +149,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowEventSourceBase :
                                                       BitVector bFlags) const;
 
     /*! \}                                                                 */
+
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -178,12 +178,16 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowEventSourceBase :
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Field Access                      */
+    /*! \name Parent linking                                               */
     /*! \{                                                                 */
 
+    virtual bool linkParent  (FieldContainer * const pParent,
+                              UInt16           const childFieldId,
+                              UInt16           const parentFieldId);
+    virtual bool unlinkParent(FieldContainer * const pParent,
+                              UInt16           const parentFieldId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -214,10 +218,12 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowEventSourceBase :
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
 
+
 #ifdef OSG_MT_CPTR_ASPECT
     virtual FieldContainer *createAspectCopy(
                                     const FieldContainer *pRefAspect) const;
 #endif
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -232,10 +238,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowEventSourceBase :
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
-
   private:
     /*---------------------------------------------------------------------*/
-
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const AbstractWindowEventSourceBase &source);
 };
@@ -244,4 +248,4 @@ typedef AbstractWindowEventSourceBase *AbstractWindowEventSourceBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGABSTRACTWINDOWEVENTSOURCEBASE_H_ */
+#endif /* _OSGAbstractWindowEventSourceBASE_H_ */

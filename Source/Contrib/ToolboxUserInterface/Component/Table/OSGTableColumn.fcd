@@ -94,12 +94,10 @@
         access="public"
         >
     </Field>	
-<!--
     <ProducedEvent
         name="FieldChanged"
         detailsType="ChangeEventDetails"
         consumable="true"
         >
     </ProducedEvent>
--->
 </FieldContainer>

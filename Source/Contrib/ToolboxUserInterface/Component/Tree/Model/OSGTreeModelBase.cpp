@@ -61,7 +61,7 @@
 
 #include "OSGTreeModelBase.h"
 #include "OSGTreeModel.h"
-
+#include "OSGTreeModelEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -169,7 +169,6 @@ TreeModelBase::TypeObject TreeModelBase::_type(
     "        access=\"public\"\n"
     "        >\n"
     "    </Field>\n"
-    "<!--\n"
     "    <ProducedEvent\n"
     "        name=\"TreeNodesChanged\"\n"
     "        detailsType=\"TreeModelEventDetails\"\n"
@@ -200,7 +199,6 @@ TreeModelBase::TypeObject TreeModelBase::_type(
     "        consumable=\"true\"\n"
     "    >\n"
     "    </ProducedEvent>\n"
-    "-->\n"
     "</FieldContainer>\n",
     "A UI TreeModel.\n"
     );
@@ -237,6 +235,21 @@ SFUnrecTreeModelEventSourcePtr *TreeModelBase::editSFEventSource    (void)
 
     return &_sfEventSource;
 }
+
+//! Get the value of the TreeModel::_sfEventSource field.
+TreeModelEventSource * TreeModelBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the TreeModel::_sfEventSource field.
+void TreeModelBase::setEventSource(TreeModelEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
+
 
 
 
@@ -307,11 +320,16 @@ void TreeModelBase::onCreate(const TreeModel *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         TreeModel *pThis = static_cast<TreeModel *>(this);
 
         pThis->setEventSource(source->getEventSource());
+    }
+    else
+    {
+        TreeModelEventSourceUnrecPtr evSrc = TreeModelEventSource::create();
+        setEventSource( evSrc );
     }
 }
 

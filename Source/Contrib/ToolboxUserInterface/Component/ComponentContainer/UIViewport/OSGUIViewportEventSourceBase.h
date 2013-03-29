@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -51,8 +51,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGUIVIEWPORTEVENTSOURCEBASE_H_
-#define _OSGUIVIEWPORTEVENTSOURCEBASE_H_
+#ifndef _OSGUIViewportEVENTSOURCEBASE_H_
+#define _OSGUIViewportEVENTSOURCEBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,8 +63,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGComponentEventSource.h" // Parent
-
+#include "OSGComponentEventSource.h" // Parent Event Producer
 
 #include "OSGUIViewportEventSourceFields.h"
 
@@ -73,15 +72,16 @@ OSG_BEGIN_NAMESPACE
 
 class UIViewportEventSource;
 
-//! \brief UIViewportEventSource Base Class.
+//! \brief UIViewportEventSourceBase Base Class.
 
-class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportEventSourceBase : public ComponentEventSource
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportEventSourceBase
+    : public ComponentEventSource
 {
   public:
 
     typedef ComponentEventSource Inherited;
     typedef ComponentEventSource ParentContainer;
-
+    
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
@@ -90,8 +90,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportEventSourceBase : pub
     /*==========================  PUBLIC  =================================*/
 
   public:
-
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
@@ -123,6 +121,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportEventSourceBase : pub
 
 
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                   Construction                               */
     /*! \{                                                                 */
@@ -150,6 +149,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportEventSourceBase : pub
                                                       BitVector bFlags) const;
 
     /*! \}                                                                 */
+
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -177,13 +177,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportEventSourceBase : pub
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
-
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Field Access                      */
-    /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -214,10 +207,12 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportEventSourceBase : pub
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
 
+
 #ifdef OSG_MT_CPTR_ASPECT
     virtual FieldContainer *createAspectCopy(
                                     const FieldContainer *pRefAspect) const;
 #endif
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -232,10 +227,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportEventSourceBase : pub
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
-
   private:
     /*---------------------------------------------------------------------*/
-
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const UIViewportEventSourceBase &source);
 };
@@ -244,4 +237,4 @@ typedef UIViewportEventSourceBase *UIViewportEventSourceBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGUIVIEWPORTEVENTSOURCEBASE_H_ */
+#endif /* _OSGUIViewportEventSourceBASE_H_ */

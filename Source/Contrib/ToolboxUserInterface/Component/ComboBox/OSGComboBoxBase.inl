@@ -74,86 +74,6 @@ OSG::UInt16 ComboBoxBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-
-//! Get the value of the ComboBox::_sfExpandButton field.
-inline
-ToggleButton * ComboBoxBase::getExpandButton(void) const
-{
-    return _sfExpandButton.getValue();
-}
-
-//! Set the value of the ComboBox::_sfExpandButton field.
-inline
-void ComboBoxBase::setExpandButton(ToggleButton * const value)
-{
-    editSField(ExpandButtonFieldMask);
-
-    _sfExpandButton.setValue(value);
-}
-
-//! Get the value of the ComboBox::_sfEditor field.
-inline
-ComboBoxEditor * ComboBoxBase::getEditor(void) const
-{
-    return _sfEditor.getValue();
-}
-
-//! Set the value of the ComboBox::_sfEditor field.
-inline
-void ComboBoxBase::setEditor(ComboBoxEditor * const value)
-{
-    editSField(EditorFieldMask);
-
-    _sfEditor.setValue(value);
-}
-
-//! Get the value of the ComboBox::_sfModel field.
-inline
-ComboBoxModel * ComboBoxBase::getModel(void) const
-{
-    return _sfModel.getValue();
-}
-
-//! Set the value of the ComboBox::_sfModel field.
-inline
-void ComboBoxBase::setModel(ComboBoxModel * const value)
-{
-    editSField(ModelFieldMask);
-
-    _sfModel.setValue(value);
-}
-
-//! Get the value of the ComboBox::_sfCellGenerator field.
-inline
-ComponentGenerator * ComboBoxBase::getCellGenerator(void) const
-{
-    return _sfCellGenerator.getValue();
-}
-
-//! Set the value of the ComboBox::_sfCellGenerator field.
-inline
-void ComboBoxBase::setCellGenerator(ComponentGenerator * const value)
-{
-    editSField(CellGeneratorFieldMask);
-
-    _sfCellGenerator.setValue(value);
-}
-
-//! Get the value of the ComboBox::_sfComponentGeneratorSelectedItem field.
-inline
-Component * ComboBoxBase::getComponentGeneratorSelectedItem(void) const
-{
-    return _sfComponentGeneratorSelectedItem.getValue();
-}
-
-//! Set the value of the ComboBox::_sfComponentGeneratorSelectedItem field.
-inline
-void ComboBoxBase::setComponentGeneratorSelectedItem(Component * const value)
-{
-    editSField(ComponentGeneratorSelectedItemFieldMask);
-
-    _sfComponentGeneratorSelectedItem.setValue(value);
-}
 //! Get the value of the ComboBox::_sfMaxRowCount field.
 
 inline
@@ -178,22 +98,6 @@ void ComboBoxBase::setMaxRowCount(const UInt32 value)
     editSField(MaxRowCountFieldMask);
 
     _sfMaxRowCount.setValue(value);
-}
-
-//! Get the value of the ComboBox::_sfComboListPopupMenu field.
-inline
-ListGeneratedPopupMenu * ComboBoxBase::getComboListPopupMenu(void) const
-{
-    return _sfComboListPopupMenu.getValue();
-}
-
-//! Set the value of the ComboBox::_sfComboListPopupMenu field.
-inline
-void ComboBoxBase::setComboListPopupMenu(ListGeneratedPopupMenu * const value)
-{
-    editSField(ComboListPopupMenuFieldMask);
-
-    _sfComboListPopupMenu.setValue(value);
 }
 
 

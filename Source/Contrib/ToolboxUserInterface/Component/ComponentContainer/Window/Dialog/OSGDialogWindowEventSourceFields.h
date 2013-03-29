@@ -6,7 +6,8 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
+ *          Mark Stenerson                                                   *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -218,4 +219,4 @@ struct MFUncountedDialogWindowEventSourcePtr :
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGDIALOGWINDOWEVENTSOURCEFIELDS_H_ */
+#endif /* _OSGDIALOGWINDOWEventSourceFIELDS_H_ */

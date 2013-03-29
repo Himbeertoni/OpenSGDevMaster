@@ -61,7 +61,7 @@
 
 #include "OSGTextComponentBase.h"
 #include "OSGTextComponent.h"
-
+#include "OSGTextComponentEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -301,8 +301,8 @@ TextComponentBase::TypeObject TextComponentBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
+    "    parentProducer=\"Component\"\n"
     ">\n"
-    "<!--     parentProducer=\"Component\" -->\n"
     "A UI Button.\n"
     "    <Field\n"
     "        name=\"Text\"\n"
@@ -398,7 +398,6 @@ TextComponentBase::TypeObject TextComponentBase::_type(
     "        access=\"public\"\n"
     "    >\n"
     "    </Field>\n"
-    "<!--\n"
     "    <ProducedEvent\n"
     "        name=\"TextValueChanged\"\n"
     "        detailsType=\"TextEventDetails\"\n"
@@ -411,7 +410,6 @@ TextComponentBase::TypeObject TextComponentBase::_type(
     "        consumable=\"true\"\n"
     "    >\n"
     "    </ProducedEvent>\n"
-    "-->\n"
     "</FieldContainer>\n",
     "A UI Button.\n"
     );
@@ -474,6 +472,21 @@ SFUnrecUIFontPtr    *TextComponentBase::editSFFont           (void)
 
     return &_sfFont;
 }
+
+//! Get the value of the TextComponent::_sfFont field.
+UIFont * TextComponentBase::getFont(void) const
+{
+    return _sfFont.getValue();
+}
+
+//! Set the value of the TextComponent::_sfFont field.
+void TextComponentBase::setFont(UIFont * const value)
+{
+    editSField(FontFieldMask);
+
+    _sfFont.setValue(value);
+}
+
 
 SFColor4f *TextComponentBase::editSFSelectionBoxColor(void)
 {
@@ -770,11 +783,16 @@ void TextComponentBase::onCreate(const TextComponent *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         TextComponent *pThis = static_cast<TextComponent *>(this);
 
         pThis->setFont(source->getFont());
+    }
+    else
+    {
+        TextComponentEventSourceUnrecPtr evSrc = TextComponentEventSource::create();
+        setEventSource( evSrc );
     }
 }
 

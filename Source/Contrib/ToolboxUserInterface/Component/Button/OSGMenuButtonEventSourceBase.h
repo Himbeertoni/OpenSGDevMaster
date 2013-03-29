@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -51,8 +51,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGMENUBUTTONEVENTSOURCEBASE_H_
-#define _OSGMENUBUTTONEVENTSOURCEBASE_H_
+#ifndef _OSGMenuButtonEVENTSOURCEBASE_H_
+#define _OSGMenuButtonEVENTSOURCEBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,8 +63,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGToggleButtonEventSource.h" // Parent
-
+#include "OSGToggleButtonEventSource.h" // Parent Event Producer
 
 #include "OSGMenuButtonEventSourceFields.h"
 
@@ -73,15 +72,16 @@ OSG_BEGIN_NAMESPACE
 
 class MenuButtonEventSource;
 
-//! \brief MenuButtonEventSource Base Class.
+//! \brief MenuButtonEventSourceBase Base Class.
 
-class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MenuButtonEventSourceBase : public ToggleButtonEventSource
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MenuButtonEventSourceBase
+    : public ToggleButtonEventSource
 {
   public:
 
     typedef ToggleButtonEventSource Inherited;
     typedef ToggleButtonEventSource ParentContainer;
-
+    
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
@@ -90,8 +90,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MenuButtonEventSourceBase : pub
     /*==========================  PUBLIC  =================================*/
 
   public:
-
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
@@ -123,6 +121,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MenuButtonEventSourceBase : pub
 
 
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                   Construction                               */
     /*! \{                                                                 */
@@ -150,6 +149,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MenuButtonEventSourceBase : pub
                                                       BitVector bFlags) const;
 
     /*! \}                                                                 */
+
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -177,13 +177,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MenuButtonEventSourceBase : pub
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
-
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Field Access                      */
-    /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -214,10 +207,12 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MenuButtonEventSourceBase : pub
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
 
+
 #ifdef OSG_MT_CPTR_ASPECT
     virtual FieldContainer *createAspectCopy(
                                     const FieldContainer *pRefAspect) const;
 #endif
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -232,10 +227,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MenuButtonEventSourceBase : pub
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
-
   private:
     /*---------------------------------------------------------------------*/
-
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const MenuButtonEventSourceBase &source);
 };
@@ -244,4 +237,4 @@ typedef MenuButtonEventSourceBase *MenuButtonEventSourceBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGMENUBUTTONEVENTSOURCEBASE_H_ */
+#endif /* _OSGMenuButtonEventSourceBASE_H_ */

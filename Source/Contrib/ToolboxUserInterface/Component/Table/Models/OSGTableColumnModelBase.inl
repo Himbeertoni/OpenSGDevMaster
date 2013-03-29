@@ -75,38 +75,6 @@ OSG::UInt16 TableColumnModelBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the TableColumnModel::_sfSelectionModel field.
-inline
-ListSelectionModel * TableColumnModelBase::getSelectionModel(void) const
-{
-    return _sfSelectionModel.getValue();
-}
-
-//! Set the value of the TableColumnModel::_sfSelectionModel field.
-inline
-void TableColumnModelBase::setSelectionModel(ListSelectionModel * const value)
-{
-    editSField(SelectionModelFieldMask);
-
-    _sfSelectionModel.setValue(value);
-}
-
-//! Get the value of the TableColumnModel::_sfEventSource field.
-inline
-TableColumnModelEventSource * TableColumnModelBase::getEventSource(void) const
-{
-    return _sfEventSource.getValue();
-}
-
-//! Set the value of the TableColumnModel::_sfEventSource field.
-inline
-void TableColumnModelBase::setEventSource(TableColumnModelEventSource * const value)
-{
-    editSField(EventSourceFieldMask);
-
-    _sfEventSource.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

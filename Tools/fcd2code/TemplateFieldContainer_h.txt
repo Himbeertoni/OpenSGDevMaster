@@ -132,7 +132,13 @@ class @!Classname!@ : public @!Classname!@Base
 typedef @!Classname!@ *@!Classname!@P;
 
 OSG_END_NAMESPACE
-
+@@if !isDecorator
+    @@if hasProducedEvents
+        @@if isRootProducer 
+#include "OSG@!Classname!@EventSource.h"
+        @@endif
+    @@endif
+@@endif
 #include "OSG@!Classname!@Base.inl"
 #include "OSG@!Classname!@.inl"
 

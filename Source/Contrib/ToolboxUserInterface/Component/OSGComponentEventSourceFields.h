@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -144,6 +144,77 @@ const Char8 *FieldTraits<ComponentEventSource *, nsOSG>::getMName<NoRefCountPoli
 }
 
 
+/*! \ingroup GrpContribToolboxUserInterfaceFieldTraits
+ */
+template <>
+struct FieldTraits<ComponentEventSource *, nsOSG + 1> :
+    public FieldTraitsFCPtrBase<ComponentEventSource *, nsOSG + 1>
+{
+  private:
+
+  public:
+    typedef FieldTraits<ComponentEventSource *, nsOSG + 1>  Self;
+
+    enum                        { Convertible = NotConvertible };
+
+    static OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DataType &getType(void);
+
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+};
+
+template<> inline
+const Char8 *FieldTraits<ComponentEventSource *, nsOSG + 1>::getSName<RecordedRefCountPolicy>(void)
+{
+    return "SFRecChildComponentEventSourcePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ComponentEventSource *, nsOSG + 1>::getSName<UnrecordedRefCountPolicy>(void)
+{
+    return "SFUnrecChildComponentEventSourcePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ComponentEventSource *, nsOSG + 1>::getSName<WeakRefCountPolicy>(void)
+{
+    return "SFWeakChildComponentEventSourcePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ComponentEventSource *, nsOSG + 1>::getSName<NoRefCountPolicy>(void)
+{
+    return "SFUnrefdChildComponentEventSourcePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ComponentEventSource *, nsOSG + 1>::getMName<RecordedRefCountPolicy>(void)
+{
+    return "MFRecChildComponentEventSourcePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ComponentEventSource *, nsOSG + 1>::getMName<UnrecordedRefCountPolicy>(void)
+{
+    return "MFUnrecChildComponentEventSourcePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ComponentEventSource *, nsOSG + 1>::getMName<WeakRefCountPolicy>(void)
+{
+    return "MFWeakChildComponentEventSourcePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<ComponentEventSource *, nsOSG + 1>::getMName<NoRefCountPolicy>(void)
+{
+    return "MFUnrefdChildComponentEventSourcePtr"; 
+}
+
+
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpContribToolboxUserInterfaceFieldSFields */
 typedef PointerSField<ComponentEventSource *,
@@ -172,6 +243,13 @@ typedef PointerMField<ComponentEventSource *,
 typedef PointerMField<ComponentEventSource *,
                       NoRefCountPolicy, nsOSG        > MFUncountedComponentEventSourcePtr;
 
+
+
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields */
+typedef ChildPointerMField<
+          ComponentEventSource *, 
+          UnrecordedRefCountPolicy,
+          nsOSG + 1             > MFUnrecChildComponentEventSourcePtr;
 
 
 
@@ -214,8 +292,16 @@ struct MFUncountedComponentEventSourcePtr :
 
 
 
+/*! \ingroup GrpContribToolboxUserInterfaceFieldMFields \ingroup GrpLibOSGContribToolboxUserInterface */
+struct MFUnrecChildComponentEventSourcePtr :
+    public ChildPointerMField<
+        ComponentEventSource *, 
+        UnrecordedRefCountPolicy,
+        nsOSG + 1             > {};
+
+
 #endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGCOMPONENTEVENTSOURCEFIELDS_H_ */
+#endif /* _OSGCOMPONENTEventSourceFIELDS_H_ */

@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -43,7 +43,10 @@
 #endif
 
 #include "OSGComboBoxEventSourceBase.h"
+
+    
 #include "OSGActionEventDetailsFields.h"
+
 OSG_BEGIN_NAMESPACE
 
 /*! \brief ComboBoxEventSource class. See \ref
@@ -60,10 +63,11 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxEventSource : public Co
 
     typedef ComboBoxEventSourceBase Inherited;
     typedef ComboBoxEventSource     Self;
-     
+
     typedef ActionEventDetails ActionPerformedEventDetailsType;
 
     typedef boost::signals2::signal<void (ActionEventDetails* const, UInt32), ConsumableEventCombiner> ActionPerformedEventType;
+
 
     enum
     {
@@ -73,6 +77,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxEventSource : public Co
 
     static const  EventProducerType  &getProducerClassType  (void);
     static        UInt32              getProducerClassTypeId(void);
+
     /*---------------------------------------------------------------------*/
     /*! \name                Event Produced Get                           */
     /*! \{                                                                 */
@@ -110,7 +115,9 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxEventSource : public Co
     UInt32 numSlotsActionPerformed          (void) const;
     
     
+    void produceActionPerformed     (ActionPerformedEventDetailsType* const e);
     /*! \}                                                                 */
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -131,6 +138,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxEventSource : public Co
     /*=========================  PROTECTED  ===============================*/
 
   protected:
+
+    // Variables should all be in ComboBoxBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
@@ -139,19 +148,20 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxEventSource : public Co
     ActionPerformedEventType _ActionPerformedEvent;
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Event Producer Firing                    */
-    /*! \{                                                                 */
-
-    virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
-    
-    void produceActionPerformed     (ActionPerformedEventDetailsType* const e);
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                    Generic Event Access                     */
     /*! \{                                                                 */
 
     GetEventHandlePtr getHandleActionPerformedSignal(void) const;
     /*! \}                                                                 */
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Event Producer Firing                    */
+    /*! \{                                                                 */
+
+    virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
+    
+    /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -177,10 +187,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxEventSource : public Co
     /*==========================  PRIVATE  ================================*/
 
   private:
-    /*---------------------------------------------------------------------*/
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
-
 
     friend class FieldContainer;
     friend class ComboBoxEventSourceBase;
@@ -196,4 +204,4 @@ OSG_END_NAMESPACE
 #include "OSGComboBoxEventSourceBase.inl"
 #include "OSGComboBoxEventSource.inl"
 
-#endif /* _OSGCOMBOBOXEVENTSOURCE_H_ */
+#endif /* _OSGCOMBOBOX_H_ */

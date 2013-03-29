@@ -60,7 +60,7 @@
 
 #include "OSGComboBoxModelBase.h"
 #include "OSGComboBoxModel.h"
-
+#include "OSGComboBoxModelEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -138,17 +138,15 @@ ComboBoxModelBase::TypeObject ComboBoxModelBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
+    "    parentProducer=\"ListModel\"\n"
     ">\n"
-    "<!-- parentProducer=\"ListModel\" -->\n"
     "A UI ComboBoxModel.\n"
-    "<!--\n"
     "    <ProducedEvent\n"
     "        name=\"SelectionChanged\"\n"
     "        detailsType=\"ComboBoxSelectionEventDetails\"\n"
     "        consumable=\"true\"\n"
     "    >\n"
     "    </ProducedEvent>\n"
-    "-->\n"
     "</FieldContainer>\n",
     "A UI ComboBoxModel.\n"
     );

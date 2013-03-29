@@ -61,7 +61,7 @@
 
 #include "OSGTextFieldBase.h"
 #include "OSGTextField.h"
-
+#include "OSGTextFieldEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -205,8 +205,8 @@ TextFieldBase::TypeObject TextFieldBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
+    "    parentProducer=\"TextComponent\"\n"
     ">\n"
-    "<!-- parentProducer=\"TextComponent\" --> \n"
     "A UI Text Field\n"
     "    <Field\n"
     "        name=\"Alignment\"\n"
@@ -247,14 +247,12 @@ TextFieldBase::TypeObject TextFieldBase::_type(
     "        access=\"public\"\n"
     "    >\n"
     "    </Field>\n"
-    "<!--\n"
     "    <ProducedEvent\n"
     "        name=\"ActionPerformed\"\n"
     "        detailsType=\"ActionEventDetails\"\n"
     "        consumable=\"true\"\n"
     "    >\n"
     "    </ProducedEvent>\n"
-    "-->\n"
     "</FieldContainer>\n",
     "A UI Text Field\n"
     );
@@ -304,6 +302,21 @@ SFUnrecUIFontPtr    *TextFieldBase::editSFEmptyDescTextFont(void)
 
     return &_sfEmptyDescTextFont;
 }
+
+//! Get the value of the TextField::_sfEmptyDescTextFont field.
+UIFont * TextFieldBase::getEmptyDescTextFont(void) const
+{
+    return _sfEmptyDescTextFont.getValue();
+}
+
+//! Set the value of the TextField::_sfEmptyDescTextFont field.
+void TextFieldBase::setEmptyDescTextFont(UIFont * const value)
+{
+    editSField(EmptyDescTextFontFieldMask);
+
+    _sfEmptyDescTextFont.setValue(value);
+}
+
 
 SFString *TextFieldBase::editSFEmptyDescText(void)
 {
@@ -561,11 +574,16 @@ void TextFieldBase::onCreate(const TextField *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         TextField *pThis = static_cast<TextField *>(this);
 
         pThis->setEmptyDescTextFont(source->getEmptyDescTextFont());
+    }
+    else
+    {
+        TextFieldEventSourceUnrecPtr evSrc = TextFieldEventSource::create();
+        setEventSource( evSrc );
     }
 }
 

@@ -61,7 +61,7 @@
 
 #include "OSGBoundedRangeModelBase.h"
 #include "OSGBoundedRangeModel.h"
-
+#include "OSGBoundedRangeModelEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -169,14 +169,12 @@ BoundedRangeModelBase::TypeObject BoundedRangeModelBase::_type(
     "        access=\"public\"\n"
     "    >\n"
     "    </Field>\n"
-    "<!--\n"
     "    <ProducedEvent\n"
     "        name=\"StateChanged\"\n"
     "        detailsType=\"ChangeEventDetails\"\n"
     "        consumable=\"true\"\n"
     "    >\n"
     "    </ProducedEvent>\n"
-    "-->\n"
     "</FieldContainer>\n",
     "A UI BoundedRangeModel.\n"
     );
@@ -213,6 +211,21 @@ SFUnrecBoundedRangeModelEventSourcePtr *BoundedRangeModelBase::editSFEventSource
 
     return &_sfEventSource;
 }
+
+//! Get the value of the BoundedRangeModel::_sfEventSource field.
+BoundedRangeModelEventSource * BoundedRangeModelBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the BoundedRangeModel::_sfEventSource field.
+void BoundedRangeModelBase::setEventSource(BoundedRangeModelEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
+
 
 
 
@@ -283,11 +296,16 @@ void BoundedRangeModelBase::onCreate(const BoundedRangeModel *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         BoundedRangeModel *pThis = static_cast<BoundedRangeModel *>(this);
 
         pThis->setEventSource(source->getEventSource());
+    }
+    else
+    {
+        BoundedRangeModelEventSourceUnrecPtr evSrc = BoundedRangeModelEventSource::create();
+        setEventSource( evSrc );
     }
 }
 

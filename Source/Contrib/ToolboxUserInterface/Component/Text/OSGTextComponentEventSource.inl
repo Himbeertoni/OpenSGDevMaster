@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -37,6 +37,8 @@
 //---------------------------------------------------------------------------
 //  Includes
 //---------------------------------------------------------------------------
+#include "OSGTextEventDetails.h"
+#include "OSGCaretEventDetails.h"
 
 OSG_BEGIN_NAMESPACE
 //! access the producer type of the class
@@ -52,6 +54,7 @@ UInt32 TextComponentEventSource::getProducerClassTypeId(void)
 {
     return _producerType.getId();
 }
+
 inline
 boost::signals2::connection  TextComponentEventSource::connectTextValueChanged(const TextValueChangedEventType::slot_type &listener, 
                                                                                boost::signals2::connect_position at)
@@ -139,4 +142,5 @@ void TextComponentEventSource::produceCaretChanged(CaretChangedEventDetailsType*
 {
     produceEvent(CaretChangedEventId, e);
 }
+
 OSG_END_NAMESPACE

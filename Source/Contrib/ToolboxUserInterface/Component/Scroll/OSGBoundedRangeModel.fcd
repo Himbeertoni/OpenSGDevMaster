@@ -24,12 +24,10 @@ A UI BoundedRangeModel.
         access="public"
     >
     </Field>
-<!--
     <ProducedEvent
         name="StateChanged"
         detailsType="ChangeEventDetails"
         consumable="true"
     >
     </ProducedEvent>
--->
 </FieldContainer>

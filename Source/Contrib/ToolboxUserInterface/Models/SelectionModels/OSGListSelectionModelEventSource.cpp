@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -59,6 +59,7 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
+
 //! ListSelectionModel Produced Events
 
 EventDescription *ListSelectionModelEventSource::_eventDesc[] =
@@ -83,11 +84,6 @@ EventProducerType ListSelectionModelEventSource::_producerType(
  *                           Class methods                                 *
 \***************************************************************************/
 
-const EventProducerType &ListSelectionModelEventSource::getProducerType(void) const
-{
-    return _producerType;
-}
-
 void ListSelectionModelEventSource::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
@@ -97,6 +93,11 @@ void ListSelectionModelEventSource::initMethod(InitPhase ePhase)
     }
 }
 
+
+const EventProducerType &ListSelectionModelEventSource::getProducerType(void) const
+{
+    return _producerType;
+}
 
 /***************************************************************************\
  *                           Instance methods                              *
@@ -113,7 +114,7 @@ void ListSelectionModelEventSource::produceEvent(UInt32 eventId, EventDetails* c
         _SelectionChangedEvent(dynamic_cast<SelectionChangedEventDetailsType* const>(e), SelectionChangedEventId);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -128,7 +129,7 @@ boost::signals2::connection ListSelectionModelEventSource::connectEvent(UInt32 e
         return _SelectionChangedEvent.connect(listener, at);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -147,7 +148,7 @@ boost::signals2::connection  ListSelectionModelEventSource::connectEvent(UInt32 
         return _SelectionChangedEvent.connect(group, listener, at);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -163,7 +164,7 @@ void  ListSelectionModelEventSource::disconnectEvent(UInt32 eventId, const BaseE
         _SelectionChangedEvent.disconnect(group);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -176,7 +177,7 @@ void  ListSelectionModelEventSource::disconnectAllSlotsEvent(UInt32 eventId)
         _SelectionChangedEvent.disconnect_all_slots();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -189,7 +190,7 @@ bool  ListSelectionModelEventSource::isEmptyEvent(UInt32 eventId) const
         return _SelectionChangedEvent.empty();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return true;
         break;
     }
@@ -203,14 +204,11 @@ UInt32  ListSelectionModelEventSource::numSlotsEvent(UInt32 eventId) const
         return _SelectionChangedEvent.num_slots();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return 0;
         break;
     }
 }
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
 
 GetEventHandlePtr ListSelectionModelEventSource::getHandleSelectionChangedSignal(void) const
 {
@@ -252,7 +250,7 @@ void ListSelectionModelEventSource::changed(ConstFieldMaskArg whichField,
 void ListSelectionModelEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump ListSelectionModelEventSource NI" << std::endl;
+    SLOG << "Dump ListSelectionModel NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

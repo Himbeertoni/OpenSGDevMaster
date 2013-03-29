@@ -99,22 +99,6 @@ void UIViewportBase::setViewPosition(const Pnt2f &value)
 
     _sfViewPosition.setValue(value);
 }
-
-//! Get the value of the UIViewport::_sfViewComponent field.
-inline
-Component * UIViewportBase::getViewComponent(void) const
-{
-    return _sfViewComponent.getValue();
-}
-
-//! Set the value of the UIViewport::_sfViewComponent field.
-inline
-void UIViewportBase::setViewComponent(Component * const value)
-{
-    editSField(ViewComponentFieldMask);
-
-    _sfViewComponent.setValue(value);
-}
 //! Get the value of the UIViewport::_sfViewSize field.
 
 inline

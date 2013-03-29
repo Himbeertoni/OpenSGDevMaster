@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -37,7 +37,6 @@
 //---------------------------------------------------------------------------
 //  Includes
 //---------------------------------------------------------------------------
-
 #include "OSGChangeEventDetails.h"
 
 OSG_BEGIN_NAMESPACE
@@ -54,6 +53,7 @@ UInt32 BoundedRangeModelEventSource::getProducerClassTypeId(void)
 {
     return _producerType.getId();
 }
+
 
 inline
 UInt32 BoundedRangeModelEventSource::getNumProducedEvents(void) const
@@ -122,4 +122,5 @@ void BoundedRangeModelEventSource::produceStateChanged(StateChangedEventDetailsT
 {
     produceEvent(StateChangedEventId, e);
 }
+
 OSG_END_NAMESPACE

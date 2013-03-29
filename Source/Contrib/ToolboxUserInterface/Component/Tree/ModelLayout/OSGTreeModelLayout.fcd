@@ -24,7 +24,6 @@ A UI Tree Model Layout.
         access="public"
         >
     </Field>
-<!--
     <ProducedEvent
         name="TreeCollapsed"
         detailsType="TreeModelLayoutEventDetails"
@@ -79,5 +78,4 @@ A UI Tree Model Layout.
         consumable="true"
     >
     </ProducedEvent>
--->
 </FieldContainer>

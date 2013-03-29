@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -84,11 +84,6 @@ EventProducerType MenuButtonEventSource::_producerType(
  *                           Class methods                                 *
 \***************************************************************************/
 
-const EventProducerType &MenuButtonEventSource::getProducerType(void) const
-{
-    return _producerType;
-}
-
 void MenuButtonEventSource::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
@@ -99,10 +94,14 @@ void MenuButtonEventSource::initMethod(InitPhase ePhase)
 }
 
 
+const EventProducerType &MenuButtonEventSource::getProducerType(void) const
+{
+    return _producerType;
+}
+
 /***************************************************************************\
  *                           Instance methods                              *
 \***************************************************************************/
-
 /*------------------------- event producers ----------------------------------*/
 void MenuButtonEventSource::produceEvent(UInt32 eventId, EventDetails* const e)
 {
@@ -207,10 +206,6 @@ UInt32  MenuButtonEventSource::numSlotsEvent(UInt32 eventId) const
     }
 }
 
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
-
 GetEventHandlePtr MenuButtonEventSource::getHandleMenuActionPerformedSignal(void) const
 {
     GetEventHandlePtr returnValue(
@@ -221,6 +216,8 @@ GetEventHandlePtr MenuButtonEventSource::getHandleMenuActionPerformedSignal(void
 
     return returnValue;
 }
+
+
 /*----------------------- constructors & destructors ----------------------*/
 
 MenuButtonEventSource::MenuButtonEventSource(void) :
@@ -249,7 +246,7 @@ void MenuButtonEventSource::changed(ConstFieldMaskArg whichField,
 void MenuButtonEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump MenuButtonEventSource NI" << std::endl;
+    SLOG << "Dump MenuButton NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

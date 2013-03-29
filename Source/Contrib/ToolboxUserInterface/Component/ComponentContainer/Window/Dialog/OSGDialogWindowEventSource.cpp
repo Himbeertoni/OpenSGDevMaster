@@ -2,11 +2,12 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
+ *          Mark Stenerson                                                   *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -59,6 +60,7 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
+
 //! DialogWindow Produced Events
 
 EventDescription *DialogWindowEventSource::_eventDesc[] =
@@ -90,11 +92,6 @@ EventProducerType DialogWindowEventSource::_producerType(
  *                           Class methods                                 *
 \***************************************************************************/
 
-const EventProducerType &DialogWindowEventSource::getProducerType(void) const
-{
-    return _producerType;
-}
-
 void DialogWindowEventSource::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
@@ -104,6 +101,11 @@ void DialogWindowEventSource::initMethod(InitPhase ePhase)
     }
 }
 
+
+const EventProducerType &DialogWindowEventSource::getProducerType(void) const
+{
+    return _producerType;
+}
 
 /***************************************************************************\
  *                           Instance methods                              *
@@ -236,10 +238,6 @@ UInt32  DialogWindowEventSource::numSlotsEvent(UInt32 eventId) const
     }
 }
 
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
-
 GetEventHandlePtr DialogWindowEventSource::getHandleDialogWindowClosingSignal(void) const
 {
     GetEventHandlePtr returnValue(
@@ -261,6 +259,8 @@ GetEventHandlePtr DialogWindowEventSource::getHandleDialogWindowClosedSignal(voi
 
     return returnValue;
 }
+
+
 /*----------------------- constructors & destructors ----------------------*/
 
 DialogWindowEventSource::DialogWindowEventSource(void) :
@@ -289,7 +289,7 @@ void DialogWindowEventSource::changed(ConstFieldMaskArg whichField,
 void DialogWindowEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump DialogWindowEventSource NI" << std::endl;
+    SLOG << "Dump DialogWindow NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

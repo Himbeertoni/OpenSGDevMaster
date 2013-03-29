@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -59,6 +59,7 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
+
 //! TableColumnModel Produced Events
 
 EventDescription *TableColumnModelEventSource::_eventDesc[] =
@@ -107,15 +108,9 @@ EventProducerType TableColumnModelEventSource::_producerType(
     InitEventProducerFunctor(),
     _eventDesc,
     sizeof(_eventDesc));
-
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
-
-const EventProducerType &TableColumnModelEventSource::getProducerType(void) const
-{
-    return _producerType;
-}
 
 void TableColumnModelEventSource::initMethod(InitPhase ePhase)
 {
@@ -126,6 +121,11 @@ void TableColumnModelEventSource::initMethod(InitPhase ePhase)
     }
 }
 
+
+const EventProducerType &TableColumnModelEventSource::getProducerType(void) const
+{
+    return _producerType;
+}
 
 /***************************************************************************\
  *                           Instance methods                              *
@@ -166,7 +166,7 @@ void TableColumnModelEventSource::produceEvent(UInt32 eventId, EventDetails* con
         _ColumnSelectionChangedEvent(dynamic_cast<ColumnSelectionChangedEventDetailsType* const>(e), ColumnSelectionChangedEventId);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -193,7 +193,7 @@ boost::signals2::connection TableColumnModelEventSource::connectEvent(UInt32 eve
         return _ColumnSelectionChangedEvent.connect(listener, at);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -224,7 +224,7 @@ boost::signals2::connection  TableColumnModelEventSource::connectEvent(UInt32 ev
         return _ColumnSelectionChangedEvent.connect(group, listener, at);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -252,7 +252,7 @@ void  TableColumnModelEventSource::disconnectEvent(UInt32 eventId, const BaseEve
         _ColumnSelectionChangedEvent.disconnect(group);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -277,7 +277,7 @@ void  TableColumnModelEventSource::disconnectAllSlotsEvent(UInt32 eventId)
         _ColumnSelectionChangedEvent.disconnect_all_slots();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -302,7 +302,7 @@ bool  TableColumnModelEventSource::isEmptyEvent(UInt32 eventId) const
         return _ColumnSelectionChangedEvent.empty();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return true;
         break;
     }
@@ -328,16 +328,11 @@ UInt32  TableColumnModelEventSource::numSlotsEvent(UInt32 eventId) const
         return _ColumnSelectionChangedEvent.num_slots();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return 0;
         break;
     }
 }
-
-
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
 
 GetEventHandlePtr TableColumnModelEventSource::getHandleColumnAddedSignal(void) const
 {
@@ -394,6 +389,7 @@ GetEventHandlePtr TableColumnModelEventSource::getHandleColumnSelectionChangedSi
     return returnValue;
 }
 
+
 /*----------------------- constructors & destructors ----------------------*/
 
 TableColumnModelEventSource::TableColumnModelEventSource(void) :
@@ -422,7 +418,7 @@ void TableColumnModelEventSource::changed(ConstFieldMaskArg whichField,
 void TableColumnModelEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump TableColumnModelEventSource NI" << std::endl;
+    SLOG << "Dump TableColumnModel NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

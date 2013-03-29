@@ -12,15 +12,13 @@
     useLocalIncludes="false"
     isNodeCore="false"
     authors="David Kabala (djkabala@gmail.com)                             "
+    parentProducer="ListModel"
 >
-<!-- parentProducer="ListModel" -->
 A UI ComboBoxModel.
-<!--
     <ProducedEvent
         name="SelectionChanged"
         detailsType="ComboBoxSelectionEventDetails"
         consumable="true"
     >
     </ProducedEvent>
--->
 </FieldContainer>

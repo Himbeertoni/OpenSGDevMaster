@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -43,10 +43,11 @@
 #endif
 
 #include "OSGTreeModelLayoutEventSourceBase.h"
+
 //Event Producer Headers
 #include "OSGActivity.h"
 #include "OSGConsumableEventCombiner.h"
-
+    
 #include "OSGTreeModelLayoutEventDetailsFields.h"
 #include "OSGTreeModelEventDetailsFields.h"
 
@@ -66,7 +67,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeModelLayoutEventSource : pu
 
     typedef TreeModelLayoutEventSourceBase Inherited;
     typedef TreeModelLayoutEventSource     Self;
-    
+
     typedef TreeModelLayoutEventDetails TreeCollapsedEventDetailsType;
     typedef TreeModelLayoutEventDetails TreeExpandedEventDetailsType;
     typedef TreeModelLayoutEventDetails TreeWillCollapseEventDetailsType;
@@ -88,6 +89,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeModelLayoutEventSource : pu
     typedef boost::signals2::signal<void (TreeModelEventDetails* const, UInt32), ConsumableEventCombiner> TreeNodesWillBeRemovedEventType;
     typedef boost::signals2::signal<void (TreeModelEventDetails* const, UInt32), ConsumableEventCombiner> TreeStructureChangedEventType;
 
+
     enum
     {
         TreeCollapsedEventId = 1,
@@ -101,8 +103,10 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeModelLayoutEventSource : pu
         TreeStructureChangedEventId = TreeNodesWillBeRemovedEventId + 1,
         NextProducedEventId = TreeStructureChangedEventId + 1
     };
+
     static const  EventProducerType  &getProducerClassType  (void);
     static        UInt32              getProducerClassTypeId(void);
+
     /*---------------------------------------------------------------------*/
     /*! \name                Event Produced Get                           */
     /*! \{                                                                 */
@@ -231,7 +235,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeModelLayoutEventSource : pu
     bool   isEmptyTreeStructureChanged      (void) const;
     UInt32 numSlotsTreeStructureChanged     (void) const;
     
-    //Moved protected -> public:    
+    
     void produceTreeCollapsed       (TreeCollapsedEventDetailsType* const e);
     void produceTreeExpanded        (TreeExpandedEventDetailsType* const e);
     void produceTreeWillCollapse    (TreeWillCollapseEventDetailsType* const e);
@@ -242,6 +246,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeModelLayoutEventSource : pu
     void produceTreeNodesWillBeRemoved  (TreeNodesWillBeRemovedEventDetailsType* const e);
     void produceTreeStructureChanged  (TreeStructureChangedEventDetailsType* const e);
     /*! \}                                                                 */
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -263,7 +268,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeModelLayoutEventSource : pu
 
   protected:
 
-    // Variables should all be in TreeModelLayoutEventSourceBase.
+    // Variables should all be in TreeModelLayoutBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
@@ -293,14 +298,15 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeModelLayoutEventSource : pu
     GetEventHandlePtr getHandleTreeNodesWillBeRemovedSignal(void) const;
     GetEventHandlePtr getHandleTreeStructureChangedSignal(void) const;
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Event Producer Firing                    */
     /*! \{                                                                 */
 
     virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
     
-
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -326,7 +332,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeModelLayoutEventSource : pu
     /*==========================  PRIVATE  ================================*/
 
   private:
-    /*---------------------------------------------------------------------*/
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
 
@@ -344,4 +349,4 @@ OSG_END_NAMESPACE
 #include "OSGTreeModelLayoutEventSourceBase.inl"
 #include "OSGTreeModelLayoutEventSource.inl"
 
-#endif /* _OSGTREEMODELLAYOUTEVENTSOURCE_H_ */
+#endif /* _OSGTREEMODELLAYOUT_H_ */

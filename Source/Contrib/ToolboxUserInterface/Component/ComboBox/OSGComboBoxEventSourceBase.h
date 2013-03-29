@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -51,8 +51,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGCOMBOBOXEVENTSOURCEBASE_H_
-#define _OSGCOMBOBOXEVENTSOURCEBASE_H_
+#ifndef _OSGComboBoxEVENTSOURCEBASE_H_
+#define _OSGComboBoxEVENTSOURCEBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,8 +63,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGComponentEventSource.h" // Parent
-
+#include "OSGComponentEventSource.h" // Parent Event Producer
 
 #include "OSGComboBoxEventSourceFields.h"
 
@@ -73,15 +72,16 @@ OSG_BEGIN_NAMESPACE
 
 class ComboBoxEventSource;
 
-//! \brief ComboBoxEventSource Base Class.
+//! \brief ComboBoxEventSourceBase Base Class.
 
-class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxEventSourceBase : public ComponentEventSource
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxEventSourceBase
+    : public ComponentEventSource
 {
   public:
 
     typedef ComponentEventSource Inherited;
     typedef ComponentEventSource ParentContainer;
-
+    
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
@@ -90,8 +90,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxEventSourceBase : publi
     /*==========================  PUBLIC  =================================*/
 
   public:
-
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
@@ -123,6 +121,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxEventSourceBase : publi
 
 
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                   Construction                               */
     /*! \{                                                                 */
@@ -150,6 +149,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxEventSourceBase : publi
                                                       BitVector bFlags) const;
 
     /*! \}                                                                 */
+
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -177,13 +177,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxEventSourceBase : publi
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
-
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Field Access                      */
-    /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -214,10 +207,12 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxEventSourceBase : publi
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
 
+
 #ifdef OSG_MT_CPTR_ASPECT
     virtual FieldContainer *createAspectCopy(
                                     const FieldContainer *pRefAspect) const;
 #endif
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -232,10 +227,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxEventSourceBase : publi
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
-
   private:
     /*---------------------------------------------------------------------*/
-
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ComboBoxEventSourceBase &source);
 };
@@ -244,4 +237,4 @@ typedef ComboBoxEventSourceBase *ComboBoxEventSourceBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGCOMBOBOXEVENTSOURCEBASE_H_ */
+#endif /* _OSGComboBoxEventSourceBASE_H_ */

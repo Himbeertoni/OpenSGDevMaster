@@ -12,8 +12,8 @@
     useLocalIncludes="false"
     isNodeCore="false"
     authors="David Kabala (djkabala@gmail.com)                             "
+    parentProducer="Component"
 >
-<!--     parentProducer="Component" -->
 A UI ScrollBar.
     <Field
         name="Orientation"
@@ -145,12 +145,10 @@ A UI ScrollBar.
         defaultValue="NULL"
     >
     </Field>
-<!--
     <ProducedEvent
         name="AdjustmentValueChanged"
         detailsType="AdjustmentEventDetails"
         consumable="true"
     >
     </ProducedEvent>
--->
 </FieldContainer>

@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -51,8 +51,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGTOGGLEBUTTONEVENTSOURCEBASE_H_
-#define _OSGTOGGLEBUTTONEVENTSOURCEBASE_H_
+#ifndef _OSGToggleButtonEVENTSOURCEBASE_H_
+#define _OSGToggleButtonEVENTSOURCEBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,8 +63,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGButtonEventSource.h" // Parent
-
+#include "OSGButtonEventSource.h" // Parent Event Producer
 
 #include "OSGToggleButtonEventSourceFields.h"
 
@@ -73,15 +72,16 @@ OSG_BEGIN_NAMESPACE
 
 class ToggleButtonEventSource;
 
-//! \brief ToggleButtonEventSource Base Class.
+//! \brief ToggleButtonEventSourceBase Base Class.
 
-class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonEventSourceBase : public ButtonEventSource
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonEventSourceBase
+    : public ButtonEventSource
 {
   public:
 
     typedef ButtonEventSource Inherited;
     typedef ButtonEventSource ParentContainer;
-
+    
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
@@ -90,8 +90,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonEventSourceBase : p
     /*==========================  PUBLIC  =================================*/
 
   public:
-
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
@@ -123,6 +121,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonEventSourceBase : p
 
 
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                   Construction                               */
     /*! \{                                                                 */
@@ -150,6 +149,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonEventSourceBase : p
                                                       BitVector bFlags) const;
 
     /*! \}                                                                 */
+
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -177,13 +177,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonEventSourceBase : p
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
-
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Field Access                      */
-    /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -214,10 +207,12 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonEventSourceBase : p
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
 
+
 #ifdef OSG_MT_CPTR_ASPECT
     virtual FieldContainer *createAspectCopy(
                                     const FieldContainer *pRefAspect) const;
 #endif
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -232,10 +227,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonEventSourceBase : p
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
-
   private:
     /*---------------------------------------------------------------------*/
-
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ToggleButtonEventSourceBase &source);
 };
@@ -244,4 +237,4 @@ typedef ToggleButtonEventSourceBase *ToggleButtonEventSourceBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGTOGGLEBUTTONEVENTSOURCEBASE_H_ */
+#endif /* _OSGToggleButtonEventSourceBASE_H_ */

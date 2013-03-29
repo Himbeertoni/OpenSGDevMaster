@@ -11,6 +11,7 @@ class FieldContainer(FCDElement):
         super(FieldContainer, self).__init__();
         self.m_log    = logging.getLogger("FieldContainer");
         self.m_fields = [];
+        self.m_producedEvents = [];
         self.m_usedTypeInclude  = {};
         self.m_usedFieldInclude = {};
         self.initFCDDict();
@@ -20,6 +21,8 @@ class FieldContainer(FCDElement):
         """
         self.setFCD("name",                       "",       True);
         self.setFCD("parent",                     "",       True);
+        self.setFCD("parentProducer",             "",       True);
+        self.setFCD("parentEventSource",          "",       True);
         self.setFCD("mixinparent",                "",       True);
         self.setFCD("mixinheader",                "",       True);
         self.setFCD("library",                    "",       True);
@@ -59,7 +62,12 @@ class FieldContainer(FCDElement):
 
     def subField(self, field):
         self.m_fields.remove(field)
-
+        
+    def addProducedEvent(self, prodEvent):
+        idx = len(self.m_producedEvents);
+        prodEvent.setFieldContainer(self);
+        self.m_producedEvents.append(prodEvent);
+        return idx;
     #
     # Common tests
     
@@ -68,6 +76,18 @@ class FieldContainer(FCDElement):
     
     def isDecoratable(self):
         return self["isDecoratable"];
+
+    def isRootProducer(self):
+        return self.hasProducedEvents() and (not self.hasParentProducer());
+
+    def hasParentProducer(self):
+        return len(self["parentProducer"]) != 0;
+        
+    def hasParentEventSource(self):
+        return self["hasParentEventSource"];
+    
+    def hasProducedEvents(self):
+        return len(self.m_producedEvents) > 0;
 
     def hasAuthors(self):
         return len(self["authors"]) != 0;
@@ -139,6 +159,21 @@ class FieldContainer(FCDElement):
             self["Classname"] = "<UNDEF>";
             self["CLASSNAME"] = "<UNDEF>";
         
+
+        if self.getFCD("parentProducer") != "":
+            self["parentProducer"] = self.getFCD("parentProducer");
+            self["hasParentProducer"] = True;
+        else:
+            self["parentProducer"] = "";
+            self["hasParentProducer"] = False;
+        
+        if self.getFCD("parentEventSource") != "":
+            self["parentEventSource"] = self.getFCD("parentEventSource");
+            self["hasParentEventSource"] = True;
+        else:
+            self["parentEventSource"] = "";
+            self["hasParentEventSource"] = False;
+            
         if self.getFCD("authors") != "":
             self["hasAuthors"] = True;
             self["authors"] = self.getFCD("authors");
@@ -322,6 +357,55 @@ class FieldContainer(FCDElement):
                 if not field.isPtrField():
                     self["hasValueMField"] = True;
 
+        self["ProducedEvents"]  = [];
+
+        self["hasProducedEvents"] = False
+
+        for i, producedEvent in enumerate(self.m_producedEvents):
+            producedEvent.finalize();
+
+            self["hasProducedEvents"] = True
+            
+            # only use type includes once
+            if self.m_usedTypeInclude.has_key(producedEvent["TypeInclude"]):
+                producedEvent["needTypeInclude"] = False;
+            else:
+                self.m_usedTypeInclude[producedEvent["TypeInclude"]] = True;
+
+            # only use field includes once
+            if self.m_usedFieldInclude.has_key(producedEvent["FieldInclude"]):
+                producedEvent["needFieldInclude"] = False;
+            else:
+                self.m_usedFieldInclude[producedEvent["FieldInclude"]] = True;
+
+            if i == 0:
+                producedEvent["prevProducedEvent"]    = None;
+                producedEvent["isFirstProducedEvent"] = True;
+            else:
+                producedEvent["prevProducedEvent"]    = self.m_producedEvents[i - 1];
+                producedEvent["isFirstProducedEvent"] = False;
+            
+            if i == len(self.m_producedEvents) - 1:
+                producedEvent["Separator"]   = "";
+                producedEvent["nextProducedEvent"]   = None;
+                producedEvent["isLastProducedEvent"] = True;
+            else:
+                producedEvent["Separator"]   = ",";
+                producedEvent["nextProducedEvent"]   = self.m_producedEvents[i + 1];
+                producedEvent["isLastProducedEvent"] = False;
+
+            self["ProducedEvents"].append(producedEvent);
+
+        if self.isRootProducer():
+            self["isRootProducer"] = True
+        else:
+            self["isRootProducer"] = False
+
+        if len(self.m_fields) > 0 or self.isRootProducer():
+            self["hasFieldsOrIsRootProducer"] = True;
+        else:
+            self["hasFieldsOrIsRootProducer"] = False;
+ 
         if self.getFCD("isNodeCore") == "true" or self.getFCD("isNodeCore") == "True":
             self["isNodeCore"] = True;
         else:

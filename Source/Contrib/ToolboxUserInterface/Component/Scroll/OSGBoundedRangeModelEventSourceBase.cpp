@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -56,16 +56,10 @@
 #include "OSGConfig.h"
 
 
-
-
 #include "OSGBoundedRangeModelEventSourceBase.h"
 #include "OSGBoundedRangeModelEventSource.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -74,12 +68,9 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::BoundedRangeModelEventSource
-    
+    A UI BoundedRangeModel.
  */
 
-/***************************************************************************\
- *                        Field Documentation                              *
-\***************************************************************************/
 
 
 /***************************************************************************\
@@ -88,8 +79,8 @@ OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 PointerType FieldTraits<BoundedRangeModelEventSource *, nsOSG>::_type(
-    "BoundedRangeModelEventSourcePtr", 
-    "EventContainerPtr", 
+    "BoundedRangeModelEventSourcePtr",
+    "EventContainerPtr",
     BoundedRangeModelEventSource::getClassType(),
     nsOSG);
 #endif
@@ -124,29 +115,7 @@ BoundedRangeModelEventSourceBase::TypeObject BoundedRangeModelEventSourceBase::_
     reinterpret_cast<InitalInsertDescFunc>(&BoundedRangeModelEventSource::classDescInserter),
     false,
     0,
-    "<?xml version=\"1.0\"?>\n"
-    "\n"
-    "<FieldContainer\n"
-    "    name=\"BoundedRangeModelEventSource\"\n"
-    "    parent=\"EventContainer\"\n"
-    "    library=\"ContribToolboxUserInterface\"\n"
-    "    pointerfieldtypes=\"both\"\n"
-    "    structure=\"concrete\"\n"
-    "    systemcomponent=\"true\"\n"
-    "    parentsystemcomponent=\"true\"\n"
-    "    decoratable=\"false\"\n"
-    "    useLocalIncludes=\"false\"\n"
-    "    isNodeCore=\"false\"\n"
-    ">\n"
-    "<!--\n"
-    "    <ProducedEvent\n"
-    "        name=\"StateChanged\"\n"
-    "        detailsType=\"ChangeEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "    >\n"
-    "    </ProducedEvent>\n"
-    "-->\n"
-    "</FieldContainer>\n",
+    "",
     ""
     );
 
@@ -167,11 +136,6 @@ UInt32 BoundedRangeModelEventSourceBase::getContainerSize(void) const
     return sizeof(BoundedRangeModelEventSource);
 }
 
-/*------------------------- decorator get ------------------------------*/
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -180,7 +144,6 @@ SizeT BoundedRangeModelEventSourceBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
-
     return returnValue;
 }
 
@@ -188,14 +151,12 @@ void BoundedRangeModelEventSourceBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
-
 }
 
 void BoundedRangeModelEventSourceBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
-
 }
 
 //! create a new instance of the class
@@ -316,7 +277,6 @@ FieldContainerTransitPtr BoundedRangeModelEventSourceBase::shallowCopy(void) con
 
 
 
-
 /*------------------------- constructors ----------------------------------*/
 
 BoundedRangeModelEventSourceBase::BoundedRangeModelEventSourceBase(void) :
@@ -335,7 +295,6 @@ BoundedRangeModelEventSourceBase::BoundedRangeModelEventSourceBase(const Bounded
 BoundedRangeModelEventSourceBase::~BoundedRangeModelEventSourceBase(void)
 {
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -374,8 +333,6 @@ void BoundedRangeModelEventSourceBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-
 }
-
 
 OSG_END_NAMESPACE

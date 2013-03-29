@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -43,8 +43,10 @@
 #endif
 
 #include "OSGComboBoxModelEventSourceBase.h"
-#include "OSGSelectionEventDetailsFields.h"
+
+    
 #include "OSGComboBoxSelectionEventDetailsFields.h"
+
 OSG_BEGIN_NAMESPACE
 
 /*! \brief ComboBoxModelEventSource class. See \ref
@@ -66,13 +68,16 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxModelEventSource : publ
 
     typedef boost::signals2::signal<void (ComboBoxSelectionEventDetails* const, UInt32), ConsumableEventCombiner> SelectionChangedEventType;
 
+
     enum
     {
         SelectionChangedEventId = Inherited::NextProducedEventId,
         NextProducedEventId = SelectionChangedEventId + 1
     };
+
     static const  EventProducerType  &getProducerClassType  (void);
     static        UInt32              getProducerClassTypeId(void);
+
     /*---------------------------------------------------------------------*/
     /*! \name                Event Produced Get                           */
     /*! \{                                                                 */
@@ -109,9 +114,10 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxModelEventSource : publ
     bool   isEmptySelectionChanged          (void) const;
     UInt32 numSlotsSelectionChanged         (void) const;
     
-    //Moved protected -> public:
+    
     void produceSelectionChanged    (SelectionChangedEventDetailsType* const e);
     /*! \}                                                                 */
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -132,6 +138,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxModelEventSource : publ
     /*=========================  PROTECTED  ===============================*/
 
   protected:
+
+    // Variables should all be in ComboBoxModelBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
@@ -139,14 +147,13 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxModelEventSource : publ
     //Event Event producers
     SelectionChangedEventType _SelectionChangedEvent;
     /*! \}                                                                 */
-
-    // Variables should all be in ComboBoxModelEventSourceBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Event Access                     */
     /*! \{                                                                 */
 
     GetEventHandlePtr getHandleSelectionChangedSignal(void) const;
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Event Producer Firing                    */
     /*! \{                                                                 */
@@ -154,6 +161,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxModelEventSource : publ
     virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
     
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -179,7 +187,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxModelEventSource : publ
     /*==========================  PRIVATE  ================================*/
 
   private:
-    /*---------------------------------------------------------------------*/
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
 
@@ -194,8 +201,7 @@ typedef ComboBoxModelEventSource *ComboBoxModelEventSourceP;
 
 OSG_END_NAMESPACE
 
-#include "OSGSelectionEventDetails.h"
 #include "OSGComboBoxModelEventSourceBase.inl"
 #include "OSGComboBoxModelEventSource.inl"
 
-#endif /* _OSGCOMBOBOXMODELEVENTSOURCE_H_ */
+#endif /* _OSGCOMBOBOXMODEL_H_ */

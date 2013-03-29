@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -80,7 +80,6 @@ EventProducerType SingleSelectionModelEventSource::_producerType(
     InitEventProducerFunctor(),
     _eventDesc,
     sizeof(_eventDesc));
-
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
@@ -94,6 +93,7 @@ void SingleSelectionModelEventSource::initMethod(InitPhase ePhase)
     }
 }
 
+
 const EventProducerType &SingleSelectionModelEventSource::getProducerType(void) const
 {
     return _producerType;
@@ -102,7 +102,6 @@ const EventProducerType &SingleSelectionModelEventSource::getProducerType(void) 
 /***************************************************************************\
  *                           Instance methods                              *
 \***************************************************************************/
-
 /*------------------------- event producers ----------------------------------*/
 void SingleSelectionModelEventSource::produceEvent(UInt32 eventId, EventDetails* const e)
 {
@@ -115,7 +114,7 @@ void SingleSelectionModelEventSource::produceEvent(UInt32 eventId, EventDetails*
         _SelectionChangedEvent(dynamic_cast<SelectionChangedEventDetailsType* const>(e), SelectionChangedEventId);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -130,7 +129,7 @@ boost::signals2::connection SingleSelectionModelEventSource::connectEvent(UInt32
         return _SelectionChangedEvent.connect(listener, at);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -149,7 +148,7 @@ boost::signals2::connection  SingleSelectionModelEventSource::connectEvent(UInt3
         return _SelectionChangedEvent.connect(group, listener, at);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -165,7 +164,7 @@ void  SingleSelectionModelEventSource::disconnectEvent(UInt32 eventId, const Bas
         _SelectionChangedEvent.disconnect(group);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -178,7 +177,7 @@ void  SingleSelectionModelEventSource::disconnectAllSlotsEvent(UInt32 eventId)
         _SelectionChangedEvent.disconnect_all_slots();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -191,7 +190,7 @@ bool  SingleSelectionModelEventSource::isEmptyEvent(UInt32 eventId) const
         return _SelectionChangedEvent.empty();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return true;
         break;
     }
@@ -205,15 +204,11 @@ UInt32  SingleSelectionModelEventSource::numSlotsEvent(UInt32 eventId) const
         return _SelectionChangedEvent.num_slots();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return 0;
         break;
     }
 }
-
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
 
 GetEventHandlePtr SingleSelectionModelEventSource::getHandleSelectionChangedSignal(void) const
 {
@@ -255,7 +250,7 @@ void SingleSelectionModelEventSource::changed(ConstFieldMaskArg whichField,
 void SingleSelectionModelEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump SingleSelectionModelEventSource NI" << std::endl;
+    SLOG << "Dump SingleSelectionModel NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

@@ -12,15 +12,15 @@
     useLocalIncludes="false"
     isNodeCore="false"
     authors="David Kabala (djkabala@gmail.com)                             "
+    parentProducer="ToggleButton"
 >
-<!--    parentProducer="ToggleButton" -->
 A UI MenuButton
     <Field
         name="Model"
         type="ListModel"
         category="pointer"
         cardinality="single"
-      visibility="external"
+        visibility="external"
         defaultValue="NULL"
         access="public"
     >
@@ -30,7 +30,7 @@ A UI MenuButton
         type="ComponentGenerator"
         category="pointer"
         cardinality="single"
-      visibility="external"
+        visibility="external"
         defaultValue="NULL"
         access="public"
     >
@@ -45,12 +45,10 @@ A UI MenuButton
         defaultValue="NULL"
     >
     </Field>
-<!--
     <ProducedEvent
         name="MenuActionPerformed"
         detailsType="ActionEventDetails"
         consumable="true"
     >
     </ProducedEvent>
--->
 </FieldContainer>

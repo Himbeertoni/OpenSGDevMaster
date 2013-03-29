@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -47,7 +47,7 @@
 //Event Producer Headers
 #include "OSGActivity.h"
 #include "OSGConsumableEventCombiner.h"
-
+    
 #include "OSGMouseEventDetailsFields.h"
 #include "OSGMouseWheelEventDetailsFields.h"
 #include "OSGKeyEventDetailsFields.h"
@@ -116,6 +116,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSource : public C
     typedef boost::signals2::signal<void (ComponentEventDetails* const, UInt32), ConsumableEventCombiner> ToolTipActivatedEventType;
     typedef boost::signals2::signal<void (ComponentEventDetails* const, UInt32), ConsumableEventCombiner> ToolTipDeactivatedEventType;
 
+
     enum
     {
         MouseMovedEventId = 1,
@@ -144,6 +145,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSource : public C
 
     static const  EventProducerType  &getProducerClassType  (void);
     static        UInt32              getProducerClassTypeId(void);
+
     /*---------------------------------------------------------------------*/
     /*! \name                Event Produced Get                           */
     /*! \{                                                                 */
@@ -404,8 +406,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSource : public C
     bool   isEmptyToolTipDeactivated        (void) const;
     UInt32 numSlotsToolTipDeactivated       (void) const;
     
-    //Moved protected -> public:
-    void produceKeyTyped            (KeyTypedEventDetailsType* const e);
     
     void produceMouseMoved          (MouseMovedEventDetailsType* const e);
     void produceMouseDragged        (MouseDraggedEventDetailsType* const e);
@@ -417,7 +417,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSource : public C
     void produceMouseWheelMoved     (MouseWheelMovedEventDetailsType* const e);
     void produceKeyPressed          (KeyPressedEventDetailsType* const e);
     void produceKeyReleased         (KeyReleasedEventDetailsType* const e);
-    
+    void produceKeyTyped            (KeyTypedEventDetailsType* const e);
     void produceFocusGained         (FocusGainedEventDetailsType* const e);
     void produceFocusLost           (FocusLostEventDetailsType* const e);
     void produceComponentHidden     (ComponentHiddenEventDetailsType* const e);
@@ -429,6 +429,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSource : public C
     void produceToolTipActivated    (ToolTipActivatedEventDetailsType* const e);
     void produceToolTipDeactivated  (ToolTipDeactivatedEventDetailsType* const e);
     /*! \}                                                                 */
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -449,6 +450,9 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSource : public C
     /*=========================  PROTECTED  ===============================*/
 
   protected:
+
+    // Variables should all be in ComponentBase.
+    /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
 
@@ -474,31 +478,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSource : public C
     ComponentDisabledEventType _ComponentDisabledEvent;
     ToolTipActivatedEventType _ToolTipActivatedEvent;
     ToolTipDeactivatedEventType _ToolTipDeactivatedEvent;
-    /*! \}                                                                 */
-
-    // Variables should all be in ComponentEventSourceBase.
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                  Constructors                                */
-    /*! \{                                                                 */
-
-    ComponentEventSource(void);
-    ComponentEventSource(const ComponentEventSource &source);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
-    /*! \{                                                                 */
-
-    virtual ~ComponentEventSource(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
-    /*! \{                                                                 */
-
-    static void initMethod(InitPhase ePhase);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Event Access                     */
@@ -526,11 +505,35 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSource : public C
     GetEventHandlePtr getHandleToolTipActivatedSignal(void) const;
     GetEventHandlePtr getHandleToolTipDeactivatedSignal(void) const;
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Event Producer Firing                    */
     /*! \{                                                                 */
 
     virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
+    
+    /*! \}                                                                 */
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Constructors                                */
+    /*! \{                                                                 */
+
+    ComponentEventSource(void);
+    ComponentEventSource(const ComponentEventSource &source);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructors                                */
+    /*! \{                                                                 */
+
+    virtual ~ComponentEventSource(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
+    static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -538,7 +541,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSource : public C
   private:
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
-
 
     friend class FieldContainer;
     friend class ComponentEventSourceBase;
@@ -554,4 +556,4 @@ OSG_END_NAMESPACE
 #include "OSGComponentEventSourceBase.inl"
 #include "OSGComponentEventSource.inl"
 
-#endif /* _OSGCOMPONENTEVENTSOURCE_H_ */
+#endif /* _OSGCOMPONENT_H_ */

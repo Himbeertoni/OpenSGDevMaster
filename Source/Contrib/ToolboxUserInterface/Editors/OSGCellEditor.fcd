@@ -24,7 +24,6 @@ A UI Cell Editor.
         access="public"
         >
     </Field>
-<!--
     <ProducedEvent
         name="EditingCanceled"
         detailsType="ChangeEventDetails"
@@ -37,5 +36,4 @@ A UI Cell Editor.
         consumable="true"
     >
     </ProducedEvent>
--->
 </FieldContainer>

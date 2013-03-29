@@ -62,7 +62,7 @@
 
 #include "OSGTableColumnBase.h"
 #include "OSGTableColumn.h"
-
+#include "OSGTableColumnEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -352,14 +352,12 @@ TableColumnBase::TypeObject TableColumnBase::_type(
     "        access=\"public\"\n"
     "        >\n"
     "    </Field>\t\n"
-    "<!--\n"
     "    <ProducedEvent\n"
     "        name=\"FieldChanged\"\n"
     "        detailsType=\"ChangeEventDetails\"\n"
     "        consumable=\"true\"\n"
     "        >\n"
     "    </ProducedEvent>\n"
-    "-->\n"
     "</FieldContainer>\n",
     "A UI Table Column.\n"
     );
@@ -475,6 +473,21 @@ SFUnrecTableCellEditorPtr *TableColumnBase::editSFCellEditor     (void)
     return &_sfCellEditor;
 }
 
+//! Get the value of the TableColumn::_sfCellEditor field.
+TableCellEditor * TableColumnBase::getCellEditor(void) const
+{
+    return _sfCellEditor.getValue();
+}
+
+//! Set the value of the TableColumn::_sfCellEditor field.
+void TableColumnBase::setCellEditor(TableCellEditor * const value)
+{
+    editSField(CellEditorFieldMask);
+
+    _sfCellEditor.setValue(value);
+}
+
+
 //! Get the TableColumn::_sfEventSource field.
 const SFUnrecTableColumnEventSourcePtr *TableColumnBase::getSFEventSource(void) const
 {
@@ -487,6 +500,21 @@ SFUnrecTableColumnEventSourcePtr *TableColumnBase::editSFEventSource    (void)
 
     return &_sfEventSource;
 }
+
+//! Get the value of the TableColumn::_sfEventSource field.
+TableColumnEventSource * TableColumnBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the TableColumn::_sfEventSource field.
+void TableColumnBase::setEventSource(TableColumnEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
+
 
 
 
@@ -778,13 +806,18 @@ void TableColumnBase::onCreate(const TableColumn *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         TableColumn *pThis = static_cast<TableColumn *>(this);
 
         pThis->setCellEditor(source->getCellEditor());
 
         pThis->setEventSource(source->getEventSource());
+    }
+    else
+    {
+        TableColumnEventSourceUnrecPtr evSrc = TableColumnEventSource::create();
+        setEventSource( evSrc );
     }
 }
 

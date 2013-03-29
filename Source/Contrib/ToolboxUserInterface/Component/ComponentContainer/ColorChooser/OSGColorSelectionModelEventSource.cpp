@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -48,6 +48,7 @@
 #include "OSGColorSelectionModelEventSource.h"
 
 #include "OSGEventDetails.h"
+
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
@@ -58,6 +59,7 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
+
 //! ColorSelectionModel Produced Events
 
 EventDescription *ColorSelectionModelEventSource::_eventDesc[] =
@@ -78,7 +80,6 @@ EventProducerType ColorSelectionModelEventSource::_producerType(
     InitEventProducerFunctor(),
     _eventDesc,
     sizeof(_eventDesc));
-
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
@@ -113,7 +114,7 @@ void ColorSelectionModelEventSource::produceEvent(UInt32 eventId, EventDetails* 
         _StateChangedEvent(dynamic_cast<StateChangedEventDetailsType* const>(e), StateChangedEventId);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -128,7 +129,7 @@ boost::signals2::connection ColorSelectionModelEventSource::connectEvent(UInt32 
         return _StateChangedEvent.connect(listener, at);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -147,7 +148,7 @@ boost::signals2::connection  ColorSelectionModelEventSource::connectEvent(UInt32
         return _StateChangedEvent.connect(group, listener, at);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -163,7 +164,7 @@ void  ColorSelectionModelEventSource::disconnectEvent(UInt32 eventId, const Base
         _StateChangedEvent.disconnect(group);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -176,7 +177,7 @@ void  ColorSelectionModelEventSource::disconnectAllSlotsEvent(UInt32 eventId)
         _StateChangedEvent.disconnect_all_slots();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -189,7 +190,7 @@ bool  ColorSelectionModelEventSource::isEmptyEvent(UInt32 eventId) const
         return _StateChangedEvent.empty();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return true;
         break;
     }
@@ -203,16 +204,12 @@ UInt32  ColorSelectionModelEventSource::numSlotsEvent(UInt32 eventId) const
         return _StateChangedEvent.num_slots();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return 0;
         break;
     }
 }
 
-
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
 GetEventHandlePtr ColorSelectionModelEventSource::getHandleStateChangedSignal(void) const
 {
     GetEventHandlePtr returnValue(
@@ -223,6 +220,7 @@ GetEventHandlePtr ColorSelectionModelEventSource::getHandleStateChangedSignal(vo
 
     return returnValue;
 }
+
 
 /*----------------------- constructors & destructors ----------------------*/
 
@@ -252,7 +250,7 @@ void ColorSelectionModelEventSource::changed(ConstFieldMaskArg whichField,
 void ColorSelectionModelEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump ColorSelectionModelEventSource NI" << std::endl;
+    SLOG << "Dump ColorSelectionModel NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

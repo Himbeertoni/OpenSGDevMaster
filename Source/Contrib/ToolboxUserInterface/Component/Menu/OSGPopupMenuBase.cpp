@@ -63,7 +63,7 @@
 
 #include "OSGPopupMenuBase.h"
 #include "OSGPopupMenu.h"
-
+#include "OSGPopupMenuEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -207,8 +207,8 @@ PopupMenuBase::TypeObject PopupMenuBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
+    "    parentProducer=\"Component\"\n"
     " >\n"
-    "<!--    parentProducer=\"Component\" -->\n"
     "A UI PopupMenu.\n"
     "    <Field\n"
     "        name=\"SubMenuDelay\"\n"
@@ -250,7 +250,6 @@ PopupMenuBase::TypeObject PopupMenuBase::_type(
     "        access=\"public\"\n"
     "    >\n"
     "    </Field>\n"
-    "<!--\n"
     "    <ProducedEvent\n"
     "        name=\"PopupMenuWillBecomeVisible\"\n"
     "        detailsType=\"PopupMenuEventDetails\"\n"
@@ -275,7 +274,6 @@ PopupMenuBase::TypeObject PopupMenuBase::_type(
     "        consumable=\"true\"\n"
     "    >\n"
     "    </ProducedEvent>\n"
-    "-->\n"
     "</FieldContainer>\n",
     "A UI PopupMenu.\n"
     );
@@ -326,6 +324,21 @@ SFWeakComponentPtr  *PopupMenuBase::editSFInvoker        (void)
     return &_sfInvoker;
 }
 
+//! Get the value of the PopupMenu::_sfInvoker field.
+Component * PopupMenuBase::getInvoker(void) const
+{
+    return _sfInvoker.getValue();
+}
+
+//! Set the value of the PopupMenu::_sfInvoker field.
+void PopupMenuBase::setInvoker(Component * const value)
+{
+    editSField(InvokerFieldMask);
+
+    _sfInvoker.setValue(value);
+}
+
+
 //! Get the PopupMenu::_sfDefaultSeparator field.
 const SFUnrecSeparatorPtr *PopupMenuBase::getSFDefaultSeparator(void) const
 {
@@ -339,6 +352,21 @@ SFUnrecSeparatorPtr *PopupMenuBase::editSFDefaultSeparator(void)
     return &_sfDefaultSeparator;
 }
 
+//! Get the value of the PopupMenu::_sfDefaultSeparator field.
+Separator * PopupMenuBase::getDefaultSeparator(void) const
+{
+    return _sfDefaultSeparator.getValue();
+}
+
+//! Set the value of the PopupMenu::_sfDefaultSeparator field.
+void PopupMenuBase::setDefaultSeparator(Separator * const value)
+{
+    editSField(DefaultSeparatorFieldMask);
+
+    _sfDefaultSeparator.setValue(value);
+}
+
+
 //! Get the PopupMenu::_sfSelectionModel field.
 const SFUnrecSingleSelectionModelPtr *PopupMenuBase::getSFSelectionModel(void) const
 {
@@ -351,6 +379,21 @@ SFUnrecSingleSelectionModelPtr *PopupMenuBase::editSFSelectionModel (void)
 
     return &_sfSelectionModel;
 }
+
+//! Get the value of the PopupMenu::_sfSelectionModel field.
+SingleSelectionModel * PopupMenuBase::getSelectionModel(void) const
+{
+    return _sfSelectionModel.getValue();
+}
+
+//! Set the value of the PopupMenu::_sfSelectionModel field.
+void PopupMenuBase::setSelectionModel(SingleSelectionModel * const value)
+{
+    editSField(SelectionModelFieldMask);
+
+    _sfSelectionModel.setValue(value);
+}
+
 
 
 
@@ -582,7 +625,7 @@ void PopupMenuBase::onCreate(const PopupMenu *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         PopupMenu *pThis = static_cast<PopupMenu *>(this);
 
@@ -591,6 +634,11 @@ void PopupMenuBase::onCreate(const PopupMenu *source)
         pThis->setDefaultSeparator(source->getDefaultSeparator());
 
         pThis->setSelectionModel(source->getSelectionModel());
+    }
+    else
+    {
+        PopupMenuEventSourceUnrecPtr evSrc = PopupMenuEventSource::create();
+        setEventSource( evSrc );
     }
 }
 

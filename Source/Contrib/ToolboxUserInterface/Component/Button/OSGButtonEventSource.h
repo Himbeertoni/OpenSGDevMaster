@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -43,6 +43,8 @@
 #endif
 
 #include "OSGButtonEventSourceBase.h"
+
+    
 #include "OSGActionEventDetailsFields.h"
 
 OSG_BEGIN_NAMESPACE
@@ -62,14 +64,12 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ButtonEventSource : public Butt
     typedef ButtonEventSourceBase Inherited;
     typedef ButtonEventSource     Self;
 
-    static const  EventProducerType  &getProducerClassType  (void);
-    static        UInt32              getProducerClassTypeId(void);
-
     typedef ActionEventDetails ActionPerformedEventDetailsType;
     typedef ActionEventDetails MousePressedActionPerformedEventDetailsType;
 
     typedef boost::signals2::signal<void (ActionEventDetails* const, UInt32), ConsumableEventCombiner> ActionPerformedEventType;
     typedef boost::signals2::signal<void (ActionEventDetails* const, UInt32), ConsumableEventCombiner> MousePressedActionPerformedEventType;
+
 
     enum
     {
@@ -77,6 +77,9 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ButtonEventSource : public Butt
         MousePressedActionPerformedEventId = ActionPerformedEventId + 1,
         NextProducedEventId = MousePressedActionPerformedEventId + 1
     };
+
+    static const  EventProducerType  &getProducerClassType  (void);
+    static        UInt32              getProducerClassTypeId(void);
 
     /*---------------------------------------------------------------------*/
     /*! \name                Event Produced Get                           */
@@ -100,6 +103,36 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ButtonEventSource : public Butt
     virtual UInt32 numSlotsEvent          (UInt32 eventId) const;
 
     /*! \}                                                                 */
+    /*! \name                Event Access                                 */
+    /*! \{                                                                 */
+    
+    //ActionPerformed
+    boost::signals2::connection connectActionPerformed(const ActionPerformedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectActionPerformed(const ActionPerformedEventType::group_type &group,
+                                                       const ActionPerformedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectActionPerformed        (const ActionPerformedEventType::group_type &group);
+    void   disconnectAllSlotsActionPerformed(void);
+    bool   isEmptyActionPerformed           (void) const;
+    UInt32 numSlotsActionPerformed          (void) const;
+    
+    //MousePressedActionPerformed
+    boost::signals2::connection connectMousePressedActionPerformed(const MousePressedActionPerformedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectMousePressedActionPerformed(const MousePressedActionPerformedEventType::group_type &group,
+                                                       const MousePressedActionPerformedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectMousePressedActionPerformed(const MousePressedActionPerformedEventType::group_type &group);
+    void   disconnectAllSlotsMousePressedActionPerformed(void);
+    bool   isEmptyMousePressedActionPerformed(void) const;
+    UInt32 numSlotsMousePressedActionPerformed(void) const;
+    
+    
+    void produceActionPerformed     (ActionPerformedEventDetailsType* const e);
+    void produceMousePressedActionPerformed  (MousePressedActionPerformedEventDetailsType* const e);
+    /*! \}                                                                 */
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -117,42 +150,11 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ButtonEventSource : public Butt
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
-    /*! \name                Event Access                                 */
-    /*! \{                                                                 */
-    
-    //ActionPerformed
-    boost::signals2::connection connectActionPerformed(const ButtonEventSource::ActionPerformedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectActionPerformed(const ButtonEventSource::ActionPerformedEventType::group_type &group,
-                                                       const ButtonEventSource::ActionPerformedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectActionPerformed        (const ButtonEventSource::ActionPerformedEventType::group_type &group);
-    void   disconnectAllSlotsActionPerformed(void);
-    bool   isEmptyActionPerformed           (void) const;
-    UInt32 numSlotsActionPerformed          (void) const;
-    
-    //MousePressedActionPerformed
-    boost::signals2::connection connectMousePressedActionPerformed(const MousePressedActionPerformedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectMousePressedActionPerformed(const MousePressedActionPerformedEventType::group_type &group,
-                                                       const MousePressedActionPerformedEventType::slot_type &listener,
-                                                       boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectMousePressedActionPerformed(const MousePressedActionPerformedEventType::group_type &group);
-    void   disconnectAllSlotsMousePressedActionPerformed(void);
-    bool   isEmptyMousePressedActionPerformed(void) const;
-    UInt32 numSlotsMousePressedActionPerformed(void) const;
-    
-    
-    /*! \}                                                                 */
-    void produceActionPerformed     (ActionPerformedEventDetailsType* const e);
-    void produceMousePressedActionPerformed  (MousePressedActionPerformedEventDetailsType* const e);
-    virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
- 
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    // Variables should all be in ButtonEventSourceBase.
+    // Variables should all be in ButtonBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
@@ -160,6 +162,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ButtonEventSource : public Butt
     //Event Event producers
     ActionPerformedEventType _ActionPerformedEvent;
     MousePressedActionPerformedEventType _MousePressedActionPerformedEvent;
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Event Access                     */
     /*! \{                                                                 */
@@ -167,6 +170,15 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ButtonEventSource : public Butt
     GetEventHandlePtr getHandleActionPerformedSignal(void) const;
     GetEventHandlePtr getHandleMousePressedActionPerformedSignal(void) const;
     /*! \}                                                                 */
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Event Producer Firing                    */
+    /*! \{                                                                 */
+
+    virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
+    
+    /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -192,7 +204,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ButtonEventSource : public Butt
     /*==========================  PRIVATE  ================================*/
 
   private:
-    /*---------------------------------------------------------------------*/
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
 
@@ -207,8 +218,7 @@ typedef ButtonEventSource *ButtonEventSourceP;
 
 OSG_END_NAMESPACE
 
-#include "OSGActionEventDetails.h"
 #include "OSGButtonEventSourceBase.inl"
 #include "OSGButtonEventSource.inl"
 
-#endif /* _OSGBUTTONEVENTSOURCE_H_ */
+#endif /* _OSGBUTTON_H_ */

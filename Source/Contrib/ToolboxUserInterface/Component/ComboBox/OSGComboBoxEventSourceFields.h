@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -218,4 +218,4 @@ struct MFUncountedComboBoxEventSourcePtr :
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGCOMBOBOXEVENTSOURCEFIELDS_H_ */
+#endif /* _OSGCOMBOBOXEventSourceFIELDS_H_ */

@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -44,13 +44,12 @@
 
 #include "OSGAbstractWindowEventSourceBase.h"
 
+//Event Producer Headers
+#include "OSGActivity.h"
 #include "OSGConsumableEventCombiner.h"
-#include "OSGWindowEventProducerFields.h"
-#include "OSGWindowEventDetails.h"
-#include "OSGMouseEventDetails.h"
-#include "OSGKeyEventDetails.h"
-#include "OSGMouseWheelEventDetails.h"
-#include "OSGUpdateEventDetails.h"
+    
+#include "OSGWindowEventDetailsFields.h"
+
 OSG_BEGIN_NAMESPACE
 
 /*! \brief AbstractWindowEventSource class. See \ref
@@ -67,7 +66,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowEventSource : pub
 
     typedef AbstractWindowEventSourceBase Inherited;
     typedef AbstractWindowEventSource     Self;
-    
+
     typedef WindowEventDetails WindowOpenedEventDetailsType;
     typedef WindowEventDetails WindowClosingEventDetailsType;
     typedef WindowEventDetails WindowClosedEventDetailsType;
@@ -78,6 +77,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowEventSource : pub
     typedef WindowEventDetails WindowEnteredEventDetailsType;
     typedef WindowEventDetails WindowExitedEventDetailsType;
 
+    typedef boost::signals2::signal<void (EventDetails* const            , UInt32)> BaseEventType;
     typedef boost::signals2::signal<void (WindowEventDetails* const, UInt32), ConsumableEventCombiner> WindowOpenedEventType;
     typedef boost::signals2::signal<void (WindowEventDetails* const, UInt32), ConsumableEventCombiner> WindowClosingEventType;
     typedef boost::signals2::signal<void (WindowEventDetails* const, UInt32), ConsumableEventCombiner> WindowClosedEventType;
@@ -88,9 +88,10 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowEventSource : pub
     typedef boost::signals2::signal<void (WindowEventDetails* const, UInt32), ConsumableEventCombiner> WindowEnteredEventType;
     typedef boost::signals2::signal<void (WindowEventDetails* const, UInt32), ConsumableEventCombiner> WindowExitedEventType;
 
+
     enum
     {
-        WindowOpenedEventId = Inherited::NextProducedEventId,
+        WindowOpenedEventId = 1,
         WindowClosingEventId = WindowOpenedEventId + 1,
         WindowClosedEventId = WindowClosingEventId + 1,
         WindowIconifiedEventId = WindowClosedEventId + 1,
@@ -104,12 +105,17 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowEventSource : pub
 
     static const  EventProducerType  &getProducerClassType  (void);
     static        UInt32              getProducerClassTypeId(void);
+
     /*---------------------------------------------------------------------*/
     /*! \name                Event Produced Get                           */
     /*! \{                                                                 */
 
     virtual const EventProducerType &getProducerType(void) const; 
 
+    virtual UInt32                   getNumProducedEvents       (void                                ) const;
+    virtual const EventDescription *getProducedEventDescription(const std::string &ProducedEventName) const;
+    virtual const EventDescription *getProducedEventDescription(UInt32 ProducedEventId              ) const;
+    virtual UInt32                   getProducedEventId         (const std::string &ProducedEventName) const;
     
     virtual boost::signals2::connection connectEvent(UInt32 eventId, 
                                               const BaseEventType::slot_type &listener,
@@ -228,7 +234,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowEventSource : pub
     bool   isEmptyWindowExited              (void) const;
     UInt32 numSlotsWindowExited             (void) const;
     
-    //Moved protected -> public:
+    
     void produceWindowOpened        (WindowOpenedEventDetailsType* const e);
     void produceWindowClosing       (WindowClosingEventDetailsType* const e);
     void produceWindowClosed        (WindowClosedEventDetailsType* const e);
@@ -238,6 +244,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowEventSource : pub
     void produceWindowDeactivated   (WindowDeactivatedEventDetailsType* const e);
     void produceWindowEntered       (WindowEnteredEventDetailsType* const e);
     void produceWindowExited        (WindowExitedEventDetailsType* const e);
+    /*! \}                                                                 */
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -258,6 +266,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowEventSource : pub
     /*=========================  PROTECTED  ===============================*/
 
   protected:
+
+    // Variables should all be in AbstractWindowBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
@@ -273,8 +283,28 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowEventSource : pub
     WindowEnteredEventType _WindowEnteredEvent;
     WindowExitedEventType _WindowExitedEvent;
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Event Access                     */
+    /*! \{                                                                 */
 
-    // Variables should all be in AbstractWindowEventSourceBase.
+    GetEventHandlePtr getHandleWindowOpenedSignal(void) const;
+    GetEventHandlePtr getHandleWindowClosingSignal(void) const;
+    GetEventHandlePtr getHandleWindowClosedSignal(void) const;
+    GetEventHandlePtr getHandleWindowIconifiedSignal(void) const;
+    GetEventHandlePtr getHandleWindowDeiconifiedSignal(void) const;
+    GetEventHandlePtr getHandleWindowActivatedSignal(void) const;
+    GetEventHandlePtr getHandleWindowDeactivatedSignal(void) const;
+    GetEventHandlePtr getHandleWindowEnteredSignal(void) const;
+    GetEventHandlePtr getHandleWindowExitedSignal(void) const;
+    /*! \}                                                                 */
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Event Producer Firing                    */
+    /*! \{                                                                 */
+
+    virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
+    
+    /*! \}                                                                 */
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
@@ -298,27 +328,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowEventSource : pub
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Event Access                     */
-    /*! \{                                                                 */
-
-    GetEventHandlePtr getHandleWindowOpenedSignal(void) const;
-    GetEventHandlePtr getHandleWindowClosingSignal(void) const;
-    GetEventHandlePtr getHandleWindowClosedSignal(void) const;
-    GetEventHandlePtr getHandleWindowIconifiedSignal(void) const;
-    GetEventHandlePtr getHandleWindowDeiconifiedSignal(void) const;
-    GetEventHandlePtr getHandleWindowActivatedSignal(void) const;
-    GetEventHandlePtr getHandleWindowDeactivatedSignal(void) const;
-    GetEventHandlePtr getHandleWindowEnteredSignal(void) const;
-    GetEventHandlePtr getHandleWindowExitedSignal(void) const;
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Event Producer Firing                    */
-    /*! \{                                                                 */
-
-    virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
-    
-    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
@@ -339,4 +348,4 @@ OSG_END_NAMESPACE
 #include "OSGAbstractWindowEventSourceBase.inl"
 #include "OSGAbstractWindowEventSource.inl"
 
-#endif /* _OSGABSTRACTWINDOWEVENTSOURCE_H_ */
+#endif /* _OSGABSTRACTWINDOW_H_ */

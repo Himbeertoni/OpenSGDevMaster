@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -51,8 +51,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGBOUNDEDRANGEMODELEVENTSOURCEBASE_H_
-#define _OSGBOUNDEDRANGEMODELEVENTSOURCEBASE_H_
+#ifndef _OSGBoundedRangeModelEVENTSOURCEBASE_H_
+#define _OSGBoundedRangeModelEVENTSOURCEBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,8 +63,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGEventContainer.h" // Parent
-
+#include "OSGEventContainer.h"
 
 #include "OSGBoundedRangeModelEventSourceFields.h"
 
@@ -73,15 +72,16 @@ OSG_BEGIN_NAMESPACE
 
 class BoundedRangeModelEventSource;
 
-//! \brief BoundedRangeModelEventSource Base Class.
+//! \brief BoundedRangeModelEventSourceBase Base Class.
 
-class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING BoundedRangeModelEventSourceBase : public EventContainer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING BoundedRangeModelEventSourceBase
+    : public EventContainer
 {
   public:
 
     typedef EventContainer Inherited;
     typedef EventContainer ParentContainer;
-
+    
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
@@ -90,8 +90,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING BoundedRangeModelEventSourceBas
     /*==========================  PUBLIC  =================================*/
 
   public:
-
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
@@ -123,6 +121,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING BoundedRangeModelEventSourceBas
 
 
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                   Construction                               */
     /*! \{                                                                 */
@@ -150,6 +149,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING BoundedRangeModelEventSourceBas
                                                       BitVector bFlags) const;
 
     /*! \}                                                                 */
+
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -177,13 +177,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING BoundedRangeModelEventSourceBas
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
-
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Field Access                      */
-    /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -214,10 +207,12 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING BoundedRangeModelEventSourceBas
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
 
+
 #ifdef OSG_MT_CPTR_ASPECT
     virtual FieldContainer *createAspectCopy(
                                     const FieldContainer *pRefAspect) const;
 #endif
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -232,10 +227,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING BoundedRangeModelEventSourceBas
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
-
   private:
     /*---------------------------------------------------------------------*/
-
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const BoundedRangeModelEventSourceBase &source);
 };
@@ -244,4 +237,4 @@ typedef BoundedRangeModelEventSourceBase *BoundedRangeModelEventSourceBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGBOUNDEDRANGEMODELEVENTSOURCEBASE_H_ */
+#endif /* _OSGBoundedRangeModelEventSourceBASE_H_ */

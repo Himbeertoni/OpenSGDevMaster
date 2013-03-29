@@ -61,7 +61,7 @@
 
 #include "OSGColorSelectionModelBase.h"
 #include "OSGColorSelectionModel.h"
-
+#include "OSGColorSelectionModelEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -169,14 +169,12 @@ ColorSelectionModelBase::TypeObject ColorSelectionModelBase::_type(
     "        defaultValue=\"NULL\"\t\n"
     "\t>\n"
     "\t</Field>\n"
-    "<!--\n"
     "    <ProducedEvent\n"
     "        name=\"StateChanged\"\n"
     "        detailsType=\"ChangeEventDetails\"\n"
     "        consumable=\"true\"\n"
     "    >\n"
     "    </ProducedEvent>\n"
-    "-->\n"
     "</FieldContainer>\n",
     "A UI ColorSelectionModel.\n"
     );
@@ -213,6 +211,21 @@ SFUnrecColorSelectionModelEventSourcePtr *ColorSelectionModelBase::editSFEventSo
 
     return &_sfEventSource;
 }
+
+//! Get the value of the ColorSelectionModel::_sfEventSource field.
+ColorSelectionModelEventSource * ColorSelectionModelBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the ColorSelectionModel::_sfEventSource field.
+void ColorSelectionModelBase::setEventSource(ColorSelectionModelEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
+
 
 
 
@@ -283,11 +296,16 @@ void ColorSelectionModelBase::onCreate(const ColorSelectionModel *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         ColorSelectionModel *pThis = static_cast<ColorSelectionModel *>(this);
 
         pThis->setEventSource(source->getEventSource());
+    }
+    else
+    {
+        ColorSelectionModelEventSourceUnrecPtr evSrc = ColorSelectionModelEventSource::create();
+        setEventSource( evSrc );
     }
 }
 

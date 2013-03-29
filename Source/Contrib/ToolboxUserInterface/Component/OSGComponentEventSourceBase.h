@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -51,8 +51,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGCOMPONENTEVENTSOURCEBASE_H_
-#define _OSGCOMPONENTEVENTSOURCEBASE_H_
+#ifndef _OSGComponentEVENTSOURCEBASE_H_
+#define _OSGComponentEVENTSOURCEBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,8 +63,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGEventContainer.h" // Parent
-
+#include "OSGEventContainer.h"
 
 #include "OSGComponentEventSourceFields.h"
 
@@ -73,15 +72,16 @@ OSG_BEGIN_NAMESPACE
 
 class ComponentEventSource;
 
-//! \brief ComponentEventSource Base Class.
+//! \brief ComponentEventSourceBase Base Class.
 
-class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSourceBase : public EventContainer
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSourceBase
+    : public EventContainer
 {
   public:
 
     typedef EventContainer Inherited;
     typedef EventContainer ParentContainer;
-
+    
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
@@ -90,8 +90,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSourceBase : publ
     /*==========================  PUBLIC  =================================*/
 
   public:
-
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
@@ -123,6 +121,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSourceBase : publ
 
 
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                   Construction                               */
     /*! \{                                                                 */
@@ -150,6 +149,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSourceBase : publ
                                                       BitVector bFlags) const;
 
     /*! \}                                                                 */
+
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -178,12 +178,24 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSourceBase : publ
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Parent linking                                               */
+    /*! \{                                                                 */
+
+    virtual bool linkParent  (FieldContainer * const pParent,
+                              UInt16           const childFieldId,
+                              UInt16           const parentFieldId);
+    virtual bool unlinkParent(FieldContainer * const pParent,
+                              UInt16           const parentFieldId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Field Access                      */
+    /*! \name Child linking                                                */
     /*! \{                                                                 */
 
+    virtual bool unlinkChild(FieldContainer * const pChild,
+                             UInt16           const childFieldId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -214,10 +226,12 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSourceBase : publ
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
 
+
 #ifdef OSG_MT_CPTR_ASPECT
     virtual FieldContainer *createAspectCopy(
                                     const FieldContainer *pRefAspect) const;
 #endif
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -232,10 +246,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSourceBase : publ
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
-
   private:
     /*---------------------------------------------------------------------*/
-
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ComponentEventSourceBase &source);
 };
@@ -244,4 +256,4 @@ typedef ComponentEventSourceBase *ComponentEventSourceBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGCOMPONENTEVENTSOURCEBASE_H_ */
+#endif /* _OSGComponentEventSourceBASE_H_ */

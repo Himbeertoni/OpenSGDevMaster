@@ -61,7 +61,7 @@
 
 #include "OSGUIViewportBase.h"
 #include "OSGUIViewport.h"
-
+#include "OSGUIViewportEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -189,8 +189,8 @@ UIViewportBase::TypeObject UIViewportBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
+    "    parentProducer=\"Component\"\n"
     ">\n"
-    "<!-- parentProducer=\"Component\" -->\n"
     "A UI UIViewport\n"
     "    <Field\n"
     "        name=\"ViewPosition\"\n"
@@ -222,14 +222,12 @@ UIViewportBase::TypeObject UIViewportBase::_type(
     "        defaultValue=\"-1.0f,-1.0f\"\n"
     "    >\n"
     "    </Field>\n"
-    "<!--\t\n"
     "    <ProducedEvent\n"
     "        name=\"StateChanged\"\n"
     "        detailsType=\"ChangeEventDetails\"\n"
     "        consumable=\"true\"\n"
     "    >\n"
     "    </ProducedEvent>\n"
-    "-->\n"
     "</FieldContainer>\n",
     "A UI UIViewport\n"
     );
@@ -279,6 +277,21 @@ SFUnrecComponentPtr *UIViewportBase::editSFViewComponent  (void)
 
     return &_sfViewComponent;
 }
+
+//! Get the value of the UIViewport::_sfViewComponent field.
+Component * UIViewportBase::getViewComponent(void) const
+{
+    return _sfViewComponent.getValue();
+}
+
+//! Set the value of the UIViewport::_sfViewComponent field.
+void UIViewportBase::setViewComponent(Component * const value)
+{
+    editSField(ViewComponentFieldMask);
+
+    _sfViewComponent.setValue(value);
+}
+
 
 SFVec2f *UIViewportBase::editSFViewSize(void)
 {
@@ -508,11 +521,16 @@ void UIViewportBase::onCreate(const UIViewport *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         UIViewport *pThis = static_cast<UIViewport *>(this);
 
         pThis->setViewComponent(source->getViewComponent());
+    }
+    else
+    {
+        UIViewportEventSourceUnrecPtr evSrc = UIViewportEventSource::create();
+        setEventSource( evSrc );
     }
 }
 

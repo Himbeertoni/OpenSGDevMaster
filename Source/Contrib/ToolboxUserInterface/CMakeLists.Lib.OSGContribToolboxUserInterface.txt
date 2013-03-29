@@ -35,7 +35,25 @@ SET(${PROJECT_NAME}_DEP_OSG_LIB OSGDrawable
                                 OSGContribToolboxWindow
                                 OSGState)
 
-SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB )
+SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGBase 
+                   OSGCluster 
+                   OSGDrawable 
+                   OSGFileIO 
+                   OSGImageFileIO 
+                   OSGDynamics 
+                   OSGGroup 
+                   OSGState 
+                   OSGSystem 
+                   OSGUtil 
+                   OSGWindow 	   
+                   OSGText
+                   OSGContribToolbox
+				   OSGContribToolboxFileIO 
+                   OSGContribToolboxAnimation
+                   OSGContribToolboxWindow
+                   OSGContribToolboxNativeWindow
+                   OSGWindowGLUT
+                   ${OSG_NATIVE_WINDOW} )
 
 # dependencies - External
 # SET(${PROJECT_NAME}_DEP_LIB)
@@ -130,6 +148,8 @@ OSG_ADD_DIRECTORY("${CMAKE_CURRENT_SOURCE_DIR}/UIDrawingSurface/NodeCore")
 OSG_ADD_DIRECTORY("${CMAKE_CURRENT_SOURCE_DIR}/UndoableEdit")
 
 OSG_ADD_DIRECTORY("${CMAKE_CURRENT_SOURCE_DIR}/Util")
+
+OSG_ADD_DIRECTORY("${CMAKE_CURRENT_SOURCE_DIR}/Examples")
 
 #Library def source
 CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}Def.cpp.in"

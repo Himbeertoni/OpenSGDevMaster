@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -43,6 +43,8 @@
 #endif
 
 #include "OSGMenuButtonEventSourceBase.h"
+
+    
 #include "OSGActionEventDetailsFields.h"
 
 OSG_BEGIN_NAMESPACE
@@ -61,13 +63,11 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MenuButtonEventSource : public 
 
     typedef MenuButtonEventSourceBase Inherited;
     typedef MenuButtonEventSource     Self;
-    
+
     typedef ActionEventDetails MenuActionPerformedEventDetailsType;
 
     typedef boost::signals2::signal<void (ActionEventDetails* const, UInt32), ConsumableEventCombiner> MenuActionPerformedEventType;
 
-    static const  EventProducerType  &getProducerClassType  (void);
-    static        UInt32              getProducerClassTypeId(void);
 
     enum
     {
@@ -75,24 +75,9 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MenuButtonEventSource : public 
         NextProducedEventId = MenuActionPerformedEventId + 1
     };
 
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Sync                                    */
-    /*! \{                                                                 */
+    static const  EventProducerType  &getProducerClassType  (void);
+    static        UInt32              getProducerClassTypeId(void);
 
-    virtual void changed(ConstFieldMaskArg whichField,
-                         UInt32            origin,
-                         BitVector         details    );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    virtual void dump(      UInt32     uiIndent = 0,
-                      const BitVector  bvFlags  = 0) const;
-
-    /*! \}                                                                 */
-    /*=========================  PROTECTED  ===============================*/
     /*---------------------------------------------------------------------*/
     /*! \name                Event Produced Get                           */
     /*! \{                                                                 */
@@ -129,12 +114,32 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MenuButtonEventSource : public 
     bool   isEmptyMenuActionPerformed       (void) const;
     UInt32 numSlotsMenuActionPerformed      (void) const;
     
-    //Moved protected -> public
+    
     void produceMenuActionPerformed  (MenuActionPerformedEventDetailsType* const e);
     /*! \}                                                                 */
+    
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Sync                                    */
+    /*! \{                                                                 */
+
+    virtual void changed(ConstFieldMaskArg whichField,
+                         UInt32            origin,
+                         BitVector         details    );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    virtual void dump(      UInt32     uiIndent = 0,
+                      const BitVector  bvFlags  = 0) const;
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
   protected:
 
-    // Variables should all be in MenuButtonEventSourceBase.
+    // Variables should all be in MenuButtonBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
@@ -142,26 +147,13 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MenuButtonEventSource : public 
     //Event Event producers
     MenuActionPerformedEventType _MenuActionPerformedEvent;
     /*! \}                                                                 */
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Field Access                      */
-    /*! \{                                                                 */
-
-    GetFieldHandlePtr  getHandleModel           (void) const;
-    EditFieldHandlePtr editHandleModel          (void);
-    GetFieldHandlePtr  getHandleCellGenerator   (void) const;
-    EditFieldHandlePtr editHandleCellGenerator  (void);
-    GetFieldHandlePtr  getHandleMenuButtonPopupMenu (void) const;
-    EditFieldHandlePtr editHandleMenuButtonPopupMenu(void);
-
-    /*! \}                                                                 */
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Event Access                     */
     /*! \{                                                                 */
 
     GetEventHandlePtr getHandleMenuActionPerformedSignal(void) const;
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Event Producer Firing                    */
     /*! \{                                                                 */
@@ -169,6 +161,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MenuButtonEventSource : public 
     virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
     
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -194,7 +187,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MenuButtonEventSource : public 
     /*==========================  PRIVATE  ================================*/
 
   private:
-    /*---------------------------------------------------------------------*/
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
 
@@ -212,4 +204,4 @@ OSG_END_NAMESPACE
 #include "OSGMenuButtonEventSourceBase.inl"
 #include "OSGMenuButtonEventSource.inl"
 
-#endif /* _OSGMENUBUTTONEVENTSOURCE_H_ */
+#endif /* _OSGMENUBUTTON_H_ */

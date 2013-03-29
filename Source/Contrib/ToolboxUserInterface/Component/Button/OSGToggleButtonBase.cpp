@@ -60,7 +60,7 @@
 
 #include "OSGToggleButtonBase.h"
 #include "OSGToggleButton.h"
-
+#include "OSGToggleButtonEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -138,9 +138,9 @@ ToggleButtonBase::TypeObject ToggleButtonBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com)\"\n"
+    "    parentProducer=\"Button\"\n"
     ">\n"
     "A UI Toggle Button.\n"
-    "<!--\n"
     "    <ProducedEvent\n"
     "        name=\"ButtonSelected\"\n"
     "        detailsType=\"ButtonSelectedEventDetails\"\n"
@@ -153,7 +153,6 @@ ToggleButtonBase::TypeObject ToggleButtonBase::_type(
     "        consumable=\"true\"\n"
     "    >\n"
     "    </ProducedEvent>\n"
-    "-->\n"
     "</FieldContainer>\n",
     "A UI Toggle Button.\n"
     );

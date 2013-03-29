@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -37,7 +37,6 @@
 //---------------------------------------------------------------------------
 //  Includes
 //---------------------------------------------------------------------------
-
 #include "OSGTableColumnModelEventDetails.h"
 #include "OSGChangeEventDetails.h"
 #include "OSGListSelectionEventDetails.h"
@@ -56,6 +55,7 @@ UInt32 TableColumnModelEventSource::getProducerClassTypeId(void)
 {
     return _producerType.getId();
 }
+
 
 inline
 UInt32 TableColumnModelEventSource::getNumProducedEvents(void) const
@@ -300,4 +300,5 @@ void TableColumnModelEventSource::produceColumnSelectionChanged(ColumnSelectionC
 {
     produceEvent(ColumnSelectionChangedEventId, e);
 }
+
 OSG_END_NAMESPACE

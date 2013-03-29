@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -56,16 +56,10 @@
 #include "OSGConfig.h"
 
 
-
-
 #include "OSGTreeModelLayoutEventSourceBase.h"
 #include "OSGTreeModelLayoutEventSource.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -74,12 +68,9 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::TreeModelLayoutEventSource
-    
+    A UI Tree Model Layout.
  */
 
-/***************************************************************************\
- *                        Field Documentation                              *
-\***************************************************************************/
 
 
 /***************************************************************************\
@@ -88,8 +79,8 @@ OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 PointerType FieldTraits<TreeModelLayoutEventSource *, nsOSG>::_type(
-    "TreeModelLayoutEventSourcePtr", 
-    "EventContainerPtr", 
+    "TreeModelLayoutEventSourcePtr",
+    "EventContainerPtr",
     TreeModelLayoutEventSource::getClassType(),
     nsOSG);
 #endif
@@ -124,77 +115,7 @@ TreeModelLayoutEventSourceBase::TypeObject TreeModelLayoutEventSourceBase::_type
     reinterpret_cast<InitalInsertDescFunc>(&TreeModelLayoutEventSource::classDescInserter),
     false,
     0,
-    "<?xml version=\"1.0\"?>\n"
-    "\n"
-    "<FieldContainer\n"
-    "    name=\"TreeModelLayoutEventSource\"\n"
-    "    parent=\"EventContainer\"\n"
-    "    library=\"ContribToolboxUserInterface\"\n"
-    "    pointerfieldtypes=\"both\"\n"
-    "    structure=\"concrete\"\n"
-    "    systemcomponent=\"true\"\n"
-    "    parentsystemcomponent=\"true\"\n"
-    "    decoratable=\"false\"\n"
-    "    useLocalIncludes=\"false\"\n"
-    "    isNodeCore=\"false\"\n"
-    ">\n"
-    "<!--\n"
-    "    <ProducedEvent\n"
-    "        name=\"TreeCollapsed\"\n"
-    "        detailsType=\"TreeModelLayoutEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "    >\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"TreeExpanded\"\n"
-    "        detailsType=\"TreeModelLayoutEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "    >\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"TreeWillCollapse\"\n"
-    "        detailsType=\"TreeModelLayoutEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "    >\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"TreeWillExpand\"\n"
-    "        detailsType=\"TreeModelLayoutEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "    >\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"TreeNodesChanged\"\n"
-    "        detailsType=\"TreeModelEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "    >\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"TreeNodesInserted\"\n"
-    "        detailsType=\"TreeModelEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "    >\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"TreeNodesRemoved\"\n"
-    "        detailsType=\"TreeModelEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "    >\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"TreeNodesWillBeRemoved\"\n"
-    "        detailsType=\"TreeModelEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "    >\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"TreeStructureChanged\"\n"
-    "        detailsType=\"TreeModelEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "    >\n"
-    "    </ProducedEvent>\n"
-    "-->\n"
-    "</FieldContainer>\n",
+    "",
     ""
     );
 
@@ -215,11 +136,6 @@ UInt32 TreeModelLayoutEventSourceBase::getContainerSize(void) const
     return sizeof(TreeModelLayoutEventSource);
 }
 
-/*------------------------- decorator get ------------------------------*/
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -228,7 +144,6 @@ SizeT TreeModelLayoutEventSourceBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
-
     return returnValue;
 }
 
@@ -236,14 +151,12 @@ void TreeModelLayoutEventSourceBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
-
 }
 
 void TreeModelLayoutEventSourceBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
-
 }
 
 //! create a new instance of the class
@@ -364,7 +277,6 @@ FieldContainerTransitPtr TreeModelLayoutEventSourceBase::shallowCopy(void) const
 
 
 
-
 /*------------------------- constructors ----------------------------------*/
 
 TreeModelLayoutEventSourceBase::TreeModelLayoutEventSourceBase(void) :
@@ -383,7 +295,6 @@ TreeModelLayoutEventSourceBase::TreeModelLayoutEventSourceBase(const TreeModelLa
 TreeModelLayoutEventSourceBase::~TreeModelLayoutEventSourceBase(void)
 {
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -422,8 +333,6 @@ void TreeModelLayoutEventSourceBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-
 }
-
 
 OSG_END_NAMESPACE

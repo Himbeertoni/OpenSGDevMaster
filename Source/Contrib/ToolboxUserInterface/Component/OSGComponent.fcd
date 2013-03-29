@@ -392,7 +392,6 @@
         >
         The cursor to use when the mouse is hovering over this Component.
     </Field>    
-<!--    
     <ProducedEvent
         name="MouseMoved"
         detailsType="MouseEventDetails"
@@ -548,5 +547,4 @@
         >
         Event produced when the ToolTip for this Component is deactivated.
     </ProducedEvent>
--->
 </FieldContainer>

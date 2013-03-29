@@ -12,9 +12,9 @@
     useLocalIncludes="false"
     isNodeCore="false"
     authors="David Kabala (djkabala@gmail.com)"
+    parentProducer="Button"
 >
 A UI Toggle Button.
-<!--
     <ProducedEvent
         name="ButtonSelected"
         detailsType="ButtonSelectedEventDetails"
@@ -27,5 +27,4 @@ A UI Toggle Button.
         consumable="true"
     >
     </ProducedEvent>
--->
 </FieldContainer>

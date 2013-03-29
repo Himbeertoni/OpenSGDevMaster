@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -53,22 +53,23 @@ UInt32 TextFieldEventSource::getProducerClassTypeId(void)
 {
     return _producerType.getId();
 }
+
 inline
-boost::signals2::connection  TextFieldEventSource::connectActionPerformed(const ButtonEventSource::ActionPerformedEventType::slot_type &listener, 
+boost::signals2::connection  TextFieldEventSource::connectActionPerformed(const ActionPerformedEventType::slot_type &listener, 
                                                                                boost::signals2::connect_position at)
 {
     return _ActionPerformedEvent.connect(listener, at);
 }
 
 inline
-boost::signals2::connection  TextFieldEventSource::connectActionPerformed(const ButtonEventSource::ActionPerformedEventType::group_type &group,
-                                                    const ButtonEventSource::ActionPerformedEventType::slot_type &listener, boost::signals2::connect_position at)
+boost::signals2::connection  TextFieldEventSource::connectActionPerformed(const ActionPerformedEventType::group_type &group,
+                                                    const ActionPerformedEventType::slot_type &listener, boost::signals2::connect_position at)
 {
     return _ActionPerformedEvent.connect(group, listener, at);
 }
 
 inline
-void  TextFieldEventSource::disconnectActionPerformed(const ButtonEventSource::ActionPerformedEventType::group_type &group)
+void  TextFieldEventSource::disconnectActionPerformed(const ActionPerformedEventType::group_type &group)
 {
     _ActionPerformedEvent.disconnect(group);
 }
@@ -92,8 +93,9 @@ UInt32  TextFieldEventSource::numSlotsActionPerformed(void) const
 }
 
 inline
-void TextFieldEventSource::produceActionPerformed(ButtonEventSource::ActionPerformedEventDetailsType* const e)
+void TextFieldEventSource::produceActionPerformed(ActionPerformedEventDetailsType* const e)
 {
     produceEvent(ActionPerformedEventId, e);
 }
+
 OSG_END_NAMESPACE

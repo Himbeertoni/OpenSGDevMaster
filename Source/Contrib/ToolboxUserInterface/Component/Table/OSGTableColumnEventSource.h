@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -43,10 +43,11 @@
 #endif
 
 #include "OSGTableColumnEventSourceBase.h"
+
 //Event Producer Headers
 #include "OSGActivity.h"
 #include "OSGConsumableEventCombiner.h"
-
+    
 #include "OSGChangeEventDetailsFields.h"
 
 OSG_BEGIN_NAMESPACE
@@ -65,19 +66,22 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnEventSource : public
 
     typedef TableColumnEventSourceBase Inherited;
     typedef TableColumnEventSource     Self;
-    
+
     typedef ChangeEventDetails FieldChangedEventDetailsType;
 
     typedef boost::signals2::signal<void (EventDetails* const            , UInt32)> BaseEventType;
     typedef boost::signals2::signal<void (ChangeEventDetails* const, UInt32), ConsumableEventCombiner> FieldChangedEventType;
+
 
     enum
     {
         FieldChangedEventId = 1,
         NextProducedEventId = FieldChangedEventId + 1
     };
+
     static const  EventProducerType  &getProducerClassType  (void);
     static        UInt32              getProducerClassTypeId(void);
+
     /*---------------------------------------------------------------------*/
     /*! \name                Event Produced Get                           */
     /*! \{                                                                 */
@@ -119,7 +123,9 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnEventSource : public
     UInt32 numSlotsFieldChanged             (void) const;
     
     
+    void produceFieldChanged        (FieldChangedEventDetailsType* const e);
     /*! \}                                                                 */
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -141,7 +147,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnEventSource : public
 
   protected:
 
-    // Variables should all be in TableColumnEventSourceBase.
+    // Variables should all be in TableColumnBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
@@ -155,14 +161,15 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnEventSource : public
 
     GetEventHandlePtr getHandleFieldChangedSignal(void) const;
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Event Producer Firing                    */
     /*! \{                                                                 */
 
     virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
     
-    void produceFieldChanged        (FieldChangedEventDetailsType* const e);
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -188,7 +195,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnEventSource : public
     /*==========================  PRIVATE  ================================*/
 
   private:
-    /*---------------------------------------------------------------------*/
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
 
@@ -206,4 +212,4 @@ OSG_END_NAMESPACE
 #include "OSGTableColumnEventSourceBase.inl"
 #include "OSGTableColumnEventSource.inl"
 
-#endif /* _OSGTABLECOLUMNEVENTSOURCE_H_ */
+#endif /* _OSGTABLECOLUMN_H_ */

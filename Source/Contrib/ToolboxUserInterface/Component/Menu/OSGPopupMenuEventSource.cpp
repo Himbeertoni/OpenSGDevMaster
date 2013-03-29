@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -101,7 +101,6 @@ EventProducerType PopupMenuEventSource::_producerType(
     InitEventProducerFunctor(),
     _eventDesc,
     sizeof(_eventDesc));
-
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
@@ -120,10 +119,10 @@ const EventProducerType &PopupMenuEventSource::getProducerType(void) const
 {
     return _producerType;
 }
+
 /***************************************************************************\
  *                           Instance methods                              *
 \***************************************************************************/
-
 /*------------------------- event producers ----------------------------------*/
 void PopupMenuEventSource::produceEvent(UInt32 eventId, EventDetails* const e)
 {
@@ -300,10 +299,6 @@ UInt32  PopupMenuEventSource::numSlotsEvent(UInt32 eventId) const
     }
 }
 
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
-
 GetEventHandlePtr PopupMenuEventSource::getHandlePopupMenuWillBecomeVisibleSignal(void) const
 {
     GetEventHandlePtr returnValue(
@@ -348,6 +343,7 @@ GetEventHandlePtr PopupMenuEventSource::getHandlePopupMenuContentsChangedSignal(
     return returnValue;
 }
 
+
 /*----------------------- constructors & destructors ----------------------*/
 
 PopupMenuEventSource::PopupMenuEventSource(void) :
@@ -376,7 +372,7 @@ void PopupMenuEventSource::changed(ConstFieldMaskArg whichField,
 void PopupMenuEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump PopupMenuEventSource NI" << std::endl;
+    SLOG << "Dump PopupMenu NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

@@ -62,7 +62,7 @@
 
 #include "OSGAbstractWindowBase.h"
 #include "OSGAbstractWindow.h"
-
+#include "OSGAbstractWindowEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -437,6 +437,7 @@ AbstractWindowBase::TypeObject AbstractWindowBase::_type(
     "<FieldContainer\n"
     "    name=\"AbstractWindow\"\n"
     "    parent=\"ComponentContainer\"\n"
+    "    parentEventSource=\"ComponentEventSource\"\n"
     "    library=\"ContribToolboxUserInterface\"\n"
     "    pointerfieldtypes=\"both\"\n"
     "    structure=\"abstract\"\n"
@@ -639,7 +640,6 @@ AbstractWindowBase::TypeObject AbstractWindowBase::_type(
     "        defaultValue=\"3\"\n"
     "        >\n"
     "    </Field>\n"
-    "<!--\n"
     "    <ProducedEvent\n"
     "        name=\"WindowOpened\"\n"
     "        detailsType=\"WindowEventDetails\"\n"
@@ -694,7 +694,6 @@ AbstractWindowBase::TypeObject AbstractWindowBase::_type(
     "        consumable=\"true\"\n"
     "        >\n"
     "    </ProducedEvent>\n"
-    "-->\n"
     "</FieldContainer>\n",
     "A UI Abstract Window.\n"
     );
@@ -849,6 +848,21 @@ SFUnrecUIDrawObjectCanvasPtr *AbstractWindowBase::editSFDesktopIcon    (void)
 
     return &_sfDesktopIcon;
 }
+
+//! Get the value of the AbstractWindow::_sfDesktopIcon field.
+UIDrawObjectCanvas * AbstractWindowBase::getDesktopIcon(void) const
+{
+    return _sfDesktopIcon.getValue();
+}
+
+//! Set the value of the AbstractWindow::_sfDesktopIcon field.
+void AbstractWindowBase::setDesktopIcon(UIDrawObjectCanvas * const value)
+{
+    editSField(DesktopIconFieldMask);
+
+    _sfDesktopIcon.setValue(value);
+}
+
 
 SFBool *AbstractWindowBase::editSFModal(void)
 {
@@ -1371,11 +1385,16 @@ void AbstractWindowBase::onCreate(const AbstractWindow *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         AbstractWindow *pThis = static_cast<AbstractWindow *>(this);
 
         pThis->setDesktopIcon(source->getDesktopIcon());
+    }
+    else
+    {
+        AbstractWindowEventSourceUnrecPtr evSrc = AbstractWindowEventSource::create();
+        setEventSource( evSrc );
     }
 }
 

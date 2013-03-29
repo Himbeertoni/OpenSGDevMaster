@@ -12,8 +12,8 @@
     useLocalIncludes="false"
     isNodeCore="false"
     authors="David Kabala (djkabala@gmail.com), Mark Stenerson             "
+    parentProducer="AbstractWindow"
 >
-<!-- parentProducer="AbstractWindow" -->
 A UI Dialog Window.
     <Field
         name="ErrorIcon"
@@ -64,7 +64,6 @@ A UI Dialog Window.
         access="public"
     >
     </Field>
-<!--
     <ProducedEvent
         name="DialogWindowClosing"
         detailsType="DialogWindowEventDetails"
@@ -77,5 +76,4 @@ A UI Dialog Window.
         consumable="true"
     >
     </ProducedEvent>
--->
 </FieldContainer>

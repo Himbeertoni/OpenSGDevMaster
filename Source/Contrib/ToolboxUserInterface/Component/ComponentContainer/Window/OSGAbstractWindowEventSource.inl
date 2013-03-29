@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -37,7 +37,6 @@
 //---------------------------------------------------------------------------
 //  Includes
 //---------------------------------------------------------------------------
-
 #include "OSGWindowEventDetails.h"
 
 OSG_BEGIN_NAMESPACE
@@ -54,6 +53,32 @@ UInt32 AbstractWindowEventSource::getProducerClassTypeId(void)
 {
     return _producerType.getId();
 }
+
+
+inline
+UInt32 AbstractWindowEventSource::getNumProducedEvents(void) const
+{
+    return getProducerType().getNumEventDescs();
+}
+
+inline
+const EventDescription *AbstractWindowEventSource::getProducedEventDescription(const std::string &ProducedEventName) const
+{
+    return getProducerType().findEventDescription(ProducedEventName);
+}
+
+inline
+const EventDescription *AbstractWindowEventSource::getProducedEventDescription(UInt32 ProducedEventId) const
+{
+    return getProducerType().getEventDescription(ProducedEventId);
+}
+
+inline
+UInt32 AbstractWindowEventSource::getProducedEventId(const std::string &ProducedEventName) const
+{
+    return getProducerType().getProducedEventId(ProducedEventName);
+}
+
 inline
 boost::signals2::connection  AbstractWindowEventSource::connectWindowOpened(const WindowOpenedEventType::slot_type &listener, 
                                                                                boost::signals2::connect_position at)

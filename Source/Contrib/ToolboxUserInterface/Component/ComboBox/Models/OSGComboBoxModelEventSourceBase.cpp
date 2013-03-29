@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -56,16 +56,10 @@
 #include "OSGConfig.h"
 
 
-
-
 #include "OSGComboBoxModelEventSourceBase.h"
 #include "OSGComboBoxModelEventSource.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -74,12 +68,9 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::ComboBoxModelEventSource
-    
+    A UI ComboBoxModel.
  */
 
-/***************************************************************************\
- *                        Field Documentation                              *
-\***************************************************************************/
 
 
 /***************************************************************************\
@@ -88,8 +79,8 @@ OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 PointerType FieldTraits<ComboBoxModelEventSource *, nsOSG>::_type(
-    "ComboBoxModelEventSourcePtr", 
-    "ListModelEventSourcePtr", 
+    "ComboBoxModelEventSourcePtr",
+    "ListModelEventSourcePtr",
     ComboBoxModelEventSource::getClassType(),
     nsOSG);
 #endif
@@ -124,30 +115,7 @@ ComboBoxModelEventSourceBase::TypeObject ComboBoxModelEventSourceBase::_type(
     reinterpret_cast<InitalInsertDescFunc>(&ComboBoxModelEventSource::classDescInserter),
     false,
     0,
-    "<?xml version=\"1.0\"?>\n"
-    "\n"
-    "<FieldContainer\n"
-    "    name=\"ComboBoxModelEventSource\"\n"
-    "    parent=\"ListModelEventSource\"\n"
-    "    library=\"ContribToolboxUserInterface\"\n"
-    "    pointerfieldtypes=\"both\"\n"
-    "    structure=\"concrete\"\n"
-    "    systemcomponent=\"true\"\n"
-    "    parentsystemcomponent=\"true\"\n"
-    "    decoratable=\"false\"\n"
-    "    useLocalIncludes=\"false\"\n"
-    "    isNodeCore=\"false\"  \n"
-    ">\n"
-    "<!-- parentProducer=\"ListModel\" -->\n"
-    "<!--\n"
-    "    <ProducedEvent\n"
-    "        name=\"SelectionChanged\"\n"
-    "        detailsType=\"ComboBoxSelectionEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "    >\n"
-    "    </ProducedEvent>\n"
-    "-->\n"
-    "</FieldContainer>\n",
+    "",
     ""
     );
 
@@ -168,11 +136,6 @@ UInt32 ComboBoxModelEventSourceBase::getContainerSize(void) const
     return sizeof(ComboBoxModelEventSource);
 }
 
-/*------------------------- decorator get ------------------------------*/
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -181,7 +144,6 @@ SizeT ComboBoxModelEventSourceBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
-
     return returnValue;
 }
 
@@ -189,14 +151,12 @@ void ComboBoxModelEventSourceBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
-
 }
 
 void ComboBoxModelEventSourceBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
-
 }
 
 //! create a new instance of the class
@@ -317,7 +277,6 @@ FieldContainerTransitPtr ComboBoxModelEventSourceBase::shallowCopy(void) const
 
 
 
-
 /*------------------------- constructors ----------------------------------*/
 
 ComboBoxModelEventSourceBase::ComboBoxModelEventSourceBase(void) :
@@ -336,7 +295,6 @@ ComboBoxModelEventSourceBase::ComboBoxModelEventSourceBase(const ComboBoxModelEv
 ComboBoxModelEventSourceBase::~ComboBoxModelEventSourceBase(void)
 {
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -375,8 +333,6 @@ void ComboBoxModelEventSourceBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-
 }
-
 
 OSG_END_NAMESPACE

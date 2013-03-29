@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -47,6 +47,8 @@
 
 #include "OSGButtonEventSource.h"
 
+#include "OSGEventDetails.h"
+
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
@@ -57,6 +59,7 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
+
 //! Button Produced Events
 
 EventDescription *ButtonEventSource::_eventDesc[] =
@@ -88,11 +91,6 @@ EventProducerType ButtonEventSource::_producerType(
  *                           Class methods                                 *
 \***************************************************************************/
 
-const EventProducerType &ButtonEventSource::getProducerType(void) const
-{
-    return _producerType;
-}
-
 void ButtonEventSource::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
@@ -103,10 +101,14 @@ void ButtonEventSource::initMethod(InitPhase ePhase)
 }
 
 
+const EventProducerType &ButtonEventSource::getProducerType(void) const
+{
+    return _producerType;
+}
+
 /***************************************************************************\
  *                           Instance methods                              *
 \***************************************************************************/
-
 /*------------------------- event producers ----------------------------------*/
 void ButtonEventSource::produceEvent(UInt32 eventId, EventDetails* const e)
 {
@@ -129,7 +131,6 @@ void ButtonEventSource::produceEvent(UInt32 eventId, EventDetails* const e)
         break;
     }
 }
-
 
 boost::signals2::connection ButtonEventSource::connectEvent(UInt32 eventId, 
                                                              const BaseEventType::slot_type &listener, 
@@ -236,10 +237,6 @@ UInt32  ButtonEventSource::numSlotsEvent(UInt32 eventId) const
     }
 }
 
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
-
 GetEventHandlePtr ButtonEventSource::getHandleActionPerformedSignal(void) const
 {
     GetEventHandlePtr returnValue(
@@ -261,6 +258,8 @@ GetEventHandlePtr ButtonEventSource::getHandleMousePressedActionPerformedSignal(
 
     return returnValue;
 }
+
+
 /*----------------------- constructors & destructors ----------------------*/
 
 ButtonEventSource::ButtonEventSource(void) :
@@ -289,7 +288,7 @@ void ButtonEventSource::changed(ConstFieldMaskArg whichField,
 void ButtonEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump ButtonEventSource NI" << std::endl;
+    SLOG << "Dump Button NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

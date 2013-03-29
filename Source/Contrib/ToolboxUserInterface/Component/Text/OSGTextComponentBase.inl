@@ -124,22 +124,6 @@ void TextComponentBase::setCaretPosition(const UInt32 value)
 
     _sfCaretPosition.setValue(value);
 }
-
-//! Get the value of the TextComponent::_sfFont field.
-inline
-UIFont * TextComponentBase::getFont(void) const
-{
-    return _sfFont.getValue();
-}
-
-//! Set the value of the TextComponent::_sfFont field.
-inline
-void TextComponentBase::setFont(UIFont * const value)
-{
-    editSField(FontFieldMask);
-
-    _sfFont.setValue(value);
-}
 //! Get the value of the TextComponent::_sfSelectionBoxColor field.
 
 inline

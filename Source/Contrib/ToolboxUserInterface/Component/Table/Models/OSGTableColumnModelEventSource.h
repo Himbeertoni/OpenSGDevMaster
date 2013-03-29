@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -43,10 +43,11 @@
 #endif
 
 #include "OSGTableColumnModelEventSourceBase.h"
+
 //Event Producer Headers
 #include "OSGActivity.h"
 #include "OSGConsumableEventCombiner.h"
-
+    
 #include "OSGTableColumnModelEventDetailsFields.h"
 #include "OSGChangeEventDetailsFields.h"
 #include "OSGListSelectionEventDetailsFields.h"
@@ -67,7 +68,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnModelEventSource : p
 
     typedef TableColumnModelEventSourceBase Inherited;
     typedef TableColumnModelEventSource     Self;
-    
+
     typedef TableColumnModelEventDetails ColumnAddedEventDetailsType;
     typedef TableColumnModelEventDetails ColumnMovedEventDetailsType;
     typedef TableColumnModelEventDetails ColumnRemovedEventDetailsType;
@@ -81,6 +82,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnModelEventSource : p
     typedef boost::signals2::signal<void (ChangeEventDetails* const, UInt32), ConsumableEventCombiner> ColumnMarginChangedEventType;
     typedef boost::signals2::signal<void (ListSelectionEventDetails* const, UInt32), ConsumableEventCombiner> ColumnSelectionChangedEventType;
 
+
     enum
     {
         ColumnAddedEventId = 1,
@@ -90,8 +92,10 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnModelEventSource : p
         ColumnSelectionChangedEventId = ColumnMarginChangedEventId + 1,
         NextProducedEventId = ColumnSelectionChangedEventId + 1
     };
+
     static const  EventProducerType  &getProducerClassType  (void);
     static        UInt32              getProducerClassTypeId(void);
+
     /*---------------------------------------------------------------------*/
     /*! \name                Event Produced Get                           */
     /*! \{                                                                 */
@@ -176,13 +180,14 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnModelEventSource : p
     bool   isEmptyColumnSelectionChanged    (void) const;
     UInt32 numSlotsColumnSelectionChanged   (void) const;
     
-    //Moved protected -> public:
+    
     void produceColumnAdded         (ColumnAddedEventDetailsType* const e);
     void produceColumnMoved         (ColumnMovedEventDetailsType* const e);
     void produceColumnRemoved       (ColumnRemovedEventDetailsType* const e);
     void produceColumnMarginChanged  (ColumnMarginChangedEventDetailsType* const e);
     void produceColumnSelectionChanged  (ColumnSelectionChangedEventDetailsType* const e);
     /*! \}                                                                 */
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -204,7 +209,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnModelEventSource : p
 
   protected:
 
-    // Variables should all be in TableColumnModelEventSourceBase.
+    // Variables should all be in TableColumnModelBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
@@ -226,14 +231,15 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnModelEventSource : p
     GetEventHandlePtr getHandleColumnMarginChangedSignal(void) const;
     GetEventHandlePtr getHandleColumnSelectionChangedSignal(void) const;
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Event Producer Firing                    */
     /*! \{                                                                 */
 
     virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
     
-    
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -259,7 +265,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnModelEventSource : p
     /*==========================  PRIVATE  ================================*/
 
   private:
-    /*---------------------------------------------------------------------*/
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
 
@@ -277,4 +282,4 @@ OSG_END_NAMESPACE
 #include "OSGTableColumnModelEventSourceBase.inl"
 #include "OSGTableColumnModelEventSource.inl"
 
-#endif /* _OSGTABLECOLUMNMODELEVENTSOURCE_H_ */
+#endif /* _OSGTABLECOLUMNMODEL_H_ */

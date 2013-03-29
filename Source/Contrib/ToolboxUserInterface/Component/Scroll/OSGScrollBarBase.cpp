@@ -62,7 +62,7 @@
 
 #include "OSGScrollBarBase.h"
 #include "OSGScrollBar.h"
-
+#include "OSGScrollBarEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -350,8 +350,8 @@ ScrollBarBase::TypeObject ScrollBarBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
+    "    parentProducer=\"Component\"\n"
     ">\n"
-    "<!--     parentProducer=\"Component\" -->\n"
     "A UI ScrollBar.\n"
     "    <Field\n"
     "        name=\"Orientation\"\n"
@@ -483,14 +483,12 @@ ScrollBarBase::TypeObject ScrollBarBase::_type(
     "        defaultValue=\"NULL\"\n"
     "    >\n"
     "    </Field>\n"
-    "<!--\n"
     "    <ProducedEvent\n"
     "        name=\"AdjustmentValueChanged\"\n"
     "        detailsType=\"AdjustmentEventDetails\"\n"
     "        consumable=\"true\"\n"
     "    >\n"
     "    </ProducedEvent>\n"
-    "-->\n"
     "</FieldContainer>\n",
     "A UI ScrollBar.\n"
     );
@@ -567,6 +565,21 @@ SFUnrecButtonPtr    *ScrollBarBase::editSFVerticalMinButton(void)
     return &_sfVerticalMinButton;
 }
 
+//! Get the value of the ScrollBar::_sfVerticalMinButton field.
+Button * ScrollBarBase::getVerticalMinButton(void) const
+{
+    return _sfVerticalMinButton.getValue();
+}
+
+//! Set the value of the ScrollBar::_sfVerticalMinButton field.
+void ScrollBarBase::setVerticalMinButton(Button * const value)
+{
+    editSField(VerticalMinButtonFieldMask);
+
+    _sfVerticalMinButton.setValue(value);
+}
+
+
 //! Get the ScrollBar::_sfVerticalMaxButton field.
 const SFUnrecButtonPtr *ScrollBarBase::getSFVerticalMaxButton(void) const
 {
@@ -579,6 +592,21 @@ SFUnrecButtonPtr    *ScrollBarBase::editSFVerticalMaxButton(void)
 
     return &_sfVerticalMaxButton;
 }
+
+//! Get the value of the ScrollBar::_sfVerticalMaxButton field.
+Button * ScrollBarBase::getVerticalMaxButton(void) const
+{
+    return _sfVerticalMaxButton.getValue();
+}
+
+//! Set the value of the ScrollBar::_sfVerticalMaxButton field.
+void ScrollBarBase::setVerticalMaxButton(Button * const value)
+{
+    editSField(VerticalMaxButtonFieldMask);
+
+    _sfVerticalMaxButton.setValue(value);
+}
+
 
 //! Get the ScrollBar::_sfVerticalScrollBar field.
 const SFUnrecButtonPtr *ScrollBarBase::getSFVerticalScrollBar(void) const
@@ -593,6 +621,21 @@ SFUnrecButtonPtr    *ScrollBarBase::editSFVerticalScrollBar(void)
     return &_sfVerticalScrollBar;
 }
 
+//! Get the value of the ScrollBar::_sfVerticalScrollBar field.
+Button * ScrollBarBase::getVerticalScrollBar(void) const
+{
+    return _sfVerticalScrollBar.getValue();
+}
+
+//! Set the value of the ScrollBar::_sfVerticalScrollBar field.
+void ScrollBarBase::setVerticalScrollBar(Button * const value)
+{
+    editSField(VerticalScrollBarFieldMask);
+
+    _sfVerticalScrollBar.setValue(value);
+}
+
+
 //! Get the ScrollBar::_sfVerticalScrollField field.
 const SFUnrecButtonPtr *ScrollBarBase::getSFVerticalScrollField(void) const
 {
@@ -605,6 +648,21 @@ SFUnrecButtonPtr    *ScrollBarBase::editSFVerticalScrollField(void)
 
     return &_sfVerticalScrollField;
 }
+
+//! Get the value of the ScrollBar::_sfVerticalScrollField field.
+Button * ScrollBarBase::getVerticalScrollField(void) const
+{
+    return _sfVerticalScrollField.getValue();
+}
+
+//! Set the value of the ScrollBar::_sfVerticalScrollField field.
+void ScrollBarBase::setVerticalScrollField(Button * const value)
+{
+    editSField(VerticalScrollFieldFieldMask);
+
+    _sfVerticalScrollField.setValue(value);
+}
+
 
 //! Get the ScrollBar::_sfHorizontalMinButton field.
 const SFUnrecButtonPtr *ScrollBarBase::getSFHorizontalMinButton(void) const
@@ -619,6 +677,21 @@ SFUnrecButtonPtr    *ScrollBarBase::editSFHorizontalMinButton(void)
     return &_sfHorizontalMinButton;
 }
 
+//! Get the value of the ScrollBar::_sfHorizontalMinButton field.
+Button * ScrollBarBase::getHorizontalMinButton(void) const
+{
+    return _sfHorizontalMinButton.getValue();
+}
+
+//! Set the value of the ScrollBar::_sfHorizontalMinButton field.
+void ScrollBarBase::setHorizontalMinButton(Button * const value)
+{
+    editSField(HorizontalMinButtonFieldMask);
+
+    _sfHorizontalMinButton.setValue(value);
+}
+
+
 //! Get the ScrollBar::_sfHorizontalMaxButton field.
 const SFUnrecButtonPtr *ScrollBarBase::getSFHorizontalMaxButton(void) const
 {
@@ -631,6 +704,21 @@ SFUnrecButtonPtr    *ScrollBarBase::editSFHorizontalMaxButton(void)
 
     return &_sfHorizontalMaxButton;
 }
+
+//! Get the value of the ScrollBar::_sfHorizontalMaxButton field.
+Button * ScrollBarBase::getHorizontalMaxButton(void) const
+{
+    return _sfHorizontalMaxButton.getValue();
+}
+
+//! Set the value of the ScrollBar::_sfHorizontalMaxButton field.
+void ScrollBarBase::setHorizontalMaxButton(Button * const value)
+{
+    editSField(HorizontalMaxButtonFieldMask);
+
+    _sfHorizontalMaxButton.setValue(value);
+}
+
 
 //! Get the ScrollBar::_sfHorizontalScrollBar field.
 const SFUnrecButtonPtr *ScrollBarBase::getSFHorizontalScrollBar(void) const
@@ -645,6 +733,21 @@ SFUnrecButtonPtr    *ScrollBarBase::editSFHorizontalScrollBar(void)
     return &_sfHorizontalScrollBar;
 }
 
+//! Get the value of the ScrollBar::_sfHorizontalScrollBar field.
+Button * ScrollBarBase::getHorizontalScrollBar(void) const
+{
+    return _sfHorizontalScrollBar.getValue();
+}
+
+//! Set the value of the ScrollBar::_sfHorizontalScrollBar field.
+void ScrollBarBase::setHorizontalScrollBar(Button * const value)
+{
+    editSField(HorizontalScrollBarFieldMask);
+
+    _sfHorizontalScrollBar.setValue(value);
+}
+
+
 //! Get the ScrollBar::_sfHorizontalScrollField field.
 const SFUnrecButtonPtr *ScrollBarBase::getSFHorizontalScrollField(void) const
 {
@@ -657,6 +760,21 @@ SFUnrecButtonPtr    *ScrollBarBase::editSFHorizontalScrollField(void)
 
     return &_sfHorizontalScrollField;
 }
+
+//! Get the value of the ScrollBar::_sfHorizontalScrollField field.
+Button * ScrollBarBase::getHorizontalScrollField(void) const
+{
+    return _sfHorizontalScrollField.getValue();
+}
+
+//! Set the value of the ScrollBar::_sfHorizontalScrollField field.
+void ScrollBarBase::setHorizontalScrollField(Button * const value)
+{
+    editSField(HorizontalScrollFieldFieldMask);
+
+    _sfHorizontalScrollField.setValue(value);
+}
+
 
 SFUInt32 *ScrollBarBase::editSFScrollBarMinLength(void)
 {
@@ -683,6 +801,21 @@ SFUnrecBoundedRangeModelPtr *ScrollBarBase::editSFRangeModel     (void)
 
     return &_sfRangeModel;
 }
+
+//! Get the value of the ScrollBar::_sfRangeModel field.
+BoundedRangeModel * ScrollBarBase::getRangeModel(void) const
+{
+    return _sfRangeModel.getValue();
+}
+
+//! Set the value of the ScrollBar::_sfRangeModel field.
+void ScrollBarBase::setRangeModel(BoundedRangeModel * const value)
+{
+    editSField(RangeModelFieldMask);
+
+    _sfRangeModel.setValue(value);
+}
+
 
 
 
@@ -1049,7 +1182,7 @@ void ScrollBarBase::onCreate(const ScrollBar *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         ScrollBar *pThis = static_cast<ScrollBar *>(this);
 
@@ -1070,6 +1203,11 @@ void ScrollBarBase::onCreate(const ScrollBar *source)
         pThis->setHorizontalScrollField(source->getHorizontalScrollField());
 
         pThis->setRangeModel(source->getRangeModel());
+    }
+    else
+    {
+        ScrollBarEventSourceUnrecPtr evSrc = ScrollBarEventSource::create();
+        setEventSource( evSrc );
     }
 }
 

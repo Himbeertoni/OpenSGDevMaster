@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -43,10 +43,11 @@
 #endif
 
 #include "OSGBoundedRangeModelEventSourceBase.h"
+
 //Event Producer Headers
 #include "OSGActivity.h"
 #include "OSGConsumableEventCombiner.h"
-
+    
 #include "OSGChangeEventDetailsFields.h"
 
 OSG_BEGIN_NAMESPACE
@@ -70,20 +71,23 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING BoundedRangeModelEventSource : 
 
     typedef boost::signals2::signal<void (EventDetails* const            , UInt32)> BaseEventType;
     typedef boost::signals2::signal<void (ChangeEventDetails* const, UInt32), ConsumableEventCombiner> StateChangedEventType;
-        
+
+
     enum
     {
         StateChangedEventId = 1,
         NextProducedEventId = StateChangedEventId + 1
     };
+
     static const  EventProducerType  &getProducerClassType  (void);
     static        UInt32              getProducerClassTypeId(void);
+
     /*---------------------------------------------------------------------*/
     /*! \name                Event Produced Get                           */
     /*! \{                                                                 */
 
     virtual const EventProducerType &getProducerType(void) const; 
-                                                         
+
     virtual UInt32                   getNumProducedEvents       (void                                ) const;
     virtual const EventDescription *getProducedEventDescription(const std::string &ProducedEventName) const;
     virtual const EventDescription *getProducedEventDescription(UInt32 ProducedEventId              ) const;
@@ -118,9 +122,10 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING BoundedRangeModelEventSource : 
     bool   isEmptyStateChanged              (void) const;
     UInt32 numSlotsStateChanged             (void) const;
     
-    //Moved protected -> public:
+    
     void produceStateChanged        (StateChangedEventDetailsType* const e);
     /*! \}                                                                 */
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -142,7 +147,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING BoundedRangeModelEventSource : 
 
   protected:
 
-    // Variables should all be in BoundedRangeModelEventSourceBase.
+    // Variables should all be in BoundedRangeModelBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
@@ -156,6 +161,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING BoundedRangeModelEventSource : 
 
     GetEventHandlePtr getHandleStateChangedSignal(void) const;
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Event Producer Firing                    */
     /*! \{                                                                 */
@@ -163,6 +169,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING BoundedRangeModelEventSource : 
     virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
     
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -188,7 +195,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING BoundedRangeModelEventSource : 
     /*==========================  PRIVATE  ================================*/
 
   private:
-    /*---------------------------------------------------------------------*/
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
 
@@ -206,4 +212,4 @@ OSG_END_NAMESPACE
 #include "OSGBoundedRangeModelEventSourceBase.inl"
 #include "OSGBoundedRangeModelEventSource.inl"
 
-#endif /* _OSGBOUNDEDRANGEMODELEVENTSOURCE_H_ */
+#endif /* _OSGBOUNDEDRANGEMODEL_H_ */

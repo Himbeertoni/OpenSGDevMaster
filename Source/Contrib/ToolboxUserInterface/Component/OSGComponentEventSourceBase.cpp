@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -56,16 +56,10 @@
 #include "OSGConfig.h"
 
 
-
-
 #include "OSGComponentEventSourceBase.h"
 #include "OSGComponentEventSource.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -74,12 +68,56 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::ComponentEventSource
-    
+    \brief An element of a graphical user interface.
+
+    A Component represents a single element of a user interface. In other
+    frameworks they may be called widgets or controls. All concrete GUI elements
+    inherit from Component, like OSG::Button, OSG::Label, OSG::TextField,
+    OSG::InternalWindow, etc.
+
+    \par Component states:
+    Components have states for Enabled, Focused,
+    MouseOver, and Visible.  If a Component has Enabled == false, it doesn't receive
+    or produce any events. If a Component has Visible == false, it is not drawn. 
+
+    \par Event response:
+    Components can respond to Mouse, Key, and Focus events.
+
+    \par Event production: Components produce Mouse, Key, Focus, Component, and
+    ToolTip events if enabled.
+
+    \par Drawing: Component handles setting up the clipping of a component, and
+    the drawing of the Border, Background, and Foreground.  The Border,
+    Background, and Foreground used when drawing a Component depends on it's
+    state, and can also be overridden by inheriting classes. There are separate
+    Border, Background, and Foregrounds for Disabled, Focused, Rollover, and No stat
+    states.
+
+    \par Layout: The position and size of a Component is controlled by the
+    OSG::ComponentContainer that contains it. For simple OSG::ComponentContainer
+    like OSG::Panel, the OSG::Layout attached to the container is used to control
+    the position and size of components.  For more complex containers like
+    OSG::SplitPanel, the position and size are controlled by the specific
+    behavior of the container.
+    \warning User code should never set the position or size of a Component
+    directly, this is controlled by the OSG::ComponentContainer of the Component.
+
+    \par Focus: Zero, or one Component can have focus in a OSG::InternalWindow.
+    Component has methods for taking, removing, or moving the focus.
+
+    \par ToolTips: A component can have a ToolTip that will appear after a
+    configurable amount of time passes with the mouse over the Component.
+
+    \par PopupMenus: A OSG::PopupMenu can be attached to a Component that will
+    be activated with a right-click mouse interaction.
+
+    \par Scrolling: Components can be contained in a OSG::Viewport or a
+    OSG::ScrollPanel for viewing large Components.
+
+    \par Inheriting: Concrete GUI elements that inherit from Component must
+    implement drawInternal().
  */
 
-/***************************************************************************\
- *                        Field Documentation                              *
-\***************************************************************************/
 
 
 /***************************************************************************\
@@ -88,8 +126,8 @@ OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 PointerType FieldTraits<ComponentEventSource *, nsOSG>::_type(
-    "ComponentEventSourcePtr", 
-    "EventContainerPtr", 
+    "ComponentEventSourcePtr",
+    "EventContainerPtr",
     ComponentEventSource::getClassType(),
     nsOSG);
 #endif
@@ -103,6 +141,18 @@ OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            ComponentEventSource *,
                            nsOSG);
+
+DataType &FieldTraits< ComponentEventSource *, nsOSG + 1 >::getType(void)
+{
+    return FieldTraits<ComponentEventSource *, nsOSG>::getType();
+}
+
+
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
+                      ComponentEventSource *,
+                      UnrecordedRefCountPolicy,
+                      nsOSG + 1);
+
 
 /***************************************************************************\
  *                         Field Description                               *
@@ -124,178 +174,7 @@ ComponentEventSourceBase::TypeObject ComponentEventSourceBase::_type(
     reinterpret_cast<InitalInsertDescFunc>(&ComponentEventSource::classDescInserter),
     false,
     0,
-    "<?xml version=\"1.0\"?>\n"
-    "\n"
-    "<FieldContainer\n"
-    "    name=\"ComponentEventSource\"\n"
-    "    parent=\"EventContainer\"\n"
-    "    library=\"ContribToolboxUserInterface\"\n"
-    "    pointerfieldtypes=\"both\"\n"
-    "    structure=\"concrete\"\n"
-    "    systemcomponent=\"true\"\n"
-    "    parentsystemcomponent=\"true\"\n"
-    "    decoratable=\"false\"\n"
-    "    useLocalIncludes=\"false\"\n"
-    "    isNodeCore=\"false\"\n"
-    "    >\n"
-    "<!--\n"
-    "    <ProducedEvent\n"
-    "        name=\"MouseMoved\"\n"
-    "        detailsType=\"MouseEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "        Event produced when the mouse is hovering over this Component and moves.\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"MouseDragged\"\n"
-    "        detailsType=\"MouseEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "        Event produced when the mouse is hovering over this Component and moves \n"
-    "        when a mouse button is down.\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"MouseClicked\"\n"
-    "        detailsType=\"MouseEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "        Event produced when the mouse is hovering over this Component and a \n"
-    "        mouse button is clicked.\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"MouseEntered\"\n"
-    "        detailsType=\"MouseEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "        Event produced when the mouse enters this Component.\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"MouseExited\"\n"
-    "        detailsType=\"MouseEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "        Event produced when the mouse exits this Component.\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"MousePressed\"\n"
-    "        detailsType=\"MouseEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "        Event produced when the mouse is hovering over this Component and a \n"
-    "        mouse button is pressed.\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"MouseReleased\"\n"
-    "        detailsType=\"MouseEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "        Event produced when the mouse is hovering over this Component and a \n"
-    "        mouse button is released.\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"MouseWheelMoved\"\n"
-    "        detailsType=\"MouseWheelEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "        Event produced when the mouse is hovering over this Component and the\n"
-    "        mouse wheel is moved.\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"KeyPressed\"\n"
-    "        detailsType=\"KeyEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "        Event produced when this Component has focused and a keyboard key is \n"
-    "        pressed.\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"KeyReleased\"\n"
-    "        detailsType=\"KeyEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "        Event produced when this Component has focused and a keyboard key is \n"
-    "        released.\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"KeyTyped\"\n"
-    "        detailsType=\"KeyEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "        Event produced when this Component has focused and a keyboard key is \n"
-    "        typed.\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"FocusGained\"\n"
-    "        detailsType=\"FocusEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "        Event produced when this Component gains focus.\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"FocusLost\"\n"
-    "        detailsType=\"FocusEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "        Event produced when this Component loses focus.\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"ComponentHidden\"\n"
-    "        detailsType=\"ComponentEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "        Event produced when this Component's Visible field is set to false.\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"ComponentVisible\"\n"
-    "        detailsType=\"ComponentEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "        Event produced when this Component's Visible field is set to true.\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"ComponentMoved\"\n"
-    "        detailsType=\"ComponentEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "        Event produced when this Component's Position field changes.\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"ComponentResized\"\n"
-    "        detailsType=\"ComponentEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "        Event produced when this Component's Size field changes.\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"ComponentEnabled\"\n"
-    "        detailsType=\"ComponentEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "        Event produced when this Component's Enabled field is set to true.\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"ComponentDisabled\"\n"
-    "        detailsType=\"ComponentEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "        Event produced when this Component's Enabled field is set to false.\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"ToolTipActivated\"\n"
-    "        detailsType=\"ComponentEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "        Event produced when the ToolTip for this Component is activated.\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"ToolTipDeactivated\"\n"
-    "        detailsType=\"ComponentEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "        Event produced when the ToolTip for this Component is deactivated.\n"
-    "    </ProducedEvent>\n"
-    "-->\n"
-    "</FieldContainer>\n",
+    "",
     ""
     );
 
@@ -316,11 +195,6 @@ UInt32 ComponentEventSourceBase::getContainerSize(void) const
     return sizeof(ComponentEventSource);
 }
 
-/*------------------------- decorator get ------------------------------*/
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -329,7 +203,6 @@ SizeT ComponentEventSourceBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
-
     return returnValue;
 }
 
@@ -337,14 +210,12 @@ void ComponentEventSourceBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
-
 }
 
 void ComponentEventSourceBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
-
 }
 
 //! create a new instance of the class
@@ -465,7 +336,6 @@ FieldContainerTransitPtr ComponentEventSourceBase::shallowCopy(void) const
 
 
 
-
 /*------------------------- constructors ----------------------------------*/
 
 ComponentEventSourceBase::ComponentEventSourceBase(void) :
@@ -484,7 +354,6 @@ ComponentEventSourceBase::ComponentEventSourceBase(const ComponentEventSourceBas
 ComponentEventSourceBase::~ComponentEventSourceBase(void)
 {
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -523,8 +392,6 @@ void ComponentEventSourceBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-
 }
-
 
 OSG_END_NAMESPACE

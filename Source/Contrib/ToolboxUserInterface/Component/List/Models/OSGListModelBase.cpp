@@ -61,7 +61,7 @@
 
 #include "OSGListModelBase.h"
 #include "OSGListModel.h"
-
+#include "OSGListModelEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -169,7 +169,6 @@ ListModelBase::TypeObject ListModelBase::_type(
     "        defaultValue=\"NULL\"\n"
     "        >\n"
     "    </Field>\n"
-    "<!--\n"
     "    <ProducedEvent\n"
     "        name=\"ListDataContentsChanged\"\n"
     "        detailsType=\"ListDataEventDetails\"\n"
@@ -188,7 +187,6 @@ ListModelBase::TypeObject ListModelBase::_type(
     "        consumable=\"true\"\n"
     "    >\n"
     "    </ProducedEvent>\n"
-    "-->\t\n"
     "</FieldContainer>\n",
     "A UI ListModel.\n"
     );
@@ -225,6 +223,21 @@ SFUnrecListModelEventSourcePtr *ListModelBase::editSFEventSource    (void)
 
     return &_sfEventSource;
 }
+
+//! Get the value of the ListModel::_sfEventSource field.
+ListModelEventSource * ListModelBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the ListModel::_sfEventSource field.
+void ListModelBase::setEventSource(ListModelEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
+
 
 
 
@@ -295,11 +308,16 @@ void ListModelBase::onCreate(const ListModel *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         ListModel *pThis = static_cast<ListModel *>(this);
 
         pThis->setEventSource(source->getEventSource());
+    }
+    else
+    {
+        ListModelEventSourceUnrecPtr evSrc = ListModelEventSource::create();
+        setEventSource( evSrc );
     }
 }
 

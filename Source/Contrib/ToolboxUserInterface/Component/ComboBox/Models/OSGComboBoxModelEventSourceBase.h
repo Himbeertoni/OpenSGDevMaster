@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -51,8 +51,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGCOMBOBOXMODELEVENTSOURCEBASE_H_
-#define _OSGCOMBOBOXMODELEVENTSOURCEBASE_H_
+#ifndef _OSGComboBoxModelEVENTSOURCEBASE_H_
+#define _OSGComboBoxModelEVENTSOURCEBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,8 +63,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGListModelEventSource.h" // Parent
-
+#include "OSGListModelEventSource.h" // Parent Event Producer
 
 #include "OSGComboBoxModelEventSourceFields.h"
 
@@ -73,15 +72,16 @@ OSG_BEGIN_NAMESPACE
 
 class ComboBoxModelEventSource;
 
-//! \brief ComboBoxModelEventSource Base Class.
+//! \brief ComboBoxModelEventSourceBase Base Class.
 
-class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxModelEventSourceBase : public ListModelEventSource
+class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxModelEventSourceBase
+    : public ListModelEventSource
 {
   public:
 
     typedef ListModelEventSource Inherited;
     typedef ListModelEventSource ParentContainer;
-
+    
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
@@ -90,8 +90,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxModelEventSourceBase : 
     /*==========================  PUBLIC  =================================*/
 
   public:
-
-
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
@@ -123,6 +121,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxModelEventSourceBase : 
 
 
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                   Construction                               */
     /*! \{                                                                 */
@@ -150,6 +149,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxModelEventSourceBase : 
                                                       BitVector bFlags) const;
 
     /*! \}                                                                 */
+
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -177,13 +177,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxModelEventSourceBase : 
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
-
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Field Access                      */
-    /*! \{                                                                 */
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -214,10 +207,12 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxModelEventSourceBase : 
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
 
+
 #ifdef OSG_MT_CPTR_ASPECT
     virtual FieldContainer *createAspectCopy(
                                     const FieldContainer *pRefAspect) const;
 #endif
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -232,10 +227,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxModelEventSourceBase : 
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
-
   private:
     /*---------------------------------------------------------------------*/
-
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ComboBoxModelEventSourceBase &source);
 };
@@ -244,4 +237,4 @@ typedef ComboBoxModelEventSourceBase *ComboBoxModelEventSourceBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGCOMBOBOXMODELEVENTSOURCEBASE_H_ */
+#endif /* _OSGComboBoxModelEventSourceBASE_H_ */

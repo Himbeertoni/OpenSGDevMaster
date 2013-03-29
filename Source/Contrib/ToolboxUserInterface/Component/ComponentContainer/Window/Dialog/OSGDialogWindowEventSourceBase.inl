@@ -4,7 +4,8 @@
  *                                                                           *
  *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
+ *          Mark Stenerson                                                   *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -72,10 +73,6 @@ OSG::UInt16 DialogWindowEventSourceBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
-/*------------------------------ get -----------------------------------*/
-
-
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void DialogWindowEventSourceBase::execSync (      DialogWindowEventSourceBase *pFrom,
@@ -85,6 +82,7 @@ void DialogWindowEventSourceBase::execSync (      DialogWindowEventSourceBase *p
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
 }
 #endif
 

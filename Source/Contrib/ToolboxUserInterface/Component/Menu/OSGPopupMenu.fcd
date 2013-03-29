@@ -12,8 +12,8 @@
     useLocalIncludes="false"
     isNodeCore="false"
     authors="David Kabala (djkabala@gmail.com)                             "
+    parentProducer="Component"
  >
-<!--    parentProducer="Component" -->
 A UI PopupMenu.
     <Field
         name="SubMenuDelay"
@@ -55,7 +55,6 @@ A UI PopupMenu.
         access="public"
     >
     </Field>
-<!--
     <ProducedEvent
         name="PopupMenuWillBecomeVisible"
         detailsType="PopupMenuEventDetails"
@@ -80,5 +79,4 @@ A UI PopupMenu.
         consumable="true"
     >
     </ProducedEvent>
--->
 </FieldContainer>

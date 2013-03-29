@@ -61,7 +61,7 @@
 
 #include "OSGSingleSelectionModelBase.h"
 #include "OSGSingleSelectionModel.h"
-
+#include "OSGSingleSelectionModelEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -169,14 +169,12 @@ SingleSelectionModelBase::TypeObject SingleSelectionModelBase::_type(
     "        access=\"public\"\n"
     "    >\n"
     "    </Field>\n"
-    "<!--\n"
     "    <ProducedEvent\n"
     "        name=\"SelectionChanged\"\n"
     "        detailsType=\"SelectionEventDetails\"\n"
     "        consumable=\"true\"\n"
     "    >\n"
     "    </ProducedEvent>\n"
-    "-->\n"
     "</FieldContainer>\n",
     "A UI SingleSelectionModel.\n"
     );
@@ -213,6 +211,21 @@ SFUnrecSingleSelectionModelEventSourcePtr *SingleSelectionModelBase::editSFEvent
 
     return &_sfEventSource;
 }
+
+//! Get the value of the SingleSelectionModel::_sfEventSource field.
+SingleSelectionModelEventSource * SingleSelectionModelBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the SingleSelectionModel::_sfEventSource field.
+void SingleSelectionModelBase::setEventSource(SingleSelectionModelEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
+
 
 
 
@@ -283,11 +296,16 @@ void SingleSelectionModelBase::onCreate(const SingleSelectionModel *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         SingleSelectionModel *pThis = static_cast<SingleSelectionModel *>(this);
 
         pThis->setEventSource(source->getEventSource());
+    }
+    else
+    {
+        SingleSelectionModelEventSourceUnrecPtr evSrc = SingleSelectionModelEventSource::create();
+        setEventSource( evSrc );
     }
 }
 

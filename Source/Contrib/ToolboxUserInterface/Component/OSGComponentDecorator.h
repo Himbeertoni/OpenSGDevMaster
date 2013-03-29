@@ -120,7 +120,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentDecorator : public Com
 typedef ComponentDecorator *ComponentDecoratorP;
 
 OSG_END_NAMESPACE
-
 #include "OSGComponentDecoratorBase.inl"
 #include "OSGComponentDecorator.inl"
 

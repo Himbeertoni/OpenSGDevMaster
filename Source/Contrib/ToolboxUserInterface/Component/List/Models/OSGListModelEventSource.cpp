@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -98,11 +98,6 @@ EventProducerType ListModelEventSource::_producerType(
  *                           Class methods                                 *
 \***************************************************************************/
 
-const EventProducerType &ListModelEventSource::getProducerType(void) const
-{
-    return _producerType;
-}
-
 void ListModelEventSource::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
@@ -113,10 +108,14 @@ void ListModelEventSource::initMethod(InitPhase ePhase)
 }
 
 
+const EventProducerType &ListModelEventSource::getProducerType(void) const
+{
+    return _producerType;
+}
+
 /***************************************************************************\
  *                           Instance methods                              *
 \***************************************************************************/
-
 /*------------------------- event producers ----------------------------------*/
 void ListModelEventSource::produceEvent(UInt32 eventId, EventDetails* const e)
 {
@@ -272,9 +271,6 @@ UInt32  ListModelEventSource::numSlotsEvent(UInt32 eventId) const
         break;
     }
 }
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
 
 GetEventHandlePtr ListModelEventSource::getHandleListDataContentsChangedSignal(void) const
 {
@@ -308,6 +304,8 @@ GetEventHandlePtr ListModelEventSource::getHandleListDataIntervalRemovedSignal(v
 
     return returnValue;
 }
+
+
 /*----------------------- constructors & destructors ----------------------*/
 
 ListModelEventSource::ListModelEventSource(void) :
@@ -336,7 +334,7 @@ void ListModelEventSource::changed(ConstFieldMaskArg whichField,
 void ListModelEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump ListModelEventSource NI" << std::endl;
+    SLOG << "Dump ListModel NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

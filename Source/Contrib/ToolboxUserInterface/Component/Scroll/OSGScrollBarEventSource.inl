@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -40,7 +40,6 @@
 #include "OSGAdjustmentEventDetails.h"
 
 OSG_BEGIN_NAMESPACE
-
 //! access the producer type of the class
 inline
 const EventProducerType &ScrollBarEventSource::getProducerClassType(void)
@@ -98,4 +97,5 @@ void ScrollBarEventSource::produceAdjustmentValueChanged(AdjustmentValueChangedE
 {
     produceEvent(AdjustmentValueChangedEventId, e);
 }
+
 OSG_END_NAMESPACE

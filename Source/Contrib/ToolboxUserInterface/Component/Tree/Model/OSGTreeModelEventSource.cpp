@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -59,6 +59,7 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
+
 //! TreeModel Produced Events
 
 EventDescription *TreeModelEventSource::_eventDesc[] =
@@ -107,15 +108,9 @@ EventProducerType TreeModelEventSource::_producerType(
     InitEventProducerFunctor(),
     _eventDesc,
     sizeof(_eventDesc));
-
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
-
-const EventProducerType &TreeModelEventSource::getProducerType(void) const
-{
-    return _producerType;
-}
 
 void TreeModelEventSource::initMethod(InitPhase ePhase)
 {
@@ -126,6 +121,11 @@ void TreeModelEventSource::initMethod(InitPhase ePhase)
     }
 }
 
+
+const EventProducerType &TreeModelEventSource::getProducerType(void) const
+{
+    return _producerType;
+}
 
 /***************************************************************************\
  *                           Instance methods                              *
@@ -333,9 +333,7 @@ UInt32  TreeModelEventSource::numSlotsEvent(UInt32 eventId) const
         break;
     }
 }
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
+
 GetEventHandlePtr TreeModelEventSource::getHandleTreeNodesChangedSignal(void) const
 {
     GetEventHandlePtr returnValue(
@@ -391,6 +389,7 @@ GetEventHandlePtr TreeModelEventSource::getHandleTreeStructureChangedSignal(void
     return returnValue;
 }
 
+
 /*----------------------- constructors & destructors ----------------------*/
 
 TreeModelEventSource::TreeModelEventSource(void) :
@@ -419,7 +418,7 @@ void TreeModelEventSource::changed(ConstFieldMaskArg whichField,
 void TreeModelEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump TreeModelEventSource NI" << std::endl;
+    SLOG << "Dump TreeModel NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

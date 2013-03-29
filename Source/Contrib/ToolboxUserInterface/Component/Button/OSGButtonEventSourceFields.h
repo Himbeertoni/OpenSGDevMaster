@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -218,4 +218,4 @@ struct MFUncountedButtonEventSourcePtr :
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGBUTTONEVENTSOURCEFIELDS_H_ */
+#endif /* _OSGBUTTONEventSourceFIELDS_H_ */

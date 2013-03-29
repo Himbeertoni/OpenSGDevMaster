@@ -99,22 +99,6 @@ void TextFieldBase::setAlignment(const Vec2f &value)
 
     _sfAlignment.setValue(value);
 }
-
-//! Get the value of the TextField::_sfEmptyDescTextFont field.
-inline
-UIFont * TextFieldBase::getEmptyDescTextFont(void) const
-{
-    return _sfEmptyDescTextFont.getValue();
-}
-
-//! Set the value of the TextField::_sfEmptyDescTextFont field.
-inline
-void TextFieldBase::setEmptyDescTextFont(UIFont * const value)
-{
-    editSField(EmptyDescTextFontFieldMask);
-
-    _sfEmptyDescTextFont.setValue(value);
-}
 //! Get the value of the TextField::_sfEmptyDescText field.
 
 inline

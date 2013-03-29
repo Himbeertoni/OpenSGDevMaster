@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -56,16 +56,10 @@
 #include "OSGConfig.h"
 
 
-
-
 #include "OSGAbstractWindowEventSourceBase.h"
 #include "OSGAbstractWindowEventSource.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -74,12 +68,9 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::AbstractWindowEventSource
-    
+    A UI Abstract Window.
  */
 
-/***************************************************************************\
- *                        Field Documentation                              *
-\***************************************************************************/
 
 
 /***************************************************************************\
@@ -88,8 +79,8 @@ OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 PointerType FieldTraits<AbstractWindowEventSource *, nsOSG>::_type(
-    "AbstractWindowEventSourcePtr", 
-    "ComponentEventSourcePtr", 
+    "AbstractWindowEventSourcePtr",
+    "ComponentEventSourcePtr",
     AbstractWindowEventSource::getClassType(),
     nsOSG);
 #endif
@@ -124,77 +115,7 @@ AbstractWindowEventSourceBase::TypeObject AbstractWindowEventSourceBase::_type(
     reinterpret_cast<InitalInsertDescFunc>(&AbstractWindowEventSource::classDescInserter),
     false,
     0,
-    "<?xml version=\"1.0\"?>\n"
-    "\n"
-    "<FieldContainer\n"
-    "    name=\"AbstractWindowEventSource\"\n"
-    "    parent=\"ComponentEventSource\"\n"
-    "    library=\"ContribToolboxUserInterface\"\n"
-    "    pointerfieldtypes=\"both\"\n"
-    "    structure=\"concrete\"\n"
-    "    systemcomponent=\"true\"\n"
-    "    parentsystemcomponent=\"true\"\n"
-    "    decoratable=\"false\"\n"
-    "    useLocalIncludes=\"false\"\n"
-    "    isNodeCore=\"false\"\n"
-    "    >\n"
-    "<!--\n"
-    "    <ProducedEvent\n"
-    "        name=\"WindowOpened\"\n"
-    "        detailsType=\"WindowEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"WindowClosing\"\n"
-    "        detailsType=\"WindowEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"WindowClosed\"\n"
-    "        detailsType=\"WindowEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"WindowIconified\"\n"
-    "        detailsType=\"WindowEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"WindowDeiconified\"\n"
-    "        detailsType=\"WindowEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"WindowActivated\"\n"
-    "        detailsType=\"WindowEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"WindowDeactivated\"\n"
-    "        detailsType=\"WindowEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"WindowEntered\"\n"
-    "        detailsType=\"WindowEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"WindowExited\"\n"
-    "        detailsType=\"WindowEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "        >\n"
-    "    </ProducedEvent>\n"
-    "-->\n"
-    "</FieldContainer>\n",
+    "",
     ""
     );
 
@@ -215,11 +136,6 @@ UInt32 AbstractWindowEventSourceBase::getContainerSize(void) const
     return sizeof(AbstractWindowEventSource);
 }
 
-/*------------------------- decorator get ------------------------------*/
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -228,7 +144,6 @@ SizeT AbstractWindowEventSourceBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
-
     return returnValue;
 }
 
@@ -236,14 +151,12 @@ void AbstractWindowEventSourceBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
-
 }
 
 void AbstractWindowEventSourceBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
-
 }
 
 //! create a new instance of the class
@@ -364,7 +277,6 @@ FieldContainerTransitPtr AbstractWindowEventSourceBase::shallowCopy(void) const
 
 
 
-
 /*------------------------- constructors ----------------------------------*/
 
 AbstractWindowEventSourceBase::AbstractWindowEventSourceBase(void) :
@@ -383,7 +295,6 @@ AbstractWindowEventSourceBase::AbstractWindowEventSourceBase(const AbstractWindo
 AbstractWindowEventSourceBase::~AbstractWindowEventSourceBase(void)
 {
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -422,8 +333,6 @@ void AbstractWindowEventSourceBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-
 }
-
 
 OSG_END_NAMESPACE

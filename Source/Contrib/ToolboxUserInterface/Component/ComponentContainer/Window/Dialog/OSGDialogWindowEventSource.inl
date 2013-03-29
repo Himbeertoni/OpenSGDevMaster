@@ -2,9 +2,10 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
+ *          Mark Stenerson                                                   *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -37,11 +38,9 @@
 //---------------------------------------------------------------------------
 //  Includes
 //---------------------------------------------------------------------------
-
 #include "OSGDialogWindowEventDetails.h"
 
 OSG_BEGIN_NAMESPACE
-
 //! access the producer type of the class
 inline
 const EventProducerType &DialogWindowEventSource::getProducerClassType(void)
@@ -55,6 +54,7 @@ UInt32 DialogWindowEventSource::getProducerClassTypeId(void)
 {
     return _producerType.getId();
 }
+
 inline
 boost::signals2::connection  DialogWindowEventSource::connectDialogWindowClosing(const DialogWindowClosingEventType::slot_type &listener, 
                                                                                boost::signals2::connect_position at)
@@ -142,4 +142,5 @@ void DialogWindowEventSource::produceDialogWindowClosed(DialogWindowClosedEventD
 {
     produceEvent(DialogWindowClosedEventId, e);
 }
+
 OSG_END_NAMESPACE

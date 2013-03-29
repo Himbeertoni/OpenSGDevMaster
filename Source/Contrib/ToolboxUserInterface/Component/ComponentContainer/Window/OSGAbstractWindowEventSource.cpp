@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -131,20 +131,14 @@ EventDescription *AbstractWindowEventSource::_eventDesc[] =
 
 EventProducerType AbstractWindowEventSource::_producerType(
     "AbstractWindowProducerType",
-    "ComponentProducerType",
+    "EventProducerType",
     "",
     InitEventProducerFunctor(),
     _eventDesc,
     sizeof(_eventDesc));
-
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
-
-const EventProducerType &AbstractWindowEventSource::getProducerType(void) const
-{
-    return _producerType;
-}
 
 void AbstractWindowEventSource::initMethod(InitPhase ePhase)
 {
@@ -156,10 +150,14 @@ void AbstractWindowEventSource::initMethod(InitPhase ePhase)
 }
 
 
+const EventProducerType &AbstractWindowEventSource::getProducerType(void) const
+{
+    return _producerType;
+}
+
 /***************************************************************************\
  *                           Instance methods                              *
 \***************************************************************************/
-
 /*------------------------- event producers ----------------------------------*/
 void AbstractWindowEventSource::produceEvent(UInt32 eventId, EventDetails* const e)
 {
@@ -220,7 +218,7 @@ void AbstractWindowEventSource::produceEvent(UInt32 eventId, EventDetails* const
         _WindowExitedEvent(dynamic_cast<WindowExitedEventDetailsType* const>(e), WindowExitedEventId);
         break;
     default:
-        Inherited::produceEvent(eventId, e);
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -259,7 +257,8 @@ boost::signals2::connection AbstractWindowEventSource::connectEvent(UInt32 event
         return _WindowExitedEvent.connect(listener, at);
         break;
     default:
-        return Inherited::connectEvent(eventId, listener, at);
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        return boost::signals2::connection();
         break;
     }
 
@@ -301,7 +300,8 @@ boost::signals2::connection  AbstractWindowEventSource::connectEvent(UInt32 even
         return _WindowExitedEvent.connect(group, listener, at);
         break;
     default:
-        return Inherited::connectEvent(eventId, group, listener, at);
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        return boost::signals2::connection();
         break;
     }
 
@@ -340,7 +340,7 @@ void  AbstractWindowEventSource::disconnectEvent(UInt32 eventId, const BaseEvent
         _WindowExitedEvent.disconnect(group);
         break;
     default:
-        return Inherited::disconnectEvent(eventId, group);
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -377,7 +377,7 @@ void  AbstractWindowEventSource::disconnectAllSlotsEvent(UInt32 eventId)
         _WindowExitedEvent.disconnect_all_slots();
         break;
     default:
-        Inherited::disconnectAllSlotsEvent(eventId);
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -414,7 +414,8 @@ bool  AbstractWindowEventSource::isEmptyEvent(UInt32 eventId) const
         return _WindowExitedEvent.empty();
         break;
     default:
-        return Inherited::isEmptyEvent(eventId);
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        return true;
         break;
     }
 }
@@ -451,13 +452,11 @@ UInt32  AbstractWindowEventSource::numSlotsEvent(UInt32 eventId) const
         return _WindowExitedEvent.num_slots();
         break;
     default:
-        return Inherited::numSlotsEvent(eventId);
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        return 0;
         break;
     }
 }
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
 
 GetEventHandlePtr AbstractWindowEventSource::getHandleWindowOpenedSignal(void) const
 {
@@ -558,6 +557,7 @@ GetEventHandlePtr AbstractWindowEventSource::getHandleWindowExitedSignal(void) c
     return returnValue;
 }
 
+
 /*----------------------- constructors & destructors ----------------------*/
 
 AbstractWindowEventSource::AbstractWindowEventSource(void) :
@@ -586,7 +586,7 @@ void AbstractWindowEventSource::changed(ConstFieldMaskArg whichField,
 void AbstractWindowEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump AbstractWindowEventSource NI" << std::endl;
+    SLOG << "Dump AbstractWindow NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

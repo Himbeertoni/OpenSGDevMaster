@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -43,7 +43,10 @@
 #endif
 
 #include "OSGPopupMenuEventSourceBase.h"
+
+    
 #include "OSGPopupMenuEventDetailsFields.h"
+
 OSG_BEGIN_NAMESPACE
 
 /*! \brief PopupMenuEventSource class. See \ref
@@ -60,7 +63,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PopupMenuEventSource : public P
 
     typedef PopupMenuEventSourceBase Inherited;
     typedef PopupMenuEventSource     Self;
-    
+
     typedef PopupMenuEventDetails PopupMenuWillBecomeVisibleEventDetailsType;
     typedef PopupMenuEventDetails PopupMenuWillBecomeInvisibleEventDetailsType;
     typedef PopupMenuEventDetails PopupMenuCanceledEventDetailsType;
@@ -71,6 +74,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PopupMenuEventSource : public P
     typedef boost::signals2::signal<void (PopupMenuEventDetails* const, UInt32), ConsumableEventCombiner> PopupMenuCanceledEventType;
     typedef boost::signals2::signal<void (PopupMenuEventDetails* const, UInt32), ConsumableEventCombiner> PopupMenuContentsChangedEventType;
 
+
     enum
     {
         PopupMenuWillBecomeVisibleEventId = Inherited::NextProducedEventId,
@@ -79,8 +83,10 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PopupMenuEventSource : public P
         PopupMenuContentsChangedEventId = PopupMenuCanceledEventId + 1,
         NextProducedEventId = PopupMenuContentsChangedEventId + 1
     };
+
     static const  EventProducerType  &getProducerClassType  (void);
     static        UInt32              getProducerClassTypeId(void);
+
     /*---------------------------------------------------------------------*/
     /*! \name                Event Produced Get                           */
     /*! \{                                                                 */
@@ -150,12 +156,13 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PopupMenuEventSource : public P
     bool   isEmptyPopupMenuContentsChanged  (void) const;
     UInt32 numSlotsPopupMenuContentsChanged (void) const;
     
-    //Moved protected -> public:
+    
     void producePopupMenuWillBecomeVisible  (PopupMenuWillBecomeVisibleEventDetailsType* const e);
     void producePopupMenuWillBecomeInvisible  (PopupMenuWillBecomeInvisibleEventDetailsType* const e);
     void producePopupMenuCanceled   (PopupMenuCanceledEventDetailsType* const e);
     void producePopupMenuContentsChanged  (PopupMenuContentsChangedEventDetailsType* const e);
     /*! \}                                                                 */
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -177,7 +184,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PopupMenuEventSource : public P
 
   protected:
 
-    // Variables should all be in PopupMenuEventSourceBase.
+    // Variables should all be in PopupMenuBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
@@ -189,20 +196,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PopupMenuEventSource : public P
     PopupMenuContentsChangedEventType _PopupMenuContentsChangedEvent;
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Generic Field Access                      */
-    /*! \{                                                                 */
-
-    GetFieldHandlePtr  getHandleSubMenuDelay    (void) const;
-    EditFieldHandlePtr editHandleSubMenuDelay   (void);
-    GetFieldHandlePtr  getHandleInvoker         (void) const;
-    EditFieldHandlePtr editHandleInvoker        (void);
-    GetFieldHandlePtr  getHandleDefaultSeparator (void) const;
-    EditFieldHandlePtr editHandleDefaultSeparator(void);
-    GetFieldHandlePtr  getHandleSelectionModel  (void) const;
-    EditFieldHandlePtr editHandleSelectionModel (void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                    Generic Event Access                     */
     /*! \{                                                                 */
 
@@ -211,13 +204,15 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PopupMenuEventSource : public P
     GetEventHandlePtr getHandlePopupMenuCanceledSignal(void) const;
     GetEventHandlePtr getHandlePopupMenuContentsChangedSignal(void) const;
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Event Producer Firing                    */
     /*! \{                                                                 */
 
     virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
-
+    
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -243,7 +238,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PopupMenuEventSource : public P
     /*==========================  PRIVATE  ================================*/
 
   private:
-    /*---------------------------------------------------------------------*/
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
 
@@ -261,4 +255,4 @@ OSG_END_NAMESPACE
 #include "OSGPopupMenuEventSourceBase.inl"
 #include "OSGPopupMenuEventSource.inl"
 
-#endif /* _OSGPOPUPMENUEVENTSOURCE_H_ */
+#endif /* _OSGPOPUPMENU_H_ */

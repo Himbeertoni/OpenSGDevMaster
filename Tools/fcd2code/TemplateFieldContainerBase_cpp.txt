@@ -78,7 +78,11 @@
 
 #include "OSG@!nsFilePrefix!@@!Classname!@Base.h"
 #include "OSG@!nsFilePrefix!@@!Classname!@.h"
-
+@@if !isDecorator
+    @@if hasProducedEvents
+#include "OSG@!nsFilePrefix!@@!Classname!@EventSource.h"
+    @@endif
+@@endif
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -428,6 +432,41 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@B
     return &_@!field.VarName!@;
 }
             @@endif // field.ptrFieldNullCheckAccess
+
+            @@if !isDecorator
+              @@if !isDecoratable
+//! Get the value of the @!Classname!@::_@!field.VarName!@ field.
+@!field.FullType!@ @!Classname!@Base::get@!field.Name!@(void) const
+{
+    return _@!field.VarName!@.getValue();
+}
+
+                @@if !field.ptrFieldCustomAccess
+//! Set the value of the @!Classname!@::_@!field.VarName!@ field.
+                  @@if field.PassFieldMask
+void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ const value,
+                             const UInt16                      uiStoredInFieldId)
+                  @@else // field.PassFieldMask
+void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ const value)
+                  @@endif // field.PassFieldMask
+{
+    editSField(@!field.Name!@FieldMask);
+
+    _@!field.VarName!@.setValue(value);
+}
+                @@endif //!field.ptrFieldCustomAccess
+              @@endif // !isDecoratable
+            @@endif // !isDecorator
+
+          @@else // field.isSField
+            @@if !isDecorator
+              @@if !isDecoratable
+@!field.Type!@ @!Classname!@Base::get@!field.Name!@(const UInt32 index) const
+{
+    return _@!field.VarName!@[index];
+}
+              @@endif // !isDecoratable
+            @@endif // !isDecorator
           @@endif // field.isSField
         @@else // field.isPtrField
 @!field.FieldTypeNS!@@!field.CARD!@@!field.FieldTypeCaps!@ *@!Classname!@Base::edit@!field.CARD!@@!field.Name!@(void)
@@ -1067,7 +1106,7 @@ void @!Classname!@Base::onCreate(const @!Classname!@ *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         @!Classname!@ *pThis = static_cast<@!Classname!@ *>(this);
   @@BeginFieldLoop@@
@@ -1096,6 +1135,15 @@ void @!Classname!@Base::onCreate(const @!Classname!@ *source)
     @@endif // field.isPtrField
   @@EndFieldLoop@@
     }
+@@if !isDecorator
+@@if hasProducedEvents
+    else
+    {
+        @!Classname!@EventSourceUnrecPtr evSrc = @!Classname!@EventSource::create();
+        setEventSource( evSrc );
+    }
+@@endif
+@@endif
 }
 @@endif // hasPtrFields
 
@@ -1303,8 +1351,8 @@ void @!Classname!@Base::resolveLinks(void)
 
     @@if !isDecorator
         @@BeginSFFieldLoop@@
-            @@if field.isPtrField
-
+            @@if field.hasAccess
+                @@if field.isPtrField
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
 @!field.Type!@ @!Classname!@Base::get@!field.Name!@(void) const
 {
@@ -1318,7 +1366,7 @@ void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ const value)
 
     _@!field.VarName!@.setValue(value);
 }
-            @@else // field.isPtrField
+                @@else // field.isPtrField
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
 
 @!field.FullType!@ &@!Classname!@Base::edit@!field.Name!@(void)
@@ -1342,7 +1390,8 @@ void @!Classname!@Base::set@!field.Name!@(const @!field.FullType!@ @!field.ArgRe
 
     _@!field.VarName!@.setValue(value);
 }
-            @@endif // field.isPtrField
+                @@endif // field.isPtrField
+            @@endif //field.hasAccess
         @@EndSFFieldLoop@@
 
         @@BeginMFFieldLoop@@
@@ -1383,7 +1432,8 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base::
         @@EndMFFieldLoop@@
     @@else // !isDecorator
         @@BeginSFFieldLoop@@
-            @@if field.isPtrField
+            @@if field.hasAccess
+                @@if field.isPtrField
 
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
 @!field.Type!@ @!Classname!@Base::get@!field.Name!@(void) const
@@ -1411,7 +1461,7 @@ void @!Classname!@Base::set@!field.Name!@(@!field.Type!@ const value)
     }
 }
             @@else // field.isPtrField
-
+                
 //! Get the value of the @!Classname!@::_@!field.VarName!@ field.
 @!field.Type!@ &@!Classname!@Base::edit@!field.Name!@(void)
 {
@@ -1451,7 +1501,8 @@ void @!Classname!@Base::set@!field.Name!@(const @!field.Type!@ @!field.ArgRef!@v
         Inherited::set@!field.Name!@(value);
     }
 }
-            @@endif // field.isPtrField
+                @@endif // field.isPtrField
+            @@endif // field.hasAcess
         @@EndSFFieldLoop@@
 
         @@BeginMFFieldLoop@@

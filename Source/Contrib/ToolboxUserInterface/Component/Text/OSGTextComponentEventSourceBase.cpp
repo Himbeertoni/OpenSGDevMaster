@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -56,16 +56,10 @@
 #include "OSGConfig.h"
 
 
-
-
 #include "OSGTextComponentEventSourceBase.h"
 #include "OSGTextComponentEventSource.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -74,12 +68,9 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::TextComponentEventSource
-    
+    A UI Button.
  */
 
-/***************************************************************************\
- *                        Field Documentation                              *
-\***************************************************************************/
 
 
 /***************************************************************************\
@@ -88,8 +79,8 @@ OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 PointerType FieldTraits<TextComponentEventSource *, nsOSG>::_type(
-    "TextComponentEventSourcePtr", 
-    "ComponentEventSourcePtr", 
+    "TextComponentEventSourcePtr",
+    "ComponentEventSourcePtr",
     TextComponentEventSource::getClassType(),
     nsOSG);
 #endif
@@ -124,36 +115,7 @@ TextComponentEventSourceBase::TypeObject TextComponentEventSourceBase::_type(
     reinterpret_cast<InitalInsertDescFunc>(&TextComponentEventSource::classDescInserter),
     false,
     0,
-    "<?xml version=\"1.0\"?>\n"
-    "\n"
-    "<FieldContainer\n"
-    "    name=\"TextComponentEventSource\"\n"
-    "    parent=\"ComponentEventSource\"\n"
-    "    library=\"ContribToolboxUserInterface\"\n"
-    "    pointerfieldtypes=\"both\"\n"
-    "    structure=\"concrete\"\n"
-    "    systemcomponent=\"true\"\n"
-    "    parentsystemcomponent=\"true\"\n"
-    "    decoratable=\"false\"\n"
-    "    useLocalIncludes=\"false\"\n"
-    "    isNodeCore=\"false\"\n"
-    ">\n"
-    "<!--     parentProducer=\"Component\" -->\n"
-    "<!--\n"
-    "    <ProducedEvent\n"
-    "        name=\"TextValueChanged\"\n"
-    "        detailsType=\"TextEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "    >\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"CaretChanged\"\n"
-    "        detailsType=\"CaretEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "    >\n"
-    "    </ProducedEvent>\n"
-    "-->\n"
-    "</FieldContainer>\n",
+    "",
     ""
     );
 
@@ -174,11 +136,6 @@ UInt32 TextComponentEventSourceBase::getContainerSize(void) const
     return sizeof(TextComponentEventSource);
 }
 
-/*------------------------- decorator get ------------------------------*/
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -187,7 +144,6 @@ SizeT TextComponentEventSourceBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
-
     return returnValue;
 }
 
@@ -195,14 +151,12 @@ void TextComponentEventSourceBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
-
 }
 
 void TextComponentEventSourceBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
-
 }
 
 //! create a new instance of the class
@@ -323,7 +277,6 @@ FieldContainerTransitPtr TextComponentEventSourceBase::shallowCopy(void) const
 
 
 
-
 /*------------------------- constructors ----------------------------------*/
 
 TextComponentEventSourceBase::TextComponentEventSourceBase(void) :
@@ -342,7 +295,6 @@ TextComponentEventSourceBase::TextComponentEventSourceBase(const TextComponentEv
 TextComponentEventSourceBase::~TextComponentEventSourceBase(void)
 {
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -381,8 +333,6 @@ void TextComponentEventSourceBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-
 }
-
 
 OSG_END_NAMESPACE

@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -56,16 +56,10 @@
 #include "OSGConfig.h"
 
 
-
-
 #include "OSGTreeSelectionModelEventSourceBase.h"
 #include "OSGTreeSelectionModelEventSource.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -74,12 +68,9 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::TreeSelectionModelEventSource
-    
+    A UI TreeModel.
  */
 
-/***************************************************************************\
- *                        Field Documentation                              *
-\***************************************************************************/
 
 
 /***************************************************************************\
@@ -88,8 +79,8 @@ OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 PointerType FieldTraits<TreeSelectionModelEventSource *, nsOSG>::_type(
-    "TreeSelectionModelEventSourcePtr", 
-    "EventContainerPtr", 
+    "TreeSelectionModelEventSourcePtr",
+    "EventContainerPtr",
     TreeSelectionModelEventSource::getClassType(),
     nsOSG);
 #endif
@@ -124,35 +115,7 @@ TreeSelectionModelEventSourceBase::TypeObject TreeSelectionModelEventSourceBase:
     reinterpret_cast<InitalInsertDescFunc>(&TreeSelectionModelEventSource::classDescInserter),
     false,
     0,
-    "<?xml version=\"1.0\"?>\n"
-    "\n"
-    "<FieldContainer\n"
-    "    name=\"TreeSelectionModelEventSource\"\n"
-    "    parent=\"EventContainer\"\n"
-    "    library=\"ContribToolboxUserInterface\"\n"
-    "    pointerfieldtypes=\"both\"\n"
-    "    structure=\"concrete\"\n"
-    "    systemcomponent=\"true\"\n"
-    "    parentsystemcomponent=\"true\"\n"
-    "    decoratable=\"false\"\n"
-    "    useLocalIncludes=\"false\"\n"
-    "    isNodeCore=\"false\"\n"
-    ">\n"
-    "<!--\n"
-    "    <ProducedEvent\n"
-    "        name=\"SelectionAdded\"\n"
-    "        detailsType=\"TreeSelectionEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "    >\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"SelectionRemoved\"\n"
-    "        detailsType=\"TreeSelectionEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "    >\n"
-    "    </ProducedEvent>\n"
-    "-->\n"
-    "</FieldContainer>\n",
+    "",
     ""
     );
 
@@ -173,11 +136,6 @@ UInt32 TreeSelectionModelEventSourceBase::getContainerSize(void) const
     return sizeof(TreeSelectionModelEventSource);
 }
 
-/*------------------------- decorator get ------------------------------*/
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -186,7 +144,6 @@ SizeT TreeSelectionModelEventSourceBase::getBinSize(ConstFieldMaskArg whichField
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
-
     return returnValue;
 }
 
@@ -194,14 +151,12 @@ void TreeSelectionModelEventSourceBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
-
 }
 
 void TreeSelectionModelEventSourceBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
-
 }
 
 //! create a new instance of the class
@@ -322,7 +277,6 @@ FieldContainerTransitPtr TreeSelectionModelEventSourceBase::shallowCopy(void) co
 
 
 
-
 /*------------------------- constructors ----------------------------------*/
 
 TreeSelectionModelEventSourceBase::TreeSelectionModelEventSourceBase(void) :
@@ -341,7 +295,6 @@ TreeSelectionModelEventSourceBase::TreeSelectionModelEventSourceBase(const TreeS
 TreeSelectionModelEventSourceBase::~TreeSelectionModelEventSourceBase(void)
 {
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -380,8 +333,6 @@ void TreeSelectionModelEventSourceBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-
 }
-
 
 OSG_END_NAMESPACE

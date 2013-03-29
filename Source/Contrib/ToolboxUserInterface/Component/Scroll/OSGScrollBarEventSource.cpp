@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -46,8 +46,9 @@
 #include "OSGConfig.h"
 
 #include "OSGScrollBarEventSource.h"
+
 #include "OSGEventDetails.h"
-#include "OSGAdjustmentEventDetails.h"
+
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
@@ -58,6 +59,7 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
+
 //! ScrollBar Produced Events
 
 EventDescription *ScrollBarEventSource::_eventDesc[] =
@@ -82,11 +84,6 @@ EventProducerType ScrollBarEventSource::_producerType(
  *                           Class methods                                 *
 \***************************************************************************/
 
-const EventProducerType &ScrollBarEventSource::getProducerType(void) const
-{
-    return _producerType;
-}
-
 void ScrollBarEventSource::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
@@ -97,10 +94,14 @@ void ScrollBarEventSource::initMethod(InitPhase ePhase)
 }
 
 
+const EventProducerType &ScrollBarEventSource::getProducerType(void) const
+{
+    return _producerType;
+}
+
 /***************************************************************************\
  *                           Instance methods                              *
 \***************************************************************************/
-
 /*------------------------- event producers ----------------------------------*/
 void ScrollBarEventSource::produceEvent(UInt32 eventId, EventDetails* const e)
 {
@@ -205,10 +206,6 @@ UInt32  ScrollBarEventSource::numSlotsEvent(UInt32 eventId) const
     }
 }
 
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
-
 GetEventHandlePtr ScrollBarEventSource::getHandleAdjustmentValueChangedSignal(void) const
 {
     GetEventHandlePtr returnValue(
@@ -219,6 +216,7 @@ GetEventHandlePtr ScrollBarEventSource::getHandleAdjustmentValueChangedSignal(vo
 
     return returnValue;
 }
+
 
 /*----------------------- constructors & destructors ----------------------*/
 
@@ -248,7 +246,7 @@ void ScrollBarEventSource::changed(ConstFieldMaskArg whichField,
 void ScrollBarEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump ScrollBarEventSource NI" << std::endl;
+    SLOG << "Dump ScrollBar NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

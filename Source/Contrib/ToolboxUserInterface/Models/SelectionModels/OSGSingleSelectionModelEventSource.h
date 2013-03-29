@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -43,9 +43,12 @@
 #endif
 
 #include "OSGSingleSelectionModelEventSourceBase.h"
-#include "OSGSelectionEventDetailsFields.h"
-#include "OSGConsumableEventCombiner.h"
+
+//Event Producer Headers
 #include "OSGActivity.h"
+#include "OSGConsumableEventCombiner.h"
+    
+#include "OSGSelectionEventDetailsFields.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -63,19 +66,22 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SingleSelectionModelEventSource
 
     typedef SingleSelectionModelEventSourceBase Inherited;
     typedef SingleSelectionModelEventSource     Self;
-    
+
     typedef SelectionEventDetails SelectionChangedEventDetailsType;
 
     typedef boost::signals2::signal<void (EventDetails* const            , UInt32)> BaseEventType;
     typedef boost::signals2::signal<void (SelectionEventDetails* const, UInt32), ConsumableEventCombiner> SelectionChangedEventType;
+
 
     enum
     {
         SelectionChangedEventId = 1,
         NextProducedEventId = SelectionChangedEventId + 1
     };
+
     static const  EventProducerType  &getProducerClassType  (void);
     static        UInt32              getProducerClassTypeId(void);
+
     /*---------------------------------------------------------------------*/
     /*! \name                Event Produced Get                           */
     /*! \{                                                                 */
@@ -116,9 +122,10 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SingleSelectionModelEventSource
     bool   isEmptySelectionChanged          (void) const;
     UInt32 numSlotsSelectionChanged         (void) const;
     
-    //Moved protected -> public:
+    
     void produceSelectionChanged    (SelectionChangedEventDetailsType* const e);
     /*! \}                                                                 */
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -140,7 +147,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SingleSelectionModelEventSource
 
   protected:
 
-    // Variables should all be in SingleSelectionModelEventSourceBase.
+    // Variables should all be in SingleSelectionModelBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
@@ -154,6 +161,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SingleSelectionModelEventSource
 
     GetEventHandlePtr getHandleSelectionChangedSignal(void) const;
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Event Producer Firing                    */
     /*! \{                                                                 */
@@ -161,6 +169,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SingleSelectionModelEventSource
     virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
     
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -186,7 +195,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING SingleSelectionModelEventSource
     /*==========================  PRIVATE  ================================*/
 
   private:
-    /*---------------------------------------------------------------------*/
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
 
@@ -204,4 +212,4 @@ OSG_END_NAMESPACE
 #include "OSGSingleSelectionModelEventSourceBase.inl"
 #include "OSGSingleSelectionModelEventSource.inl"
 
-#endif /* _OSGSINGLESELECTIONMODELEVENTSOURCE_H_ */
+#endif /* _OSGSINGLESELECTIONMODEL_H_ */

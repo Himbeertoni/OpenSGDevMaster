@@ -24,12 +24,10 @@ A UI SingleSelectionModel.
         access="public"
     >
     </Field>
-<!--
     <ProducedEvent
         name="SelectionChanged"
         detailsType="SelectionEventDetails"
         consumable="true"
     >
     </ProducedEvent>
--->
 </FieldContainer>

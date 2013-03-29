@@ -63,7 +63,7 @@
 
 #include "OSGMenuButtonBase.h"
 #include "OSGMenuButton.h"
-
+#include "OSGMenuButtonEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -191,15 +191,15 @@ MenuButtonBase::TypeObject MenuButtonBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
+    "    parentProducer=\"ToggleButton\"\n"
     ">\n"
-    "<!--    parentProducer=\"ToggleButton\" -->\n"
     "A UI MenuButton\n"
     "    <Field\n"
     "        name=\"Model\"\n"
     "        type=\"ListModel\"\n"
     "        category=\"pointer\"\n"
     "        cardinality=\"single\"\n"
-    "      visibility=\"external\"\n"
+    "        visibility=\"external\"\n"
     "        defaultValue=\"NULL\"\n"
     "        access=\"public\"\n"
     "    >\n"
@@ -209,7 +209,7 @@ MenuButtonBase::TypeObject MenuButtonBase::_type(
     "        type=\"ComponentGenerator\"\n"
     "        category=\"pointer\"\n"
     "        cardinality=\"single\"\n"
-    "      visibility=\"external\"\n"
+    "        visibility=\"external\"\n"
     "        defaultValue=\"NULL\"\n"
     "        access=\"public\"\n"
     "    >\n"
@@ -224,14 +224,12 @@ MenuButtonBase::TypeObject MenuButtonBase::_type(
     "        defaultValue=\"NULL\"\n"
     "    >\n"
     "    </Field>\n"
-    "<!--\n"
     "    <ProducedEvent\n"
     "        name=\"MenuActionPerformed\"\n"
     "        detailsType=\"ActionEventDetails\"\n"
     "        consumable=\"true\"\n"
     "    >\n"
     "    </ProducedEvent>\n"
-    "-->\n"
     "</FieldContainer>\n",
     "A UI MenuButton\n"
     );
@@ -269,6 +267,21 @@ SFUnrecListModelPtr *MenuButtonBase::editSFModel          (void)
     return &_sfModel;
 }
 
+//! Get the value of the MenuButton::_sfModel field.
+ListModel * MenuButtonBase::getModel(void) const
+{
+    return _sfModel.getValue();
+}
+
+//! Set the value of the MenuButton::_sfModel field.
+void MenuButtonBase::setModel(ListModel * const value)
+{
+    editSField(ModelFieldMask);
+
+    _sfModel.setValue(value);
+}
+
+
 //! Get the MenuButton::_sfCellGenerator field.
 const SFUnrecComponentGeneratorPtr *MenuButtonBase::getSFCellGenerator(void) const
 {
@@ -282,6 +295,21 @@ SFUnrecComponentGeneratorPtr *MenuButtonBase::editSFCellGenerator  (void)
     return &_sfCellGenerator;
 }
 
+//! Get the value of the MenuButton::_sfCellGenerator field.
+ComponentGenerator * MenuButtonBase::getCellGenerator(void) const
+{
+    return _sfCellGenerator.getValue();
+}
+
+//! Set the value of the MenuButton::_sfCellGenerator field.
+void MenuButtonBase::setCellGenerator(ComponentGenerator * const value)
+{
+    editSField(CellGeneratorFieldMask);
+
+    _sfCellGenerator.setValue(value);
+}
+
+
 //! Get the MenuButton::_sfMenuButtonPopupMenu field.
 const SFUnrecListGeneratedPopupMenuPtr *MenuButtonBase::getSFMenuButtonPopupMenu(void) const
 {
@@ -294,6 +322,21 @@ SFUnrecListGeneratedPopupMenuPtr *MenuButtonBase::editSFMenuButtonPopupMenu(void
 
     return &_sfMenuButtonPopupMenu;
 }
+
+//! Get the value of the MenuButton::_sfMenuButtonPopupMenu field.
+ListGeneratedPopupMenu * MenuButtonBase::getMenuButtonPopupMenu(void) const
+{
+    return _sfMenuButtonPopupMenu.getValue();
+}
+
+//! Set the value of the MenuButton::_sfMenuButtonPopupMenu field.
+void MenuButtonBase::setMenuButtonPopupMenu(ListGeneratedPopupMenu * const value)
+{
+    editSField(MenuButtonPopupMenuFieldMask);
+
+    _sfMenuButtonPopupMenu.setValue(value);
+}
+
 
 
 
@@ -510,7 +553,7 @@ void MenuButtonBase::onCreate(const MenuButton *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         MenuButton *pThis = static_cast<MenuButton *>(this);
 
@@ -519,6 +562,11 @@ void MenuButtonBase::onCreate(const MenuButton *source)
         pThis->setCellGenerator(source->getCellGenerator());
 
         pThis->setMenuButtonPopupMenu(source->getMenuButtonPopupMenu());
+    }
+    else
+    {
+        MenuButtonEventSourceUnrecPtr evSrc = MenuButtonEventSource::create();
+        setEventSource( evSrc );
     }
 }
 

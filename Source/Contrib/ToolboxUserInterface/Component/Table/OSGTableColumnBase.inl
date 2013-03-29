@@ -225,38 +225,6 @@ void TableColumnBase::setResizable(const bool value)
     _sfResizable.setValue(value);
 }
 
-//! Get the value of the TableColumn::_sfCellEditor field.
-inline
-TableCellEditor * TableColumnBase::getCellEditor(void) const
-{
-    return _sfCellEditor.getValue();
-}
-
-//! Set the value of the TableColumn::_sfCellEditor field.
-inline
-void TableColumnBase::setCellEditor(TableCellEditor * const value)
-{
-    editSField(CellEditorFieldMask);
-
-    _sfCellEditor.setValue(value);
-}
-
-//! Get the value of the TableColumn::_sfEventSource field.
-inline
-TableColumnEventSource * TableColumnBase::getEventSource(void) const
-{
-    return _sfEventSource.getValue();
-}
-
-//! Set the value of the TableColumn::_sfEventSource field.
-inline
-void TableColumnBase::setEventSource(TableColumnEventSource * const value)
-{
-    editSField(EventSourceFieldMask);
-
-    _sfEventSource.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

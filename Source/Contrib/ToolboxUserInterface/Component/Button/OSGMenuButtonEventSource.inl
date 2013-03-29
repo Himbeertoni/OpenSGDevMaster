@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -53,6 +53,7 @@ UInt32 MenuButtonEventSource::getProducerClassTypeId(void)
 {
     return _producerType.getId();
 }
+
 inline
 boost::signals2::connection  MenuButtonEventSource::connectMenuActionPerformed(const MenuActionPerformedEventType::slot_type &listener, 
                                                                                boost::signals2::connect_position at)
@@ -96,4 +97,5 @@ void MenuButtonEventSource::produceMenuActionPerformed(MenuActionPerformedEventD
 {
     produceEvent(MenuActionPerformedEventId, e);
 }
+
 OSG_END_NAMESPACE

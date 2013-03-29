@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -47,7 +47,7 @@
 //Event Producer Headers
 #include "OSGActivity.h"
 #include "OSGConsumableEventCombiner.h"
-
+    
 #include "OSGListDataEventDetailsFields.h"
 
 OSG_BEGIN_NAMESPACE
@@ -66,7 +66,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListModelEventSource : public L
 
     typedef ListModelEventSourceBase Inherited;
     typedef ListModelEventSource     Self;
-    
+
     typedef ListDataEventDetails ListDataContentsChangedEventDetailsType;
     typedef ListDataEventDetails ListDataIntervalAddedEventDetailsType;
     typedef ListDataEventDetails ListDataIntervalRemovedEventDetailsType;
@@ -76,6 +76,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListModelEventSource : public L
     typedef boost::signals2::signal<void (ListDataEventDetails* const, UInt32), ConsumableEventCombiner> ListDataIntervalAddedEventType;
     typedef boost::signals2::signal<void (ListDataEventDetails* const, UInt32), ConsumableEventCombiner> ListDataIntervalRemovedEventType;
 
+
     enum
     {
         ListDataContentsChangedEventId = 1,
@@ -83,6 +84,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListModelEventSource : public L
         ListDataIntervalRemovedEventId = ListDataIntervalAddedEventId + 1,
         NextProducedEventId = ListDataIntervalRemovedEventId + 1
     };
+
     static const  EventProducerType  &getProducerClassType  (void);
     static        UInt32              getProducerClassTypeId(void);
 
@@ -148,12 +150,12 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListModelEventSource : public L
     bool   isEmptyListDataIntervalRemoved   (void) const;
     UInt32 numSlotsListDataIntervalRemoved  (void) const;
     
-    //Moved protected -> public:
+    
     void produceListDataContentsChanged  (ListDataContentsChangedEventDetailsType* const e);
     void produceListDataIntervalAdded  (ListDataIntervalAddedEventDetailsType* const e);
     void produceListDataIntervalRemoved  (ListDataIntervalRemovedEventDetailsType* const e);
-
     /*! \}                                                                 */
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -174,6 +176,8 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListModelEventSource : public L
     /*=========================  PROTECTED  ===============================*/
 
   protected:
+
+    // Variables should all be in ListModelBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
@@ -191,6 +195,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListModelEventSource : public L
     GetEventHandlePtr getHandleListDataIntervalAddedSignal(void) const;
     GetEventHandlePtr getHandleListDataIntervalRemovedSignal(void) const;
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Event Producer Firing                    */
     /*! \{                                                                 */
@@ -198,8 +203,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListModelEventSource : public L
     virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
     
     /*! \}                                                                 */
-
-    // Variables should all be in ListModelEventSourceBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
@@ -226,7 +229,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListModelEventSource : public L
     /*==========================  PRIVATE  ================================*/
 
   private:
-    /*---------------------------------------------------------------------*/
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
 
@@ -244,4 +246,4 @@ OSG_END_NAMESPACE
 #include "OSGListModelEventSourceBase.inl"
 #include "OSGListModelEventSource.inl"
 
-#endif /* _OSGLISTMODELEVENTSOURCE_H_ */
+#endif /* _OSGLISTMODEL_H_ */

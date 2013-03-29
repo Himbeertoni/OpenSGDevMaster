@@ -2,9 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -37,7 +37,6 @@
 //---------------------------------------------------------------------------
 //  Includes
 //---------------------------------------------------------------------------
-
 #include "OSGActionEventDetails.h"
 
 OSG_BEGIN_NAMESPACE
@@ -54,6 +53,7 @@ UInt32 ComboBoxEventSource::getProducerClassTypeId(void)
 {
     return _producerType.getId();
 }
+
 inline
 boost::signals2::connection  ComboBoxEventSource::connectActionPerformed(const ActionPerformedEventType::slot_type &listener, 
                                                                                boost::signals2::connect_position at)
@@ -97,4 +97,5 @@ void ComboBoxEventSource::produceActionPerformed(ActionPerformedEventDetailsType
 {
     produceEvent(ActionPerformedEventId, e);
 }
+
 OSG_END_NAMESPACE

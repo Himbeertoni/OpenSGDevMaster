@@ -30,6 +30,16 @@ class FCDProcess:
         self.m_decTemplateName        = "TemplateFieldContainer_h.txt";
         self.m_inlTemplateName        = "TemplateFieldContainer_inl.txt";
         self.m_impTemplateName        = "TemplateFieldContainer_cpp.txt";
+
+        self.m_decEventBaseTemplateName = "TemplateEventContainerBase_h.txt";
+        self.m_inlEventBaseTemplateName = "TemplateEventContainerBase_inl.txt";
+        self.m_impEventBaseTemplateName = "TemplateEventContainerBase_cpp.txt";
+        
+        self.m_decEventTemplateName     = "TemplateEventContainer_h.txt";
+        self.m_inlEventTemplateName     = "TemplateEventContainer_inl.txt";
+        self.m_impEventTemplateName     = "TemplateEventContainer_cpp.txt";
+        
+        self.m_fieldsEventBaseTemplateName = "TemplateEventContainerFields_h.txt";
         
         self.m_filePrefix    = "OSG";
         self.m_decFileSuffix = ".h";
@@ -192,6 +202,63 @@ class FCDProcess:
             outLines = TemplateFiller(tmplFieldsH).fill(lookupDicts);
             TemplateWriter(fieldsBaseName, outLines).write();
             
+            print "Has events: " + str(fieldContainer.hasProducedEvents());
+            if fieldContainer.hasProducedEvents():
+                nameEventBaseCPP = os.path.join(tmplPath, self.m_impEventBaseTemplateName);
+                nameEventBaseINL = os.path.join(tmplPath, self.m_inlEventBaseTemplateName);
+                nameEventBaseH   = os.path.join(tmplPath, self.m_decEventBaseTemplateName);
+                nameEventFieldsH = os.path.join(tmplPath, self.m_fieldsEventBaseTemplateName);
+                
+                if self._verifyFile(nameEventBaseCPP):
+                    tmplEventBaseCPP = TemplateReader(nameEventBaseCPP).read();
+                else:
+                    return;
+                
+                if self._verifyFile(nameEventBaseINL):
+                    tmplEventBaseINL = TemplateReader(nameEventBaseINL).read();
+                else:
+                    return;
+                
+                if self._verifyFile(nameEventBaseH):
+                    tmplEventBaseH   = TemplateReader(nameEventBaseH).read();
+                else:
+                    return;
+                    
+                if self._verifyFile(nameEventFieldsH):
+                    tmplEventFieldsH = TemplateReader(nameEventFieldsH).read();
+                else:
+                    return;
+                    
+                impBaseName = os.path.join(outPath,
+                    self.m_filePrefix + fieldContainer["nsFilePrefix"] +
+                      fieldContainer["Classname"] + "EventSourceBase" + self.m_impFileSuffix);
+                inlBaseName = os.path.join(outPath,
+                    self.m_filePrefix + fieldContainer["nsFilePrefix"] +
+                      fieldContainer["Classname"] + "EventSourceBase" + self.m_inlFileSuffix);
+                decBaseName = os.path.join(outPath,
+                    self.m_filePrefix + fieldContainer["nsFilePrefix"] +
+                      fieldContainer["Classname"] + "EventSourceBase" + self.m_decFileSuffix);
+                fieldsBaseName = os.path.join(outPath,
+                    self.m_filePrefix + fieldContainer["nsFilePrefix"] +
+                      fieldContainer["Classname"] + "EventSourceFields" + self.m_decFileSuffix);
+                  
+                self.m_log.info("filling '%s' template for file: %s", nameEventBaseCPP, impBaseName);
+                outLines = TemplateFiller(tmplEventBaseCPP).fill(lookupDicts);
+                TemplateWriter(impBaseName, outLines).write();
+                
+                self.m_log.info("filling '%s' template for file: %s", nameEventBaseINL, inlBaseName);
+                outLines = TemplateFiller(tmplEventBaseINL).fill(lookupDicts);
+                TemplateWriter(inlBaseName, outLines).write();
+                
+                self.m_log.info("filling '%s' template for file: %s", nameEventBaseH, decBaseName);
+                outLines = TemplateFiller(tmplEventBaseH).fill(lookupDicts);
+                TemplateWriter(decBaseName, outLines).write();
+                
+                print fieldsBaseName
+                self.m_log.info("filling '%s' template for file: %s", nameEventFieldsH, fieldsBaseName);
+                outLines = TemplateFiller(tmplEventFieldsH).fill(lookupDicts);
+                TemplateWriter(fieldsBaseName, outLines).write();
+            
             # for a decoratable container Foo also write FooDecorator classes.
             if fieldContainer["isDecoratable"] == True:
                 fieldContainer.setupDecorator();
@@ -274,6 +341,48 @@ class FCDProcess:
             else:
                 self.m_log.error("Warning: did not write \"%s\", because that file already exists.  Delete it and run again if you want to overwrite it.", decName);
             
+            if fieldContainer.hasProducedEvents():
+                nameEventCPP = os.path.join(tmplPath, self.m_impEventTemplateName);
+                nameEventINL = os.path.join(tmplPath, self.m_inlEventTemplateName);
+                nameEventH   = os.path.join(tmplPath, self.m_decEventTemplateName);
+                
+                if self._verifyFile(nameEventCPP):
+                    tmplEventCPP = TemplateReader(nameEventCPP).read();
+                else:
+                    return;
+                
+                if self._verifyFile(nameEventINL):
+                    tmplEventINL = TemplateReader(nameEventINL).read();
+                else:
+                    return;
+                
+                if self._verifyFile(nameEventH):
+                    tmplEventH   = TemplateReader(nameEventH).read();
+                else:
+                    return;
+                    
+                impName = os.path.join(outPath,
+                    self.m_filePrefix + fieldContainer["nsFilePrefix"] +
+                      fieldContainer["Classname"] + "EventSource" + self.m_impFileSuffix);
+                inlName = os.path.join(outPath,
+                    self.m_filePrefix + fieldContainer["nsFilePrefix"] +
+                      fieldContainer["Classname"] + "EventSource" + self.m_inlFileSuffix);
+                decName = os.path.join(outPath,
+                    self.m_filePrefix + fieldContainer["nsFilePrefix"] +
+                      fieldContainer["Classname"] + "EventSource" + self.m_decFileSuffix);
+                      
+                self.m_log.info("filling '%s' template for file: %s", nameEventCPP, impName);
+                outLines = TemplateFiller(tmplEventCPP).fill(lookupDicts);
+                TemplateWriter(impName, outLines).write();
+                
+                self.m_log.info("filling '%s' template for file: %s", nameEventINL, inlName);
+                outLines = TemplateFiller(tmplEventINL).fill(lookupDicts);
+                TemplateWriter(inlName, outLines).write();
+                
+                self.m_log.info("filling '%s' template for file: %s", nameEventH, decName);
+                outLines = TemplateFiller(tmplEventH).fill(lookupDicts);
+                TemplateWriter(decName, outLines).write();
+                
             # for a decoratable container Foo also write FooDecorator classes.
             if fieldContainer["isDecoratable"] == True:
                 fieldContainer.setupDecorator();

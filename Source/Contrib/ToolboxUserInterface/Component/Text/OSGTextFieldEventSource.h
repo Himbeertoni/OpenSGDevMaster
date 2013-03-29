@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -44,8 +44,9 @@
 
 #include "OSGTextFieldEventSourceBase.h"
 
+    
 #include "OSGActionEventDetailsFields.h"
-#include "OSGButtonEventSource.h"
+
 OSG_BEGIN_NAMESPACE
 
 /*! \brief TextFieldEventSource class. See \ref
@@ -67,13 +68,16 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextFieldEventSource : public T
 
     typedef boost::signals2::signal<void (ActionEventDetails* const, UInt32), ConsumableEventCombiner> ActionPerformedEventType;
 
+
     enum
     {
         ActionPerformedEventId = Inherited::NextProducedEventId,
         NextProducedEventId = ActionPerformedEventId + 1
     };
+
     static const  EventProducerType  &getProducerClassType  (void);
     static        UInt32              getProducerClassTypeId(void);
+
     /*---------------------------------------------------------------------*/
     /*! \name                Event Produced Get                           */
     /*! \{                                                                 */
@@ -100,19 +104,20 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextFieldEventSource : public T
     /*! \{                                                                 */
     
     //ActionPerformed
-    boost::signals2::connection connectActionPerformed(const ButtonEventSource::ActionPerformedEventType::slot_type &listener,
+    boost::signals2::connection connectActionPerformed(const ActionPerformedEventType::slot_type &listener,
                                                        boost::signals2::connect_position at= boost::signals2::at_back);
-    boost::signals2::connection connectActionPerformed(const ButtonEventSource::ActionPerformedEventType::group_type &group,
-                                                       const ButtonEventSource::ActionPerformedEventType::slot_type &listener,
+    boost::signals2::connection connectActionPerformed(const ActionPerformedEventType::group_type &group,
+                                                       const ActionPerformedEventType::slot_type &listener,
                                                        boost::signals2::connect_position at= boost::signals2::at_back);
-    void   disconnectActionPerformed        (const ButtonEventSource::ActionPerformedEventType::group_type &group);
+    void   disconnectActionPerformed        (const ActionPerformedEventType::group_type &group);
     void   disconnectAllSlotsActionPerformed(void);
     bool   isEmptyActionPerformed           (void) const;
     UInt32 numSlotsActionPerformed          (void) const;
     
-    //Moved protected -> public:
-    void produceActionPerformed     (ButtonEventSource::ActionPerformedEventDetailsType* const e);
+    
+    void produceActionPerformed     (ActionPerformedEventDetailsType* const e);
     /*! \}                                                                 */
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -134,13 +139,13 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextFieldEventSource : public T
 
   protected:
 
-    // Variables should all be in TextFieldEventSourceBase.
+    // Variables should all be in TextFieldBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
 
     //Event Event producers
-    ButtonEventSource::ActionPerformedEventType _ActionPerformedEvent;
+    ActionPerformedEventType _ActionPerformedEvent;
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Event Access                     */
@@ -148,6 +153,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextFieldEventSource : public T
 
     GetEventHandlePtr getHandleActionPerformedSignal(void) const;
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Event Producer Firing                    */
     /*! \{                                                                 */
@@ -155,6 +161,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextFieldEventSource : public T
     virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
     
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -180,7 +187,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextFieldEventSource : public T
     /*==========================  PRIVATE  ================================*/
 
   private:
-    /*---------------------------------------------------------------------*/
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
 
@@ -198,4 +204,4 @@ OSG_END_NAMESPACE
 #include "OSGTextFieldEventSourceBase.inl"
 #include "OSGTextFieldEventSource.inl"
 
-#endif /* _OSGTEXTFIELDEVENTSOURCE_H_ */
+#endif /* _OSGTEXTFIELD_H_ */

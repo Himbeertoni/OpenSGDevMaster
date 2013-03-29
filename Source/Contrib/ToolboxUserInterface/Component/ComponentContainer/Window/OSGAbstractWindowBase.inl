@@ -299,22 +299,6 @@ void AbstractWindowBase::setTitle(const std::string &value)
 
     _sfTitle.setValue(value);
 }
-
-//! Get the value of the AbstractWindow::_sfDesktopIcon field.
-inline
-UIDrawObjectCanvas * AbstractWindowBase::getDesktopIcon(void) const
-{
-    return _sfDesktopIcon.getValue();
-}
-
-//! Set the value of the AbstractWindow::_sfDesktopIcon field.
-inline
-void AbstractWindowBase::setDesktopIcon(UIDrawObjectCanvas * const value)
-{
-    editSField(DesktopIconFieldMask);
-
-    _sfDesktopIcon.setValue(value);
-}
 //! Get the value of the AbstractWindow::_sfModal field.
 
 inline

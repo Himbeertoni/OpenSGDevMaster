@@ -24,7 +24,6 @@ A UI ListModel.
         defaultValue="NULL"
         >
     </Field>
-<!--
     <ProducedEvent
         name="ListDataContentsChanged"
         detailsType="ListDataEventDetails"
@@ -43,5 +42,4 @@ A UI ListModel.
         consumable="true"
     >
     </ProducedEvent>
--->	
 </FieldContainer>

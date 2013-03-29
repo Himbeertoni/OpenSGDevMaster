@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -43,10 +43,11 @@
 #endif
 
 #include "OSGTreeSelectionModelEventSourceBase.h"
+
 //Event Producer Headers
 #include "OSGActivity.h"
 #include "OSGConsumableEventCombiner.h"
-
+    
 #include "OSGTreeSelectionEventDetailsFields.h"
 
 OSG_BEGIN_NAMESPACE
@@ -65,7 +66,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeSelectionModelEventSource :
 
     typedef TreeSelectionModelEventSourceBase Inherited;
     typedef TreeSelectionModelEventSource     Self;
-    
+
     typedef TreeSelectionEventDetails SelectionAddedEventDetailsType;
     typedef TreeSelectionEventDetails SelectionRemovedEventDetailsType;
 
@@ -73,14 +74,17 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeSelectionModelEventSource :
     typedef boost::signals2::signal<void (TreeSelectionEventDetails* const, UInt32), ConsumableEventCombiner> SelectionAddedEventType;
     typedef boost::signals2::signal<void (TreeSelectionEventDetails* const, UInt32), ConsumableEventCombiner> SelectionRemovedEventType;
 
+
     enum
     {
         SelectionAddedEventId = 1,
         SelectionRemovedEventId = SelectionAddedEventId + 1,
         NextProducedEventId = SelectionRemovedEventId + 1
     };
+
     static const  EventProducerType  &getProducerClassType  (void);
     static        UInt32              getProducerClassTypeId(void);
+
     /*---------------------------------------------------------------------*/
     /*! \name                Event Produced Get                           */
     /*! \{                                                                 */
@@ -132,10 +136,11 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeSelectionModelEventSource :
     bool   isEmptySelectionRemoved          (void) const;
     UInt32 numSlotsSelectionRemoved         (void) const;
     
-    //Moved protected -> public:
+    
     void produceSelectionAdded      (SelectionAddedEventDetailsType* const e);
     void produceSelectionRemoved    (SelectionRemovedEventDetailsType* const e);
     /*! \}                                                                 */
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -157,7 +162,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeSelectionModelEventSource :
 
   protected:
 
-    // Variables should all be in TreeSelectionModelEventSourceBase.
+    // Variables should all be in TreeSelectionModelBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
@@ -173,6 +178,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeSelectionModelEventSource :
     GetEventHandlePtr getHandleSelectionAddedSignal(void) const;
     GetEventHandlePtr getHandleSelectionRemovedSignal(void) const;
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Event Producer Firing                    */
     /*! \{                                                                 */
@@ -180,6 +186,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeSelectionModelEventSource :
     virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
     
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -205,7 +212,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeSelectionModelEventSource :
     /*==========================  PRIVATE  ================================*/
 
   private:
-    /*---------------------------------------------------------------------*/
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
 
@@ -223,4 +229,4 @@ OSG_END_NAMESPACE
 #include "OSGTreeSelectionModelEventSourceBase.inl"
 #include "OSGTreeSelectionModelEventSource.inl"
 
-#endif /* _OSGTREESELECTIONMODELEVENTSOURCE_H_ */
+#endif /* _OSGTREESELECTIONMODEL_H_ */

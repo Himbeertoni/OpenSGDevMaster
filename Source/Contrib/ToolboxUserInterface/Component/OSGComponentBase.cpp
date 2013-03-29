@@ -68,7 +68,7 @@
 
 #include "OSGComponentBase.h"
 #include "OSGComponent.h"
-
+#include "OSGComponentEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -1067,7 +1067,6 @@ ComponentBase::TypeObject ComponentBase::_type(
     "        >\n"
     "        The cursor to use when the mouse is hovering over this Component.\n"
     "    </Field>    \n"
-    "<!--    \n"
     "    <ProducedEvent\n"
     "        name=\"MouseMoved\"\n"
     "        detailsType=\"MouseEventDetails\"\n"
@@ -1223,7 +1222,6 @@ ComponentBase::TypeObject ComponentBase::_type(
     "        >\n"
     "        Event produced when the ToolTip for this Component is deactivated.\n"
     "    </ProducedEvent>\n"
-    "-->\n"
     "</FieldContainer>\n",
     "\\brief An element of a graphical user interface.\n"
     "\n"
@@ -1400,6 +1398,8 @@ SFUnrecChildLayoutConstraintsPtr *ComponentBase::editSFConstraints    (void)
     return &_sfConstraints;
 }
 
+
+
 //! Get the Component::_sfBorder field.
 const SFUnrecBorderPtr *ComponentBase::getSFBorder(void) const
 {
@@ -1412,6 +1412,8 @@ SFUnrecBorderPtr    *ComponentBase::editSFBorder         (void)
 
     return &_sfBorder;
 }
+
+
 
 //! Get the Component::_sfBackground field.
 const SFUnrecLayerPtr *ComponentBase::getSFBackground(void) const
@@ -1426,6 +1428,8 @@ SFUnrecLayerPtr     *ComponentBase::editSFBackground     (void)
     return &_sfBackground;
 }
 
+
+
 //! Get the Component::_sfDisabledBorder field.
 const SFUnrecBorderPtr *ComponentBase::getSFDisabledBorder(void) const
 {
@@ -1439,6 +1443,8 @@ SFUnrecBorderPtr    *ComponentBase::editSFDisabledBorder (void)
     return &_sfDisabledBorder;
 }
 
+
+
 //! Get the Component::_sfDisabledBackground field.
 const SFUnrecLayerPtr *ComponentBase::getSFDisabledBackground(void) const
 {
@@ -1451,6 +1457,8 @@ SFUnrecLayerPtr     *ComponentBase::editSFDisabledBackground(void)
 
     return &_sfDisabledBackground;
 }
+
+
 
 SFBool *ComponentBase::editSFDragEnabled(void)
 {
@@ -1491,6 +1499,8 @@ SFUnrecBorderPtr    *ComponentBase::editSFFocusedBorder  (void)
     return &_sfFocusedBorder;
 }
 
+
+
 //! Get the Component::_sfFocusedBackground field.
 const SFUnrecLayerPtr *ComponentBase::getSFFocusedBackground(void) const
 {
@@ -1503,6 +1513,8 @@ SFUnrecLayerPtr     *ComponentBase::editSFFocusedBackground(void)
 
     return &_sfFocusedBackground;
 }
+
+
 
 //! Get the Component::_sfRolloverBorder field.
 const SFUnrecBorderPtr *ComponentBase::getSFRolloverBorder(void) const
@@ -1517,6 +1529,8 @@ SFUnrecBorderPtr    *ComponentBase::editSFRolloverBorder (void)
     return &_sfRolloverBorder;
 }
 
+
+
 //! Get the Component::_sfRolloverBackground field.
 const SFUnrecLayerPtr *ComponentBase::getSFRolloverBackground(void) const
 {
@@ -1529,6 +1543,8 @@ SFUnrecLayerPtr     *ComponentBase::editSFRolloverBackground(void)
 
     return &_sfRolloverBackground;
 }
+
+
 
 //! Get the Component::_sfFocusedForeground field.
 const SFUnrecLayerPtr *ComponentBase::getSFFocusedForeground(void) const
@@ -1543,6 +1559,8 @@ SFUnrecLayerPtr     *ComponentBase::editSFFocusedForeground(void)
     return &_sfFocusedForeground;
 }
 
+
+
 //! Get the Component::_sfRolloverForeground field.
 const SFUnrecLayerPtr *ComponentBase::getSFRolloverForeground(void) const
 {
@@ -1555,6 +1573,8 @@ SFUnrecLayerPtr     *ComponentBase::editSFRolloverForeground(void)
 
     return &_sfRolloverForeground;
 }
+
+
 
 //! Get the Component::_sfDisabledForeground field.
 const SFUnrecLayerPtr *ComponentBase::getSFDisabledForeground(void) const
@@ -1569,6 +1589,8 @@ SFUnrecLayerPtr     *ComponentBase::editSFDisabledForeground(void)
     return &_sfDisabledForeground;
 }
 
+
+
 //! Get the Component::_sfForeground field.
 const SFUnrecLayerPtr *ComponentBase::getSFForeground(void) const
 {
@@ -1582,6 +1604,8 @@ SFUnrecLayerPtr     *ComponentBase::editSFForeground     (void)
     return &_sfForeground;
 }
 
+
+
 //! Get the Component::_sfToolTip field.
 const SFUnrecComponentPtr *ComponentBase::getSFToolTip(void) const
 {
@@ -1594,6 +1618,8 @@ SFUnrecComponentPtr *ComponentBase::editSFToolTip        (void)
 
     return &_sfToolTip;
 }
+
+
 
 SFReal32 *ComponentBase::editSFOpacity(void)
 {
@@ -1635,6 +1661,8 @@ SFUnrecPopupMenuPtr *ComponentBase::editSFPopupMenu      (void)
     return &_sfPopupMenu;
 }
 
+
+
 SFUInt32 *ComponentBase::editSFCursor(void)
 {
     editSField(CursorFieldMask);
@@ -1660,6 +1688,8 @@ SFUnrecComponentEventSourcePtr *ComponentBase::editSFEventSource    (void)
 
     return &_sfEventSource;
 }
+
+
 
 
 
@@ -2275,7 +2305,7 @@ void ComponentBase::onCreate(const Component *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         Component *pThis = static_cast<Component *>(this);
 
@@ -2310,6 +2340,11 @@ void ComponentBase::onCreate(const Component *source)
         pThis->setPopupMenu(source->getPopupMenu());
 
         pThis->setEventSource(source->getEventSource());
+    }
+    else
+    {
+        ComponentEventSourceUnrecPtr evSrc = ComponentEventSource::create();
+        setEventSource( evSrc );
     }
 }
 
@@ -3136,507 +3171,6 @@ void ComponentBase::resolveLinks(void)
 
 /*------------------------------ get -----------------------------------*/
 
-//! Get the value of the Component::_sfPosition field.
-
-Pnt2f &ComponentBase::editPosition(void)
-{
-    editSField(PositionFieldMask);
-
-    return _sfPosition.getValue();
-}
-
-//! Get the value of the Component::_sfPosition field.
-const Pnt2f &ComponentBase::getPosition(void) const
-{
-    return _sfPosition.getValue();
-}
-
-
-//! Set the value of the Component::_sfPosition field.
-void ComponentBase::setPosition(const Pnt2f &value)
-{
-    editSField(PositionFieldMask);
-
-    _sfPosition.setValue(value);
-}
-//! Get the value of the Component::_sfClipBounds field.
-
-Pnt4f &ComponentBase::editClipBounds(void)
-{
-    editSField(ClipBoundsFieldMask);
-
-    return _sfClipBounds.getValue();
-}
-
-//! Get the value of the Component::_sfClipBounds field.
-const Pnt4f &ComponentBase::getClipBounds(void) const
-{
-    return _sfClipBounds.getValue();
-}
-
-
-//! Set the value of the Component::_sfClipBounds field.
-void ComponentBase::setClipBounds(const Pnt4f &value)
-{
-    editSField(ClipBoundsFieldMask);
-
-    _sfClipBounds.setValue(value);
-}
-//! Get the value of the Component::_sfMinSize field.
-
-Vec2f &ComponentBase::editMinSize(void)
-{
-    editSField(MinSizeFieldMask);
-
-    return _sfMinSize.getValue();
-}
-
-//! Get the value of the Component::_sfMinSize field.
-const Vec2f &ComponentBase::getMinSize(void) const
-{
-    return _sfMinSize.getValue();
-}
-
-
-//! Set the value of the Component::_sfMinSize field.
-void ComponentBase::setMinSize(const Vec2f &value)
-{
-    editSField(MinSizeFieldMask);
-
-    _sfMinSize.setValue(value);
-}
-//! Get the value of the Component::_sfMaxSize field.
-
-Vec2f &ComponentBase::editMaxSize(void)
-{
-    editSField(MaxSizeFieldMask);
-
-    return _sfMaxSize.getValue();
-}
-
-//! Get the value of the Component::_sfMaxSize field.
-const Vec2f &ComponentBase::getMaxSize(void) const
-{
-    return _sfMaxSize.getValue();
-}
-
-
-//! Set the value of the Component::_sfMaxSize field.
-void ComponentBase::setMaxSize(const Vec2f &value)
-{
-    editSField(MaxSizeFieldMask);
-
-    _sfMaxSize.setValue(value);
-}
-//! Get the value of the Component::_sfPreferredSize field.
-
-Vec2f &ComponentBase::editPreferredSize(void)
-{
-    editSField(PreferredSizeFieldMask);
-
-    return _sfPreferredSize.getValue();
-}
-
-//! Get the value of the Component::_sfPreferredSize field.
-const Vec2f &ComponentBase::getPreferredSize(void) const
-{
-    return _sfPreferredSize.getValue();
-}
-
-
-//! Set the value of the Component::_sfPreferredSize field.
-void ComponentBase::setPreferredSize(const Vec2f &value)
-{
-    editSField(PreferredSizeFieldMask);
-
-    _sfPreferredSize.setValue(value);
-}
-//! Get the value of the Component::_sfSize field.
-
-Vec2f &ComponentBase::editSize(void)
-{
-    editSField(SizeFieldMask);
-
-    return _sfSize.getValue();
-}
-
-//! Get the value of the Component::_sfSize field.
-const Vec2f &ComponentBase::getSize(void) const
-{
-    return _sfSize.getValue();
-}
-
-
-//! Set the value of the Component::_sfSize field.
-void ComponentBase::setSize(const Vec2f &value)
-{
-    editSField(SizeFieldMask);
-
-    _sfSize.setValue(value);
-}
-//! Get the value of the Component::_sfState field.
-
-BitVector &ComponentBase::editState(void)
-{
-    editSField(StateFieldMask);
-
-    return _sfState.getValue();
-}
-
-//! Get the value of the Component::_sfState field.
-const BitVector &ComponentBase::getState(void) const
-{
-    return _sfState.getValue();
-}
-
-
-//! Set the value of the Component::_sfState field.
-void ComponentBase::setState(const BitVector &value)
-{
-    editSField(StateFieldMask);
-
-    _sfState.setValue(value);
-}
-
-//! Get the value of the Component::_sfConstraints field.
-LayoutConstraints * ComponentBase::getConstraints(void) const
-{
-    return _sfConstraints.getValue();
-}
-
-//! Set the value of the Component::_sfConstraints field.
-void ComponentBase::setConstraints(LayoutConstraints * const value)
-{
-    editSField(ConstraintsFieldMask);
-
-    _sfConstraints.setValue(value);
-}
-
-//! Get the value of the Component::_sfBorder field.
-Border * ComponentBase::getBorder(void) const
-{
-    return _sfBorder.getValue();
-}
-
-//! Set the value of the Component::_sfBorder field.
-void ComponentBase::setBorder(Border * const value)
-{
-    editSField(BorderFieldMask);
-
-    _sfBorder.setValue(value);
-}
-
-//! Get the value of the Component::_sfBackground field.
-Layer * ComponentBase::getBackground(void) const
-{
-    return _sfBackground.getValue();
-}
-
-//! Set the value of the Component::_sfBackground field.
-void ComponentBase::setBackground(Layer * const value)
-{
-    editSField(BackgroundFieldMask);
-
-    _sfBackground.setValue(value);
-}
-
-//! Get the value of the Component::_sfDisabledBorder field.
-Border * ComponentBase::getDisabledBorder(void) const
-{
-    return _sfDisabledBorder.getValue();
-}
-
-//! Set the value of the Component::_sfDisabledBorder field.
-void ComponentBase::setDisabledBorder(Border * const value)
-{
-    editSField(DisabledBorderFieldMask);
-
-    _sfDisabledBorder.setValue(value);
-}
-
-//! Get the value of the Component::_sfDisabledBackground field.
-Layer * ComponentBase::getDisabledBackground(void) const
-{
-    return _sfDisabledBackground.getValue();
-}
-
-//! Set the value of the Component::_sfDisabledBackground field.
-void ComponentBase::setDisabledBackground(Layer * const value)
-{
-    editSField(DisabledBackgroundFieldMask);
-
-    _sfDisabledBackground.setValue(value);
-}
-//! Get the value of the Component::_sfDragEnabled field.
-
-bool &ComponentBase::editDragEnabled(void)
-{
-    editSField(DragEnabledFieldMask);
-
-    return _sfDragEnabled.getValue();
-}
-
-//! Get the value of the Component::_sfDragEnabled field.
-      bool  ComponentBase::getDragEnabled(void) const
-{
-    return _sfDragEnabled.getValue();
-}
-
-
-//! Set the value of the Component::_sfDragEnabled field.
-void ComponentBase::setDragEnabled(const bool value)
-{
-    editSField(DragEnabledFieldMask);
-
-    _sfDragEnabled.setValue(value);
-}
-//! Get the value of the Component::_sfScrollTrackingCharacteristics field.
-
-UInt16 &ComponentBase::editScrollTrackingCharacteristics(void)
-{
-    editSField(ScrollTrackingCharacteristicsFieldMask);
-
-    return _sfScrollTrackingCharacteristics.getValue();
-}
-
-//! Get the value of the Component::_sfScrollTrackingCharacteristics field.
-      UInt16  ComponentBase::getScrollTrackingCharacteristics(void) const
-{
-    return _sfScrollTrackingCharacteristics.getValue();
-}
-
-
-//! Set the value of the Component::_sfScrollTrackingCharacteristics field.
-void ComponentBase::setScrollTrackingCharacteristics(const UInt16 value)
-{
-    editSField(ScrollTrackingCharacteristicsFieldMask);
-
-    _sfScrollTrackingCharacteristics.setValue(value);
-}
-
-//! Get the value of the Component::_sfFocusedBorder field.
-Border * ComponentBase::getFocusedBorder(void) const
-{
-    return _sfFocusedBorder.getValue();
-}
-
-//! Set the value of the Component::_sfFocusedBorder field.
-void ComponentBase::setFocusedBorder(Border * const value)
-{
-    editSField(FocusedBorderFieldMask);
-
-    _sfFocusedBorder.setValue(value);
-}
-
-//! Get the value of the Component::_sfFocusedBackground field.
-Layer * ComponentBase::getFocusedBackground(void) const
-{
-    return _sfFocusedBackground.getValue();
-}
-
-//! Set the value of the Component::_sfFocusedBackground field.
-void ComponentBase::setFocusedBackground(Layer * const value)
-{
-    editSField(FocusedBackgroundFieldMask);
-
-    _sfFocusedBackground.setValue(value);
-}
-
-//! Get the value of the Component::_sfRolloverBorder field.
-Border * ComponentBase::getRolloverBorder(void) const
-{
-    return _sfRolloverBorder.getValue();
-}
-
-//! Set the value of the Component::_sfRolloverBorder field.
-void ComponentBase::setRolloverBorder(Border * const value)
-{
-    editSField(RolloverBorderFieldMask);
-
-    _sfRolloverBorder.setValue(value);
-}
-
-//! Get the value of the Component::_sfRolloverBackground field.
-Layer * ComponentBase::getRolloverBackground(void) const
-{
-    return _sfRolloverBackground.getValue();
-}
-
-//! Set the value of the Component::_sfRolloverBackground field.
-void ComponentBase::setRolloverBackground(Layer * const value)
-{
-    editSField(RolloverBackgroundFieldMask);
-
-    _sfRolloverBackground.setValue(value);
-}
-
-//! Get the value of the Component::_sfFocusedForeground field.
-Layer * ComponentBase::getFocusedForeground(void) const
-{
-    return _sfFocusedForeground.getValue();
-}
-
-//! Set the value of the Component::_sfFocusedForeground field.
-void ComponentBase::setFocusedForeground(Layer * const value)
-{
-    editSField(FocusedForegroundFieldMask);
-
-    _sfFocusedForeground.setValue(value);
-}
-
-//! Get the value of the Component::_sfRolloverForeground field.
-Layer * ComponentBase::getRolloverForeground(void) const
-{
-    return _sfRolloverForeground.getValue();
-}
-
-//! Set the value of the Component::_sfRolloverForeground field.
-void ComponentBase::setRolloverForeground(Layer * const value)
-{
-    editSField(RolloverForegroundFieldMask);
-
-    _sfRolloverForeground.setValue(value);
-}
-
-//! Get the value of the Component::_sfDisabledForeground field.
-Layer * ComponentBase::getDisabledForeground(void) const
-{
-    return _sfDisabledForeground.getValue();
-}
-
-//! Set the value of the Component::_sfDisabledForeground field.
-void ComponentBase::setDisabledForeground(Layer * const value)
-{
-    editSField(DisabledForegroundFieldMask);
-
-    _sfDisabledForeground.setValue(value);
-}
-
-//! Get the value of the Component::_sfForeground field.
-Layer * ComponentBase::getForeground(void) const
-{
-    return _sfForeground.getValue();
-}
-
-//! Set the value of the Component::_sfForeground field.
-void ComponentBase::setForeground(Layer * const value)
-{
-    editSField(ForegroundFieldMask);
-
-    _sfForeground.setValue(value);
-}
-
-//! Get the value of the Component::_sfToolTip field.
-Component * ComponentBase::getToolTip(void) const
-{
-    return _sfToolTip.getValue();
-}
-
-//! Set the value of the Component::_sfToolTip field.
-void ComponentBase::setToolTip(Component * const value)
-{
-    editSField(ToolTipFieldMask);
-
-    _sfToolTip.setValue(value);
-}
-//! Get the value of the Component::_sfOpacity field.
-
-Real32 &ComponentBase::editOpacity(void)
-{
-    editSField(OpacityFieldMask);
-
-    return _sfOpacity.getValue();
-}
-
-//! Get the value of the Component::_sfOpacity field.
-      Real32  ComponentBase::getOpacity(void) const
-{
-    return _sfOpacity.getValue();
-}
-
-
-//! Set the value of the Component::_sfOpacity field.
-void ComponentBase::setOpacity(const Real32 value)
-{
-    editSField(OpacityFieldMask);
-
-    _sfOpacity.setValue(value);
-}
-
-//! Get the value of the Component::_sfClipping field.
-
-bool &ComponentBase::editClipping(void)
-{
-    editSField(ClippingFieldMask);
-
-    return _sfClipping.getValue();
-}
-
-//! Get the value of the Component::_sfClipping field.
-      bool  ComponentBase::getClipping(void) const
-{
-    return _sfClipping.getValue();
-}
-
-
-//! Set the value of the Component::_sfClipping field.
-void ComponentBase::setClipping(const bool value)
-{
-    editSField(ClippingFieldMask);
-
-    _sfClipping.setValue(value);
-}
-
-//! Get the value of the Component::_sfPopupMenu field.
-PopupMenu * ComponentBase::getPopupMenu(void) const
-{
-    return _sfPopupMenu.getValue();
-}
-
-//! Set the value of the Component::_sfPopupMenu field.
-void ComponentBase::setPopupMenu(PopupMenu * const value)
-{
-    editSField(PopupMenuFieldMask);
-
-    _sfPopupMenu.setValue(value);
-}
-//! Get the value of the Component::_sfCursor field.
-
-UInt32 &ComponentBase::editCursor(void)
-{
-    editSField(CursorFieldMask);
-
-    return _sfCursor.getValue();
-}
-
-//! Get the value of the Component::_sfCursor field.
-      UInt32  ComponentBase::getCursor(void) const
-{
-    return _sfCursor.getValue();
-}
-
-
-//! Set the value of the Component::_sfCursor field.
-void ComponentBase::setCursor(const UInt32 value)
-{
-    editSField(CursorFieldMask);
-
-    _sfCursor.setValue(value);
-}
-
-//! Get the value of the Component::_sfEventSource field.
-ComponentEventSource * ComponentBase::getEventSource(void) const
-{
-    return _sfEventSource.getValue();
-}
-
-//! Set the value of the Component::_sfEventSource field.
-void ComponentBase::setEventSource(ComponentEventSource * const value)
-{
-    editSField(EventSourceFieldMask);
-
-    _sfEventSource.setValue(value);
-}
 
 
 OSG_END_NAMESPACE

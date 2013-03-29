@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -46,6 +46,7 @@
 #include "OSGConfig.h"
 
 #include "OSGToggleButtonEventSource.h"
+
 #include "OSGEventDetails.h"
 
 OSG_BEGIN_NAMESPACE
@@ -58,6 +59,7 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
+
 //! ToggleButton Produced Events
 
 EventDescription *ToggleButtonEventSource::_eventDesc[] =
@@ -89,11 +91,6 @@ EventProducerType ToggleButtonEventSource::_producerType(
  *                           Class methods                                 *
 \***************************************************************************/
 
-const EventProducerType &ToggleButtonEventSource::getProducerType(void) const
-{
-    return _producerType;
-}
-
 void ToggleButtonEventSource::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
@@ -104,10 +101,14 @@ void ToggleButtonEventSource::initMethod(InitPhase ePhase)
 }
 
 
+const EventProducerType &ToggleButtonEventSource::getProducerType(void) const
+{
+    return _producerType;
+}
+
 /***************************************************************************\
  *                           Instance methods                              *
 \***************************************************************************/
-
 /*------------------------- event producers ----------------------------------*/
 void ToggleButtonEventSource::produceEvent(UInt32 eventId, EventDetails* const e)
 {
@@ -236,10 +237,6 @@ UInt32  ToggleButtonEventSource::numSlotsEvent(UInt32 eventId) const
     }
 }
 
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
-
 GetEventHandlePtr ToggleButtonEventSource::getHandleButtonSelectedSignal(void) const
 {
     GetEventHandlePtr returnValue(
@@ -261,6 +258,7 @@ GetEventHandlePtr ToggleButtonEventSource::getHandleButtonDeselectedSignal(void)
 
     return returnValue;
 }
+
 
 /*----------------------- constructors & destructors ----------------------*/
 
@@ -290,7 +288,7 @@ void ToggleButtonEventSource::changed(ConstFieldMaskArg whichField,
 void ToggleButtonEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump ToggleButtonEventSource NI" << std::endl;
+    SLOG << "Dump ToggleButton NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

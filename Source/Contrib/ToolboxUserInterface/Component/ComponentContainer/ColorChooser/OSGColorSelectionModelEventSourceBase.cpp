@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -56,16 +56,10 @@
 #include "OSGConfig.h"
 
 
-
-
 #include "OSGColorSelectionModelEventSourceBase.h"
 #include "OSGColorSelectionModelEventSource.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -74,12 +68,9 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::ColorSelectionModelEventSource
-    
+    A UI ColorSelectionModel.
  */
 
-/***************************************************************************\
- *                        Field Documentation                              *
-\***************************************************************************/
 
 
 /***************************************************************************\
@@ -88,8 +79,8 @@ OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 PointerType FieldTraits<ColorSelectionModelEventSource *, nsOSG>::_type(
-    "ColorSelectionModelEventSourcePtr", 
-    "EventContainerPtr", 
+    "ColorSelectionModelEventSourcePtr",
+    "EventContainerPtr",
     ColorSelectionModelEventSource::getClassType(),
     nsOSG);
 #endif
@@ -124,29 +115,7 @@ ColorSelectionModelEventSourceBase::TypeObject ColorSelectionModelEventSourceBas
     reinterpret_cast<InitalInsertDescFunc>(&ColorSelectionModelEventSource::classDescInserter),
     false,
     0,
-    "<?xml version=\"1.0\"?>\n"
-    "\n"
-    "<FieldContainer\n"
-    "    name=\"ColorSelectionModelEventSource\"\n"
-    "    parent=\"EventContainer\"\n"
-    "    library=\"ContribToolboxUserInterface\"\n"
-    "    pointerfieldtypes=\"both\"\n"
-    "    structure=\"concrete\"\n"
-    "    systemcomponent=\"true\"\n"
-    "    parentsystemcomponent=\"true\"\n"
-    "    decoratable=\"false\"\n"
-    "    useLocalIncludes=\"false\"\n"
-    "    isNodeCore=\"false\"\n"
-    ">\n"
-    "<!--\n"
-    "    <ProducedEvent\n"
-    "        name=\"StateChanged\"\n"
-    "        detailsType=\"ChangeEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "    >\n"
-    "    </ProducedEvent>\n"
-    "-->\n"
-    "</FieldContainer>\n",
+    "",
     ""
     );
 
@@ -167,11 +136,6 @@ UInt32 ColorSelectionModelEventSourceBase::getContainerSize(void) const
     return sizeof(ColorSelectionModelEventSource);
 }
 
-/*------------------------- decorator get ------------------------------*/
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -180,7 +144,6 @@ SizeT ColorSelectionModelEventSourceBase::getBinSize(ConstFieldMaskArg whichFiel
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
-
     return returnValue;
 }
 
@@ -188,14 +151,12 @@ void ColorSelectionModelEventSourceBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
-
 }
 
 void ColorSelectionModelEventSourceBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
-
 }
 
 //! create a new instance of the class
@@ -316,7 +277,6 @@ FieldContainerTransitPtr ColorSelectionModelEventSourceBase::shallowCopy(void) c
 
 
 
-
 /*------------------------- constructors ----------------------------------*/
 
 ColorSelectionModelEventSourceBase::ColorSelectionModelEventSourceBase(void) :
@@ -335,7 +295,6 @@ ColorSelectionModelEventSourceBase::ColorSelectionModelEventSourceBase(const Col
 ColorSelectionModelEventSourceBase::~ColorSelectionModelEventSourceBase(void)
 {
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -374,8 +333,6 @@ void ColorSelectionModelEventSourceBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-
 }
-
 
 OSG_END_NAMESPACE

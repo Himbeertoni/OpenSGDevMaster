@@ -61,7 +61,7 @@
 
 #include "OSGCellEditorBase.h"
 #include "OSGCellEditor.h"
-
+#include "OSGCellEditorEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -169,7 +169,6 @@ CellEditorBase::TypeObject CellEditorBase::_type(
     "        access=\"public\"\n"
     "        >\n"
     "    </Field>\n"
-    "<!--\n"
     "    <ProducedEvent\n"
     "        name=\"EditingCanceled\"\n"
     "        detailsType=\"ChangeEventDetails\"\n"
@@ -182,7 +181,6 @@ CellEditorBase::TypeObject CellEditorBase::_type(
     "        consumable=\"true\"\n"
     "    >\n"
     "    </ProducedEvent>\n"
-    "-->\n"
     "</FieldContainer>\n",
     "A UI Cell Editor.\n"
     );
@@ -219,6 +217,21 @@ SFUnrecCellEditorEventSourcePtr *CellEditorBase::editSFEventSource    (void)
 
     return &_sfEventSource;
 }
+
+//! Get the value of the CellEditor::_sfEventSource field.
+CellEditorEventSource * CellEditorBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the CellEditor::_sfEventSource field.
+void CellEditorBase::setEventSource(CellEditorEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
+
 
 
 
@@ -289,11 +302,16 @@ void CellEditorBase::onCreate(const CellEditor *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         CellEditor *pThis = static_cast<CellEditor *>(this);
 
         pThis->setEventSource(source->getEventSource());
+    }
+    else
+    {
+        CellEditorEventSourceUnrecPtr evSrc = CellEditorEventSource::create();
+        setEventSource( evSrc );
     }
 }
 

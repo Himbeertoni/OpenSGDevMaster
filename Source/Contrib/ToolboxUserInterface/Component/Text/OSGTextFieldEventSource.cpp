@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -46,6 +46,7 @@
 #include "OSGConfig.h"
 
 #include "OSGTextFieldEventSource.h"
+
 #include "OSGEventDetails.h"
 
 OSG_BEGIN_NAMESPACE
@@ -58,6 +59,7 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
+
 //! TextField Produced Events
 
 EventDescription *TextFieldEventSource::_eventDesc[] =
@@ -91,11 +93,11 @@ void TextFieldEventSource::initMethod(InitPhase ePhase)
     }
 }
 
+
 const EventProducerType &TextFieldEventSource::getProducerType(void) const
 {
     return _producerType;
 }
-
 
 /***************************************************************************\
  *                           Instance methods                              *
@@ -204,9 +206,6 @@ UInt32  TextFieldEventSource::numSlotsEvent(UInt32 eventId) const
     }
 }
 
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
 GetEventHandlePtr TextFieldEventSource::getHandleActionPerformedSignal(void) const
 {
     GetEventHandlePtr returnValue(
@@ -217,6 +216,7 @@ GetEventHandlePtr TextFieldEventSource::getHandleActionPerformedSignal(void) con
 
     return returnValue;
 }
+
 
 /*----------------------- constructors & destructors ----------------------*/
 
@@ -246,7 +246,7 @@ void TextFieldEventSource::changed(ConstFieldMaskArg whichField,
 void TextFieldEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump TextFieldEventSource NI" << std::endl;
+    SLOG << "Dump TextField NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

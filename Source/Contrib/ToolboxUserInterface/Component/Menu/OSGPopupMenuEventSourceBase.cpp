@@ -6,7 +6,7 @@
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -56,16 +56,10 @@
 #include "OSGConfig.h"
 
 
-
-
 #include "OSGPopupMenuEventSourceBase.h"
 #include "OSGPopupMenuEventSource.h"
 
 #include <boost/bind.hpp>
-
-#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
-#pragma warning(disable:4355)
-#endif
 
 OSG_BEGIN_NAMESPACE
 
@@ -74,12 +68,9 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::PopupMenuEventSource
-    
+    A UI PopupMenu.
  */
 
-/***************************************************************************\
- *                        Field Documentation                              *
-\***************************************************************************/
 
 
 /***************************************************************************\
@@ -88,8 +79,8 @@ OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 PointerType FieldTraits<PopupMenuEventSource *, nsOSG>::_type(
-    "PopupMenuEventSourcePtr", 
-    "ComponentEventSourcePtr", 
+    "PopupMenuEventSourcePtr",
+    "ComponentEventSourcePtr",
     PopupMenuEventSource::getClassType(),
     nsOSG);
 #endif
@@ -124,48 +115,7 @@ PopupMenuEventSourceBase::TypeObject PopupMenuEventSourceBase::_type(
     reinterpret_cast<InitalInsertDescFunc>(&PopupMenuEventSource::classDescInserter),
     false,
     0,
-    "<?xml version=\"1.0\"?>\n"
-    "\n"
-    "<FieldContainer\n"
-    "    name=\"PopupMenuEventSource\"\n"
-    "    parent=\"ComponentEventSource\"\n"
-    "    library=\"ContribToolboxUserInterface\"\n"
-    "    pointerfieldtypes=\"both\"\n"
-    "    structure=\"concrete\"\n"
-    "    systemcomponent=\"true\"\n"
-    "    parentsystemcomponent=\"true\"\n"
-    "    decoratable=\"false\"\n"
-    "    useLocalIncludes=\"false\"\n"
-    "    isNodeCore=\"false\"\n"
-    ">\n"
-    "<!--     parentProducer=\"Component\" -->\n"
-    "<!--\n"
-    "    <ProducedEvent\n"
-    "        name=\"PopupMenuWillBecomeVisible\"\n"
-    "        detailsType=\"PopupMenuEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "    >\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"PopupMenuWillBecomeInvisible\"\n"
-    "        detailsType=\"PopupMenuEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "    >\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"PopupMenuCanceled\"\n"
-    "        detailsType=\"PopupMenuEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "    >\n"
-    "    </ProducedEvent>\n"
-    "    <ProducedEvent\n"
-    "        name=\"PopupMenuContentsChanged\"\n"
-    "        detailsType=\"PopupMenuEventDetails\"\n"
-    "        consumable=\"true\"\n"
-    "    >\n"
-    "    </ProducedEvent>\n"
-    "-->\n"
-    "</FieldContainer>\n",
+    "",
     ""
     );
 
@@ -186,11 +136,6 @@ UInt32 PopupMenuEventSourceBase::getContainerSize(void) const
     return sizeof(PopupMenuEventSource);
 }
 
-/*------------------------- decorator get ------------------------------*/
-
-
-
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -199,7 +144,6 @@ SizeT PopupMenuEventSourceBase::getBinSize(ConstFieldMaskArg whichField)
 {
     SizeT returnValue = Inherited::getBinSize(whichField);
 
-
     return returnValue;
 }
 
@@ -207,14 +151,12 @@ void PopupMenuEventSourceBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
-
 }
 
 void PopupMenuEventSourceBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
-
 }
 
 //! create a new instance of the class
@@ -335,7 +277,6 @@ FieldContainerTransitPtr PopupMenuEventSourceBase::shallowCopy(void) const
 
 
 
-
 /*------------------------- constructors ----------------------------------*/
 
 PopupMenuEventSourceBase::PopupMenuEventSourceBase(void) :
@@ -354,7 +295,6 @@ PopupMenuEventSourceBase::PopupMenuEventSourceBase(const PopupMenuEventSourceBas
 PopupMenuEventSourceBase::~PopupMenuEventSourceBase(void)
 {
 }
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -393,8 +333,6 @@ void PopupMenuEventSourceBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-
 }
-
 
 OSG_END_NAMESPACE

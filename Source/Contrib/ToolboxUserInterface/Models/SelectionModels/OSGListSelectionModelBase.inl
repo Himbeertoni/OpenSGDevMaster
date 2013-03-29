@@ -100,22 +100,6 @@ void ListSelectionModelBase::setSelectionMode(const UInt32 value)
     _sfSelectionMode.setValue(value);
 }
 
-//! Get the value of the ListSelectionModel::_sfEventSource field.
-inline
-ListSelectionModelEventSource * ListSelectionModelBase::getEventSource(void) const
-{
-    return _sfEventSource.getValue();
-}
-
-//! Set the value of the ListSelectionModel::_sfEventSource field.
-inline
-void ListSelectionModelBase::setEventSource(ListSelectionModelEventSource * const value)
-{
-    editSField(EventSourceFieldMask);
-
-    _sfEventSource.setValue(value);
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

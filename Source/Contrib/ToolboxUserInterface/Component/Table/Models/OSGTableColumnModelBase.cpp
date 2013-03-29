@@ -62,7 +62,7 @@
 
 #include "OSGTableColumnModelBase.h"
 #include "OSGTableColumnModel.h"
-
+#include "OSGTableColumnModelEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -196,7 +196,6 @@ TableColumnModelBase::TypeObject TableColumnModelBase::_type(
     "        access=\"public\"\n"
     "    >\n"
     "    </Field>\n"
-    "<!--\n"
     "    <ProducedEvent\n"
     "        name=\"ColumnAdded\"\n"
     "        detailsType=\"TableColumnModelEventDetails\"\n"
@@ -227,7 +226,6 @@ TableColumnModelBase::TypeObject TableColumnModelBase::_type(
     "        consumable=\"true\"\n"
     "    >\n"
     "    </ProducedEvent>\n"
-    "-->\n"
     "</FieldContainer>\n",
     "A UI TableColumnModel.\n"
     );
@@ -265,6 +263,21 @@ SFUnrecListSelectionModelPtr *TableColumnModelBase::editSFSelectionModel (void)
     return &_sfSelectionModel;
 }
 
+//! Get the value of the TableColumnModel::_sfSelectionModel field.
+ListSelectionModel * TableColumnModelBase::getSelectionModel(void) const
+{
+    return _sfSelectionModel.getValue();
+}
+
+//! Set the value of the TableColumnModel::_sfSelectionModel field.
+void TableColumnModelBase::setSelectionModel(ListSelectionModel * const value)
+{
+    editSField(SelectionModelFieldMask);
+
+    _sfSelectionModel.setValue(value);
+}
+
+
 //! Get the TableColumnModel::_sfEventSource field.
 const SFUnrecTableColumnModelEventSourcePtr *TableColumnModelBase::getSFEventSource(void) const
 {
@@ -277,6 +290,21 @@ SFUnrecTableColumnModelEventSourcePtr *TableColumnModelBase::editSFEventSource  
 
     return &_sfEventSource;
 }
+
+//! Get the value of the TableColumnModel::_sfEventSource field.
+TableColumnModelEventSource * TableColumnModelBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the TableColumnModel::_sfEventSource field.
+void TableColumnModelBase::setEventSource(TableColumnModelEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
+
 
 
 
@@ -362,13 +390,18 @@ void TableColumnModelBase::onCreate(const TableColumnModel *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         TableColumnModel *pThis = static_cast<TableColumnModel *>(this);
 
         pThis->setSelectionModel(source->getSelectionModel());
 
         pThis->setEventSource(source->getEventSource());
+    }
+    else
+    {
+        TableColumnModelEventSourceUnrecPtr evSrc = TableColumnModelEventSource::create();
+        setEventSource( evSrc );
     }
 }
 

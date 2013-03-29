@@ -212,8 +212,7 @@ A UI Button.
         defaultValue="2.0"
         access="public"
     >
-    </Field> 
-<!--
+    </Field>    
     <ProducedEvent
         name="ActionPerformed"
         detailsType="ActionEventDetails"
@@ -226,5 +225,4 @@ A UI Button.
         consumable="true"
     >
     </ProducedEvent>
--->
 </FieldContainer>

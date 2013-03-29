@@ -24,7 +24,6 @@ A UI TreeModel.
         access="public"
         >
     </Field>
-<!--
     <ProducedEvent
         name="SelectionAdded"
         detailsType="TreeSelectionEventDetails"
@@ -37,5 +36,4 @@ A UI TreeModel.
         consumable="true"
     >
     </ProducedEvent>
--->
 </FieldContainer>

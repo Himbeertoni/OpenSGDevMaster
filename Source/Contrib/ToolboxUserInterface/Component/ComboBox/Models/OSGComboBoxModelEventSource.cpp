@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -47,6 +47,8 @@
 
 #include "OSGComboBoxModelEventSource.h"
 
+#include "OSGEventDetails.h"
+
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
@@ -57,6 +59,7 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
+
 //! ComboBoxModel Produced Events
 
 EventDescription *ComboBoxModelEventSource::_eventDesc[] =
@@ -81,11 +84,6 @@ EventProducerType ComboBoxModelEventSource::_producerType(
  *                           Class methods                                 *
 \***************************************************************************/
 
-const EventProducerType &ComboBoxModelEventSource::getProducerType(void) const
-{
-    return _producerType;
-}
-
 void ComboBoxModelEventSource::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
@@ -95,6 +93,11 @@ void ComboBoxModelEventSource::initMethod(InitPhase ePhase)
     }
 }
 
+
+const EventProducerType &ComboBoxModelEventSource::getProducerType(void) const
+{
+    return _producerType;
+}
 
 /***************************************************************************\
  *                           Instance methods                              *
@@ -203,9 +206,6 @@ UInt32  ComboBoxModelEventSource::numSlotsEvent(UInt32 eventId) const
     }
 }
 
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
 GetEventHandlePtr ComboBoxModelEventSource::getHandleSelectionChangedSignal(void) const
 {
     GetEventHandlePtr returnValue(
@@ -216,6 +216,7 @@ GetEventHandlePtr ComboBoxModelEventSource::getHandleSelectionChangedSignal(void
 
     return returnValue;
 }
+
 
 /*----------------------- constructors & destructors ----------------------*/
 
@@ -245,7 +246,7 @@ void ComboBoxModelEventSource::changed(ConstFieldMaskArg whichField,
 void ComboBoxModelEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump ComboBoxModelEventSource NI" << std::endl;
+    SLOG << "Dump ComboBoxModel NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

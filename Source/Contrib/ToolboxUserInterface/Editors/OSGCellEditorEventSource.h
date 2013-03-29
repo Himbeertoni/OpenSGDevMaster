@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -43,10 +43,11 @@
 #endif
 
 #include "OSGCellEditorEventSourceBase.h"
+
 //Event Producer Headers
 #include "OSGActivity.h"
 #include "OSGConsumableEventCombiner.h"
-
+    
 #include "OSGChangeEventDetailsFields.h"
 
 OSG_BEGIN_NAMESPACE
@@ -65,7 +66,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CellEditorEventSource : public 
 
     typedef CellEditorEventSourceBase Inherited;
     typedef CellEditorEventSource     Self;
-    
+
     typedef ChangeEventDetails EditingCanceledEventDetailsType;
     typedef ChangeEventDetails EditingStoppedEventDetailsType;
 
@@ -73,14 +74,17 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CellEditorEventSource : public 
     typedef boost::signals2::signal<void (ChangeEventDetails* const, UInt32), ConsumableEventCombiner> EditingCanceledEventType;
     typedef boost::signals2::signal<void (ChangeEventDetails* const, UInt32), ConsumableEventCombiner> EditingStoppedEventType;
 
+
     enum
     {
         EditingCanceledEventId = 1,
         EditingStoppedEventId = EditingCanceledEventId + 1,
         NextProducedEventId = EditingStoppedEventId + 1
     };
+
     static const  EventProducerType  &getProducerClassType  (void);
     static        UInt32              getProducerClassTypeId(void);
+
     /*---------------------------------------------------------------------*/
     /*! \name                Event Produced Get                           */
     /*! \{                                                                 */
@@ -132,10 +136,11 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CellEditorEventSource : public 
     bool   isEmptyEditingStopped            (void) const;
     UInt32 numSlotsEditingStopped           (void) const;
     
-    //Moved protected -> public:
+    
     void produceEditingCanceled     (EditingCanceledEventDetailsType* const e);
     void produceEditingStopped      (EditingStoppedEventDetailsType* const e);
     /*! \}                                                                 */
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -157,7 +162,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CellEditorEventSource : public 
 
   protected:
 
-    // Variables should all be in CellEditorEventSourceBase.
+    // Variables should all be in CellEditorBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
@@ -173,6 +178,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CellEditorEventSource : public 
     GetEventHandlePtr getHandleEditingCanceledSignal(void) const;
     GetEventHandlePtr getHandleEditingStoppedSignal(void) const;
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Event Producer Firing                    */
     /*! \{                                                                 */
@@ -180,6 +186,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CellEditorEventSource : public 
     virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
     
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -205,7 +212,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CellEditorEventSource : public 
     /*==========================  PRIVATE  ================================*/
 
   private:
-    /*---------------------------------------------------------------------*/
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
 
@@ -223,4 +229,4 @@ OSG_END_NAMESPACE
 #include "OSGCellEditorEventSourceBase.inl"
 #include "OSGCellEditorEventSource.inl"
 
-#endif /* _OSGCELLEDITOREVENTSOURCE_H_ */
+#endif /* _OSGCELLEDITOR_H_ */

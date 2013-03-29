@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -59,6 +59,7 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
+
 //! TableModel Produced Events
 
 EventDescription *TableModelEventSource::_eventDesc[] =
@@ -104,11 +105,6 @@ EventProducerType TableModelEventSource::_producerType(
  *                           Class methods                                 *
 \***************************************************************************/
 
-const EventProducerType &TableModelEventSource::getProducerType(void) const
-{
-    return _producerType;
-}
-
 void TableModelEventSource::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
@@ -119,10 +115,14 @@ void TableModelEventSource::initMethod(InitPhase ePhase)
 }
 
 
+const EventProducerType &TableModelEventSource::getProducerType(void) const
+{
+    return _producerType;
+}
+
 /***************************************************************************\
  *                           Instance methods                              *
 \***************************************************************************/
-
 /*------------------------- event producers ----------------------------------*/
 void TableModelEventSource::produceEvent(UInt32 eventId, EventDetails* const e)
 {
@@ -153,7 +153,7 @@ void TableModelEventSource::produceEvent(UInt32 eventId, EventDetails* const e)
         _IntervalRemovedEvent(dynamic_cast<IntervalRemovedEventDetailsType* const>(e), IntervalRemovedEventId);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -177,7 +177,7 @@ boost::signals2::connection TableModelEventSource::connectEvent(UInt32 eventId,
         return _IntervalRemovedEvent.connect(listener, at);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -205,7 +205,7 @@ boost::signals2::connection  TableModelEventSource::connectEvent(UInt32 eventId,
         return _IntervalRemovedEvent.connect(group, listener, at);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -230,7 +230,7 @@ void  TableModelEventSource::disconnectEvent(UInt32 eventId, const BaseEventType
         _IntervalRemovedEvent.disconnect(group);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -252,7 +252,7 @@ void  TableModelEventSource::disconnectAllSlotsEvent(UInt32 eventId)
         _IntervalRemovedEvent.disconnect_all_slots();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -274,7 +274,7 @@ bool  TableModelEventSource::isEmptyEvent(UInt32 eventId) const
         return _IntervalRemovedEvent.empty();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return true;
         break;
     }
@@ -297,15 +297,11 @@ UInt32  TableModelEventSource::numSlotsEvent(UInt32 eventId) const
         return _IntervalRemovedEvent.num_slots();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return 0;
         break;
     }
 }
-
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
 
 GetEventHandlePtr TableModelEventSource::getHandleContentsHeaderRowChangedSignal(void) const
 {
@@ -350,6 +346,8 @@ GetEventHandlePtr TableModelEventSource::getHandleIntervalRemovedSignal(void) co
 
     return returnValue;
 }
+
+
 /*----------------------- constructors & destructors ----------------------*/
 
 TableModelEventSource::TableModelEventSource(void) :
@@ -378,7 +376,7 @@ void TableModelEventSource::changed(ConstFieldMaskArg whichField,
 void TableModelEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump TableModelEventSource NI" << std::endl;
+    SLOG << "Dump TableModel NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

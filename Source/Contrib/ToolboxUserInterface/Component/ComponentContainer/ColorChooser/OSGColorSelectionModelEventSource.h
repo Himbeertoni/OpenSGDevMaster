@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -43,13 +43,12 @@
 #endif
 
 #include "OSGColorSelectionModelEventSourceBase.h"
+
 //Event Producer Headers
 #include "OSGActivity.h"
 #include "OSGConsumableEventCombiner.h"
-
+    
 #include "OSGChangeEventDetailsFields.h"
-
-#include "OSGWindowEventProducerBase.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -68,18 +67,21 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ColorSelectionModelEventSource 
     typedef ColorSelectionModelEventSourceBase Inherited;
     typedef ColorSelectionModelEventSource     Self;
 
-    static const  EventProducerType  &getProducerClassType  (void);
-    static        UInt32              getProducerClassTypeId(void);
-    
     typedef ChangeEventDetails StateChangedEventDetailsType;
 
     typedef boost::signals2::signal<void (EventDetails* const            , UInt32)> BaseEventType;
     typedef boost::signals2::signal<void (ChangeEventDetails* const, UInt32), ConsumableEventCombiner> StateChangedEventType;
+
+
     enum
     {
         StateChangedEventId = 1,
         NextProducedEventId = StateChangedEventId + 1
     };
+
+    static const  EventProducerType  &getProducerClassType  (void);
+    static        UInt32              getProducerClassTypeId(void);
+
     /*---------------------------------------------------------------------*/
     /*! \name                Event Produced Get                           */
     /*! \{                                                                 */
@@ -120,9 +122,10 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ColorSelectionModelEventSource 
     bool   isEmptyStateChanged              (void) const;
     UInt32 numSlotsStateChanged             (void) const;
     
-    //Moved protected -> public:
+    
     void produceStateChanged        (StateChangedEventDetailsType* const e);
     /*! \}                                                                 */
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -144,7 +147,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ColorSelectionModelEventSource 
 
   protected:
 
-    // Variables should all be in ColorSelectionModelEventSourceBase.
+    // Variables should all be in ColorSelectionModelBase.
     /*---------------------------------------------------------------------*/
     /*! \name                    Produced Event Signals                   */
     /*! \{                                                                 */
@@ -158,6 +161,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ColorSelectionModelEventSource 
 
     GetEventHandlePtr getHandleStateChangedSignal(void) const;
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Event Producer Firing                    */
     /*! \{                                                                 */
@@ -165,6 +169,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ColorSelectionModelEventSource 
     virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
     
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -190,7 +195,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ColorSelectionModelEventSource 
     /*==========================  PRIVATE  ================================*/
 
   private:
-    /*---------------------------------------------------------------------*/
     static EventDescription   *_eventDesc[];
     static EventProducerType _producerType;
 
@@ -208,4 +212,4 @@ OSG_END_NAMESPACE
 #include "OSGColorSelectionModelEventSourceBase.inl"
 #include "OSGColorSelectionModelEventSource.inl"
 
-#endif /* _OSGCOLORSELECTIONMODELEVENTSOURCE_H_ */
+#endif /* _OSGCOLORSELECTIONMODEL_H_ */

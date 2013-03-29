@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -59,6 +59,7 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
+
 //! TreeModelLayout Produced Events
 
 EventDescription *TreeModelLayoutEventSource::_eventDesc[] =
@@ -139,11 +140,6 @@ EventProducerType TreeModelLayoutEventSource::_producerType(
  *                           Class methods                                 *
 \***************************************************************************/
 
-const EventProducerType &TreeModelLayoutEventSource::getProducerType(void) const
-{
-    return _producerType;
-}
-
 void TreeModelLayoutEventSource::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
@@ -153,6 +149,11 @@ void TreeModelLayoutEventSource::initMethod(InitPhase ePhase)
     }
 }
 
+
+const EventProducerType &TreeModelLayoutEventSource::getProducerType(void) const
+{
+    return _producerType;
+}
 
 /***************************************************************************\
  *                           Instance methods                              *
@@ -217,7 +218,7 @@ void TreeModelLayoutEventSource::produceEvent(UInt32 eventId, EventDetails* cons
         _TreeStructureChangedEvent(dynamic_cast<TreeStructureChangedEventDetailsType* const>(e), TreeStructureChangedEventId);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -256,7 +257,7 @@ boost::signals2::connection TreeModelLayoutEventSource::connectEvent(UInt32 even
         return _TreeStructureChangedEvent.connect(listener, at);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -299,7 +300,7 @@ boost::signals2::connection  TreeModelLayoutEventSource::connectEvent(UInt32 eve
         return _TreeStructureChangedEvent.connect(group, listener, at);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -339,7 +340,7 @@ void  TreeModelLayoutEventSource::disconnectEvent(UInt32 eventId, const BaseEven
         _TreeStructureChangedEvent.disconnect(group);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -376,7 +377,7 @@ void  TreeModelLayoutEventSource::disconnectAllSlotsEvent(UInt32 eventId)
         _TreeStructureChangedEvent.disconnect_all_slots();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -413,7 +414,7 @@ bool  TreeModelLayoutEventSource::isEmptyEvent(UInt32 eventId) const
         return _TreeStructureChangedEvent.empty();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return true;
         break;
     }
@@ -451,14 +452,12 @@ UInt32  TreeModelLayoutEventSource::numSlotsEvent(UInt32 eventId) const
         return _TreeStructureChangedEvent.num_slots();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return 0;
         break;
     }
 }
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
+
 GetEventHandlePtr TreeModelLayoutEventSource::getHandleTreeCollapsedSignal(void) const
 {
     GetEventHandlePtr returnValue(
@@ -558,6 +557,7 @@ GetEventHandlePtr TreeModelLayoutEventSource::getHandleTreeStructureChangedSigna
     return returnValue;
 }
 
+
 /*----------------------- constructors & destructors ----------------------*/
 
 TreeModelLayoutEventSource::TreeModelLayoutEventSource(void) :
@@ -586,7 +586,7 @@ void TreeModelLayoutEventSource::changed(ConstFieldMaskArg whichField,
 void TreeModelLayoutEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump TreeModelLayoutEventSource NI" << std::endl;
+    SLOG << "Dump TreeModelLayout NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

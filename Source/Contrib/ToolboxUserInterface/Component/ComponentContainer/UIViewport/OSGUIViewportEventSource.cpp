@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -59,6 +59,7 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
+
 //! UIViewport Produced Events
 
 EventDescription *UIViewportEventSource::_eventDesc[] =
@@ -83,11 +84,6 @@ EventProducerType UIViewportEventSource::_producerType(
  *                           Class methods                                 *
 \***************************************************************************/
 
-const EventProducerType &UIViewportEventSource::getProducerType(void) const
-{
-    return _producerType;
-}
-
 void UIViewportEventSource::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
@@ -97,6 +93,11 @@ void UIViewportEventSource::initMethod(InitPhase ePhase)
     }
 }
 
+
+const EventProducerType &UIViewportEventSource::getProducerType(void) const
+{
+    return _producerType;
+}
 
 /***************************************************************************\
  *                           Instance methods                              *
@@ -205,9 +206,6 @@ UInt32  UIViewportEventSource::numSlotsEvent(UInt32 eventId) const
     }
 }
 
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
 GetEventHandlePtr UIViewportEventSource::getHandleStateChangedSignal(void) const
 {
     GetEventHandlePtr returnValue(
@@ -248,7 +246,7 @@ void UIViewportEventSource::changed(ConstFieldMaskArg whichField,
 void UIViewportEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump UIViewportEventSource NI" << std::endl;
+    SLOG << "Dump UIViewport NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

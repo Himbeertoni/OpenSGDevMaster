@@ -61,7 +61,7 @@
 
 #include "OSGTableModelBase.h"
 #include "OSGTableModel.h"
-
+#include "OSGTableModelEventSource.h"
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -169,7 +169,6 @@ TableModelBase::TypeObject TableModelBase::_type(
     "        access=\"public\"\n"
     "    >\n"
     "    </Field>\n"
-    "<!--\n"
     "    <ProducedEvent\n"
     "        name=\"ContentsHeaderRowChanged\"\n"
     "        detailsType=\"TableModelEventDetails\"\n"
@@ -194,7 +193,6 @@ TableModelBase::TypeObject TableModelBase::_type(
     "        consumable=\"true\"\n"
     "    >\n"
     "    </ProducedEvent>\n"
-    "-->\n"
     "</FieldContainer>\n",
     "A UI TableModel.\n"
     );
@@ -231,6 +229,21 @@ SFUnrecTableModelEventSourcePtr *TableModelBase::editSFEventSource    (void)
 
     return &_sfEventSource;
 }
+
+//! Get the value of the TableModel::_sfEventSource field.
+TableModelEventSource * TableModelBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the TableModel::_sfEventSource field.
+void TableModelBase::setEventSource(TableModelEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
+
 
 
 
@@ -301,11 +314,16 @@ void TableModelBase::onCreate(const TableModel *source)
 {
     Inherited::onCreate(source);
 
-    if(source != NULL)
+    if(source)
     {
         TableModel *pThis = static_cast<TableModel *>(this);
 
         pThis->setEventSource(source->getEventSource());
+    }
+    else
+    {
+        TableModelEventSourceUnrecPtr evSrc = TableModelEventSource::create();
+        setEventSource( evSrc );
     }
 }
 

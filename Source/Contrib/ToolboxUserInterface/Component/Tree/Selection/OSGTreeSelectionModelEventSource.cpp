@@ -2,11 +2,11 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -59,6 +59,7 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
+
 //! TreeSelectionModel Produced Events
 
 EventDescription *TreeSelectionModelEventSource::_eventDesc[] =
@@ -90,11 +91,6 @@ EventProducerType TreeSelectionModelEventSource::_producerType(
  *                           Class methods                                 *
 \***************************************************************************/
 
-const EventProducerType &TreeSelectionModelEventSource::getProducerType(void) const
-{
-    return _producerType;
-}
-
 void TreeSelectionModelEventSource::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
@@ -104,6 +100,11 @@ void TreeSelectionModelEventSource::initMethod(InitPhase ePhase)
     }
 }
 
+
+const EventProducerType &TreeSelectionModelEventSource::getProducerType(void) const
+{
+    return _producerType;
+}
 
 /***************************************************************************\
  *                           Instance methods                              *
@@ -126,7 +127,7 @@ void TreeSelectionModelEventSource::produceEvent(UInt32 eventId, EventDetails* c
         _SelectionRemovedEvent(dynamic_cast<SelectionRemovedEventDetailsType* const>(e), SelectionRemovedEventId);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -144,7 +145,7 @@ boost::signals2::connection TreeSelectionModelEventSource::connectEvent(UInt32 e
         return _SelectionRemovedEvent.connect(listener, at);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -166,7 +167,7 @@ boost::signals2::connection  TreeSelectionModelEventSource::connectEvent(UInt32 
         return _SelectionRemovedEvent.connect(group, listener, at);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -185,7 +186,7 @@ void  TreeSelectionModelEventSource::disconnectEvent(UInt32 eventId, const BaseE
         _SelectionRemovedEvent.disconnect(group);
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -201,7 +202,7 @@ void  TreeSelectionModelEventSource::disconnectAllSlotsEvent(UInt32 eventId)
         _SelectionRemovedEvent.disconnect_all_slots();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -217,7 +218,7 @@ bool  TreeSelectionModelEventSource::isEmptyEvent(UInt32 eventId) const
         return _SelectionRemovedEvent.empty();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return true;
         break;
     }
@@ -234,15 +235,12 @@ UInt32  TreeSelectionModelEventSource::numSlotsEvent(UInt32 eventId) const
         return _SelectionRemovedEvent.num_slots();
         break;
     default:
-        SWARNING << "No event defined with that ID";
+        SWARNING << "No event defined with ID " << eventId << std::endl;
         return 0;
         break;
     }
 }
 
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
 GetEventHandlePtr TreeSelectionModelEventSource::getHandleSelectionAddedSignal(void) const
 {
     GetEventHandlePtr returnValue(
@@ -264,6 +262,7 @@ GetEventHandlePtr TreeSelectionModelEventSource::getHandleSelectionRemovedSignal
 
     return returnValue;
 }
+
 
 /*----------------------- constructors & destructors ----------------------*/
 
@@ -293,7 +292,7 @@ void TreeSelectionModelEventSource::changed(ConstFieldMaskArg whichField,
 void TreeSelectionModelEventSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump TreeSelectionModelEventSource NI" << std::endl;
+    SLOG << "Dump TreeSelectionModel NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

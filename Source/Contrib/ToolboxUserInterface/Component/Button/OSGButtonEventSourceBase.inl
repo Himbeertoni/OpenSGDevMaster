@@ -4,7 +4,7 @@
  *                                                                           *
  *               Copyright (C) 2000-2013 by the OpenSG Forum                 *
  *                                                                           *
- * contact: dirk@opensg.org, gerrit.voss@vossg.org, carsten_neumann@gmx.net  *
+ * contact: David Kabala (djkabala@gmail.com)                                *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
@@ -72,10 +72,6 @@ OSG::UInt16 ButtonEventSourceBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
-/*------------------------------ get -----------------------------------*/
-
-
-
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void ButtonEventSourceBase::execSync (      ButtonEventSourceBase *pFrom,
@@ -85,6 +81,7 @@ void ButtonEventSourceBase::execSync (      ButtonEventSourceBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
 }
 #endif
 
