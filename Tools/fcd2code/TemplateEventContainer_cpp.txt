@@ -1,0 +1,329 @@
+/*---------------------------------------------------------------------------*\
+ *                                OpenSG                                     *
+ *                                                                           *
+ *                                                                           *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
+@@if hasAuthors
+@!AuthorsCommentText!@
+@@else // hasAuthors
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+@@endif // hasAuthors
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                License                                    *
+ *                                                                           *
+ * This library is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Library General Public License as published    *
+ * by the Free Software Foundation, version 2.                               *
+ *                                                                           *
+ * This library is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         *
+ * Library General Public License for more details.                          *
+ *                                                                           *
+ * You should have received a copy of the GNU Library General Public         *
+ * License along with this library; if not, write to the Free Software       *
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                Changes                                    *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
+
+@@AdditionalPriorityIncludes@@
+#include <cstdlib>
+#include <cstdio>
+
+@@if !isSystemComponent
+@@if isInLibrary
+#define OSG_COMPILE@!LIBNAME!@LIB
+
+@@endif
+@@endif
+#include "@!HeaderPrefix!@OSGConfig.h"
+
+#include "OSG@!Classname!@EventSource.h"
+
+#include "OSGEventDetails.h"
+
+OSG_BEGIN_NAMESPACE
+
+// Documentation for this class is emitted in the
+// OSG@!Classname!@EventSourceBase.cpp file.
+// To modify it, please change the .fcd file (OSG@!Classname!@EventSource.fcd) and
+// regenerate the base file.
+
+/***************************************************************************\
+ *                           Class variables                               *
+\***************************************************************************/
+@@if hasProducedEvents
+
+//! @!Classname!@ Produced Events
+
+EventDescription *@!Classname!@EventSource::_eventDesc[] =
+{
+@@BeginProducedEventLoop@@
+    new EventDescription("@!producedEvent.Name!@", 
+                          @!producedEvent.SafeDescription!@,
+                          @!producedEvent.Name!@EventId, 
+                          FieldTraits<@!producedEvent.TypeRaw!@ *>::getType(),
+    @@if producedEvent.consumable
+                          true,
+    @@else 
+                          false,
+    @@endif 
+                          static_cast<EventGetMethod>(&@!Classname!@EventSource::getHandle@!producedEvent.Name!@Signal))@!producedEvent.Separator!@
+
+@@EndProducedEventLoop@@
+};
+
+EventProducerType @!Classname!@EventSource::_producerType(
+    "@!Classname!@ProducerType",
+@@if isRootProducer 
+    "EventProducerType",
+@@else 
+    "@!parentProducer!@ProducerType",
+@@endif 
+    "",
+    InitEventProducerFunctor(),
+    _eventDesc,
+    sizeof(_eventDesc));
+@@endif 
+/***************************************************************************\
+ *                           Class methods                                 *
+\***************************************************************************/
+
+void @!Classname!@EventSource::initMethod(InitPhase ePhase)
+{
+    Inherited::initMethod(ePhase);
+
+    if(ePhase == TypeObject::SystemPost)
+    {
+    }
+}
+
+
+@@if hasProducedEvents 
+const EventProducerType &@!Classname!@EventSource::getProducerType(void) const
+{
+    return _producerType;
+}
+
+/***************************************************************************\
+ *                           Instance methods                              *
+\***************************************************************************/
+@@if hasProducedEvents
+/*------------------------- event producers ----------------------------------*/
+void @!Classname!@EventSource::produceEvent(UInt32 eventId, EventDetails* const e)
+{
+    switch(eventId)
+    {
+@@BeginProducedEventLoop@@
+    case @!producedEvent.Name!@EventId:
+        OSG_ASSERT(dynamic_cast<@!producedEvent.Name!@EventDetailsType* const>(e));
+
+    @@if producedEvent.consumable 
+        _@!producedEvent.Name!@Event.set_combiner(ConsumableEventCombiner(e));
+    @@endif // producedEvent.consumable
+        _@!producedEvent.Name!@Event(dynamic_cast<@!producedEvent.Name!@EventDetailsType* const>(e), @!producedEvent.Name!@EventId);
+        break;
+@@EndProducedEventLoop@@
+    default:
+    @@if isRootProducer 
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+    @@else
+        Inherited::produceEvent(eventId, e);
+    @@endif // !isRootProducer
+        break;
+    }
+}
+
+boost::signals2::connection @!Classname!@EventSource::connectEvent(UInt32 eventId, 
+                                                             const BaseEventType::slot_type &listener, 
+                                                             boost::signals2::connect_position at)
+{
+    switch(eventId)
+    {
+@@BeginProducedEventLoop@@
+    case @!producedEvent.Name!@EventId:
+        return _@!producedEvent.Name!@Event.connect(listener, at);
+        break;
+@@EndProducedEventLoop@@
+    default:
+    @@if isRootProducer 
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        return boost::signals2::connection();
+    @@else
+        return Inherited::connectEvent(eventId, listener, at);
+    @@endif // !isRootProducer
+        break;
+    }
+
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  @!Classname!@EventSource::connectEvent(UInt32 eventId, 
+                                                              const BaseEventType::group_type &group,
+                                                              const BaseEventType::slot_type &listener,
+                                                              boost::signals2::connect_position at)
+{
+    switch(eventId)
+    {
+@@BeginProducedEventLoop@@
+    case @!producedEvent.Name!@EventId:
+        return _@!producedEvent.Name!@Event.connect(group, listener, at);
+        break;
+@@EndProducedEventLoop@@
+    default:
+    @@if isRootProducer 
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        return boost::signals2::connection();
+    @@else
+        return Inherited::connectEvent(eventId, group, listener, at);
+    @@endif // !isRootProducer
+        break;
+    }
+
+    return boost::signals2::connection();
+}
+    
+void  @!Classname!@EventSource::disconnectEvent(UInt32 eventId, const BaseEventType::group_type &group)
+{
+    switch(eventId)
+    {
+@@BeginProducedEventLoop@@
+    case @!producedEvent.Name!@EventId:
+        _@!producedEvent.Name!@Event.disconnect(group);
+        break;
+@@EndProducedEventLoop@@
+    default:
+    @@if isRootProducer 
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+    @@else
+        return Inherited::disconnectEvent(eventId, group);
+    @@endif // !isRootProducer
+        break;
+    }
+}
+
+void  @!Classname!@EventSource::disconnectAllSlotsEvent(UInt32 eventId)
+{
+    switch(eventId)
+    {
+@@BeginProducedEventLoop@@
+    case @!producedEvent.Name!@EventId:
+        _@!producedEvent.Name!@Event.disconnect_all_slots();
+        break;
+@@EndProducedEventLoop@@
+    default:
+    @@if isRootProducer 
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+    @@else
+        Inherited::disconnectAllSlotsEvent(eventId);
+    @@endif // !isRootProducer
+        break;
+    }
+}
+
+bool  @!Classname!@EventSource::isEmptyEvent(UInt32 eventId) const
+{
+    switch(eventId)
+    {
+@@BeginProducedEventLoop@@
+    case @!producedEvent.Name!@EventId:
+        return _@!producedEvent.Name!@Event.empty();
+        break;
+@@EndProducedEventLoop@@
+    default:
+    @@if isRootProducer 
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        return true;
+    @@else
+        return Inherited::isEmptyEvent(eventId);
+    @@endif // !isRootProducer
+        break;
+    }
+}
+
+UInt32  @!Classname!@EventSource::numSlotsEvent(UInt32 eventId) const
+{
+    switch(eventId)
+    {
+@@BeginProducedEventLoop@@
+    case @!producedEvent.Name!@EventId:
+        return _@!producedEvent.Name!@Event.num_slots();
+        break;
+@@EndProducedEventLoop@@
+    default:
+    @@if isRootProducer 
+        SWARNING << "No event defined with ID " << eventId << std::endl;
+        return 0;
+    @@else
+        return Inherited::numSlotsEvent(eventId);
+    @@endif // !isRootProducer
+        break;
+    }
+}
+
+@@if hasProducedEvents
+@@BeginProducedEventLoop@@
+GetEventHandlePtr @!Classname!@EventSource::getHandle@!producedEvent.Name!@Signal(void) const
+{
+    GetEventHandlePtr returnValue(
+        new  GetTypedEventHandle<@!producedEvent.Name!@EventType>(
+             const_cast<@!producedEvent.Name!@EventType *>(&_@!producedEvent.Name!@Event),
+             _producerType.getEventDescription(@!producedEvent.Name!@EventId),
+             const_cast<@!Classname!@EventSource *>(this)));
+
+    return returnValue;
+}
+
+@@EndProducedEventLoop@@
+@@endif  // hasProducedEvents
+
+/*----------------------- constructors & destructors ----------------------*/
+
+@!Classname!@EventSource::@!Classname!@EventSource(void) :
+    Inherited()
+{
+}
+
+@!Classname!@EventSource::@!Classname!@EventSource(const @!Classname!@EventSource &source) :
+    Inherited(source)
+{
+}
+
+@!Classname!@EventSource::~@!Classname!@EventSource(void)
+{
+}
+
+/*----------------------------- class specific ----------------------------*/
+
+void @!Classname!@EventSource::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details)
+{
+    Inherited::changed(whichField, origin, details);
+}
+
+void @!Classname!@EventSource::dump(      UInt32    ,
+                         const BitVector ) const
+{
+    SLOG << "Dump @!Classname!@ NI" << std::endl;
+}
+
+OSG_END_NAMESPACE

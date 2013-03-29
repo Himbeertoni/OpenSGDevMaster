@@ -1,0 +1,142 @@
+/*---------------------------------------------------------------------------*\
+ *                                OpenSG                                     *
+ *                                                                           *
+ *                                                                           *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *                                                                           *
+@@if hasAuthors
+@!AuthorsCommentText!@
+@@else // hasAuthors
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+@@endif // hasAuthors
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                License                                    *
+ *                                                                           *
+ * This library is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Library General Public License as published    *
+ * by the Free Software Foundation, version 2.                               *
+ *                                                                           *
+ * This library is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         *
+ * Library General Public License for more details.                          *
+ *                                                                           *
+ * You should have received a copy of the GNU Library General Public         *
+ * License along with this library; if not, write to the Free Software       *
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                Changes                                    *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
+@@BeginProducedEventLoop@@
+    @@if producedEvent.needTypeInclude
+#include @!producedEvent.TypeInclude!@
+    @@endif // producedEvent.needTypeInclude
+@@EndProducedEventLoop@@
+
+OSG_BEGIN_NAMESPACE
+@@if hasProducedEvents 
+//! access the producer type of the class
+inline
+const EventProducerType &@!Classname!@EventSource::getProducerClassType(void)
+{
+    return _producerType;
+}
+
+//! access the producer type id of the class
+inline
+UInt32 @!Classname!@EventSource::getProducerClassTypeId(void)
+{
+    return _producerType.getId();
+}
+@@endif 
+
+@@if hasProducedEvents 
+@@if isRootProducer 
+
+inline
+UInt32 @!Classname!@EventSource::getNumProducedEvents(void) const
+{
+    return getProducerType().getNumEventDescs();
+}
+
+inline
+const EventDescription *@!Classname!@EventSource::getProducedEventDescription(const std::string &ProducedEventName) const
+{
+    return getProducerType().findEventDescription(ProducedEventName);
+}
+
+inline
+const EventDescription *@!Classname!@EventSource::getProducedEventDescription(UInt32 ProducedEventId) const
+{
+    return getProducerType().getEventDescription(ProducedEventId);
+}
+
+inline
+UInt32 @!Classname!@EventSource::getProducedEventId(const std::string &ProducedEventName) const
+{
+    return getProducerType().getProducedEventId(ProducedEventName);
+}
+
+@@endif  // isRootProducer
+@@BeginProducedEventLoop@@
+inline
+boost::signals2::connection  @!Classname!@EventSource::connect@!producedEvent.Name!@(const @!producedEvent.Name!@EventType::slot_type &listener, 
+                                                                               boost::signals2::connect_position at)
+{
+    return _@!producedEvent.Name!@Event.connect(listener, at);
+}
+
+inline
+boost::signals2::connection  @!Classname!@EventSource::connect@!producedEvent.Name!@(const @!producedEvent.Name!@EventType::group_type &group,
+                                                    const @!producedEvent.Name!@EventType::slot_type &listener, boost::signals2::connect_position at)
+{
+    return _@!producedEvent.Name!@Event.connect(group, listener, at);
+}
+
+inline
+void  @!Classname!@EventSource::disconnect@!producedEvent.Name!@(const @!producedEvent.Name!@EventType::group_type &group)
+{
+    _@!producedEvent.Name!@Event.disconnect(group);
+}
+
+inline
+void  @!Classname!@EventSource::disconnectAllSlots@!producedEvent.Name!@(void)
+{
+    _@!producedEvent.Name!@Event.disconnect_all_slots();
+}
+
+inline
+bool  @!Classname!@EventSource::isEmpty@!producedEvent.Name!@(void) const
+{
+    return _@!producedEvent.Name!@Event.empty();
+}
+
+inline
+UInt32  @!Classname!@EventSource::numSlots@!producedEvent.Name!@(void) const
+{
+    return _@!producedEvent.Name!@Event.num_slots();
+}
+
+inline
+void @!Classname!@EventSource::produce@!producedEvent.Name!@(@!producedEvent.Name!@EventDetailsType* const e)
+{
+    produceEvent(@!producedEvent.Name!@EventId, e);
+}
+
+@@EndProducedEventLoop@@
+@@endif  // hasProducedEvents
+OSG_END_NAMESPACE

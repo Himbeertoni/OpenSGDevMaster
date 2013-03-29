@@ -1,0 +1,286 @@
+/*---------------------------------------------------------------------------*\
+ *                                OpenSG                                     *
+ *                                                                           *
+ *                                                                           *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
+@@if hasAuthors
+@!AuthorsCommentText!@
+@@else // hasAuthors
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+@@endif // hasAuthors
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                License                                    *
+ *                                                                           *
+ * This library is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Library General Public License as published    *
+ * by the Free Software Foundation, version 2.                               *
+ *                                                                           *
+ * This library is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         *
+ * Library General Public License for more details.                          *
+ *                                                                           *
+ * You should have received a copy of the GNU Library General Public         *
+ * License along with this library; if not, write to the Free Software       *
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                Changes                                    *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+
+#ifndef _OSG@!CLASSNAME!@EVENTSOURCE_H_
+#define _OSG@!CLASSNAME!@EVENTSOURCE_H_
+#ifdef __sgi
+#pragma once
+#endif
+
+#include "OSG@!Classname!@EventSourceBase.h"
+
+@@if hasProducedEvents 
+    @@if isRootProducer
+//Event Producer Headers
+#include "OSGActivity.h"
+#include "OSGConsumableEventCombiner.h"
+    @@endif
+    
+@@BeginProducedEventLoop@@
+    @@if producedEvent.needFieldInclude
+#include @!producedEvent.FieldInclude!@
+    @@endif // producedEvent.needFieldInclude
+@@EndProducedEventLoop@@
+
+@@endif
+OSG_BEGIN_NAMESPACE
+
+/*! \brief @!Classname!@EventSource class. See \ref
+@@if isInLibrary
+           Page@!Libname!@@!Classname!@EventSource for a description.
+@@else
+           Page@!Classname!@EventSource for a description.
+@@endif
+*/
+
+@@if isInLibrary
+class OSG_@!LIBNAME!@_DLLMAPPING @!Classname!@EventSource : public @!Classname!@EventSourceBase
+@@else
+class @!Classname!@EventSource : public @!Classname!@EventSourceBase
+@@endif
+{
+  protected:
+
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    typedef @!Classname!@EventSourceBase Inherited;
+    typedef @!Classname!@EventSource     Self;
+
+@@if hasProducedEvents 
+@@BeginProducedEventLoop@@
+    typedef @!producedEvent.TypeRaw:18!@ @!producedEvent.Name!@EventDetailsType;
+@@EndProducedEventLoop@@
+
+    @@if isRootProducer
+    typedef boost::signals2::signal<void (EventDetails* const            , UInt32)> BaseEventType;
+    @@endif
+@@BeginProducedEventLoop@@
+    @@if producedEvent.consumable
+    typedef boost::signals2::signal<void (@!producedEvent.EventDetailsType:24!@, UInt32), ConsumableEventCombiner> @!producedEvent.Name!@EventType;
+    @@else
+    typedef boost::signals2::signal<void (@!producedEvent.EventDetailsType:24!@, UInt32)> @!producedEvent.Name!@EventType;
+    @@endif //producedEvent.consumable
+@@EndProducedEventLoop@@
+@@endif
+
+@@if hasProducedEvents 
+
+    enum
+    {
+    @@BeginProducedEventLoop
+        @@if producedEvent.isFirstProducedEvent
+            @@if isRootProducer
+        @!producedEvent.Name!@EventId = 1,
+            @@else // isRootProducer
+        @!producedEvent.Name!@EventId = Inherited::NextProducedEventId,
+            @@endif // isRootProducer
+            @@if producedEvent.isLastProducedEvent
+        NextProducedEventId = @!producedEvent.Name!@EventId + 1
+            @@endif // producedEvent.isLastProducedEvent
+        @@else // producedEvent.isFirstProducedEvent
+        @!producedEvent.Name!@EventId = @!producedEvent.prevProducedEvent.Name!@EventId + 1,
+            @@if producedEvent.isLastProducedEvent
+        NextProducedEventId = @!producedEvent.Name!@EventId + 1
+            @@endif // producedEvent.isLastProducedEvent
+        @@endif // producedEvent.isFirstProducedEvent
+    @@EndProducedEventLoop
+    };
+@@endif // hasProducedEvents
+
+@@if hasProducedEvents
+    static const  EventProducerType  &getProducerClassType  (void);
+    static        UInt32              getProducerClassTypeId(void);
+@@endif
+
+@@if hasProducedEvents 
+    /*---------------------------------------------------------------------*/
+    /*! \name                Event Produced Get                           */
+    /*! \{                                                                 */
+
+    virtual const EventProducerType &getProducerType(void) const; 
+
+    @@if isRootProducer
+    virtual UInt32                   getNumProducedEvents       (void                                ) const;
+    virtual const EventDescription *getProducedEventDescription(const std::string &ProducedEventName) const;
+    virtual const EventDescription *getProducedEventDescription(UInt32 ProducedEventId              ) const;
+    virtual UInt32                   getProducedEventId         (const std::string &ProducedEventName) const;
+    @@endif 
+    
+    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
+                                              const BaseEventType::slot_type &listener,
+                                              boost::signals2::connect_position at= boost::signals2::at_back);
+                                              
+    virtual boost::signals2::connection connectEvent(UInt32 eventId, 
+                                              const BaseEventType::group_type &group,
+                                              const BaseEventType::slot_type &listener,
+                                              boost::signals2::connect_position at= boost::signals2::at_back);
+    
+    virtual void   disconnectEvent        (UInt32 eventId, const BaseEventType::group_type &group);
+    virtual void   disconnectAllSlotsEvent(UInt32 eventId);
+    virtual bool   isEmptyEvent           (UInt32 eventId) const;
+    virtual UInt32 numSlotsEvent          (UInt32 eventId) const;
+
+    /*! \}                                                                 */
+    /*! \name                Event Access                                 */
+    /*! \{                                                                 */
+    
+@@BeginProducedEventLoop@@
+    //@!producedEvent.Name!@
+    boost::signals2::connection connect@!producedEvent.Name:15!@(const @!producedEvent.Name!@EventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connect@!producedEvent.Name:15!@(const @!producedEvent.Name!@EventType::group_type &group,
+                                                       const @!producedEvent.Name!@EventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnect@!producedEvent.Name:23!@(const @!producedEvent.Name!@EventType::group_type &group);
+    void   disconnectAllSlots@!producedEvent.Name:15!@(void);
+    bool   isEmpty@!producedEvent.Name:26!@(void) const;
+    UInt32 numSlots@!producedEvent.Name:25!@(void) const;
+    
+@@EndProducedEventLoop@@
+    
+@@BeginProducedEventLoop@@
+    void produce@!producedEvent.Name:18!@  (@!producedEvent.Name!@EventDetailsType* const e);
+@@EndProducedEventLoop@@
+    /*! \}                                                                 */
+@@endif 
+    
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Sync                                    */
+    /*! \{                                                                 */
+
+    virtual void changed(ConstFieldMaskArg whichField,
+                         UInt32            origin,
+                         BitVector         details    );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    virtual void dump(      UInt32     uiIndent = 0,
+                      const BitVector  bvFlags  = 0) const;
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    // Variables should all be in @!Classname!@Base.
+@@if hasProducedEvents 
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Produced Event Signals                   */
+    /*! \{                                                                 */
+
+    //Event Event producers
+@@BeginProducedEventLoop@@
+    @!producedEvent.Name!@EventType _@!producedEvent.Name!@Event;
+@@EndProducedEventLoop@@
+    /*! \}                                                                 */
+@@endif  // !hasProducedEvents
+@@if hasProducedEvents 
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Generic Event Access                     */
+    /*! \{                                                                 */
+
+@@BeginProducedEventLoop@@
+    GetEventHandlePtr getHandle@!producedEvent.Name!@Signal(void) const;
+@@EndProducedEventLoop@@
+    /*! \}                                                                 */
+@@endif  // !hasProducedEvents
+
+@@if hasProducedEvents 
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Event Producer Firing                    */
+    /*! \{                                                                 */
+
+    virtual void produceEvent       (UInt32 eventId, EventDetails* const e);
+    
+    /*! \}                                                                 */
+@@endif  // !hasProducedEvents
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Constructors                                */
+    /*! \{                                                                 */
+
+    @!Classname!@EventSource(void);
+    @!Classname!@EventSource(const @!Classname!@EventSource &source);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructors                                */
+    /*! \{                                                                 */
+
+    virtual ~@!Classname!@EventSource(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
+    static void initMethod(InitPhase ePhase);
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+@@if hasProducedEvents 
+    static EventDescription   *_eventDesc[];
+    static EventProducerType _producerType;
+
+@@endif 
+    friend class FieldContainer;
+    friend class @!Classname!@EventSourceBase;
+
+    // prohibit default functions (move to 'public' if you need one)
+    void operator =(const @!Classname!@EventSource &source);
+};
+
+typedef @!Classname!@EventSource *@!Classname!@EventSourceP;
+
+OSG_END_NAMESPACE
+
+#include "OSG@!Classname!@EventSourceBase.inl"
+#include "OSG@!Classname!@EventSource.inl"
+
+#endif /* _OSG@!CLASSNAME!@_H_ */

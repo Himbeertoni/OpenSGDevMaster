@@ -78,11 +78,7 @@
 
 #include "OSG@!nsFilePrefix!@@!Classname!@Base.h"
 #include "OSG@!nsFilePrefix!@@!Classname!@.h"
-@@if !isDecorator
-    @@if hasProducedEvents
-#include "OSG@!nsFilePrefix!@@!Classname!@EventSource.h"
-    @@endif
-@@endif
+
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
