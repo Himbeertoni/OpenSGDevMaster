@@ -72,6 +72,7 @@ OSG::UInt16 ToggleButtonBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
+//Test
 /*------------------------------ get -----------------------------------*/
 
 

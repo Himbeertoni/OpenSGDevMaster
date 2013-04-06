@@ -72,6 +72,7 @@ OSG::UInt16 ComboBoxModelBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
+//Test
 /*------------------------------ get -----------------------------------*/
 
 

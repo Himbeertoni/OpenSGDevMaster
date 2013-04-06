@@ -62,6 +62,7 @@
 #include "OSGBoundedRangeModelBase.h"
 #include "OSGBoundedRangeModel.h"
 #include "OSGBoundedRangeModelEventSource.h"
+
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -212,20 +213,6 @@ SFUnrecBoundedRangeModelEventSourcePtr *BoundedRangeModelBase::editSFEventSource
     return &_sfEventSource;
 }
 
-//! Get the value of the BoundedRangeModel::_sfEventSource field.
-BoundedRangeModelEventSource * BoundedRangeModelBase::getEventSource(void) const
-{
-    return _sfEventSource.getValue();
-}
-
-//! Set the value of the BoundedRangeModel::_sfEventSource field.
-void BoundedRangeModelBase::setEventSource(BoundedRangeModelEventSource * const value)
-{
-    editSField(EventSourceFieldMask);
-
-    _sfEventSource.setValue(value);
-}
-
 
 
 
@@ -302,7 +289,7 @@ void BoundedRangeModelBase::onCreate(const BoundedRangeModel *source)
 
         pThis->setEventSource(source->getEventSource());
     }
-    else
+    
     {
         BoundedRangeModelEventSourceUnrecPtr evSrc = BoundedRangeModelEventSource::create();
         setEventSource( evSrc );

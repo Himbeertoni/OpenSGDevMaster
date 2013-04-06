@@ -62,6 +62,7 @@
 #include "OSGColorSelectionModelBase.h"
 #include "OSGColorSelectionModel.h"
 #include "OSGColorSelectionModelEventSource.h"
+
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -212,20 +213,6 @@ SFUnrecColorSelectionModelEventSourcePtr *ColorSelectionModelBase::editSFEventSo
     return &_sfEventSource;
 }
 
-//! Get the value of the ColorSelectionModel::_sfEventSource field.
-ColorSelectionModelEventSource * ColorSelectionModelBase::getEventSource(void) const
-{
-    return _sfEventSource.getValue();
-}
-
-//! Set the value of the ColorSelectionModel::_sfEventSource field.
-void ColorSelectionModelBase::setEventSource(ColorSelectionModelEventSource * const value)
-{
-    editSField(EventSourceFieldMask);
-
-    _sfEventSource.setValue(value);
-}
-
 
 
 
@@ -302,7 +289,7 @@ void ColorSelectionModelBase::onCreate(const ColorSelectionModel *source)
 
         pThis->setEventSource(source->getEventSource());
     }
-    else
+    
     {
         ColorSelectionModelEventSourceUnrecPtr evSrc = ColorSelectionModelEventSource::create();
         setEventSource( evSrc );

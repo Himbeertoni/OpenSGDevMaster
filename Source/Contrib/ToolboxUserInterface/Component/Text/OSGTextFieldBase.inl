@@ -72,8 +72,10 @@ OSG::UInt16 TextFieldBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
+//Test
 /*------------------------------ get -----------------------------------*/
 
+    //Field Alignment
 //! Get the value of the TextField::_sfAlignment field.
 
 inline
@@ -99,6 +101,23 @@ void TextFieldBase::setAlignment(const Vec2f &value)
 
     _sfAlignment.setValue(value);
 }
+    //Field EmptyDescTextFont
+//! Get the value of the TextField::_sfEmptyDescTextFont field.
+inline
+UIFont * TextFieldBase::getEmptyDescTextFont(void) const
+{
+    return _sfEmptyDescTextFont.getValue();
+}
+
+//! Set the value of the TextField::_sfEmptyDescTextFont field.
+inline
+void TextFieldBase::setEmptyDescTextFont(UIFont * const value)
+{
+    editSField(EmptyDescTextFontFieldMask);
+
+    _sfEmptyDescTextFont.setValue(value);
+}
+    //Field EmptyDescText
 //! Get the value of the TextField::_sfEmptyDescText field.
 
 inline
@@ -124,6 +143,7 @@ void TextFieldBase::setEmptyDescText(const std::string &value)
 
     _sfEmptyDescText.setValue(value);
 }
+    //Field EmptyDescTextColor
 //! Get the value of the TextField::_sfEmptyDescTextColor field.
 
 inline

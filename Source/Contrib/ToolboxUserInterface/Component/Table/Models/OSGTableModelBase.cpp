@@ -62,6 +62,7 @@
 #include "OSGTableModelBase.h"
 #include "OSGTableModel.h"
 #include "OSGTableModelEventSource.h"
+
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -230,20 +231,6 @@ SFUnrecTableModelEventSourcePtr *TableModelBase::editSFEventSource    (void)
     return &_sfEventSource;
 }
 
-//! Get the value of the TableModel::_sfEventSource field.
-TableModelEventSource * TableModelBase::getEventSource(void) const
-{
-    return _sfEventSource.getValue();
-}
-
-//! Set the value of the TableModel::_sfEventSource field.
-void TableModelBase::setEventSource(TableModelEventSource * const value)
-{
-    editSField(EventSourceFieldMask);
-
-    _sfEventSource.setValue(value);
-}
-
 
 
 
@@ -320,7 +307,7 @@ void TableModelBase::onCreate(const TableModel *source)
 
         pThis->setEventSource(source->getEventSource());
     }
-    else
+    
     {
         TableModelEventSourceUnrecPtr evSrc = TableModelEventSource::create();
         setEventSource( evSrc );

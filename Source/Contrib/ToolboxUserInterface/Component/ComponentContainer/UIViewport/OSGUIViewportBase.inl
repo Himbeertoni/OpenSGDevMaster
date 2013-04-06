@@ -72,8 +72,10 @@ OSG::UInt16 UIViewportBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
+//Test
 /*------------------------------ get -----------------------------------*/
 
+    //Field ViewPosition
 //! Get the value of the UIViewport::_sfViewPosition field.
 
 inline
@@ -99,6 +101,23 @@ void UIViewportBase::setViewPosition(const Pnt2f &value)
 
     _sfViewPosition.setValue(value);
 }
+    //Field ViewComponent
+//! Get the value of the UIViewport::_sfViewComponent field.
+inline
+Component * UIViewportBase::getViewComponent(void) const
+{
+    return _sfViewComponent.getValue();
+}
+
+//! Set the value of the UIViewport::_sfViewComponent field.
+inline
+void UIViewportBase::setViewComponent(Component * const value)
+{
+    editSField(ViewComponentFieldMask);
+
+    _sfViewComponent.setValue(value);
+}
+    //Field ViewSize
 //! Get the value of the UIViewport::_sfViewSize field.
 
 inline

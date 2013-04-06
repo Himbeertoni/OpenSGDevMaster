@@ -179,25 +179,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentEventSourceBase
     /*! \{                                                                 */
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Parent linking                                               */
-    /*! \{                                                                 */
 
-    virtual bool linkParent  (FieldContainer * const pParent,
-                              UInt16           const childFieldId,
-                              UInt16           const parentFieldId);
-    virtual bool unlinkParent(FieldContainer * const pParent,
-                              UInt16           const parentFieldId);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Child linking                                                */
-    /*! \{                                                                 */
-
-    virtual bool unlinkChild(FieldContainer * const pChild,
-                             UInt16           const childFieldId);
-
-    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */

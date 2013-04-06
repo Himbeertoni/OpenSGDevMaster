@@ -62,6 +62,7 @@
 #include "OSGSingleSelectionModelBase.h"
 #include "OSGSingleSelectionModel.h"
 #include "OSGSingleSelectionModelEventSource.h"
+
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -212,20 +213,6 @@ SFUnrecSingleSelectionModelEventSourcePtr *SingleSelectionModelBase::editSFEvent
     return &_sfEventSource;
 }
 
-//! Get the value of the SingleSelectionModel::_sfEventSource field.
-SingleSelectionModelEventSource * SingleSelectionModelBase::getEventSource(void) const
-{
-    return _sfEventSource.getValue();
-}
-
-//! Set the value of the SingleSelectionModel::_sfEventSource field.
-void SingleSelectionModelBase::setEventSource(SingleSelectionModelEventSource * const value)
-{
-    editSField(EventSourceFieldMask);
-
-    _sfEventSource.setValue(value);
-}
-
 
 
 
@@ -302,7 +289,7 @@ void SingleSelectionModelBase::onCreate(const SingleSelectionModel *source)
 
         pThis->setEventSource(source->getEventSource());
     }
-    else
+    
     {
         SingleSelectionModelEventSourceUnrecPtr evSrc = SingleSelectionModelEventSource::create();
         setEventSource( evSrc );

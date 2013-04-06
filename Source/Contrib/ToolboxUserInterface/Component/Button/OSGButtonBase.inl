@@ -72,8 +72,26 @@ OSG::UInt16 ButtonBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
+//Test
 /*------------------------------ get -----------------------------------*/
 
+    //Field Font
+//! Get the value of the Button::_sfFont field.
+inline
+UIFont * ButtonBase::getFont(void) const
+{
+    return _sfFont.getValue();
+}
+
+//! Set the value of the Button::_sfFont field.
+inline
+void ButtonBase::setFont(UIFont * const value)
+{
+    editSField(FontFieldMask);
+
+    _sfFont.setValue(value);
+}
+    //Field Text
 //! Get the value of the Button::_sfText field.
 
 inline
@@ -99,6 +117,55 @@ void ButtonBase::setText(const std::string &value)
 
     _sfText.setValue(value);
 }
+    //Field ActiveBorder
+//! Get the value of the Button::_sfActiveBorder field.
+inline
+Border * ButtonBase::getActiveBorder(void) const
+{
+    return _sfActiveBorder.getValue();
+}
+
+//! Set the value of the Button::_sfActiveBorder field.
+inline
+void ButtonBase::setActiveBorder(Border * const value)
+{
+    editSField(ActiveBorderFieldMask);
+
+    _sfActiveBorder.setValue(value);
+}
+    //Field ActiveBackground
+//! Get the value of the Button::_sfActiveBackground field.
+inline
+Layer * ButtonBase::getActiveBackground(void) const
+{
+    return _sfActiveBackground.getValue();
+}
+
+//! Set the value of the Button::_sfActiveBackground field.
+inline
+void ButtonBase::setActiveBackground(Layer * const value)
+{
+    editSField(ActiveBackgroundFieldMask);
+
+    _sfActiveBackground.setValue(value);
+}
+    //Field ActiveForeground
+//! Get the value of the Button::_sfActiveForeground field.
+inline
+Layer * ButtonBase::getActiveForeground(void) const
+{
+    return _sfActiveForeground.getValue();
+}
+
+//! Set the value of the Button::_sfActiveForeground field.
+inline
+void ButtonBase::setActiveForeground(Layer * const value)
+{
+    editSField(ActiveForegroundFieldMask);
+
+    _sfActiveForeground.setValue(value);
+}
+    //Field ActiveTextColor
 //! Get the value of the Button::_sfActiveTextColor field.
 
 inline
@@ -124,6 +191,7 @@ void ButtonBase::setActiveTextColor(const Color4f &value)
 
     _sfActiveTextColor.setValue(value);
 }
+    //Field FocusedTextColor
 //! Get the value of the Button::_sfFocusedTextColor field.
 
 inline
@@ -149,6 +217,7 @@ void ButtonBase::setFocusedTextColor(const Color4f &value)
 
     _sfFocusedTextColor.setValue(value);
 }
+    //Field RolloverTextColor
 //! Get the value of the Button::_sfRolloverTextColor field.
 
 inline
@@ -174,6 +243,7 @@ void ButtonBase::setRolloverTextColor(const Color4f &value)
 
     _sfRolloverTextColor.setValue(value);
 }
+    //Field DisabledTextColor
 //! Get the value of the Button::_sfDisabledTextColor field.
 
 inline
@@ -199,6 +269,7 @@ void ButtonBase::setDisabledTextColor(const Color4f &value)
 
     _sfDisabledTextColor.setValue(value);
 }
+    //Field TextColor
 //! Get the value of the Button::_sfTextColor field.
 
 inline
@@ -224,6 +295,7 @@ void ButtonBase::setTextColor(const Color4f &value)
 
     _sfTextColor.setValue(value);
 }
+    //Field Alignment
 //! Get the value of the Button::_sfAlignment field.
 
 inline
@@ -249,6 +321,7 @@ void ButtonBase::setAlignment(const Vec2f &value)
 
     _sfAlignment.setValue(value);
 }
+    //Field EnableActionOnMouseDownTime
 //! Get the value of the Button::_sfEnableActionOnMouseDownTime field.
 
 inline
@@ -274,6 +347,7 @@ void ButtonBase::setEnableActionOnMouseDownTime(const bool value)
 
     _sfEnableActionOnMouseDownTime.setValue(value);
 }
+    //Field ActionOnMouseDownRate
 //! Get the value of the Button::_sfActionOnMouseDownRate field.
 
 inline
@@ -299,6 +373,7 @@ void ButtonBase::setActionOnMouseDownRate(const Time &value)
 
     _sfActionOnMouseDownRate.setValue(value);
 }
+    //Field ActiveOffset
 //! Get the value of the Button::_sfActiveOffset field.
 
 inline
@@ -324,6 +399,87 @@ void ButtonBase::setActiveOffset(const Vec2f &value)
 
     _sfActiveOffset.setValue(value);
 }
+    //Field DrawObject
+//! Get the value of the Button::_sfDrawObject field.
+inline
+UIDrawObjectCanvas * ButtonBase::getDrawObject(void) const
+{
+    return _sfDrawObject.getValue();
+}
+
+//! Set the value of the Button::_sfDrawObject field.
+inline
+void ButtonBase::setDrawObject(UIDrawObjectCanvas * const value)
+{
+    editSField(DrawObjectFieldMask);
+
+    _sfDrawObject.setValue(value);
+}
+    //Field ActiveDrawObject
+//! Get the value of the Button::_sfActiveDrawObject field.
+inline
+UIDrawObjectCanvas * ButtonBase::getActiveDrawObject(void) const
+{
+    return _sfActiveDrawObject.getValue();
+}
+
+//! Set the value of the Button::_sfActiveDrawObject field.
+inline
+void ButtonBase::setActiveDrawObject(UIDrawObjectCanvas * const value)
+{
+    editSField(ActiveDrawObjectFieldMask);
+
+    _sfActiveDrawObject.setValue(value);
+}
+    //Field FocusedDrawObject
+//! Get the value of the Button::_sfFocusedDrawObject field.
+inline
+UIDrawObjectCanvas * ButtonBase::getFocusedDrawObject(void) const
+{
+    return _sfFocusedDrawObject.getValue();
+}
+
+//! Set the value of the Button::_sfFocusedDrawObject field.
+inline
+void ButtonBase::setFocusedDrawObject(UIDrawObjectCanvas * const value)
+{
+    editSField(FocusedDrawObjectFieldMask);
+
+    _sfFocusedDrawObject.setValue(value);
+}
+    //Field RolloverDrawObject
+//! Get the value of the Button::_sfRolloverDrawObject field.
+inline
+UIDrawObjectCanvas * ButtonBase::getRolloverDrawObject(void) const
+{
+    return _sfRolloverDrawObject.getValue();
+}
+
+//! Set the value of the Button::_sfRolloverDrawObject field.
+inline
+void ButtonBase::setRolloverDrawObject(UIDrawObjectCanvas * const value)
+{
+    editSField(RolloverDrawObjectFieldMask);
+
+    _sfRolloverDrawObject.setValue(value);
+}
+    //Field DisabledDrawObject
+//! Get the value of the Button::_sfDisabledDrawObject field.
+inline
+UIDrawObjectCanvas * ButtonBase::getDisabledDrawObject(void) const
+{
+    return _sfDisabledDrawObject.getValue();
+}
+
+//! Set the value of the Button::_sfDisabledDrawObject field.
+inline
+void ButtonBase::setDisabledDrawObject(UIDrawObjectCanvas * const value)
+{
+    editSField(DisabledDrawObjectFieldMask);
+
+    _sfDisabledDrawObject.setValue(value);
+}
+    //Field DrawObjectToTextAlignment
 //! Get the value of the Button::_sfDrawObjectToTextAlignment field.
 
 inline
@@ -349,6 +505,7 @@ void ButtonBase::setDrawObjectToTextAlignment(const UInt32 value)
 
     _sfDrawObjectToTextAlignment.setValue(value);
 }
+    //Field DrawObjectToTextPadding
 //! Get the value of the Button::_sfDrawObjectToTextPadding field.
 
 inline

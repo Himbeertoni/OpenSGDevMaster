@@ -72,8 +72,10 @@ OSG::UInt16 ListSelectionModelBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
+//Test
 /*------------------------------ get -----------------------------------*/
 
+    //Field SelectionMode
 //! Get the value of the ListSelectionModel::_sfSelectionMode field.
 
 inline
@@ -98,6 +100,22 @@ void ListSelectionModelBase::setSelectionMode(const UInt32 value)
     editSField(SelectionModeFieldMask);
 
     _sfSelectionMode.setValue(value);
+}
+    //Field EventSource
+//! Get the value of the ListSelectionModel::_sfEventSource field.
+inline
+ListSelectionModelEventSource * ListSelectionModelBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the ListSelectionModel::_sfEventSource field.
+inline
+void ListSelectionModelBase::setEventSource(ListSelectionModelEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
 }
 
 

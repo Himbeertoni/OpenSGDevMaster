@@ -64,6 +64,7 @@
 
 #include "OSGInternalWindowBase.h"
 #include "OSGInternalWindow.h"
+
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -323,20 +324,6 @@ SFUnrecComponentPtr *InternalWindowBase::editSFFocusedComponent(void)
     return &_sfFocusedComponent;
 }
 
-//! Get the value of the InternalWindow::_sfFocusedComponent field.
-Component * InternalWindowBase::getFocusedComponent(void) const
-{
-    return _sfFocusedComponent.getValue();
-}
-
-//! Set the value of the InternalWindow::_sfFocusedComponent field.
-void InternalWindowBase::setFocusedComponent(Component * const value)
-{
-    editSField(FocusedComponentFieldMask);
-
-    _sfFocusedComponent.setValue(value);
-}
-
 
 //! Get the InternalWindow::_mfActivePopupMenus field.
 const MFUnrecPopupMenuPtr *InternalWindowBase::getMFActivePopupMenus(void) const
@@ -368,20 +355,6 @@ SFUnrecMenuBarPtr   *InternalWindowBase::editSFMenuBar        (void)
     return &_sfMenuBar;
 }
 
-//! Get the value of the InternalWindow::_sfMenuBar field.
-MenuBar * InternalWindowBase::getMenuBar(void) const
-{
-    return _sfMenuBar.getValue();
-}
-
-//! Set the value of the InternalWindow::_sfMenuBar field.
-void InternalWindowBase::setMenuBar(MenuBar * const value)
-{
-    editSField(MenuBarFieldMask);
-
-    _sfMenuBar.setValue(value);
-}
-
 
 //! Get the InternalWindow::_sfTitlebar field.
 const SFUnrecTitlebarPtr *InternalWindowBase::getSFTitlebar(void) const
@@ -394,20 +367,6 @@ SFUnrecTitlebarPtr  *InternalWindowBase::editSFTitlebar       (void)
     editSField(TitlebarFieldMask);
 
     return &_sfTitlebar;
-}
-
-//! Get the value of the InternalWindow::_sfTitlebar field.
-Titlebar * InternalWindowBase::getTitlebar(void) const
-{
-    return _sfTitlebar.getValue();
-}
-
-//! Set the value of the InternalWindow::_sfTitlebar field.
-void InternalWindowBase::setTitlebar(Titlebar * const value)
-{
-    editSField(TitlebarFieldMask);
-
-    _sfTitlebar.setValue(value);
 }
 
 
@@ -813,6 +772,7 @@ void InternalWindowBase::onCreate(const InternalWindow *source)
             ++ToolTipsIt;
         }
     }
+    
 }
 
 GetFieldHandlePtr InternalWindowBase::getHandleFocusedComponent (void) const

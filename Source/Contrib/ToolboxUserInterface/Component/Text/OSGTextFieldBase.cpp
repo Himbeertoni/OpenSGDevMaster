@@ -62,6 +62,7 @@
 #include "OSGTextFieldBase.h"
 #include "OSGTextField.h"
 #include "OSGTextFieldEventSource.h"
+
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -301,20 +302,6 @@ SFUnrecUIFontPtr    *TextFieldBase::editSFEmptyDescTextFont(void)
     editSField(EmptyDescTextFontFieldMask);
 
     return &_sfEmptyDescTextFont;
-}
-
-//! Get the value of the TextField::_sfEmptyDescTextFont field.
-UIFont * TextFieldBase::getEmptyDescTextFont(void) const
-{
-    return _sfEmptyDescTextFont.getValue();
-}
-
-//! Set the value of the TextField::_sfEmptyDescTextFont field.
-void TextFieldBase::setEmptyDescTextFont(UIFont * const value)
-{
-    editSField(EmptyDescTextFontFieldMask);
-
-    _sfEmptyDescTextFont.setValue(value);
 }
 
 
@@ -580,7 +567,7 @@ void TextFieldBase::onCreate(const TextField *source)
 
         pThis->setEmptyDescTextFont(source->getEmptyDescTextFont());
     }
-    else
+    
     {
         TextFieldEventSourceUnrecPtr evSrc = TextFieldEventSource::create();
         setEventSource( evSrc );

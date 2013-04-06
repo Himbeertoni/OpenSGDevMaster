@@ -62,6 +62,7 @@
 #include "OSGUIViewportBase.h"
 #include "OSGUIViewport.h"
 #include "OSGUIViewportEventSource.h"
+
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -276,20 +277,6 @@ SFUnrecComponentPtr *UIViewportBase::editSFViewComponent  (void)
     editSField(ViewComponentFieldMask);
 
     return &_sfViewComponent;
-}
-
-//! Get the value of the UIViewport::_sfViewComponent field.
-Component * UIViewportBase::getViewComponent(void) const
-{
-    return _sfViewComponent.getValue();
-}
-
-//! Set the value of the UIViewport::_sfViewComponent field.
-void UIViewportBase::setViewComponent(Component * const value)
-{
-    editSField(ViewComponentFieldMask);
-
-    _sfViewComponent.setValue(value);
 }
 
 
@@ -527,7 +514,7 @@ void UIViewportBase::onCreate(const UIViewport *source)
 
         pThis->setViewComponent(source->getViewComponent());
     }
-    else
+    
     {
         UIViewportEventSourceUnrecPtr evSrc = UIViewportEventSource::create();
         setEventSource( evSrc );

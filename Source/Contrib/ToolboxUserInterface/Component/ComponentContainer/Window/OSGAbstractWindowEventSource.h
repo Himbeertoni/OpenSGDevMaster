@@ -91,7 +91,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowEventSource : pub
 
     enum
     {
-        WindowOpenedEventId = 1,
+        WindowOpenedEventId = Inherited::NextProducedEventId,
         WindowClosingEventId = WindowOpenedEventId + 1,
         WindowClosedEventId = WindowClosingEventId + 1,
         WindowIconifiedEventId = WindowClosedEventId + 1,

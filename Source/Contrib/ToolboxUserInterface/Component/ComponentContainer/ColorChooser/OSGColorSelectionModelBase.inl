@@ -72,8 +72,25 @@ OSG::UInt16 ColorSelectionModelBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
+//Test
 /*------------------------------ get -----------------------------------*/
 
+    //Field EventSource
+//! Get the value of the ColorSelectionModel::_sfEventSource field.
+inline
+ColorSelectionModelEventSource * ColorSelectionModelBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the ColorSelectionModel::_sfEventSource field.
+inline
+void ColorSelectionModelBase::setEventSource(ColorSelectionModelEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

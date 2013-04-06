@@ -63,6 +63,7 @@
 #include "OSGAbstractWindowBase.h"
 #include "OSGAbstractWindow.h"
 #include "OSGAbstractWindowEventSource.h"
+
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -849,20 +850,6 @@ SFUnrecUIDrawObjectCanvasPtr *AbstractWindowBase::editSFDesktopIcon    (void)
     return &_sfDesktopIcon;
 }
 
-//! Get the value of the AbstractWindow::_sfDesktopIcon field.
-UIDrawObjectCanvas * AbstractWindowBase::getDesktopIcon(void) const
-{
-    return _sfDesktopIcon.getValue();
-}
-
-//! Set the value of the AbstractWindow::_sfDesktopIcon field.
-void AbstractWindowBase::setDesktopIcon(UIDrawObjectCanvas * const value)
-{
-    editSField(DesktopIconFieldMask);
-
-    _sfDesktopIcon.setValue(value);
-}
-
 
 SFBool *AbstractWindowBase::editSFModal(void)
 {
@@ -1391,7 +1378,7 @@ void AbstractWindowBase::onCreate(const AbstractWindow *source)
 
         pThis->setDesktopIcon(source->getDesktopIcon());
     }
-    else
+    
     {
         AbstractWindowEventSourceUnrecPtr evSrc = AbstractWindowEventSource::create();
         setEventSource( evSrc );

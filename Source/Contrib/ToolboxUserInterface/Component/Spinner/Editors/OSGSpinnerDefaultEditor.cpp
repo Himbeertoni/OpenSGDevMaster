@@ -162,6 +162,8 @@ bool SpinnerDefaultEditor::getEditable(void) const
 
 void SpinnerDefaultEditor::onCreate(const SpinnerDefaultEditor * Id)
 {
+    Inherited::onCreate( Id );
+
     if(Id != NULL &&
        Id->getTextField() != NULL)
     {

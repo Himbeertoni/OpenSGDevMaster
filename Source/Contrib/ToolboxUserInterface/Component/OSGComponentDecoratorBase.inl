@@ -72,6 +72,7 @@ OSG::UInt16 ComponentDecoratorBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
+//Test
 
 inline
 Component *ComponentDecoratorBase::getDecoratee(void) const

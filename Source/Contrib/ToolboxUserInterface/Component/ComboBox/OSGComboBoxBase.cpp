@@ -67,6 +67,7 @@
 #include "OSGComboBoxBase.h"
 #include "OSGComboBox.h"
 #include "OSGComboBoxEventSource.h"
+
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -374,20 +375,6 @@ SFUnrecToggleButtonPtr *ComboBoxBase::editSFExpandButton   (void)
     return &_sfExpandButton;
 }
 
-//! Get the value of the ComboBox::_sfExpandButton field.
-ToggleButton * ComboBoxBase::getExpandButton(void) const
-{
-    return _sfExpandButton.getValue();
-}
-
-//! Set the value of the ComboBox::_sfExpandButton field.
-void ComboBoxBase::setExpandButton(ToggleButton * const value)
-{
-    editSField(ExpandButtonFieldMask);
-
-    _sfExpandButton.setValue(value);
-}
-
 
 //! Get the ComboBox::_sfEditor field.
 const SFUnrecComboBoxEditorPtr *ComboBoxBase::getSFEditor(void) const
@@ -400,20 +387,6 @@ SFUnrecComboBoxEditorPtr *ComboBoxBase::editSFEditor         (void)
     editSField(EditorFieldMask);
 
     return &_sfEditor;
-}
-
-//! Get the value of the ComboBox::_sfEditor field.
-ComboBoxEditor * ComboBoxBase::getEditor(void) const
-{
-    return _sfEditor.getValue();
-}
-
-//! Set the value of the ComboBox::_sfEditor field.
-void ComboBoxBase::setEditor(ComboBoxEditor * const value)
-{
-    editSField(EditorFieldMask);
-
-    _sfEditor.setValue(value);
 }
 
 
@@ -430,20 +403,6 @@ SFUnrecComboBoxModelPtr *ComboBoxBase::editSFModel          (void)
     return &_sfModel;
 }
 
-//! Get the value of the ComboBox::_sfModel field.
-ComboBoxModel * ComboBoxBase::getModel(void) const
-{
-    return _sfModel.getValue();
-}
-
-//! Set the value of the ComboBox::_sfModel field.
-void ComboBoxBase::setModel(ComboBoxModel * const value)
-{
-    editSField(ModelFieldMask);
-
-    _sfModel.setValue(value);
-}
-
 
 //! Get the ComboBox::_sfCellGenerator field.
 const SFUnrecComponentGeneratorPtr *ComboBoxBase::getSFCellGenerator(void) const
@@ -458,20 +417,6 @@ SFUnrecComponentGeneratorPtr *ComboBoxBase::editSFCellGenerator  (void)
     return &_sfCellGenerator;
 }
 
-//! Get the value of the ComboBox::_sfCellGenerator field.
-ComponentGenerator * ComboBoxBase::getCellGenerator(void) const
-{
-    return _sfCellGenerator.getValue();
-}
-
-//! Set the value of the ComboBox::_sfCellGenerator field.
-void ComboBoxBase::setCellGenerator(ComponentGenerator * const value)
-{
-    editSField(CellGeneratorFieldMask);
-
-    _sfCellGenerator.setValue(value);
-}
-
 
 //! Get the ComboBox::_sfComponentGeneratorSelectedItem field.
 const SFUnrecComponentPtr *ComboBoxBase::getSFComponentGeneratorSelectedItem(void) const
@@ -484,20 +429,6 @@ SFUnrecComponentPtr *ComboBoxBase::editSFComponentGeneratorSelectedItem(void)
     editSField(ComponentGeneratorSelectedItemFieldMask);
 
     return &_sfComponentGeneratorSelectedItem;
-}
-
-//! Get the value of the ComboBox::_sfComponentGeneratorSelectedItem field.
-Component * ComboBoxBase::getComponentGeneratorSelectedItem(void) const
-{
-    return _sfComponentGeneratorSelectedItem.getValue();
-}
-
-//! Set the value of the ComboBox::_sfComponentGeneratorSelectedItem field.
-void ComboBoxBase::setComponentGeneratorSelectedItem(Component * const value)
-{
-    editSField(ComponentGeneratorSelectedItemFieldMask);
-
-    _sfComponentGeneratorSelectedItem.setValue(value);
 }
 
 
@@ -525,20 +456,6 @@ SFUnrecListGeneratedPopupMenuPtr *ComboBoxBase::editSFComboListPopupMenu(void)
     editSField(ComboListPopupMenuFieldMask);
 
     return &_sfComboListPopupMenu;
-}
-
-//! Get the value of the ComboBox::_sfComboListPopupMenu field.
-ListGeneratedPopupMenu * ComboBoxBase::getComboListPopupMenu(void) const
-{
-    return _sfComboListPopupMenu.getValue();
-}
-
-//! Set the value of the ComboBox::_sfComboListPopupMenu field.
-void ComboBoxBase::setComboListPopupMenu(ListGeneratedPopupMenu * const value)
-{
-    editSField(ComboListPopupMenuFieldMask);
-
-    _sfComboListPopupMenu.setValue(value);
 }
 
 
@@ -833,7 +750,7 @@ void ComboBoxBase::onCreate(const ComboBox *source)
 
         pThis->setComboListPopupMenu(source->getComboListPopupMenu());
     }
-    else
+    
     {
         ComboBoxEventSourceUnrecPtr evSrc = ComboBoxEventSource::create();
         setEventSource( evSrc );

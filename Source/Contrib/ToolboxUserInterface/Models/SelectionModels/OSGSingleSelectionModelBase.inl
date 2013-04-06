@@ -72,8 +72,25 @@ OSG::UInt16 SingleSelectionModelBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
+//Test
 /*------------------------------ get -----------------------------------*/
 
+    //Field EventSource
+//! Get the value of the SingleSelectionModel::_sfEventSource field.
+inline
+SingleSelectionModelEventSource * SingleSelectionModelBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the SingleSelectionModel::_sfEventSource field.
+inline
+void SingleSelectionModelBase::setEventSource(SingleSelectionModelEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

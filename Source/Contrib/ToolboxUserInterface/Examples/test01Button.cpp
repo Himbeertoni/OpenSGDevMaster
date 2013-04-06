@@ -159,14 +159,11 @@ int main(int argc, char **argv)
         WindowEventProducerRecPtr TutorialWindow = createNativeWindow();
         TutorialWindow->initWindow();
 
-        WindowEventProducerEventSourceUnrecPtr wev = WindowEventProducerEventSource::create();
-        TutorialWindow->setEventSource( wev );
-
         // Create the SimpleSceneManager helper
         SimpleSceneManagerRefPtr sceneManager = SimpleSceneManager::create();
         TutorialWindow->setDisplayCallback(boost::bind(display, sceneManager));
         TutorialWindow->setReshapeCallback(boost::bind(reshape, _1, sceneManager));
-        wev->connectKeyTyped(boost::bind(keyTyped, _1));
+        TutorialWindow->getEventSource()->connectKeyTyped(boost::bind(keyTyped, _1));
 
         // Tell the Manager what to manage
         sceneManager->setWindow(TutorialWindow);

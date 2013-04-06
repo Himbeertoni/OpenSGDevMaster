@@ -179,6 +179,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListSelectionModelEventSourceBa
     /*! \{                                                                 */
 
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */

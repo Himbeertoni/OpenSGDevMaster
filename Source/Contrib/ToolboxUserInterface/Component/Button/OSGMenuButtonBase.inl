@@ -72,8 +72,57 @@ OSG::UInt16 MenuButtonBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
+//Test
 /*------------------------------ get -----------------------------------*/
 
+    //Field Model
+//! Get the value of the MenuButton::_sfModel field.
+inline
+ListModel * MenuButtonBase::getModel(void) const
+{
+    return _sfModel.getValue();
+}
+
+//! Set the value of the MenuButton::_sfModel field.
+inline
+void MenuButtonBase::setModel(ListModel * const value)
+{
+    editSField(ModelFieldMask);
+
+    _sfModel.setValue(value);
+}
+    //Field CellGenerator
+//! Get the value of the MenuButton::_sfCellGenerator field.
+inline
+ComponentGenerator * MenuButtonBase::getCellGenerator(void) const
+{
+    return _sfCellGenerator.getValue();
+}
+
+//! Set the value of the MenuButton::_sfCellGenerator field.
+inline
+void MenuButtonBase::setCellGenerator(ComponentGenerator * const value)
+{
+    editSField(CellGeneratorFieldMask);
+
+    _sfCellGenerator.setValue(value);
+}
+    //Field MenuButtonPopupMenu
+//! Get the value of the MenuButton::_sfMenuButtonPopupMenu field.
+inline
+ListGeneratedPopupMenu * MenuButtonBase::getMenuButtonPopupMenu(void) const
+{
+    return _sfMenuButtonPopupMenu.getValue();
+}
+
+//! Set the value of the MenuButton::_sfMenuButtonPopupMenu field.
+inline
+void MenuButtonBase::setMenuButtonPopupMenu(ListGeneratedPopupMenu * const value)
+{
+    editSField(MenuButtonPopupMenuFieldMask);
+
+    _sfMenuButtonPopupMenu.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

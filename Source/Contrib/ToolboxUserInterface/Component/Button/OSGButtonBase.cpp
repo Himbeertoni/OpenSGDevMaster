@@ -65,6 +65,7 @@
 #include "OSGButtonBase.h"
 #include "OSGButton.h"
 #include "OSGButtonEventSource.h"
+
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -730,20 +731,6 @@ SFUnrecUIFontPtr    *ButtonBase::editSFFont           (void)
     return &_sfFont;
 }
 
-//! Get the value of the Button::_sfFont field.
-UIFont * ButtonBase::getFont(void) const
-{
-    return _sfFont.getValue();
-}
-
-//! Set the value of the Button::_sfFont field.
-void ButtonBase::setFont(UIFont * const value)
-{
-    editSField(FontFieldMask);
-
-    _sfFont.setValue(value);
-}
-
 
 SFString *ButtonBase::editSFText(void)
 {
@@ -771,20 +758,6 @@ SFUnrecBorderPtr    *ButtonBase::editSFActiveBorder   (void)
     return &_sfActiveBorder;
 }
 
-//! Get the value of the Button::_sfActiveBorder field.
-Border * ButtonBase::getActiveBorder(void) const
-{
-    return _sfActiveBorder.getValue();
-}
-
-//! Set the value of the Button::_sfActiveBorder field.
-void ButtonBase::setActiveBorder(Border * const value)
-{
-    editSField(ActiveBorderFieldMask);
-
-    _sfActiveBorder.setValue(value);
-}
-
 
 //! Get the Button::_sfActiveBackground field.
 const SFUnrecLayerPtr *ButtonBase::getSFActiveBackground(void) const
@@ -799,20 +772,6 @@ SFUnrecLayerPtr     *ButtonBase::editSFActiveBackground(void)
     return &_sfActiveBackground;
 }
 
-//! Get the value of the Button::_sfActiveBackground field.
-Layer * ButtonBase::getActiveBackground(void) const
-{
-    return _sfActiveBackground.getValue();
-}
-
-//! Set the value of the Button::_sfActiveBackground field.
-void ButtonBase::setActiveBackground(Layer * const value)
-{
-    editSField(ActiveBackgroundFieldMask);
-
-    _sfActiveBackground.setValue(value);
-}
-
 
 //! Get the Button::_sfActiveForeground field.
 const SFUnrecLayerPtr *ButtonBase::getSFActiveForeground(void) const
@@ -825,20 +784,6 @@ SFUnrecLayerPtr     *ButtonBase::editSFActiveForeground(void)
     editSField(ActiveForegroundFieldMask);
 
     return &_sfActiveForeground;
-}
-
-//! Get the value of the Button::_sfActiveForeground field.
-Layer * ButtonBase::getActiveForeground(void) const
-{
-    return _sfActiveForeground.getValue();
-}
-
-//! Set the value of the Button::_sfActiveForeground field.
-void ButtonBase::setActiveForeground(Layer * const value)
-{
-    editSField(ActiveForegroundFieldMask);
-
-    _sfActiveForeground.setValue(value);
 }
 
 
@@ -972,20 +917,6 @@ SFUnrecUIDrawObjectCanvasPtr *ButtonBase::editSFDrawObject     (void)
     return &_sfDrawObject;
 }
 
-//! Get the value of the Button::_sfDrawObject field.
-UIDrawObjectCanvas * ButtonBase::getDrawObject(void) const
-{
-    return _sfDrawObject.getValue();
-}
-
-//! Set the value of the Button::_sfDrawObject field.
-void ButtonBase::setDrawObject(UIDrawObjectCanvas * const value)
-{
-    editSField(DrawObjectFieldMask);
-
-    _sfDrawObject.setValue(value);
-}
-
 
 //! Get the Button::_sfActiveDrawObject field.
 const SFUnrecUIDrawObjectCanvasPtr *ButtonBase::getSFActiveDrawObject(void) const
@@ -998,20 +929,6 @@ SFUnrecUIDrawObjectCanvasPtr *ButtonBase::editSFActiveDrawObject(void)
     editSField(ActiveDrawObjectFieldMask);
 
     return &_sfActiveDrawObject;
-}
-
-//! Get the value of the Button::_sfActiveDrawObject field.
-UIDrawObjectCanvas * ButtonBase::getActiveDrawObject(void) const
-{
-    return _sfActiveDrawObject.getValue();
-}
-
-//! Set the value of the Button::_sfActiveDrawObject field.
-void ButtonBase::setActiveDrawObject(UIDrawObjectCanvas * const value)
-{
-    editSField(ActiveDrawObjectFieldMask);
-
-    _sfActiveDrawObject.setValue(value);
 }
 
 
@@ -1028,20 +945,6 @@ SFUnrecUIDrawObjectCanvasPtr *ButtonBase::editSFFocusedDrawObject(void)
     return &_sfFocusedDrawObject;
 }
 
-//! Get the value of the Button::_sfFocusedDrawObject field.
-UIDrawObjectCanvas * ButtonBase::getFocusedDrawObject(void) const
-{
-    return _sfFocusedDrawObject.getValue();
-}
-
-//! Set the value of the Button::_sfFocusedDrawObject field.
-void ButtonBase::setFocusedDrawObject(UIDrawObjectCanvas * const value)
-{
-    editSField(FocusedDrawObjectFieldMask);
-
-    _sfFocusedDrawObject.setValue(value);
-}
-
 
 //! Get the Button::_sfRolloverDrawObject field.
 const SFUnrecUIDrawObjectCanvasPtr *ButtonBase::getSFRolloverDrawObject(void) const
@@ -1056,20 +959,6 @@ SFUnrecUIDrawObjectCanvasPtr *ButtonBase::editSFRolloverDrawObject(void)
     return &_sfRolloverDrawObject;
 }
 
-//! Get the value of the Button::_sfRolloverDrawObject field.
-UIDrawObjectCanvas * ButtonBase::getRolloverDrawObject(void) const
-{
-    return _sfRolloverDrawObject.getValue();
-}
-
-//! Set the value of the Button::_sfRolloverDrawObject field.
-void ButtonBase::setRolloverDrawObject(UIDrawObjectCanvas * const value)
-{
-    editSField(RolloverDrawObjectFieldMask);
-
-    _sfRolloverDrawObject.setValue(value);
-}
-
 
 //! Get the Button::_sfDisabledDrawObject field.
 const SFUnrecUIDrawObjectCanvasPtr *ButtonBase::getSFDisabledDrawObject(void) const
@@ -1082,20 +971,6 @@ SFUnrecUIDrawObjectCanvasPtr *ButtonBase::editSFDisabledDrawObject(void)
     editSField(DisabledDrawObjectFieldMask);
 
     return &_sfDisabledDrawObject;
-}
-
-//! Get the value of the Button::_sfDisabledDrawObject field.
-UIDrawObjectCanvas * ButtonBase::getDisabledDrawObject(void) const
-{
-    return _sfDisabledDrawObject.getValue();
-}
-
-//! Set the value of the Button::_sfDisabledDrawObject field.
-void ButtonBase::setDisabledDrawObject(UIDrawObjectCanvas * const value)
-{
-    editSField(DisabledDrawObjectFieldMask);
-
-    _sfDisabledDrawObject.setValue(value);
 }
 
 
@@ -1632,7 +1507,7 @@ void ButtonBase::onCreate(const Button *source)
 
         pThis->setDisabledDrawObject(source->getDisabledDrawObject());
     }
-    else
+    
     {
         ButtonEventSourceUnrecPtr evSrc = ButtonEventSource::create();
         setEventSource( evSrc );

@@ -72,8 +72,25 @@ OSG::UInt16 BoundedRangeModelBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
+//Test
 /*------------------------------ get -----------------------------------*/
 
+    //Field EventSource
+//! Get the value of the BoundedRangeModel::_sfEventSource field.
+inline
+BoundedRangeModelEventSource * BoundedRangeModelBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the BoundedRangeModel::_sfEventSource field.
+inline
+void BoundedRangeModelBase::setEventSource(BoundedRangeModelEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

@@ -62,6 +62,7 @@
 #include "OSGListSelectionModelBase.h"
 #include "OSGListSelectionModel.h"
 #include "OSGListSelectionModelEventSource.h"
+
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -251,20 +252,6 @@ SFUnrecListSelectionModelEventSourcePtr *ListSelectionModelBase::editSFEventSour
     return &_sfEventSource;
 }
 
-//! Get the value of the ListSelectionModel::_sfEventSource field.
-ListSelectionModelEventSource * ListSelectionModelBase::getEventSource(void) const
-{
-    return _sfEventSource.getValue();
-}
-
-//! Set the value of the ListSelectionModel::_sfEventSource field.
-void ListSelectionModelBase::setEventSource(ListSelectionModelEventSource * const value)
-{
-    editSField(EventSourceFieldMask);
-
-    _sfEventSource.setValue(value);
-}
-
 
 
 
@@ -356,7 +343,7 @@ void ListSelectionModelBase::onCreate(const ListSelectionModel *source)
 
         pThis->setEventSource(source->getEventSource());
     }
-    else
+    
     {
         ListSelectionModelEventSourceUnrecPtr evSrc = ListSelectionModelEventSource::create();
         setEventSource( evSrc );

@@ -72,8 +72,25 @@ OSG::UInt16 CellEditorBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
+//Test
 /*------------------------------ get -----------------------------------*/
 
+    //Field EventSource
+//! Get the value of the CellEditor::_sfEventSource field.
+inline
+CellEditorEventSource * CellEditorBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the CellEditor::_sfEventSource field.
+inline
+void CellEditorBase::setEventSource(CellEditorEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

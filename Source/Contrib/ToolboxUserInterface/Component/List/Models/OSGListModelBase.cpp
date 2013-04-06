@@ -62,6 +62,7 @@
 #include "OSGListModelBase.h"
 #include "OSGListModel.h"
 #include "OSGListModelEventSource.h"
+
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -224,20 +225,6 @@ SFUnrecListModelEventSourcePtr *ListModelBase::editSFEventSource    (void)
     return &_sfEventSource;
 }
 
-//! Get the value of the ListModel::_sfEventSource field.
-ListModelEventSource * ListModelBase::getEventSource(void) const
-{
-    return _sfEventSource.getValue();
-}
-
-//! Set the value of the ListModel::_sfEventSource field.
-void ListModelBase::setEventSource(ListModelEventSource * const value)
-{
-    editSField(EventSourceFieldMask);
-
-    _sfEventSource.setValue(value);
-}
-
 
 
 
@@ -314,7 +301,7 @@ void ListModelBase::onCreate(const ListModel *source)
 
         pThis->setEventSource(source->getEventSource());
     }
-    else
+    
     {
         ListModelEventSourceUnrecPtr evSrc = ListModelEventSource::create();
         setEventSource( evSrc );

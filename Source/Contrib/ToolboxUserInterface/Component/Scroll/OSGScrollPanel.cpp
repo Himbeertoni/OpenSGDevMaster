@@ -387,12 +387,16 @@ void ScrollPanel::onCreate(const ScrollPanel * Id)
     Inherited::onCreate(Id);
 
     ScrollBarRefPtr NewVerticalScrollBar = ScrollBar::create();
+    OSG_ASSERT( NewVerticalScrollBar->getEventSource() );
+
     if(NewVerticalScrollBar != NULL)
     {
         NewVerticalScrollBar->setOrientation(ScrollBar::VERTICAL_ORIENTATION);
     }
 
     ScrollBarRefPtr NewHorizontalScrollBar = ScrollBar::create();
+    OSG_ASSERT( NewHorizontalScrollBar->getEventSource() );
+
     if(NewHorizontalScrollBar != NULL)
     {
         NewHorizontalScrollBar->setOrientation(ScrollBar::HORIZONTAL_ORIENTATION);

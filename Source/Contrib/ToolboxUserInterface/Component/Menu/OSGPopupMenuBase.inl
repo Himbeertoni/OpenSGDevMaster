@@ -72,8 +72,10 @@ OSG::UInt16 PopupMenuBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
+//Test
 /*------------------------------ get -----------------------------------*/
 
+    //Field SubMenuDelay
 //! Get the value of the PopupMenu::_sfSubMenuDelay field.
 
 inline
@@ -98,6 +100,54 @@ void PopupMenuBase::setSubMenuDelay(const Real32 value)
     editSField(SubMenuDelayFieldMask);
 
     _sfSubMenuDelay.setValue(value);
+}
+    //Field Invoker
+//! Get the value of the PopupMenu::_sfInvoker field.
+inline
+Component * PopupMenuBase::getInvoker(void) const
+{
+    return _sfInvoker.getValue();
+}
+
+//! Set the value of the PopupMenu::_sfInvoker field.
+inline
+void PopupMenuBase::setInvoker(Component * const value)
+{
+    editSField(InvokerFieldMask);
+
+    _sfInvoker.setValue(value);
+}
+    //Field DefaultSeparator
+//! Get the value of the PopupMenu::_sfDefaultSeparator field.
+inline
+Separator * PopupMenuBase::getDefaultSeparator(void) const
+{
+    return _sfDefaultSeparator.getValue();
+}
+
+//! Set the value of the PopupMenu::_sfDefaultSeparator field.
+inline
+void PopupMenuBase::setDefaultSeparator(Separator * const value)
+{
+    editSField(DefaultSeparatorFieldMask);
+
+    _sfDefaultSeparator.setValue(value);
+}
+    //Field SelectionModel
+//! Get the value of the PopupMenu::_sfSelectionModel field.
+inline
+SingleSelectionModel * PopupMenuBase::getSelectionModel(void) const
+{
+    return _sfSelectionModel.getValue();
+}
+
+//! Set the value of the PopupMenu::_sfSelectionModel field.
+inline
+void PopupMenuBase::setSelectionModel(SingleSelectionModel * const value)
+{
+    editSField(SelectionModelFieldMask);
+
+    _sfSelectionModel.setValue(value);
 }
 
 

@@ -62,6 +62,7 @@
 #include "OSGCellEditorBase.h"
 #include "OSGCellEditor.h"
 #include "OSGCellEditorEventSource.h"
+
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -218,20 +219,6 @@ SFUnrecCellEditorEventSourcePtr *CellEditorBase::editSFEventSource    (void)
     return &_sfEventSource;
 }
 
-//! Get the value of the CellEditor::_sfEventSource field.
-CellEditorEventSource * CellEditorBase::getEventSource(void) const
-{
-    return _sfEventSource.getValue();
-}
-
-//! Set the value of the CellEditor::_sfEventSource field.
-void CellEditorBase::setEventSource(CellEditorEventSource * const value)
-{
-    editSField(EventSourceFieldMask);
-
-    _sfEventSource.setValue(value);
-}
-
 
 
 
@@ -308,7 +295,7 @@ void CellEditorBase::onCreate(const CellEditor *source)
 
         pThis->setEventSource(source->getEventSource());
     }
-    else
+    
     {
         CellEditorEventSourceUnrecPtr evSrc = CellEditorEventSource::create();
         setEventSource( evSrc );

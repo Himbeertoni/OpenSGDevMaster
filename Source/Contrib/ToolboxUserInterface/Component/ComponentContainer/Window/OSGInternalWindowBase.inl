@@ -72,8 +72,57 @@ OSG::UInt16 InternalWindowBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
+//Test
 /*------------------------------ get -----------------------------------*/
 
+    //Field FocusedComponent
+//! Get the value of the InternalWindow::_sfFocusedComponent field.
+inline
+Component * InternalWindowBase::getFocusedComponent(void) const
+{
+    return _sfFocusedComponent.getValue();
+}
+
+//! Set the value of the InternalWindow::_sfFocusedComponent field.
+inline
+void InternalWindowBase::setFocusedComponent(Component * const value)
+{
+    editSField(FocusedComponentFieldMask);
+
+    _sfFocusedComponent.setValue(value);
+}
+    //Field MenuBar
+//! Get the value of the InternalWindow::_sfMenuBar field.
+inline
+MenuBar * InternalWindowBase::getMenuBar(void) const
+{
+    return _sfMenuBar.getValue();
+}
+
+//! Set the value of the InternalWindow::_sfMenuBar field.
+inline
+void InternalWindowBase::setMenuBar(MenuBar * const value)
+{
+    editSField(MenuBarFieldMask);
+
+    _sfMenuBar.setValue(value);
+}
+    //Field Titlebar
+//! Get the value of the InternalWindow::_sfTitlebar field.
+inline
+Titlebar * InternalWindowBase::getTitlebar(void) const
+{
+    return _sfTitlebar.getValue();
+}
+
+//! Set the value of the InternalWindow::_sfTitlebar field.
+inline
+void InternalWindowBase::setTitlebar(Titlebar * const value)
+{
+    editSField(TitlebarFieldMask);
+
+    _sfTitlebar.setValue(value);
+}
 
 
 

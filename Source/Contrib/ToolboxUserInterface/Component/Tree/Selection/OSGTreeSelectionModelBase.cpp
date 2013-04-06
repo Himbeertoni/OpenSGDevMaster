@@ -62,6 +62,7 @@
 #include "OSGTreeSelectionModelBase.h"
 #include "OSGTreeSelectionModel.h"
 #include "OSGTreeSelectionModelEventSource.h"
+
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -218,20 +219,6 @@ SFUnrecTreeSelectionModelEventSourcePtr *TreeSelectionModelBase::editSFEventSour
     return &_sfEventSource;
 }
 
-//! Get the value of the TreeSelectionModel::_sfEventSource field.
-TreeSelectionModelEventSource * TreeSelectionModelBase::getEventSource(void) const
-{
-    return _sfEventSource.getValue();
-}
-
-//! Set the value of the TreeSelectionModel::_sfEventSource field.
-void TreeSelectionModelBase::setEventSource(TreeSelectionModelEventSource * const value)
-{
-    editSField(EventSourceFieldMask);
-
-    _sfEventSource.setValue(value);
-}
-
 
 
 
@@ -308,7 +295,7 @@ void TreeSelectionModelBase::onCreate(const TreeSelectionModel *source)
 
         pThis->setEventSource(source->getEventSource());
     }
-    else
+    
     {
         TreeSelectionModelEventSourceUnrecPtr evSrc = TreeSelectionModelEventSource::create();
         setEventSource( evSrc );

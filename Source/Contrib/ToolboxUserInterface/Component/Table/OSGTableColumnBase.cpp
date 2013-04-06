@@ -63,6 +63,7 @@
 #include "OSGTableColumnBase.h"
 #include "OSGTableColumn.h"
 #include "OSGTableColumnEventSource.h"
+
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -473,20 +474,6 @@ SFUnrecTableCellEditorPtr *TableColumnBase::editSFCellEditor     (void)
     return &_sfCellEditor;
 }
 
-//! Get the value of the TableColumn::_sfCellEditor field.
-TableCellEditor * TableColumnBase::getCellEditor(void) const
-{
-    return _sfCellEditor.getValue();
-}
-
-//! Set the value of the TableColumn::_sfCellEditor field.
-void TableColumnBase::setCellEditor(TableCellEditor * const value)
-{
-    editSField(CellEditorFieldMask);
-
-    _sfCellEditor.setValue(value);
-}
-
 
 //! Get the TableColumn::_sfEventSource field.
 const SFUnrecTableColumnEventSourcePtr *TableColumnBase::getSFEventSource(void) const
@@ -499,20 +486,6 @@ SFUnrecTableColumnEventSourcePtr *TableColumnBase::editSFEventSource    (void)
     editSField(EventSourceFieldMask);
 
     return &_sfEventSource;
-}
-
-//! Get the value of the TableColumn::_sfEventSource field.
-TableColumnEventSource * TableColumnBase::getEventSource(void) const
-{
-    return _sfEventSource.getValue();
-}
-
-//! Set the value of the TableColumn::_sfEventSource field.
-void TableColumnBase::setEventSource(TableColumnEventSource * const value)
-{
-    editSField(EventSourceFieldMask);
-
-    _sfEventSource.setValue(value);
 }
 
 
@@ -814,7 +787,7 @@ void TableColumnBase::onCreate(const TableColumn *source)
 
         pThis->setEventSource(source->getEventSource());
     }
-    else
+    
     {
         TableColumnEventSourceUnrecPtr evSrc = TableColumnEventSource::create();
         setEventSource( evSrc );

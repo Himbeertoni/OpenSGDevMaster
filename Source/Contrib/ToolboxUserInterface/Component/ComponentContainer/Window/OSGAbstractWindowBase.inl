@@ -72,8 +72,11 @@ OSG::UInt16 AbstractWindowBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
+//Test
 /*------------------------------ get -----------------------------------*/
 
+    //Field ParentDrawingSurface
+    //Field Closable
 //! Get the value of the AbstractWindow::_sfClosable field.
 
 inline
@@ -99,6 +102,7 @@ void AbstractWindowBase::setClosable(const bool value)
 
     _sfClosable.setValue(value);
 }
+    //Field Iconable
 //! Get the value of the AbstractWindow::_sfIconable field.
 
 inline
@@ -124,6 +128,7 @@ void AbstractWindowBase::setIconable(const bool value)
 
     _sfIconable.setValue(value);
 }
+    //Field Maximizable
 //! Get the value of the AbstractWindow::_sfMaximizable field.
 
 inline
@@ -149,6 +154,7 @@ void AbstractWindowBase::setMaximizable(const bool value)
 
     _sfMaximizable.setValue(value);
 }
+    //Field IsClosed
 //! Get the value of the AbstractWindow::_sfIsClosed field.
 
 inline
@@ -174,6 +180,7 @@ void AbstractWindowBase::setIsClosed(const bool value)
 
     _sfIsClosed.setValue(value);
 }
+    //Field IsIcon
 //! Get the value of the AbstractWindow::_sfIsIcon field.
 
 inline
@@ -199,6 +206,7 @@ void AbstractWindowBase::setIsIcon(const bool value)
 
     _sfIsIcon.setValue(value);
 }
+    //Field IsMaximized
 //! Get the value of the AbstractWindow::_sfIsMaximized field.
 
 inline
@@ -224,6 +232,7 @@ void AbstractWindowBase::setIsMaximized(const bool value)
 
     _sfIsMaximized.setValue(value);
 }
+    //Field Resizable
 //! Get the value of the AbstractWindow::_sfResizable field.
 
 inline
@@ -249,6 +258,7 @@ void AbstractWindowBase::setResizable(const bool value)
 
     _sfResizable.setValue(value);
 }
+    //Field IsSelected
 //! Get the value of the AbstractWindow::_sfIsSelected field.
 
 inline
@@ -274,6 +284,7 @@ void AbstractWindowBase::setIsSelected(const bool value)
 
     _sfIsSelected.setValue(value);
 }
+    //Field Title
 //! Get the value of the AbstractWindow::_sfTitle field.
 
 inline
@@ -299,6 +310,23 @@ void AbstractWindowBase::setTitle(const std::string &value)
 
     _sfTitle.setValue(value);
 }
+    //Field DesktopIcon
+//! Get the value of the AbstractWindow::_sfDesktopIcon field.
+inline
+UIDrawObjectCanvas * AbstractWindowBase::getDesktopIcon(void) const
+{
+    return _sfDesktopIcon.getValue();
+}
+
+//! Set the value of the AbstractWindow::_sfDesktopIcon field.
+inline
+void AbstractWindowBase::setDesktopIcon(UIDrawObjectCanvas * const value)
+{
+    editSField(DesktopIconFieldMask);
+
+    _sfDesktopIcon.setValue(value);
+}
+    //Field Modal
 //! Get the value of the AbstractWindow::_sfModal field.
 
 inline
@@ -324,6 +352,7 @@ void AbstractWindowBase::setModal(const bool value)
 
     _sfModal.setValue(value);
 }
+    //Field AllwaysOnTop
 //! Get the value of the AbstractWindow::_sfAllwaysOnTop field.
 
 inline
@@ -349,6 +378,7 @@ void AbstractWindowBase::setAllwaysOnTop(const bool value)
 
     _sfAllwaysOnTop.setValue(value);
 }
+    //Field DrawTitlebar
 //! Get the value of the AbstractWindow::_sfDrawTitlebar field.
 
 inline
@@ -374,6 +404,7 @@ void AbstractWindowBase::setDrawTitlebar(const bool value)
 
     _sfDrawTitlebar.setValue(value);
 }
+    //Field DrawDecorations
 //! Get the value of the AbstractWindow::_sfDrawDecorations field.
 
 inline
@@ -399,6 +430,7 @@ void AbstractWindowBase::setDrawDecorations(const bool value)
 
     _sfDrawDecorations.setValue(value);
 }
+    //Field LockInput
 //! Get the value of the AbstractWindow::_sfLockInput field.
 
 inline
@@ -424,6 +456,7 @@ void AbstractWindowBase::setLockInput(const bool value)
 
     _sfLockInput.setValue(value);
 }
+    //Field AlignmentInDrawingSurface
 //! Get the value of the AbstractWindow::_sfAlignmentInDrawingSurface field.
 
 inline
@@ -449,6 +482,7 @@ void AbstractWindowBase::setAlignmentInDrawingSurface(const Vec2f &value)
 
     _sfAlignmentInDrawingSurface.setValue(value);
 }
+    //Field ScalingInDrawingSurface
 //! Get the value of the AbstractWindow::_sfScalingInDrawingSurface field.
 
 inline
@@ -474,6 +508,7 @@ void AbstractWindowBase::setScalingInDrawingSurface(const Vec2f &value)
 
     _sfScalingInDrawingSurface.setValue(value);
 }
+    //Field ResizeModifyCursorWidth
 //! Get the value of the AbstractWindow::_sfResizeModifyCursorWidth field.
 
 inline

@@ -64,6 +64,7 @@
 #include "OSGMenuButtonBase.h"
 #include "OSGMenuButton.h"
 #include "OSGMenuButtonEventSource.h"
+
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -267,20 +268,6 @@ SFUnrecListModelPtr *MenuButtonBase::editSFModel          (void)
     return &_sfModel;
 }
 
-//! Get the value of the MenuButton::_sfModel field.
-ListModel * MenuButtonBase::getModel(void) const
-{
-    return _sfModel.getValue();
-}
-
-//! Set the value of the MenuButton::_sfModel field.
-void MenuButtonBase::setModel(ListModel * const value)
-{
-    editSField(ModelFieldMask);
-
-    _sfModel.setValue(value);
-}
-
 
 //! Get the MenuButton::_sfCellGenerator field.
 const SFUnrecComponentGeneratorPtr *MenuButtonBase::getSFCellGenerator(void) const
@@ -295,20 +282,6 @@ SFUnrecComponentGeneratorPtr *MenuButtonBase::editSFCellGenerator  (void)
     return &_sfCellGenerator;
 }
 
-//! Get the value of the MenuButton::_sfCellGenerator field.
-ComponentGenerator * MenuButtonBase::getCellGenerator(void) const
-{
-    return _sfCellGenerator.getValue();
-}
-
-//! Set the value of the MenuButton::_sfCellGenerator field.
-void MenuButtonBase::setCellGenerator(ComponentGenerator * const value)
-{
-    editSField(CellGeneratorFieldMask);
-
-    _sfCellGenerator.setValue(value);
-}
-
 
 //! Get the MenuButton::_sfMenuButtonPopupMenu field.
 const SFUnrecListGeneratedPopupMenuPtr *MenuButtonBase::getSFMenuButtonPopupMenu(void) const
@@ -321,20 +294,6 @@ SFUnrecListGeneratedPopupMenuPtr *MenuButtonBase::editSFMenuButtonPopupMenu(void
     editSField(MenuButtonPopupMenuFieldMask);
 
     return &_sfMenuButtonPopupMenu;
-}
-
-//! Get the value of the MenuButton::_sfMenuButtonPopupMenu field.
-ListGeneratedPopupMenu * MenuButtonBase::getMenuButtonPopupMenu(void) const
-{
-    return _sfMenuButtonPopupMenu.getValue();
-}
-
-//! Set the value of the MenuButton::_sfMenuButtonPopupMenu field.
-void MenuButtonBase::setMenuButtonPopupMenu(ListGeneratedPopupMenu * const value)
-{
-    editSField(MenuButtonPopupMenuFieldMask);
-
-    _sfMenuButtonPopupMenu.setValue(value);
 }
 
 
@@ -563,7 +522,7 @@ void MenuButtonBase::onCreate(const MenuButton *source)
 
         pThis->setMenuButtonPopupMenu(source->getMenuButtonPopupMenu());
     }
-    else
+    
     {
         MenuButtonEventSourceUnrecPtr evSrc = MenuButtonEventSource::create();
         setEventSource( evSrc );

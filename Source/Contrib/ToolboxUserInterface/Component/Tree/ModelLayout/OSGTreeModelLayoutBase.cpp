@@ -62,6 +62,7 @@
 #include "OSGTreeModelLayoutBase.h"
 #include "OSGTreeModelLayout.h"
 #include "OSGTreeModelLayoutEventSource.h"
+
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -260,20 +261,6 @@ SFUnrecTreeModelLayoutEventSourcePtr *TreeModelLayoutBase::editSFEventSource    
     return &_sfEventSource;
 }
 
-//! Get the value of the TreeModelLayout::_sfEventSource field.
-TreeModelLayoutEventSource * TreeModelLayoutBase::getEventSource(void) const
-{
-    return _sfEventSource.getValue();
-}
-
-//! Set the value of the TreeModelLayout::_sfEventSource field.
-void TreeModelLayoutBase::setEventSource(TreeModelLayoutEventSource * const value)
-{
-    editSField(EventSourceFieldMask);
-
-    _sfEventSource.setValue(value);
-}
-
 
 
 
@@ -350,7 +337,7 @@ void TreeModelLayoutBase::onCreate(const TreeModelLayout *source)
 
         pThis->setEventSource(source->getEventSource());
     }
-    else
+    
     {
         TreeModelLayoutEventSourceUnrecPtr evSrc = TreeModelLayoutEventSource::create();
         setEventSource( evSrc );

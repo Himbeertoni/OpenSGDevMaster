@@ -1335,7 +1335,7 @@ void Component::dump(      UInt32    ,
 void Component::produceComponentResized(void)
 {
     ComponentEventDetailsUnrecPtr Details(ComponentEventDetails::create(this,getSystemTime()));
-
+    OSG_ASSERT( getEventSource() );
     getEventSource()->produceComponentResized(Details);
 }
 

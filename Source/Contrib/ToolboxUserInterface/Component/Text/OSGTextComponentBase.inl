@@ -72,8 +72,10 @@ OSG::UInt16 TextComponentBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
+//Test
 /*------------------------------ get -----------------------------------*/
 
+    //Field Text
 //! Get the value of the TextComponent::_sfText field.
 
 inline
@@ -99,6 +101,7 @@ void TextComponentBase::setText(const std::string &value)
 
     _sfText.setValue(value);
 }
+    //Field CaretPosition
 //! Get the value of the TextComponent::_sfCaretPosition field.
 
 inline
@@ -124,6 +127,23 @@ void TextComponentBase::setCaretPosition(const UInt32 value)
 
     _sfCaretPosition.setValue(value);
 }
+    //Field Font
+//! Get the value of the TextComponent::_sfFont field.
+inline
+UIFont * TextComponentBase::getFont(void) const
+{
+    return _sfFont.getValue();
+}
+
+//! Set the value of the TextComponent::_sfFont field.
+inline
+void TextComponentBase::setFont(UIFont * const value)
+{
+    editSField(FontFieldMask);
+
+    _sfFont.setValue(value);
+}
+    //Field SelectionBoxColor
 //! Get the value of the TextComponent::_sfSelectionBoxColor field.
 
 inline
@@ -149,6 +169,7 @@ void TextComponentBase::setSelectionBoxColor(const Color4f &value)
 
     _sfSelectionBoxColor.setValue(value);
 }
+    //Field SelectionTextColor
 //! Get the value of the TextComponent::_sfSelectionTextColor field.
 
 inline
@@ -174,6 +195,7 @@ void TextComponentBase::setSelectionTextColor(const Color4f &value)
 
     _sfSelectionTextColor.setValue(value);
 }
+    //Field ActiveTextColor
 //! Get the value of the TextComponent::_sfActiveTextColor field.
 
 inline
@@ -199,6 +221,7 @@ void TextComponentBase::setActiveTextColor(const Color4f &value)
 
     _sfActiveTextColor.setValue(value);
 }
+    //Field FocusedTextColor
 //! Get the value of the TextComponent::_sfFocusedTextColor field.
 
 inline
@@ -224,6 +247,7 @@ void TextComponentBase::setFocusedTextColor(const Color4f &value)
 
     _sfFocusedTextColor.setValue(value);
 }
+    //Field RolloverTextColor
 //! Get the value of the TextComponent::_sfRolloverTextColor field.
 
 inline
@@ -249,6 +273,7 @@ void TextComponentBase::setRolloverTextColor(const Color4f &value)
 
     _sfRolloverTextColor.setValue(value);
 }
+    //Field DisabledTextColor
 //! Get the value of the TextComponent::_sfDisabledTextColor field.
 
 inline
@@ -274,6 +299,7 @@ void TextComponentBase::setDisabledTextColor(const Color4f &value)
 
     _sfDisabledTextColor.setValue(value);
 }
+    //Field TextColor
 //! Get the value of the TextComponent::_sfTextColor field.
 
 inline

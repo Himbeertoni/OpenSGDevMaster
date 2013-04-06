@@ -72,8 +72,25 @@ OSG::UInt16 TableModelBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
+//Test
 /*------------------------------ get -----------------------------------*/
 
+    //Field EventSource
+//! Get the value of the TableModel::_sfEventSource field.
+inline
+TableModelEventSource * TableModelBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the TableModel::_sfEventSource field.
+inline
+void TableModelBase::setEventSource(TableModelEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

@@ -72,6 +72,7 @@ OSG::UInt16 ComponentBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
+//Test
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline

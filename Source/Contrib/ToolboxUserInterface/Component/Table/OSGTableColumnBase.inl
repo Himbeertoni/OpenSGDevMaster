@@ -72,8 +72,10 @@ OSG::UInt16 TableColumnBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
+//Test
 /*------------------------------ get -----------------------------------*/
 
+    //Field MaxWidth
 //! Get the value of the TableColumn::_sfMaxWidth field.
 
 inline
@@ -99,6 +101,7 @@ void TableColumnBase::setMaxWidth(const UInt32 value)
 
     _sfMaxWidth.setValue(value);
 }
+    //Field MinWidth
 //! Get the value of the TableColumn::_sfMinWidth field.
 
 inline
@@ -124,6 +127,7 @@ void TableColumnBase::setMinWidth(const UInt32 value)
 
     _sfMinWidth.setValue(value);
 }
+    //Field ModelIndex
 //! Get the value of the TableColumn::_sfModelIndex field.
 
 inline
@@ -149,6 +153,7 @@ void TableColumnBase::setModelIndex(const UInt32 value)
 
     _sfModelIndex.setValue(value);
 }
+    //Field PreferredWidth
 //! Get the value of the TableColumn::_sfPreferredWidth field.
 
 inline
@@ -174,6 +179,7 @@ void TableColumnBase::setPreferredWidth(const UInt32 value)
 
     _sfPreferredWidth.setValue(value);
 }
+    //Field Width
 //! Get the value of the TableColumn::_sfWidth field.
 
 inline
@@ -199,6 +205,7 @@ void TableColumnBase::setWidth(const UInt32 value)
 
     _sfWidth.setValue(value);
 }
+    //Field Resizable
 //! Get the value of the TableColumn::_sfResizable field.
 
 inline
@@ -223,6 +230,38 @@ void TableColumnBase::setResizable(const bool value)
     editSField(ResizableFieldMask);
 
     _sfResizable.setValue(value);
+}
+    //Field CellEditor
+//! Get the value of the TableColumn::_sfCellEditor field.
+inline
+TableCellEditor * TableColumnBase::getCellEditor(void) const
+{
+    return _sfCellEditor.getValue();
+}
+
+//! Set the value of the TableColumn::_sfCellEditor field.
+inline
+void TableColumnBase::setCellEditor(TableCellEditor * const value)
+{
+    editSField(CellEditorFieldMask);
+
+    _sfCellEditor.setValue(value);
+}
+    //Field EventSource
+//! Get the value of the TableColumn::_sfEventSource field.
+inline
+TableColumnEventSource * TableColumnBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the TableColumn::_sfEventSource field.
+inline
+void TableColumnBase::setEventSource(TableColumnEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
 }
 
 

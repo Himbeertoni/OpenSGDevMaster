@@ -72,8 +72,25 @@ OSG::UInt16 TreeModelLayoutBase::getClassGroupId(void)
     return _type.getGroupId();
 }
 
+//Test
 /*------------------------------ get -----------------------------------*/
 
+    //Field EventSource
+//! Get the value of the TreeModelLayout::_sfEventSource field.
+inline
+TreeModelLayoutEventSource * TreeModelLayoutBase::getEventSource(void) const
+{
+    return _sfEventSource.getValue();
+}
+
+//! Set the value of the TreeModelLayout::_sfEventSource field.
+inline
+void TreeModelLayoutBase::setEventSource(TreeModelLayoutEventSource * const value)
+{
+    editSField(EventSourceFieldMask);
+
+    _sfEventSource.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

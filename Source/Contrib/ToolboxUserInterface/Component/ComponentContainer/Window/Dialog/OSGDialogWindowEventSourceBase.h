@@ -180,6 +180,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DialogWindowEventSourceBase
     /*! \{                                                                 */
 
     /*! \}                                                                 */
+
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */

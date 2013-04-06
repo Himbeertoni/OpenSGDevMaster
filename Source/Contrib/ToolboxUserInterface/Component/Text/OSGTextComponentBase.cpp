@@ -62,6 +62,7 @@
 #include "OSGTextComponentBase.h"
 #include "OSGTextComponent.h"
 #include "OSGTextComponentEventSource.h"
+
 #include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
@@ -473,20 +474,6 @@ SFUnrecUIFontPtr    *TextComponentBase::editSFFont           (void)
     return &_sfFont;
 }
 
-//! Get the value of the TextComponent::_sfFont field.
-UIFont * TextComponentBase::getFont(void) const
-{
-    return _sfFont.getValue();
-}
-
-//! Set the value of the TextComponent::_sfFont field.
-void TextComponentBase::setFont(UIFont * const value)
-{
-    editSField(FontFieldMask);
-
-    _sfFont.setValue(value);
-}
-
 
 SFColor4f *TextComponentBase::editSFSelectionBoxColor(void)
 {
@@ -789,7 +776,7 @@ void TextComponentBase::onCreate(const TextComponent *source)
 
         pThis->setFont(source->getFont());
     }
-    else
+    
     {
         TextComponentEventSourceUnrecPtr evSrc = TextComponentEventSource::create();
         setEventSource( evSrc );
