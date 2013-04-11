@@ -133,7 +133,7 @@ UIDrawObjectCanvas* RadioButton::getBaseDrawObject(void) const
     return getRadioDrawObject();          
 }
 
-void RadioButton::actionPreformed(ActionEventDetails* const e)
+void RadioButton::actionPerformed(ActionEventDetails* const e)
 {
     setSelected(true);
 }

@@ -126,7 +126,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MenuItem : public MenuItemBase
 
     virtual void drawText(Graphics* const TheGraphics, const Pnt2f& TopLeft, Real32 Opacity = 1.0f) const;
     
-    virtual void actionPreformed(ActionEventDetails* const e);
+    virtual void actionPerformed(ActionEventDetails* const e);
     
     void handleAcceleratorTyped(KeyEventDetails* const e);
     boost::signals2::connection _AcceleratorTypedConnection;

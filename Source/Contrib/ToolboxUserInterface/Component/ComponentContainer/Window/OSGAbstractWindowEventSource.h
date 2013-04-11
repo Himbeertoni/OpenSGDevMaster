@@ -44,9 +44,6 @@
 
 #include "OSGAbstractWindowEventSourceBase.h"
 
-//Event Producer Headers
-#include "OSGActivity.h"
-#include "OSGConsumableEventCombiner.h"
     
 #include "OSGWindowEventDetailsFields.h"
 
@@ -77,7 +74,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowEventSource : pub
     typedef WindowEventDetails WindowEnteredEventDetailsType;
     typedef WindowEventDetails WindowExitedEventDetailsType;
 
-    typedef boost::signals2::signal<void (EventDetails* const            , UInt32)> BaseEventType;
     typedef boost::signals2::signal<void (WindowEventDetails* const, UInt32), ConsumableEventCombiner> WindowOpenedEventType;
     typedef boost::signals2::signal<void (WindowEventDetails* const, UInt32), ConsumableEventCombiner> WindowClosingEventType;
     typedef boost::signals2::signal<void (WindowEventDetails* const, UInt32), ConsumableEventCombiner> WindowClosedEventType;
@@ -112,10 +108,6 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowEventSource : pub
 
     virtual const EventProducerType &getProducerType(void) const; 
 
-    virtual UInt32                   getNumProducedEvents       (void                                ) const;
-    virtual const EventDescription *getProducedEventDescription(const std::string &ProducedEventName) const;
-    virtual const EventDescription *getProducedEventDescription(UInt32 ProducedEventId              ) const;
-    virtual UInt32                   getProducedEventId         (const std::string &ProducedEventName) const;
     
     virtual boost::signals2::connection connectEvent(UInt32 eventId, 
                                               const BaseEventType::slot_type &listener,

@@ -222,6 +222,16 @@ ComboBoxModelBase::~ComboBoxModelBase(void)
 {
 }
 
+void ComboBoxModelBase::onCreate(const ComboBoxModel *source)
+{
+    Inherited::onCreate(source);
+
+    
+    {
+        ComboBoxModelEventSourceUnrecPtr evSrc = ComboBoxModelEventSource::create();
+        setEventSource( evSrc );
+    }
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

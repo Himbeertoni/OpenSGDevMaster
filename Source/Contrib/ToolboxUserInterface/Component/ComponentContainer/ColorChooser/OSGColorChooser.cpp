@@ -318,8 +318,6 @@ void ColorChooser::onCreate(const ColorChooser * Id)
     }
 
     DefaultColorSelectionModelUnrecPtr Model = DefaultColorSelectionModel::create();
-    ColorSelectionModelEventSourceUnrecPtr modelEvSrc = ColorSelectionModelEventSource::create();
-    Model->setEventSource( modelEvSrc );
 
     setSelectionModel(Model);
     

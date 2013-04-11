@@ -252,7 +252,7 @@ void  TableModelEventSource::disconnectAllSlotsEvent(UInt32 eventId)
         _IntervalRemovedEvent.disconnect_all_slots();
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "TableModelEventSource: No event defined with ID " << eventId << std::endl;
         break;
     }
 }

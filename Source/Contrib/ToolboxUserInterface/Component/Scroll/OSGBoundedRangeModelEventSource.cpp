@@ -177,7 +177,7 @@ void  BoundedRangeModelEventSource::disconnectAllSlotsEvent(UInt32 eventId)
         _StateChangedEvent.disconnect_all_slots();
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "BoundedRangeModelEventSource: No event defined with ID " << eventId << std::endl;
         break;
     }
 }

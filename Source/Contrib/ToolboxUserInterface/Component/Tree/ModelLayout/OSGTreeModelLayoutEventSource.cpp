@@ -377,7 +377,7 @@ void  TreeModelLayoutEventSource::disconnectAllSlotsEvent(UInt32 eventId)
         _TreeStructureChangedEvent.disconnect_all_slots();
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "TreeModelLayoutEventSource: No event defined with ID " << eventId << std::endl;
         break;
     }
 }

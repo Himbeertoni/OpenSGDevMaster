@@ -206,7 +206,7 @@ void SkeletonBlendedGeometryEventSourceBase::produceEvent(UInt32 eventId, EventD
         _SkeletonChangedEvent(dynamic_cast<SkeletonChangedEventDetailsType* const>(e), SkeletonChangedEventId);
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "SkeletonBlendedGeometryEventSourceBase: No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -221,7 +221,7 @@ boost::signals2::connection SkeletonBlendedGeometryEventSourceBase::connectEvent
         return _SkeletonChangedEvent.connect(listener, at);
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "SkeletonBlendedGeometryEventSourceBase: No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -240,7 +240,7 @@ boost::signals2::connection SkeletonBlendedGeometryEventSourceBase::connectEvent
         return _SkeletonChangedEvent.connect(group, listener, at);
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "SkeletonBlendedGeometryEventSourceBase: No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -256,7 +256,7 @@ void SkeletonBlendedGeometryEventSourceBase::disconnectEvent(UInt32 eventId, con
         _SkeletonChangedEvent.disconnect(group);
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "SkeletonBlendedGeometryEventSourceBase: No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -269,7 +269,7 @@ void SkeletonBlendedGeometryEventSourceBase::disconnectAllSlotsEvent(UInt32 even
         _SkeletonChangedEvent.disconnect_all_slots();
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "SkeletonBlendedGeometryEventSourceBase: No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -282,7 +282,7 @@ bool SkeletonBlendedGeometryEventSourceBase::isEmptyEvent(UInt32 eventId) const
         return _SkeletonChangedEvent.empty();
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "SkeletonBlendedGeometryEventSourceBase: No event defined with ID " << eventId << std::endl;
         return true;
         break;
     }
@@ -296,7 +296,7 @@ UInt32 SkeletonBlendedGeometryEventSourceBase::numSlotsEvent(UInt32 eventId) con
         return _SkeletonChangedEvent.num_slots();
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "SkeletonBlendedGeometryEventSourceBase: No event defined with ID " << eventId << std::endl;
         return 0;
         break;
     }

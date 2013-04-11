@@ -183,7 +183,7 @@ void TBAnimationEventSource::produceEvent(UInt32 eventId, EventDetails* const e)
         _AnimationCycledEvent(dynamic_cast<AnimationCycledEventDetailsType* const>(e), AnimationCycledEventId);
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "TBAnimationEventSource: No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -213,7 +213,7 @@ boost::signals2::connection TBAnimationEventSource::connectEvent(UInt32 eventId,
         return _AnimationCycledEvent.connect(listener, at);
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "TBAnimationEventSource: No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -247,7 +247,7 @@ boost::signals2::connection  TBAnimationEventSource::connectEvent(UInt32 eventId
         return _AnimationCycledEvent.connect(group, listener, at);
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "TBAnimationEventSource: No event defined with ID " << eventId << std::endl;
         return boost::signals2::connection();
         break;
     }
@@ -278,7 +278,7 @@ void  TBAnimationEventSource::disconnectEvent(UInt32 eventId, const BaseEventTyp
         _AnimationCycledEvent.disconnect(group);
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "TBAnimationEventSource: No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -306,7 +306,7 @@ void  TBAnimationEventSource::disconnectAllSlotsEvent(UInt32 eventId)
         _AnimationCycledEvent.disconnect_all_slots();
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "TBAnimationEventSource: No event defined with ID " << eventId << std::endl;
         break;
     }
 }
@@ -334,7 +334,7 @@ bool  TBAnimationEventSource::isEmptyEvent(UInt32 eventId) const
         return _AnimationCycledEvent.empty();
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "TBAnimationEventSource: No event defined with ID " << eventId << std::endl;
         return true;
         break;
     }
@@ -363,7 +363,7 @@ UInt32  TBAnimationEventSource::numSlotsEvent(UInt32 eventId) const
         return _AnimationCycledEvent.num_slots();
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "TBAnimationEventSource: No event defined with ID " << eventId << std::endl;
         return 0;
         break;
     }

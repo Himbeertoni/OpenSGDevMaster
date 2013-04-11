@@ -107,7 +107,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING RadioButton : public RadioButto
 
     /*! \}                                                                 */
 
-    virtual void actionPreformed(ActionEventDetails* const e);
+    virtual void actionPerformed(ActionEventDetails* const e);
     virtual UIDrawObjectCanvas* getDrawnDrawObject(void) const;
     virtual UIDrawObjectCanvas* getBaseDrawObject(void) const;
 

@@ -178,6 +178,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonBase : public Butto
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
+    void onCreate(const ToggleButton *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

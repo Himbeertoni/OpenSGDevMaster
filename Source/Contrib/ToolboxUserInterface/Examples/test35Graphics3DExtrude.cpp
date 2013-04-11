@@ -562,7 +562,7 @@ int main(int argc, char **argv)
         // Tell the Manager what to manage
         sceneManager.setWindow(TutorialWindow);
 
-        TutorialWindow->connectKeyTyped(boost::bind(keyPressed, _1));
+        TutorialWindow->getEventSource()->connectKeyTyped(boost::bind(keyPressed, _1));
 
 
         // Set up Window
@@ -1407,7 +1407,7 @@ SimpleScreenDoc::SimpleScreenDoc(SimpleSceneManager*  SceneManager,
     TutorialViewport->addForeground(_DocForeground);
     TutorialViewport->addForeground(_DocShowForeground);
 
-    MainWindow->connectKeyTyped(boost::bind(&SimpleScreenDoc::keyTyped,
+    MainWindow->getEventSource()->connectKeyTyped(boost::bind(&SimpleScreenDoc::keyTyped,
                                             this,
                                             _1));
     
@@ -1429,7 +1429,7 @@ SimpleScreenDoc::SimpleScreenDoc(SimpleSceneManager*  SceneManager,
     _ShowDocFadeOutAnimation->setAnimatedField(_DocShowForeground,
                                                SimpleTextForeground::ColorFieldId);
 
-    _ShowDocFadeOutAnimation->attachUpdateProducer(MainWindow);
+    _ShowDocFadeOutAnimation->getEventSource()->attachUpdateProducer(MainWindow->getEventSource() );
     _ShowDocFadeOutAnimation->start();
 }
 

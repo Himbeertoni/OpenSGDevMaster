@@ -231,11 +231,11 @@ int main(int argc, char **argv)
         TutorialWindow->setDisplayCallback(boost::bind(display, sceneManager));
         TutorialWindow->setReshapeCallback(boost::bind(reshape, _1, sceneManager));
 
-        TutorialWindow->connectMousePressed(boost::bind(mousePressed, _1, sceneManager));
-        TutorialWindow->connectMouseReleased(boost::bind(mouseReleased, _1, sceneManager));
-        TutorialWindow->connectMouseDragged(boost::bind(mouseDragged, _1, sceneManager));
-        TutorialWindow->connectMouseWheelMoved(boost::bind(mouseWheelMoved, _1, sceneManager));
-        TutorialWindow->connectKeyPressed(boost::bind(keyPressed, _1));
+        TutorialWindow->getEventSource()->connectMousePressed(boost::bind(mousePressed, _1, sceneManager));
+        TutorialWindow->getEventSource()->connectMouseReleased(boost::bind(mouseReleased, _1, sceneManager));
+        TutorialWindow->getEventSource()->connectMouseDragged(boost::bind(mouseDragged, _1, sceneManager));
+        TutorialWindow->getEventSource()->connectMouseWheelMoved(boost::bind(mouseWheelMoved, _1, sceneManager));
+        TutorialWindow->getEventSource()->connectKeyPressed(boost::bind(keyPressed, _1));
 
         // Tell the Manager what to manage
         sceneManager->setWindow(TutorialWindow);
@@ -266,10 +266,12 @@ int main(int argc, char **argv)
         UIDrawingSurfaceRecPtr TutorialDrawingSurface = UIDrawingSurface::create();
         TutorialDrawingSurface->setGraphics(TutorialGraphics);
         TutorialDrawingSurface->setEventProducer(TutorialWindow);
+#if 0
         TutorialDrawingSurface->setCursorAsImage(WindowEventProducer::CURSOR_POINTER,
                                                  BoostPath("./Data/cursor.png"),
                                                  Vec2f(-1.0f,-1.0f),
                                                  Vec2f(-12.0f,-20.0f));
+#endif
 
         InternalWindowRecPtr MainUIWindow = createMainInternalWindow();
         TutorialDrawingSurface->openWindow(MainUIWindow);
@@ -507,14 +509,26 @@ InternalWindowTransitPtr createMainInternalWindow(void)
     MainInternalWindow->setDrawTitlebar(false);
     MainInternalWindow->setResizable(false);
 
-    ExampleTabContentB->connectActionPerformed(boost::bind(handleRemoveTabAction, _1,
+    {
+        ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( ExampleTabContentB->getEventSource() );
+        if ( evSrc )
+        {
+            evSrc->connectActionPerformed(boost::bind(handleRemoveTabAction, _1,
                                                            ExampleTabPanel.get(),
                                                            ExampleTabContentA.get(),
                                                            ExampleTabContentB.get()));
-    ExampleTabContentA->connectActionPerformed(boost::bind(handleAddTabAction, _1,
+        }
+    }
+    {
+        ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( ExampleTabContentA->getEventSource() );
+        if ( evSrc )
+        {
+            evSrc->connectActionPerformed(boost::bind(handleAddTabAction, _1,
                                                            ExampleTabPanel.get(),
                                                            ExampleTabContentA.get(),
                                                            ExampleTabContentB.get()));
+        }
+    }
 
     return InternalWindowTransitPtr(MainInternalWindow);
 }
@@ -553,7 +567,7 @@ SimpleScreenDoc::SimpleScreenDoc(SimpleSceneManager*  SceneManager,
     TutorialViewport->addForeground(_DocForeground);
     TutorialViewport->addForeground(_DocShowForeground);
 
-    MainWindow->connectKeyTyped(boost::bind(&SimpleScreenDoc::keyTyped,
+    MainWindow->getEventSource()->connectKeyTyped(boost::bind(&SimpleScreenDoc::keyTyped,
                                             this,
                                             _1));
     
@@ -569,13 +583,15 @@ SimpleScreenDoc::SimpleScreenDoc(SimpleSceneManager*  SceneManager,
     
     //Animation
     _ShowDocFadeOutAnimation = FieldAnimation::create();
+    TBAnimationEventSourceUnrecPtr aev = TBAnimationEventSource::create();
+    _ShowDocFadeOutAnimation->setEventSource( aev );
     _ShowDocFadeOutAnimation->setAnimator(TheAnimator);
     _ShowDocFadeOutAnimation->setInterpolationType(TBAnimator::LINEAR_INTERPOLATION);
     _ShowDocFadeOutAnimation->setCycling(1);
     _ShowDocFadeOutAnimation->setAnimatedField(_DocShowForeground,
                                                SimpleTextForeground::ColorFieldId);
 
-    _ShowDocFadeOutAnimation->attachUpdateProducer(MainWindow);
+    _ShowDocFadeOutAnimation->getEventSource()->attachUpdateProducer(MainWindow->getEventSource() );
     _ShowDocFadeOutAnimation->start();
 }
 

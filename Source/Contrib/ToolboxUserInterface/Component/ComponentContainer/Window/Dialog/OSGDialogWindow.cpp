@@ -160,8 +160,6 @@ DialogWindowUnrecPtr DialogWindow::createButtonsInputDialog(const std::string& T
                                               const std::string& CancelBtnText)
 {
     DialogWindowRefPtr TheDialog = DialogWindow::create();
-    DialogWindowEventSourceUnrecPtr evSrc = DialogWindowEventSource::create();
-    TheDialog->setEventSource( evSrc );
     TheDialog->_InputType = INPUT_BTNS;
 
     //Icon
@@ -182,8 +180,6 @@ DialogWindowUnrecPtr DialogWindow::createButtonsInputDialog(const std::string& T
     if(showCancel)
     {
         ButtonUnrecPtr cancelButton = Button::create();
-        ButtonEventSourceUnrecPtr evSrc = ButtonEventSource::create();
-        cancelButton->setEventSource( evSrc );
 
         //Cancel Button
         cancelButton->setText( CancelBtnText );
@@ -191,8 +187,11 @@ DialogWindowUnrecPtr DialogWindow::createButtonsInputDialog(const std::string& T
         cancelButton->setPreferredSize( cancelButton->getRequestedSize() );
 
         //Attach listener to the Cancel button
-        TheDialog->_CancelButtonActionConnection = evSrc->connectActionPerformed(boost::bind(&DialogWindow::handleCancelButtonAction, TheDialog.get(), _1));
-
+        ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( cancelButton->getEventSource() );
+        if ( evSrc )
+        {
+            TheDialog->_CancelButtonActionConnection = evSrc->connectActionPerformed(boost::bind(&DialogWindow::handleCancelButtonAction, TheDialog.get(), _1));
+        }
         ButtonInputPanel->pushToChildren( cancelButton );
     }
 
@@ -209,13 +208,15 @@ DialogWindowUnrecPtr DialogWindow::createButtonsInputDialog(const std::string& T
     {
         ButtonUnrecPtr inputButton = Button::create();
 
-        ButtonEventSourceUnrecPtr evSrc = ButtonEventSource::create();
-        inputButton->setEventSource( evSrc );
-
         inputButton->setText( *it );
         inputButton->setMinSize( inputButton->getPreferredSize() );
         inputButton->setPreferredSize( inputButton->getRequestedSize() );
-        TheDialog->_InputButtonActionConnection = evSrc->connectActionPerformed(boost::bind(&DialogWindow::handleInputButtonAction, TheDialog.get(), _1));
+
+        ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( inputButton->getEventSource() );
+        if ( evSrc )
+        {
+            TheDialog->_InputButtonActionConnection = evSrc->connectActionPerformed(boost::bind(&DialogWindow::handleInputButtonAction, TheDialog.get(), _1));
+        }
         ButtonInputPanel->pushToChildren( inputButton );
     }                
 
@@ -257,16 +258,18 @@ DialogWindowUnrecPtr DialogWindow::createComboInputDialog(const std::string& Tit
     TheIcon->setBorders(TempIconBorder);
 
     //Confirm Button
-    ButtonUnrecPtr confirmationButton = Button::create();
-
-    ButtonEventSourceUnrecPtr evSrc = ButtonEventSource::create();
-    confirmationButton->setEventSource( evSrc );
+    ButtonUnrecPtr confirmationButton = Button::create();    
 
     confirmationButton->setText(ConfirmBtnText);
     confirmationButton->setMinSize(confirmationButton->getPreferredSize());
     confirmationButton->setPreferredSize(confirmationButton->getRequestedSize());
-    TheDialog->_ComboButtonActionConnection = evSrc->connectActionPerformed(boost::bind(&DialogWindow::handleComboButtonAction, TheDialog.get(), _1));
-
+    {
+        ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( confirmationButton->getEventSource() );    
+        if ( evSrc )
+        {
+            TheDialog->_ComboButtonActionConnection = evSrc->connectActionPerformed(boost::bind(&DialogWindow::handleComboButtonAction, TheDialog.get(), _1));
+        }
+    }
     //Message Panel
     TextAreaRefPtr MessagePanelText = createTransparentTextArea(Message);
 
@@ -282,15 +285,17 @@ DialogWindowUnrecPtr DialogWindow::createComboInputDialog(const std::string& Tit
     if(showCancel) 
     {
         ButtonUnrecPtr cancelButton = Button::create();
-        ButtonEventSourceUnrecPtr evSrc = ButtonEventSource::create();
-        cancelButton->setEventSource( evSrc );
 
         cancelButton->setText(CancelBtnText);
         cancelButton->setMinSize( cancelButton->getPreferredSize() );
         cancelButton->setPreferredSize( cancelButton->getRequestedSize() );
 
         //Attach listener to the Cancel button
-        TheDialog->_CancelButtonActionConnection = evSrc->connectActionPerformed(boost::bind(&DialogWindow::handleCancelButtonAction, TheDialog.get(), _1));
+        ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( cancelButton->getEventSource() );
+        if ( evSrc )
+        {
+            TheDialog->_CancelButtonActionConnection = evSrc->connectActionPerformed(boost::bind(&DialogWindow::handleCancelButtonAction, TheDialog.get(), _1));
+        }
         MessageButtonPanel->pushToChildren( cancelButton );
     }
 
@@ -362,13 +367,16 @@ DialogWindowUnrecPtr DialogWindow::createTextInputDialog(const std::string& Titl
 
     //Confirm Button
     ButtonUnrecPtr confirmationButton = Button::create();
-    ButtonEventSourceUnrecPtr evSrc = ButtonEventSource::create();
-    confirmationButton->setEventSource( evSrc );
     confirmationButton->setText( ConfirmBtnText );
     confirmationButton->setMinSize( confirmationButton->getPreferredSize() );
     confirmationButton->setPreferredSize( confirmationButton->getRequestedSize() );
-    TheDialog->_TextButtonActionConnection = evSrc->connectActionPerformed(boost::bind(&DialogWindow::handleTextButtonAction, TheDialog.get(), _1));
-
+    {
+        ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( confirmationButton->getEventSource() );
+        if ( evSrc )
+        {
+            TheDialog->_TextButtonActionConnection = evSrc->connectActionPerformed(boost::bind(&DialogWindow::handleTextButtonAction, TheDialog.get(), _1));
+        }
+    }
     //Message Panel
     TextAreaRefPtr MessagePanelText = createTransparentTextArea(Message);
 
@@ -385,15 +393,18 @@ DialogWindowUnrecPtr DialogWindow::createTextInputDialog(const std::string& Titl
     {
         ButtonUnrecPtr cancelButton = Button::create();
         
-        ButtonEventSourceUnrecPtr evSrc = ButtonEventSource::create();
-        cancelButton->setEventSource( evSrc );
-
+        {
+            ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( cancelButton->getEventSource() );
+            if ( evSrc )
+            {
+                //Attach listener to the Cancel button
+                TheDialog->_CancelButtonActionConnection = evSrc->connectActionPerformed(boost::bind(&DialogWindow::handleCancelButtonAction, TheDialog.get(), _1));
+            }
+        }
         cancelButton->setText( CancelBtnText );
         cancelButton->setMinSize( cancelButton->getPreferredSize() );
         cancelButton->setPreferredSize( cancelButton->getRequestedSize() );
 
-        //Attach listener to the Cancel button
-        TheDialog->_CancelButtonActionConnection = evSrc->connectActionPerformed(boost::bind(&DialogWindow::handleCancelButtonAction, TheDialog.get(), _1));
         MessageButtonPanel->pushToChildren(cancelButton);
     }
 
@@ -457,13 +468,17 @@ DialogWindowUnrecPtr DialogWindow::createListInputDialog(const std::string& Titl
     //Confirm Button
     ButtonUnrecPtr confirmationButton = Button::create();
 
-    ButtonEventSourceUnrecPtr evSrc = ButtonEventSource::create();
-    confirmationButton->setEventSource( evSrc );
+    {
+        ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( confirmationButton->getEventSource() );
+        if ( evSrc )
+        {
+            TheDialog->_ListButtonActionConnection = evSrc->connectActionPerformed(boost::bind(&DialogWindow::handleListButtonAction, TheDialog.get(), _1));
+        }
+    }
 
     confirmationButton->setText( ConfirmBtnText );
     confirmationButton->setMinSize( confirmationButton->getPreferredSize() );
     confirmationButton->setPreferredSize( confirmationButton->getRequestedSize() );
-    TheDialog->_ListButtonActionConnection = evSrc->connectActionPerformed(boost::bind(&DialogWindow::handleListButtonAction, TheDialog.get(), _1));
 
     //Message Panel
     TextAreaRefPtr MessagePanelText = createTransparentTextArea(Message);
@@ -481,15 +496,19 @@ DialogWindowUnrecPtr DialogWindow::createListInputDialog(const std::string& Titl
     {
         ButtonUnrecPtr cancelButton = Button::create();
         
-        ButtonEventSourceUnrecPtr evSrc = ButtonEventSource::create();
-        cancelButton->setEventSource( evSrc );
+        {
+            ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( cancelButton->getEventSource() );
+            if ( evSrc )
+            {
+                //Attach listener to the Cancel button
+               TheDialog->_CancelButtonActionConnection = evSrc->connectActionPerformed(boost::bind(&DialogWindow::handleCancelButtonAction, TheDialog.get(), _1));
+            }
+        }
 
         cancelButton->setText( CancelBtnText);
         cancelButton->setMinSize( cancelButton->getPreferredSize() );
         cancelButton->setPreferredSize( cancelButton->getRequestedSize() );
 
-        //Attach listener to the Cancel button
-        TheDialog->_CancelButtonActionConnection = evSrc->connectActionPerformed(boost::bind(&DialogWindow::handleCancelButtonAction, TheDialog.get(), _1));
         MessageButtonPanel->pushToChildren( cancelButton );
     }
 
@@ -604,8 +623,6 @@ DialogWindowUnrecPtr DialogWindow::createMessageDialog(const std::string& Title,
     TheIcon->setBorders(TempIconBorder);
 
     ButtonRefPtr ConfirmationButton = Button::create();
-    ButtonEventSourceUnrecPtr confEvSrc = ButtonEventSource::create();
-    ConfirmationButton->setEventSource( confEvSrc );
     ButtonRefPtr CancelButton;
 
     //Confirm Button
@@ -679,16 +696,25 @@ DialogWindowUnrecPtr DialogWindow::createMessageDialog(const std::string& Title,
     TheDialog->pushToChildren(MessagePanel);
     TheDialog->setTitle(Title);
 
-    //Attach listener to the Confirm button
-    TheDialog->_ConfirmButtonActionConnection = confEvSrc->connectActionPerformed(boost::bind(&DialogWindow::handleConfirmButtonAction, TheDialog.get(), _1));
+    {
+        ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( ConfirmationButton->getEventSource() );
+        if ( evSrc )
+        {
+            //Attach listener to the Confirm button
+            TheDialog->_ConfirmButtonActionConnection = evSrc->connectActionPerformed(boost::bind(&DialogWindow::handleConfirmButtonAction, TheDialog.get(), _1));
+        }
+    }
 
     if(showCancel)
     {
         //Attach listener to the Cancel button
-        ButtonEventSourceUnrecPtr cancelEvSrc = ButtonEventSource::create();
-        CancelButton->setEventSource( cancelEvSrc );
-
-        TheDialog->_CancelButtonActionConnection = cancelEvSrc->connectActionPerformed(boost::bind(&DialogWindow::handleCancelButtonAction, TheDialog.get(), _1));
+        {
+            ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( CancelButton->getEventSource() );
+            if ( evSrc )
+            {
+                TheDialog->_CancelButtonActionConnection = evSrc->connectActionPerformed(boost::bind(&DialogWindow::handleCancelButtonAction, TheDialog.get(), _1));
+            }
+        }
     }
 
     return TheDialog;
@@ -752,8 +778,6 @@ DialogWindowUnrecPtr DialogWindow::createColorChooserDialog(const std::string& T
                                                            const std::string& CancelBtnText)
 {
     ButtonRefPtr ConfirmationButton = Button::create();
-    ButtonEventSourceUnrecPtr confEvSrc = ButtonEventSource::create();
-    ConfirmationButton->setEventSource( confEvSrc );
 
     ButtonRefPtr CancelButton;
 
@@ -829,16 +853,25 @@ DialogWindowUnrecPtr DialogWindow::createColorChooserDialog(const std::string& T
     TheDialog->pushToChildren(MessageButtonPanel);
     TheDialog->setTitle(Title);
 
-    //Attach listener to the Confirm button
-    TheDialog->_ConfirmButtonActionConnection = confEvSrc->connectActionPerformed(boost::bind(&DialogWindow::handleConfirmButtonAction, TheDialog.get(), _1));
+    {
+        ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( ConfirmationButton->getEventSource() );
+        if ( evSrc )
+        {
+            //Attach listener to the Confirm button
+            TheDialog->_ConfirmButtonActionConnection = evSrc->connectActionPerformed(boost::bind(&DialogWindow::handleConfirmButtonAction, TheDialog.get(), _1));
+        }
+    }
 
     if(showCancel)
     {
         //Attach listener to the Cancel button
-        ButtonEventSourceUnrecPtr cancelEvSrc = ButtonEventSource::create();
-        CancelButton->setEventSource( cancelEvSrc );
-
-        TheDialog->_CancelButtonActionConnection = cancelEvSrc->connectActionPerformed(boost::bind(&DialogWindow::handleCancelButtonAction, TheDialog.get(), _1));
+        {
+            ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( CancelButton->getEventSource() );
+            if ( evSrc )
+            {
+                TheDialog->_CancelButtonActionConnection = evSrc->connectActionPerformed(boost::bind(&DialogWindow::handleCancelButtonAction, TheDialog.get(), _1));
+            }
+        }
     }
 
     return DialogWindowTransitPtr(TheDialog);

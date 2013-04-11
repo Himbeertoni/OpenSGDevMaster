@@ -202,7 +202,7 @@ void  CellEditorEventSource::disconnectAllSlotsEvent(UInt32 eventId)
         _EditingStoppedEvent.disconnect_all_slots();
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "CellEditorEventSource: No event defined with ID " << eventId << std::endl;
         break;
     }
 }

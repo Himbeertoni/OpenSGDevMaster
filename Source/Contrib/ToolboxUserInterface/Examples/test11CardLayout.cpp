@@ -171,7 +171,7 @@ int main(int argc, char **argv)
         // Tell the Manager what to manage
         sceneManager->setWindow(TutorialWindow);
 
-        TutorialWindow->connectKeyTyped(boost::bind(keyPressed, _1));
+        TutorialWindow->getEventSource()->connectKeyTyped(boost::bind(keyPressed, _1));
 
         // Make Torus Node (creates Torus in background of scene)
         NodeRecPtr TorusGeometryNode = makeTorus(.5, 2, 16, 16);
@@ -274,8 +274,20 @@ int main(int argc, char **argv)
         ExampleButton1->setText("Next Card");
         ExampleButton1->setConstraints(ExampleButton1Constraints);
 
+        ButtonEventSourceUnrecPtr button1EvSrc = ButtonEventSource::create();
+        ExampleButton1->setEventSource( button1EvSrc );
+
+        ButtonEventSourceUnrecPtr button2EvSrc = ButtonEventSource::create();
+        ExampleButton2->setEventSource( button2EvSrc );
+
+        ButtonEventSourceUnrecPtr button7EvSrc = ButtonEventSource::create();
+        ExampleButton7->setEventSource( button7EvSrc );
+
+        ButtonEventSourceUnrecPtr button8EvSrc = ButtonEventSource::create();
+        ExampleButton8->setEventSource( button8EvSrc );
+
         // Add Action
-        ExampleButton1->connectActionPerformed(boost::bind(handleNextCardAction, _1,
+        button1EvSrc->connectActionPerformed(boost::bind(handleNextCardAction, _1,
                                                            ExampleCardLayout.get(),
                                                            ExampleCardPanel.get()));
 
@@ -283,7 +295,7 @@ int main(int argc, char **argv)
         ExampleButton2->setConstraints(ExampleButton2Constraints);
 
         // Add Action
-        ExampleButton2->connectActionPerformed(boost::bind(handleBackCardAction, _1,
+        button2EvSrc->connectActionPerformed(boost::bind(handleBackCardAction, _1,
                                                            ExampleCardLayout.get(),
                                                            ExampleCardPanel.get()));
 
@@ -299,7 +311,7 @@ int main(int argc, char **argv)
         ExampleButton7->setConstraints(ExampleButton7Constraints);
 
         // Add Action
-        ExampleButton7->connectActionPerformed(boost::bind(handleFirstCardAction, _1,
+        button7EvSrc->connectActionPerformed(boost::bind(handleFirstCardAction, _1,
                                                            ExampleCardLayout.get(),
                                                            ExampleCardPanel.get()));
 
@@ -307,7 +319,7 @@ int main(int argc, char **argv)
         ExampleButton8->setConstraints(ExampleButton8Constraints);
 
         // Add Action
-        ExampleButton8->connectActionPerformed(boost::bind(handleLastCardAction, _1,
+        button8EvSrc->connectActionPerformed(boost::bind(handleLastCardAction, _1,
                                                            ExampleCardLayout.get(),
                                                            ExampleCardPanel.get()));
 
@@ -430,7 +442,7 @@ SimpleScreenDoc::SimpleScreenDoc(SimpleSceneManager*  SceneManager,
     TutorialViewport->addForeground(_DocForeground);
     TutorialViewport->addForeground(_DocShowForeground);
 
-    MainWindow->connectKeyTyped(boost::bind(&SimpleScreenDoc::keyTyped,
+    MainWindow->getEventSource()->connectKeyTyped(boost::bind(&SimpleScreenDoc::keyTyped,
                                             this,
                                             _1));
     
@@ -446,13 +458,16 @@ SimpleScreenDoc::SimpleScreenDoc(SimpleSceneManager*  SceneManager,
     
     //Animation
     _ShowDocFadeOutAnimation = FieldAnimation::create();
+    TBAnimationEventSourceUnrecPtr aev = TBAnimationEventSource::create();
+    _ShowDocFadeOutAnimation->setEventSource( aev );
+
     _ShowDocFadeOutAnimation->setAnimator(TheAnimator);
     _ShowDocFadeOutAnimation->setInterpolationType(TBAnimator::LINEAR_INTERPOLATION);
     _ShowDocFadeOutAnimation->setCycling(1);
     _ShowDocFadeOutAnimation->setAnimatedField(_DocShowForeground,
                                                SimpleTextForeground::ColorFieldId);
 
-    _ShowDocFadeOutAnimation->attachUpdateProducer(MainWindow);
+    _ShowDocFadeOutAnimation->getEventSource()->attachUpdateProducer(MainWindow->getEventSource() );
     _ShowDocFadeOutAnimation->start();
 }
 

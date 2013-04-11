@@ -60,6 +60,8 @@ void reshape(Vec2f Size, SimpleSceneManager *mgr);
 #include "OSGDefaultListModel.h"
 #include "OSGDefaultListSelectionModel.h"
 
+#include "OSGToggleButtonEventSource.h"
+
 void keyPressed(KeyEventDetails* const details,
                 List* const ExampleList,
                 ListModel* const ExampleListModel,
@@ -347,37 +349,68 @@ to them so this code is commented out.
         ToggleButtonRecPtr SingleIntervalSelectionButton = ToggleButton::create();
         ToggleButtonRecPtr MultipleIntervalSelectionButton = ToggleButton::create();
 
-        SingleSelectionButton->setText("Single Selection");
-        SingleSelectionButton->setPreferredSize(Vec2f(160, 50));
-        SingleSelectionButton->connectButtonSelected(boost::bind(handleSingleSelection, _1,
-                                                           ExampleList.get(),
-                                                           SingleIntervalSelectionButton.get(),
-                                                           MultipleIntervalSelectionButton.get()));
-
-        SingleIntervalSelectionButton->setText("Single Interval Selection");
-        SingleIntervalSelectionButton->setPreferredSize(Vec2f(160, 50));
-        SingleIntervalSelectionButton->connectButtonSelected(boost::bind(handleSingleIntervalSelection, _1,
+        {
+            ToggleButtonEventSource* evSrc = dynamic_cast<ToggleButtonEventSource*>( SingleSelectionButton->getEventSource() );
+            if ( evSrc )
+            {
+                evSrc->connectButtonSelected(boost::bind(handleSingleSelection, _1,
+                                                               ExampleList.get(),
+                                                               SingleIntervalSelectionButton.get(),
+                                                               MultipleIntervalSelectionButton.get()));
+            }
+        }
+        {
+            ToggleButtonEventSource* evSrc = dynamic_cast<ToggleButtonEventSource*>( SingleIntervalSelectionButton->getEventSource() );
+            if ( evSrc )
+            {
+                evSrc->connectButtonSelected(boost::bind(handleSingleIntervalSelection, _1,
                                                                          ExampleList.get(),
                                                                          SingleSelectionButton.get(),
                                                                          MultipleIntervalSelectionButton.get()));
-
-        MultipleIntervalSelectionButton->setText("Multiple Interval Selection");
-        MultipleIntervalSelectionButton->setPreferredSize(Vec2f(160, 50));
-        MultipleIntervalSelectionButton->connectButtonSelected(boost::bind(handleMultipleIntervalSelection, _1,
+            }
+        }
+        {
+            ToggleButtonEventSource* evSrc = dynamic_cast<ToggleButtonEventSource*>( MultipleIntervalSelectionButton->getEventSource() );
+            if ( evSrc )
+            {
+                evSrc->connectButtonSelected(boost::bind(handleMultipleIntervalSelection, _1,
                                                                          ExampleList.get(),
                                                                          SingleIntervalSelectionButton.get(),
                                                                          SingleSelectionButton.get()));
+            }
+        }
+
+        SingleSelectionButton->setText("Single Selection");
+        SingleSelectionButton->setPreferredSize(Vec2f(160, 50));
+
+        SingleIntervalSelectionButton->setText("Single Interval Selection");
+        SingleIntervalSelectionButton->setPreferredSize(Vec2f(160, 50));
+
+        MultipleIntervalSelectionButton->setText("Multiple Interval Selection");
+        MultipleIntervalSelectionButton->setPreferredSize(Vec2f(160, 50));
 
         ButtonRecPtr AddItemButton = Button::create();
         AddItemButton->setText("Add Item");
-        AddItemButton->connectActionPerformed(boost::bind(handleAddItem, _1,
+        {
+            ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( AddItemButton->getEventSource() );
+            if ( evSrc )
+            {
+                evSrc->connectActionPerformed(boost::bind(handleAddItem, _1,
                                                           ExampleList.get()));
+            }
+        }
         AddItemButton->setPreferredSize(Vec2f(100, 20));
 
         ButtonRecPtr RemoveItemButton = Button::create();
         RemoveItemButton->setText("Remove Item");
-        RemoveItemButton->connectActionPerformed(boost::bind(handleRemoveItem, _1,
+        {
+            ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( RemoveItemButton->getEventSource() );
+            if ( evSrc )
+            {
+                evSrc->connectActionPerformed(boost::bind(handleRemoveItem, _1,
                                                              ExampleList.get()));
+            }
+        }
         RemoveItemButton->setPreferredSize(Vec2f(100, 20));
 
 
@@ -419,7 +452,7 @@ to them so this code is commented out.
         TutorialUIForeground->setDrawingSurface(TutorialDrawingSurface);
 
 
-        TutorialWindow->connectKeyTyped(boost::bind(keyPressed, _1,
+        TutorialWindow->getEventSource()->connectKeyTyped(boost::bind(keyPressed, _1,
                                                     ExampleList.get(),
                                                     ExampleListModel.get(),
                                                     ExampleListModel2.get()));
@@ -501,7 +534,7 @@ SimpleScreenDoc::SimpleScreenDoc(SimpleSceneManager*  SceneManager,
     TutorialViewport->addForeground(_DocForeground);
     TutorialViewport->addForeground(_DocShowForeground);
 
-    MainWindow->connectKeyTyped(boost::bind(&SimpleScreenDoc::keyTyped,
+    MainWindow->getEventSource()->connectKeyTyped(boost::bind(&SimpleScreenDoc::keyTyped,
                                             this,
                                             _1));
     
@@ -517,13 +550,16 @@ SimpleScreenDoc::SimpleScreenDoc(SimpleSceneManager*  SceneManager,
     
     //Animation
     _ShowDocFadeOutAnimation = FieldAnimation::create();
+    TBAnimationEventSourceUnrecPtr aev = TBAnimationEventSource::create();
+    _ShowDocFadeOutAnimation->setEventSource( aev );
+
     _ShowDocFadeOutAnimation->setAnimator(TheAnimator);
     _ShowDocFadeOutAnimation->setInterpolationType(TBAnimator::LINEAR_INTERPOLATION);
     _ShowDocFadeOutAnimation->setCycling(1);
     _ShowDocFadeOutAnimation->setAnimatedField(_DocShowForeground,
                                                SimpleTextForeground::ColorFieldId);
 
-    _ShowDocFadeOutAnimation->attachUpdateProducer(MainWindow);
+    _ShowDocFadeOutAnimation->getEventSource()->attachUpdateProducer(MainWindow->getEventSource() );
     _ShowDocFadeOutAnimation->start();
 }
 

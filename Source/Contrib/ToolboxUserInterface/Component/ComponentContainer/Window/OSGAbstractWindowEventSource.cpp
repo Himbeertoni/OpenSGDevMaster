@@ -131,7 +131,7 @@ EventDescription *AbstractWindowEventSource::_eventDesc[] =
 
 EventProducerType AbstractWindowEventSource::_producerType(
     "AbstractWindowProducerType",
-    "EventProducerType",
+    "ComponentProducerType",
     "",
     InitEventProducerFunctor(),
     _eventDesc,
@@ -218,7 +218,7 @@ void AbstractWindowEventSource::produceEvent(UInt32 eventId, EventDetails* const
         _WindowExitedEvent(dynamic_cast<WindowExitedEventDetailsType* const>(e), WindowExitedEventId);
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        Inherited::produceEvent(eventId, e);
         break;
     }
 }
@@ -257,8 +257,7 @@ boost::signals2::connection AbstractWindowEventSource::connectEvent(UInt32 event
         return _WindowExitedEvent.connect(listener, at);
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
-        return boost::signals2::connection();
+        return Inherited::connectEvent(eventId, listener, at);
         break;
     }
 
@@ -300,8 +299,7 @@ boost::signals2::connection  AbstractWindowEventSource::connectEvent(UInt32 even
         return _WindowExitedEvent.connect(group, listener, at);
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
-        return boost::signals2::connection();
+        return Inherited::connectEvent(eventId, group, listener, at);
         break;
     }
 
@@ -340,7 +338,7 @@ void  AbstractWindowEventSource::disconnectEvent(UInt32 eventId, const BaseEvent
         _WindowExitedEvent.disconnect(group);
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        return Inherited::disconnectEvent(eventId, group);
         break;
     }
 }
@@ -377,7 +375,7 @@ void  AbstractWindowEventSource::disconnectAllSlotsEvent(UInt32 eventId)
         _WindowExitedEvent.disconnect_all_slots();
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        Inherited::disconnectAllSlotsEvent(eventId);
         break;
     }
 }
@@ -414,8 +412,7 @@ bool  AbstractWindowEventSource::isEmptyEvent(UInt32 eventId) const
         return _WindowExitedEvent.empty();
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
-        return true;
+        return Inherited::isEmptyEvent(eventId);
         break;
     }
 }
@@ -452,8 +449,7 @@ UInt32  AbstractWindowEventSource::numSlotsEvent(UInt32 eventId) const
         return _WindowExitedEvent.num_slots();
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
-        return 0;
+        return Inherited::numSlotsEvent(eventId);
         break;
     }
 }

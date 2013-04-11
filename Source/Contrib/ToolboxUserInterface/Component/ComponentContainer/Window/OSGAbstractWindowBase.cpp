@@ -448,6 +448,7 @@ AbstractWindowBase::TypeObject AbstractWindowBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    authors=\"David Kabala (djkabala@gmail.com)                             \"\n"
+    "    parentProducer=\"Component\"\n"
     "    >\n"
     "    A UI Abstract Window.\n"
     "    <Field\n"

@@ -476,7 +476,7 @@ UInt32  ComponentEventSource::numSlotsKeyPressed(void) const
 inline
 void ComponentEventSource::produceKeyPressed(KeyPressedEventDetailsType* const e)
 {
-    ComponentEventSource::produceEvent(KeyPressedEventId, e);
+    produceEvent(KeyPressedEventId, e);
 }
 
 inline

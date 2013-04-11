@@ -198,7 +198,9 @@ void RadioButtonGroup::changed(ConstFieldMaskArg whichField,
         _ButtonConnections.clear();
         for(UInt32 i(0) ; i<getMFGroupButtons()->size() ; ++i)
         {
-            ToggleButtonEventSource* ev = dynamic_cast<ToggleButtonEventSource*>( getGroupButtons(i)->getEventSource() );
+            auto test = getGroupButtons(i)->getEventSource();
+            printf( "%s\n", typeid( *getGroupButtons(i)->getEventSource() ).name() );
+            ToggleButtonEventSource* ev = dynamic_cast<ToggleButtonEventSource*>( test );
             if ( ev )
             {
                 _ButtonConnections.push_back( ev->connectButtonSelected(boost::bind(&RadioButtonGroup::handleButtonSelected, this, _1)));

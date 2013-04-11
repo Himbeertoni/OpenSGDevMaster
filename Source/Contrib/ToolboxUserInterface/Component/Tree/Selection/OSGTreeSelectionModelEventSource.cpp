@@ -202,7 +202,7 @@ void  TreeSelectionModelEventSource::disconnectAllSlotsEvent(UInt32 eventId)
         _SelectionRemovedEvent.disconnect_all_slots();
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "TreeSelectionModelEventSource: No event defined with ID " << eventId << std::endl;
         break;
     }
 }

@@ -63,7 +63,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGComponentEventSource.h" // Parent Event Source
+#include "OSGComponentEventSource.h" // Parent Event Producer
 
 #include "OSGAbstractWindowEventSourceFields.h"
 

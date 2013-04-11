@@ -227,7 +227,7 @@ void  ListModelEventSource::disconnectAllSlotsEvent(UInt32 eventId)
         _ListDataIntervalRemovedEvent.disconnect_all_slots();
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "ListModelEventSource: No event defined with ID " << eventId << std::endl;
         break;
     }
 }

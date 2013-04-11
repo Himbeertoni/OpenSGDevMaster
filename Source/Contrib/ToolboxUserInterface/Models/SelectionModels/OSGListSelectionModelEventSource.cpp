@@ -177,7 +177,7 @@ void  ListSelectionModelEventSource::disconnectAllSlotsEvent(UInt32 eventId)
         _SelectionChangedEvent.disconnect_all_slots();
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "ListSelectionModelEventSource: No event defined with ID " << eventId << std::endl;
         break;
     }
 }

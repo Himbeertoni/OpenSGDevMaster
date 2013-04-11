@@ -529,9 +529,6 @@ void PopupMenu::onCreate(const PopupMenu * Id)
     {
         //Create Default Selection model
         DefaultSingleSelectionModelUnrecPtr TheModel(DefaultSingleSelectionModel::create());
-        SingleSelectionModelEventSourceUnrecPtr modelEvSrc = SingleSelectionModelEventSource::create();
-        TheModel->setEventSource( modelEvSrc );
-
         setSelectionModel(TheModel);
 
         //Create the MenuPanel

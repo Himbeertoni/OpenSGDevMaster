@@ -126,7 +126,7 @@ int main(int argc, char **argv)
         // Tell the Manager what to manage
         sceneManager->setWindow(TutorialWindow);
 
-        TutorialWindow->connectKeyTyped(boost::bind(keyTyped, _1));
+        TutorialWindow->getEventSource()->connectKeyTyped(boost::bind(keyTyped, _1));
 
         // Make Torus Node (creates Torus in background of scene)
         NodeRefPtr TorusGeometryNode = makeTorus(.5, 2, 16, 16);
@@ -287,7 +287,7 @@ SimpleScreenDoc::SimpleScreenDoc(SimpleSceneManager*  SceneManager,
     TutorialViewport->addForeground(_DocForeground);
     TutorialViewport->addForeground(_DocShowForeground);
 
-    MainWindow->connectKeyTyped(boost::bind(&SimpleScreenDoc::keyTyped,
+    MainWindow->getEventSource()->connectKeyTyped(boost::bind(&SimpleScreenDoc::keyTyped,
                                             this,
                                             _1));
     
@@ -309,7 +309,7 @@ SimpleScreenDoc::SimpleScreenDoc(SimpleSceneManager*  SceneManager,
     _ShowDocFadeOutAnimation->setAnimatedField(_DocShowForeground,
                                                SimpleTextForeground::ColorFieldId);
 
-    _ShowDocFadeOutAnimation->attachUpdateProducer(MainWindow);
+    _ShowDocFadeOutAnimation->getEventSource()->attachUpdateProducer(MainWindow->getEventSource() );
     _ShowDocFadeOutAnimation->start();
 }
 

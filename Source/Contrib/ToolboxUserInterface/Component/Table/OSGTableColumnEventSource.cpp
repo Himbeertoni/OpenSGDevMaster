@@ -177,7 +177,7 @@ void  TableColumnEventSource::disconnectAllSlotsEvent(UInt32 eventId)
         _FieldChangedEvent.disconnect_all_slots();
         break;
     default:
-        SWARNING << "No event defined with ID " << eventId << std::endl;
+        SWARNING << "TableColumnEventSource: No event defined with ID " << eventId << std::endl;
         break;
     }
 }

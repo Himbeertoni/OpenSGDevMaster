@@ -184,7 +184,7 @@ Vec2f MenuItem::getContentRequestedSize(void) const
     return RequestedSize;
 }
 
-void MenuItem::actionPreformed(ActionEventDetails* const e)
+void MenuItem::actionPerformed(ActionEventDetails* const e)
 {
 }
 

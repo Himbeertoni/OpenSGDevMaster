@@ -151,6 +151,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxModelBase : public List
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
+    void onCreate(const ComboBoxModel *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

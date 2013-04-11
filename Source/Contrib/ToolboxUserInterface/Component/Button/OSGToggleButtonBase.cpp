@@ -344,6 +344,16 @@ ToggleButtonBase::~ToggleButtonBase(void)
 {
 }
 
+void ToggleButtonBase::onCreate(const ToggleButton *source)
+{
+    Inherited::onCreate(source);
+
+    
+    {
+        ToggleButtonEventSourceUnrecPtr evSrc = ToggleButtonEventSource::create();
+        setEventSource( evSrc );
+    }
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT

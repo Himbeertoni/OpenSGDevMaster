@@ -1169,8 +1169,6 @@ void Tree::onCreate(const Tree * Id)
     }
 
     DefaultTreeSelectionModelUnrecPtr SelModel = DefaultTreeSelectionModel::create();
-    TreeSelectionModelEventSourceUnrecPtr selModelEvSrc = TreeSelectionModelEventSource::create();
-    SelModel->setEventSource( selModelEvSrc );
 
     setSelectionModel(SelModel);
     _SelectionAddedConnection = getSelectionModel()->getEventSource()->connectSelectionAdded(boost::bind(&Tree::handleSelectionAdded, this, _1));
@@ -1187,8 +1185,6 @@ void Tree::onCreate(const Tree * Id)
         FixedHeightTreeModelLayoutUnrecPtr TheModelLayout(FixedHeightTreeModelLayout::create());
         setModelLayout(TheModelLayout);
     }
-    TreeModelLayoutEventSourceUnrecPtr modelLayoutEvSrc = TreeModelLayoutEventSource::create();
-    getModelLayout()->setEventSource( modelLayoutEvSrc );
 
     _ModelTreeNodesChangedConnection = getModelLayout()->getEventSource()->connectTreeNodesChanged(boost::bind(&Tree::handleModelTreeNodesChanged, this, _1));
     _ModelTreeNodesInsertedConnection = getModelLayout()->getEventSource()->connectTreeNodesInserted(boost::bind(&Tree::handleModelTreeNodesInserted, this, _1));

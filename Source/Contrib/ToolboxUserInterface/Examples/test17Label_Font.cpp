@@ -324,7 +324,7 @@ public FieldTraitsFCPtrBase<FontListComponentGenerator *>
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_CONTRIBUSERINTERFACE_DLLMAPPING DataType &getType(void);
+    static OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
         static const Char8    *getSName     (void);
@@ -463,7 +463,7 @@ int main(int argc, char **argv)
         // Tell the Manager what to manage
         sceneManager->setWindow(TutorialWindow);
 
-        TutorialWindow->connectKeyTyped(boost::bind(keyPressed, _1));
+        TutorialWindow->getEventSource()->connectKeyTyped(boost::bind(keyPressed, _1));
 
         // Make Torus Node (creates Torus in background of scene)
         NodeRecPtr TorusGeometryNode = makeTorus(.5, 2, 16, 16);
@@ -589,7 +589,7 @@ int main(int argc, char **argv)
         FontList->getSelectionModel()->setSelectionMode(DefaultListSelectionModel::SINGLE_SELECTION);
 
         FontList->
-            getSelectionModel()->
+            getSelectionModel()->getEventSource()->
                 connectSelectionChanged(boost::bind(handleSelectionChanged, _1,
                                                     FontList.get(),
                                                     ExampleLabel.get(),
@@ -710,7 +710,7 @@ SimpleScreenDoc::SimpleScreenDoc(SimpleSceneManager*  SceneManager,
     TutorialViewport->addForeground(_DocForeground);
     TutorialViewport->addForeground(_DocShowForeground);
 
-    MainWindow->connectKeyTyped(boost::bind(&SimpleScreenDoc::keyTyped,
+    MainWindow->getEventSource()->connectKeyTyped(boost::bind(&SimpleScreenDoc::keyTyped,
                                             this,
                                             _1));
     
@@ -726,13 +726,16 @@ SimpleScreenDoc::SimpleScreenDoc(SimpleSceneManager*  SceneManager,
     
     //Animation
     _ShowDocFadeOutAnimation = FieldAnimation::create();
+    TBAnimationEventSourceUnrecPtr aev = TBAnimationEventSource::create();
+    _ShowDocFadeOutAnimation->setEventSource( aev );
+
     _ShowDocFadeOutAnimation->setAnimator(TheAnimator);
     _ShowDocFadeOutAnimation->setInterpolationType(TBAnimator::LINEAR_INTERPOLATION);
     _ShowDocFadeOutAnimation->setCycling(1);
     _ShowDocFadeOutAnimation->setAnimatedField(_DocShowForeground,
                                                SimpleTextForeground::ColorFieldId);
 
-    _ShowDocFadeOutAnimation->attachUpdateProducer(MainWindow);
+    _ShowDocFadeOutAnimation->getEventSource()->attachUpdateProducer(MainWindow->getEventSource() );
     _ShowDocFadeOutAnimation->start();
 }
 
