@@ -75,6 +75,8 @@
 
 #include "OSGComboBoxFields.h"
 
+#include "OSGComboBoxEventSource.h"
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -242,6 +244,22 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxBase : public Component
     virtual FieldContainerTransitPtr shallowCopyDependent(
                                                       BitVector bFlags) const;
 
+    /*! \}                                                                 */    
+    /*! \}                                                                 */
+    /*! \name                Event Forwards to EventSource                 */
+    /*! \{                                                                 */
+    
+    //ActionPerformed
+    boost::signals2::connection connectActionPerformed(const ComboBoxEventSource::ActionPerformedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectActionPerformed(const ComboBoxEventSource::ActionPerformedEventType::group_type &group,
+                                                       const ComboBoxEventSource::ActionPerformedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectActionPerformed        (const ComboBoxEventSource::ActionPerformedEventType::group_type &group);
+    void   disconnectAllSlotsActionPerformed(void);
+    bool   isEmptyActionPerformed           (void) const;
+    UInt32 numSlotsActionPerformed          (void) const;
+    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

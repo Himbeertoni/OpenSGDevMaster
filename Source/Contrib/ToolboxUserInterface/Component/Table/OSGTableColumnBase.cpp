@@ -1045,4 +1045,41 @@ void TableColumnBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  TableColumnBase::connectFieldChanged(
+                                                    const TableColumnEventSource::FieldChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectFieldChanged( listener, at );
+}
+
+boost::signals2::connection  TableColumnBase::connectFieldChanged(
+                                                    const TableColumnEventSource::FieldChangedEventType::group_type &group,
+                                                    const TableColumnEventSource::FieldChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectFieldChanged( group, listener, at );
+}
+
+void  TableColumnBase::disconnectFieldChanged(
+                                                    const TableColumnEventSource::FieldChangedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectFieldChanged( group );
+}
+
+void  TableColumnBase::disconnectAllSlotsFieldChanged(void)
+{
+    getEventSource()->disconnectAllSlotsFieldChanged();
+}
+
+bool  TableColumnBase::isEmptyFieldChanged(void) const
+{
+    return getEventSource()->isEmptyFieldChanged();
+}
+
+UInt32  TableColumnBase::numSlotsFieldChanged(void) const
+{
+    return getEventSource()->numSlotsFieldChanged();
+}
+
 OSG_END_NAMESPACE

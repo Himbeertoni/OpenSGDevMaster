@@ -360,4 +360,78 @@ void TreeSelectionModelBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  TreeSelectionModelBase::connectSelectionAdded(
+                                                    const TreeSelectionModelEventSource::SelectionAddedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectSelectionAdded( listener, at );
+}
+
+boost::signals2::connection  TreeSelectionModelBase::connectSelectionAdded(
+                                                    const TreeSelectionModelEventSource::SelectionAddedEventType::group_type &group,
+                                                    const TreeSelectionModelEventSource::SelectionAddedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectSelectionAdded( group, listener, at );
+}
+
+void  TreeSelectionModelBase::disconnectSelectionAdded(
+                                                    const TreeSelectionModelEventSource::SelectionAddedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectSelectionAdded( group );
+}
+
+void  TreeSelectionModelBase::disconnectAllSlotsSelectionAdded(void)
+{
+    getEventSource()->disconnectAllSlotsSelectionAdded();
+}
+
+bool  TreeSelectionModelBase::isEmptySelectionAdded(void) const
+{
+    return getEventSource()->isEmptySelectionAdded();
+}
+
+UInt32  TreeSelectionModelBase::numSlotsSelectionAdded(void) const
+{
+    return getEventSource()->numSlotsSelectionAdded();
+}
+
+boost::signals2::connection  TreeSelectionModelBase::connectSelectionRemoved(
+                                                    const TreeSelectionModelEventSource::SelectionRemovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectSelectionRemoved( listener, at );
+}
+
+boost::signals2::connection  TreeSelectionModelBase::connectSelectionRemoved(
+                                                    const TreeSelectionModelEventSource::SelectionRemovedEventType::group_type &group,
+                                                    const TreeSelectionModelEventSource::SelectionRemovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectSelectionRemoved( group, listener, at );
+}
+
+void  TreeSelectionModelBase::disconnectSelectionRemoved(
+                                                    const TreeSelectionModelEventSource::SelectionRemovedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectSelectionRemoved( group );
+}
+
+void  TreeSelectionModelBase::disconnectAllSlotsSelectionRemoved(void)
+{
+    getEventSource()->disconnectAllSlotsSelectionRemoved();
+}
+
+bool  TreeSelectionModelBase::isEmptySelectionRemoved(void) const
+{
+    return getEventSource()->isEmptySelectionRemoved();
+}
+
+UInt32  TreeSelectionModelBase::numSlotsSelectionRemoved(void) const
+{
+    return getEventSource()->numSlotsSelectionRemoved();
+}
+
 OSG_END_NAMESPACE

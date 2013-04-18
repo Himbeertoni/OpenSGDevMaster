@@ -354,4 +354,41 @@ void SingleSelectionModelBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  SingleSelectionModelBase::connectSelectionChanged(
+                                                    const SingleSelectionModelEventSource::SelectionChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectSelectionChanged( listener, at );
+}
+
+boost::signals2::connection  SingleSelectionModelBase::connectSelectionChanged(
+                                                    const SingleSelectionModelEventSource::SelectionChangedEventType::group_type &group,
+                                                    const SingleSelectionModelEventSource::SelectionChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectSelectionChanged( group, listener, at );
+}
+
+void  SingleSelectionModelBase::disconnectSelectionChanged(
+                                                    const SingleSelectionModelEventSource::SelectionChangedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectSelectionChanged( group );
+}
+
+void  SingleSelectionModelBase::disconnectAllSlotsSelectionChanged(void)
+{
+    getEventSource()->disconnectAllSlotsSelectionChanged();
+}
+
+bool  SingleSelectionModelBase::isEmptySelectionChanged(void) const
+{
+    return getEventSource()->isEmptySelectionChanged();
+}
+
+UInt32  SingleSelectionModelBase::numSlotsSelectionChanged(void) const
+{
+    return getEventSource()->numSlotsSelectionChanged();
+}
+
 OSG_END_NAMESPACE

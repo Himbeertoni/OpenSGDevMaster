@@ -159,7 +159,7 @@ class ProgressController
         _ProgressControlToggleButton->setText("Stop Incrementing");
 
         _UpdateConnection =
-            _TutorialWindow->connectUpdate(boost::bind(&ProgressController::handleUpdate,
+            _TutorialWindow->getEventSource()->connectUpdate(boost::bind(&ProgressController::handleUpdate,
                                                             this,
                                                             _1));
     }

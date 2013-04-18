@@ -138,7 +138,7 @@ void handleButtonSelected(ButtonSelectedEventDetails* const details,
     // a ToggleButton) and then change its text accordingly.
     dynamic_cast<ToggleButton*>(details->getSource())->setText("Stop Rotating");
 
-    TutorialWindow->connectUpdate(boost::bind(handleUpdate, _1,
+    TutorialWindow->getEventSource()->connectUpdate(boost::bind(handleUpdate, _1,
                                               ExampleRotatedComponent));
 }
 
@@ -149,7 +149,7 @@ void handleButtonDeselected(ButtonSelectedEventDetails* const details,
 {
     dynamic_cast<ToggleButton*>(details->getSource())->setText("Start Rotating");
 
-    TutorialWindow->disconnectAllSlotsUpdate();
+    TutorialWindow->getEventSource()->disconnectAllSlotsUpdate();
 }
 
 int main(int argc, char **argv)

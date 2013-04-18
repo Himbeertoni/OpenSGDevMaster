@@ -433,4 +433,41 @@ void ListSelectionModelBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  ListSelectionModelBase::connectSelectionChanged(
+                                                    const ListSelectionModelEventSource::SelectionChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectSelectionChanged( listener, at );
+}
+
+boost::signals2::connection  ListSelectionModelBase::connectSelectionChanged(
+                                                    const ListSelectionModelEventSource::SelectionChangedEventType::group_type &group,
+                                                    const ListSelectionModelEventSource::SelectionChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectSelectionChanged( group, listener, at );
+}
+
+void  ListSelectionModelBase::disconnectSelectionChanged(
+                                                    const ListSelectionModelEventSource::SelectionChangedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectSelectionChanged( group );
+}
+
+void  ListSelectionModelBase::disconnectAllSlotsSelectionChanged(void)
+{
+    getEventSource()->disconnectAllSlotsSelectionChanged();
+}
+
+bool  ListSelectionModelBase::isEmptySelectionChanged(void) const
+{
+    return getEventSource()->isEmptySelectionChanged();
+}
+
+UInt32  ListSelectionModelBase::numSlotsSelectionChanged(void) const
+{
+    return getEventSource()->numSlotsSelectionChanged();
+}
+
 OSG_END_NAMESPACE

@@ -69,6 +69,8 @@
 
 #include "OSGCellEditorFields.h"
 
+#include "OSGCellEditorEventSource.h"
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -163,6 +165,33 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING CellEditorBase : public FieldCo
                                ConstFieldMaskArg  whichField);
 
 
+    /*! \}                                                                 */
+    /*! \}                                                                 */
+    /*! \name                Event Forwards to EventSource                 */
+    /*! \{                                                                 */
+    
+    //EditingCanceled
+    boost::signals2::connection connectEditingCanceled(const CellEditorEventSource::EditingCanceledEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectEditingCanceled(const CellEditorEventSource::EditingCanceledEventType::group_type &group,
+                                                       const CellEditorEventSource::EditingCanceledEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectEditingCanceled        (const CellEditorEventSource::EditingCanceledEventType::group_type &group);
+    void   disconnectAllSlotsEditingCanceled(void);
+    bool   isEmptyEditingCanceled           (void) const;
+    UInt32 numSlotsEditingCanceled          (void) const;
+    
+    //EditingStopped
+    boost::signals2::connection connectEditingStopped (const CellEditorEventSource::EditingStoppedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectEditingStopped (const CellEditorEventSource::EditingStoppedEventType::group_type &group,
+                                                       const CellEditorEventSource::EditingStoppedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectEditingStopped         (const CellEditorEventSource::EditingStoppedEventType::group_type &group);
+    void   disconnectAllSlotsEditingStopped (void);
+    bool   isEmptyEditingStopped            (void) const;
+    UInt32 numSlotsEditingStopped           (void) const;
+    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

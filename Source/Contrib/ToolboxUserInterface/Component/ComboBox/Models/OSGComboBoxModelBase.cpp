@@ -261,4 +261,69 @@ void ComboBoxModelBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  ComboBoxModelBase::connectSelectionChanged(
+                                                    const ComboBoxModelEventSource::SelectionChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    ComboBoxModelEventSource* evSrc = dynamic_cast<ComboBoxModelEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectSelectionChanged( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComboBoxModelBase::connectSelectionChanged(
+                                                    const ComboBoxModelEventSource::SelectionChangedEventType::group_type &group,
+                                                    const ComboBoxModelEventSource::SelectionChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    ComboBoxModelEventSource* evSrc = dynamic_cast<ComboBoxModelEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectSelectionChanged( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComboBoxModelBase::disconnectSelectionChanged(
+                                                    const ComboBoxModelEventSource::SelectionChangedEventType::group_type &group
+)
+{
+    ComboBoxModelEventSource* evSrc = dynamic_cast<ComboBoxModelEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectSelectionChanged( group );
+    }
+}
+
+void  ComboBoxModelBase::disconnectAllSlotsSelectionChanged(void)
+{
+    ComboBoxModelEventSource* evSrc = dynamic_cast<ComboBoxModelEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsSelectionChanged();
+    }
+}
+
+bool  ComboBoxModelBase::isEmptySelectionChanged(void) const
+{
+    ComboBoxModelEventSource* evSrc = dynamic_cast<ComboBoxModelEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptySelectionChanged();
+    }
+    return true;
+}
+
+UInt32  ComboBoxModelBase::numSlotsSelectionChanged(void) const
+{
+    ComboBoxModelEventSource* evSrc = dynamic_cast<ComboBoxModelEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsSelectionChanged();
+    }
+    return 0u;
+}
+
 OSG_END_NAMESPACE

@@ -72,6 +72,8 @@
 
 #include "OSGPopupMenuFields.h"
 
+#include "OSGPopupMenuEventSource.h"
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -222,6 +224,55 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING PopupMenuBase : public Componen
     virtual FieldContainerTransitPtr shallowCopyDependent(
                                                       BitVector bFlags) const;
 
+    /*! \}                                                                 */    
+    /*! \}                                                                 */
+    /*! \name                Event Forwards to EventSource                 */
+    /*! \{                                                                 */
+    
+    //PopupMenuWillBecomeVisible
+    boost::signals2::connection connectPopupMenuWillBecomeVisible(const PopupMenuEventSource::PopupMenuWillBecomeVisibleEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectPopupMenuWillBecomeVisible(const PopupMenuEventSource::PopupMenuWillBecomeVisibleEventType::group_type &group,
+                                                       const PopupMenuEventSource::PopupMenuWillBecomeVisibleEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectPopupMenuWillBecomeVisible(const PopupMenuEventSource::PopupMenuWillBecomeVisibleEventType::group_type &group);
+    void   disconnectAllSlotsPopupMenuWillBecomeVisible(void);
+    bool   isEmptyPopupMenuWillBecomeVisible(void) const;
+    UInt32 numSlotsPopupMenuWillBecomeVisible(void) const;
+    
+    //PopupMenuWillBecomeInvisible
+    boost::signals2::connection connectPopupMenuWillBecomeInvisible(const PopupMenuEventSource::PopupMenuWillBecomeInvisibleEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectPopupMenuWillBecomeInvisible(const PopupMenuEventSource::PopupMenuWillBecomeInvisibleEventType::group_type &group,
+                                                       const PopupMenuEventSource::PopupMenuWillBecomeInvisibleEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectPopupMenuWillBecomeInvisible(const PopupMenuEventSource::PopupMenuWillBecomeInvisibleEventType::group_type &group);
+    void   disconnectAllSlotsPopupMenuWillBecomeInvisible(void);
+    bool   isEmptyPopupMenuWillBecomeInvisible(void) const;
+    UInt32 numSlotsPopupMenuWillBecomeInvisible(void) const;
+    
+    //PopupMenuCanceled
+    boost::signals2::connection connectPopupMenuCanceled(const PopupMenuEventSource::PopupMenuCanceledEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectPopupMenuCanceled(const PopupMenuEventSource::PopupMenuCanceledEventType::group_type &group,
+                                                       const PopupMenuEventSource::PopupMenuCanceledEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectPopupMenuCanceled      (const PopupMenuEventSource::PopupMenuCanceledEventType::group_type &group);
+    void   disconnectAllSlotsPopupMenuCanceled(void);
+    bool   isEmptyPopupMenuCanceled         (void) const;
+    UInt32 numSlotsPopupMenuCanceled        (void) const;
+    
+    //PopupMenuContentsChanged
+    boost::signals2::connection connectPopupMenuContentsChanged(const PopupMenuEventSource::PopupMenuContentsChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectPopupMenuContentsChanged(const PopupMenuEventSource::PopupMenuContentsChangedEventType::group_type &group,
+                                                       const PopupMenuEventSource::PopupMenuContentsChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectPopupMenuContentsChanged(const PopupMenuEventSource::PopupMenuContentsChangedEventType::group_type &group);
+    void   disconnectAllSlotsPopupMenuContentsChanged(void);
+    bool   isEmptyPopupMenuContentsChanged  (void) const;
+    UInt32 numSlotsPopupMenuContentsChanged (void) const;
+    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

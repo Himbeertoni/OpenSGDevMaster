@@ -1003,4 +1003,69 @@ void ComboBoxBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  ComboBoxBase::connectActionPerformed(
+                                                    const ComboBoxEventSource::ActionPerformedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    ComboBoxEventSource* evSrc = dynamic_cast<ComboBoxEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectActionPerformed( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComboBoxBase::connectActionPerformed(
+                                                    const ComboBoxEventSource::ActionPerformedEventType::group_type &group,
+                                                    const ComboBoxEventSource::ActionPerformedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    ComboBoxEventSource* evSrc = dynamic_cast<ComboBoxEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectActionPerformed( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComboBoxBase::disconnectActionPerformed(
+                                                    const ComboBoxEventSource::ActionPerformedEventType::group_type &group
+)
+{
+    ComboBoxEventSource* evSrc = dynamic_cast<ComboBoxEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectActionPerformed( group );
+    }
+}
+
+void  ComboBoxBase::disconnectAllSlotsActionPerformed(void)
+{
+    ComboBoxEventSource* evSrc = dynamic_cast<ComboBoxEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsActionPerformed();
+    }
+}
+
+bool  ComboBoxBase::isEmptyActionPerformed(void) const
+{
+    ComboBoxEventSource* evSrc = dynamic_cast<ComboBoxEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyActionPerformed();
+    }
+    return true;
+}
+
+UInt32  ComboBoxBase::numSlotsActionPerformed(void) const
+{
+    ComboBoxEventSource* evSrc = dynamic_cast<ComboBoxEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsActionPerformed();
+    }
+    return 0u;
+}
+
 OSG_END_NAMESPACE

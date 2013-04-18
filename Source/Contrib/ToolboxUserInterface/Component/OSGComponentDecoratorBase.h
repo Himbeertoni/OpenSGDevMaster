@@ -69,6 +69,8 @@
 
 #include "OSGComponentDecoratorFields.h"
 
+#include "OSGComponentEventSource.h"
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -321,6 +323,242 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComponentDecoratorBase : public
                                ConstFieldMaskArg  whichField);
 
 
+    /*! \}                                                                 */
+    /*! \}                                                                 */
+    /*! \name                Event Forwards to EventSource                 */
+    /*! \{                                                                 */
+    
+    //MouseMoved
+    boost::signals2::connection connectMouseMoved     (const ComponentEventSource::MouseMovedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectMouseMoved     (const ComponentEventSource::MouseMovedEventType::group_type &group,
+                                                       const ComponentEventSource::MouseMovedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectMouseMoved             (const ComponentEventSource::MouseMovedEventType::group_type &group);
+    void   disconnectAllSlotsMouseMoved     (void);
+    bool   isEmptyMouseMoved                (void) const;
+    UInt32 numSlotsMouseMoved               (void) const;
+    
+    //MouseDragged
+    boost::signals2::connection connectMouseDragged   (const ComponentEventSource::MouseDraggedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectMouseDragged   (const ComponentEventSource::MouseDraggedEventType::group_type &group,
+                                                       const ComponentEventSource::MouseDraggedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectMouseDragged           (const ComponentEventSource::MouseDraggedEventType::group_type &group);
+    void   disconnectAllSlotsMouseDragged   (void);
+    bool   isEmptyMouseDragged              (void) const;
+    UInt32 numSlotsMouseDragged             (void) const;
+    
+    //MouseClicked
+    boost::signals2::connection connectMouseClicked   (const ComponentEventSource::MouseClickedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectMouseClicked   (const ComponentEventSource::MouseClickedEventType::group_type &group,
+                                                       const ComponentEventSource::MouseClickedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectMouseClicked           (const ComponentEventSource::MouseClickedEventType::group_type &group);
+    void   disconnectAllSlotsMouseClicked   (void);
+    bool   isEmptyMouseClicked              (void) const;
+    UInt32 numSlotsMouseClicked             (void) const;
+    
+    //MouseEntered
+    boost::signals2::connection connectMouseEntered   (const ComponentEventSource::MouseEnteredEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectMouseEntered   (const ComponentEventSource::MouseEnteredEventType::group_type &group,
+                                                       const ComponentEventSource::MouseEnteredEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectMouseEntered           (const ComponentEventSource::MouseEnteredEventType::group_type &group);
+    void   disconnectAllSlotsMouseEntered   (void);
+    bool   isEmptyMouseEntered              (void) const;
+    UInt32 numSlotsMouseEntered             (void) const;
+    
+    //MouseExited
+    boost::signals2::connection connectMouseExited    (const ComponentEventSource::MouseExitedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectMouseExited    (const ComponentEventSource::MouseExitedEventType::group_type &group,
+                                                       const ComponentEventSource::MouseExitedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectMouseExited            (const ComponentEventSource::MouseExitedEventType::group_type &group);
+    void   disconnectAllSlotsMouseExited    (void);
+    bool   isEmptyMouseExited               (void) const;
+    UInt32 numSlotsMouseExited              (void) const;
+    
+    //MousePressed
+    boost::signals2::connection connectMousePressed   (const ComponentEventSource::MousePressedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectMousePressed   (const ComponentEventSource::MousePressedEventType::group_type &group,
+                                                       const ComponentEventSource::MousePressedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectMousePressed           (const ComponentEventSource::MousePressedEventType::group_type &group);
+    void   disconnectAllSlotsMousePressed   (void);
+    bool   isEmptyMousePressed              (void) const;
+    UInt32 numSlotsMousePressed             (void) const;
+    
+    //MouseReleased
+    boost::signals2::connection connectMouseReleased  (const ComponentEventSource::MouseReleasedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectMouseReleased  (const ComponentEventSource::MouseReleasedEventType::group_type &group,
+                                                       const ComponentEventSource::MouseReleasedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectMouseReleased          (const ComponentEventSource::MouseReleasedEventType::group_type &group);
+    void   disconnectAllSlotsMouseReleased  (void);
+    bool   isEmptyMouseReleased             (void) const;
+    UInt32 numSlotsMouseReleased            (void) const;
+    
+    //MouseWheelMoved
+    boost::signals2::connection connectMouseWheelMoved(const ComponentEventSource::MouseWheelMovedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectMouseWheelMoved(const ComponentEventSource::MouseWheelMovedEventType::group_type &group,
+                                                       const ComponentEventSource::MouseWheelMovedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectMouseWheelMoved        (const ComponentEventSource::MouseWheelMovedEventType::group_type &group);
+    void   disconnectAllSlotsMouseWheelMoved(void);
+    bool   isEmptyMouseWheelMoved           (void) const;
+    UInt32 numSlotsMouseWheelMoved          (void) const;
+    
+    //KeyPressed
+    boost::signals2::connection connectKeyPressed     (const ComponentEventSource::KeyPressedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectKeyPressed     (const ComponentEventSource::KeyPressedEventType::group_type &group,
+                                                       const ComponentEventSource::KeyPressedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectKeyPressed             (const ComponentEventSource::KeyPressedEventType::group_type &group);
+    void   disconnectAllSlotsKeyPressed     (void);
+    bool   isEmptyKeyPressed                (void) const;
+    UInt32 numSlotsKeyPressed               (void) const;
+    
+    //KeyReleased
+    boost::signals2::connection connectKeyReleased    (const ComponentEventSource::KeyReleasedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectKeyReleased    (const ComponentEventSource::KeyReleasedEventType::group_type &group,
+                                                       const ComponentEventSource::KeyReleasedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectKeyReleased            (const ComponentEventSource::KeyReleasedEventType::group_type &group);
+    void   disconnectAllSlotsKeyReleased    (void);
+    bool   isEmptyKeyReleased               (void) const;
+    UInt32 numSlotsKeyReleased              (void) const;
+    
+    //KeyTyped
+    boost::signals2::connection connectKeyTyped       (const ComponentEventSource::KeyTypedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectKeyTyped       (const ComponentEventSource::KeyTypedEventType::group_type &group,
+                                                       const ComponentEventSource::KeyTypedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectKeyTyped               (const ComponentEventSource::KeyTypedEventType::group_type &group);
+    void   disconnectAllSlotsKeyTyped       (void);
+    bool   isEmptyKeyTyped                  (void) const;
+    UInt32 numSlotsKeyTyped                 (void) const;
+    
+    //FocusGained
+    boost::signals2::connection connectFocusGained    (const ComponentEventSource::FocusGainedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectFocusGained    (const ComponentEventSource::FocusGainedEventType::group_type &group,
+                                                       const ComponentEventSource::FocusGainedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectFocusGained            (const ComponentEventSource::FocusGainedEventType::group_type &group);
+    void   disconnectAllSlotsFocusGained    (void);
+    bool   isEmptyFocusGained               (void) const;
+    UInt32 numSlotsFocusGained              (void) const;
+    
+    //FocusLost
+    boost::signals2::connection connectFocusLost      (const ComponentEventSource::FocusLostEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectFocusLost      (const ComponentEventSource::FocusLostEventType::group_type &group,
+                                                       const ComponentEventSource::FocusLostEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectFocusLost              (const ComponentEventSource::FocusLostEventType::group_type &group);
+    void   disconnectAllSlotsFocusLost      (void);
+    bool   isEmptyFocusLost                 (void) const;
+    UInt32 numSlotsFocusLost                (void) const;
+    
+    //ComponentHidden
+    boost::signals2::connection connectComponentHidden(const ComponentEventSource::ComponentHiddenEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectComponentHidden(const ComponentEventSource::ComponentHiddenEventType::group_type &group,
+                                                       const ComponentEventSource::ComponentHiddenEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectComponentHidden        (const ComponentEventSource::ComponentHiddenEventType::group_type &group);
+    void   disconnectAllSlotsComponentHidden(void);
+    bool   isEmptyComponentHidden           (void) const;
+    UInt32 numSlotsComponentHidden          (void) const;
+    
+    //ComponentVisible
+    boost::signals2::connection connectComponentVisible(const ComponentEventSource::ComponentVisibleEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectComponentVisible(const ComponentEventSource::ComponentVisibleEventType::group_type &group,
+                                                       const ComponentEventSource::ComponentVisibleEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectComponentVisible       (const ComponentEventSource::ComponentVisibleEventType::group_type &group);
+    void   disconnectAllSlotsComponentVisible(void);
+    bool   isEmptyComponentVisible          (void) const;
+    UInt32 numSlotsComponentVisible         (void) const;
+    
+    //ComponentMoved
+    boost::signals2::connection connectComponentMoved (const ComponentEventSource::ComponentMovedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectComponentMoved (const ComponentEventSource::ComponentMovedEventType::group_type &group,
+                                                       const ComponentEventSource::ComponentMovedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectComponentMoved         (const ComponentEventSource::ComponentMovedEventType::group_type &group);
+    void   disconnectAllSlotsComponentMoved (void);
+    bool   isEmptyComponentMoved            (void) const;
+    UInt32 numSlotsComponentMoved           (void) const;
+    
+    //ComponentResized
+    boost::signals2::connection connectComponentResized(const ComponentEventSource::ComponentResizedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectComponentResized(const ComponentEventSource::ComponentResizedEventType::group_type &group,
+                                                       const ComponentEventSource::ComponentResizedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectComponentResized       (const ComponentEventSource::ComponentResizedEventType::group_type &group);
+    void   disconnectAllSlotsComponentResized(void);
+    bool   isEmptyComponentResized          (void) const;
+    UInt32 numSlotsComponentResized         (void) const;
+    
+    //ComponentEnabled
+    boost::signals2::connection connectComponentEnabled(const ComponentEventSource::ComponentEnabledEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectComponentEnabled(const ComponentEventSource::ComponentEnabledEventType::group_type &group,
+                                                       const ComponentEventSource::ComponentEnabledEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectComponentEnabled       (const ComponentEventSource::ComponentEnabledEventType::group_type &group);
+    void   disconnectAllSlotsComponentEnabled(void);
+    bool   isEmptyComponentEnabled          (void) const;
+    UInt32 numSlotsComponentEnabled         (void) const;
+    
+    //ComponentDisabled
+    boost::signals2::connection connectComponentDisabled(const ComponentEventSource::ComponentDisabledEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectComponentDisabled(const ComponentEventSource::ComponentDisabledEventType::group_type &group,
+                                                       const ComponentEventSource::ComponentDisabledEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectComponentDisabled      (const ComponentEventSource::ComponentDisabledEventType::group_type &group);
+    void   disconnectAllSlotsComponentDisabled(void);
+    bool   isEmptyComponentDisabled         (void) const;
+    UInt32 numSlotsComponentDisabled        (void) const;
+    
+    //ToolTipActivated
+    boost::signals2::connection connectToolTipActivated(const ComponentEventSource::ToolTipActivatedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectToolTipActivated(const ComponentEventSource::ToolTipActivatedEventType::group_type &group,
+                                                       const ComponentEventSource::ToolTipActivatedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectToolTipActivated       (const ComponentEventSource::ToolTipActivatedEventType::group_type &group);
+    void   disconnectAllSlotsToolTipActivated(void);
+    bool   isEmptyToolTipActivated          (void) const;
+    UInt32 numSlotsToolTipActivated         (void) const;
+    
+    //ToolTipDeactivated
+    boost::signals2::connection connectToolTipDeactivated(const ComponentEventSource::ToolTipDeactivatedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectToolTipDeactivated(const ComponentEventSource::ToolTipDeactivatedEventType::group_type &group,
+                                                       const ComponentEventSource::ToolTipDeactivatedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectToolTipDeactivated     (const ComponentEventSource::ToolTipDeactivatedEventType::group_type &group);
+    void   disconnectAllSlotsToolTipDeactivated(void);
+    bool   isEmptyToolTipDeactivated        (void) const;
+    UInt32 numSlotsToolTipDeactivated       (void) const;
+    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

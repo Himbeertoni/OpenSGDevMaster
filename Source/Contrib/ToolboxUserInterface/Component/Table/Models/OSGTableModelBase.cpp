@@ -372,4 +372,152 @@ void TableModelBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  TableModelBase::connectContentsHeaderRowChanged(
+                                                    const TableModelEventSource::ContentsHeaderRowChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectContentsHeaderRowChanged( listener, at );
+}
+
+boost::signals2::connection  TableModelBase::connectContentsHeaderRowChanged(
+                                                    const TableModelEventSource::ContentsHeaderRowChangedEventType::group_type &group,
+                                                    const TableModelEventSource::ContentsHeaderRowChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectContentsHeaderRowChanged( group, listener, at );
+}
+
+void  TableModelBase::disconnectContentsHeaderRowChanged(
+                                                    const TableModelEventSource::ContentsHeaderRowChangedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectContentsHeaderRowChanged( group );
+}
+
+void  TableModelBase::disconnectAllSlotsContentsHeaderRowChanged(void)
+{
+    getEventSource()->disconnectAllSlotsContentsHeaderRowChanged();
+}
+
+bool  TableModelBase::isEmptyContentsHeaderRowChanged(void) const
+{
+    return getEventSource()->isEmptyContentsHeaderRowChanged();
+}
+
+UInt32  TableModelBase::numSlotsContentsHeaderRowChanged(void) const
+{
+    return getEventSource()->numSlotsContentsHeaderRowChanged();
+}
+
+boost::signals2::connection  TableModelBase::connectContentsChanged(
+                                                    const TableModelEventSource::ContentsChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectContentsChanged( listener, at );
+}
+
+boost::signals2::connection  TableModelBase::connectContentsChanged(
+                                                    const TableModelEventSource::ContentsChangedEventType::group_type &group,
+                                                    const TableModelEventSource::ContentsChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectContentsChanged( group, listener, at );
+}
+
+void  TableModelBase::disconnectContentsChanged(
+                                                    const TableModelEventSource::ContentsChangedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectContentsChanged( group );
+}
+
+void  TableModelBase::disconnectAllSlotsContentsChanged(void)
+{
+    getEventSource()->disconnectAllSlotsContentsChanged();
+}
+
+bool  TableModelBase::isEmptyContentsChanged(void) const
+{
+    return getEventSource()->isEmptyContentsChanged();
+}
+
+UInt32  TableModelBase::numSlotsContentsChanged(void) const
+{
+    return getEventSource()->numSlotsContentsChanged();
+}
+
+boost::signals2::connection  TableModelBase::connectIntervalAdded(
+                                                    const TableModelEventSource::IntervalAddedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectIntervalAdded( listener, at );
+}
+
+boost::signals2::connection  TableModelBase::connectIntervalAdded(
+                                                    const TableModelEventSource::IntervalAddedEventType::group_type &group,
+                                                    const TableModelEventSource::IntervalAddedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectIntervalAdded( group, listener, at );
+}
+
+void  TableModelBase::disconnectIntervalAdded(
+                                                    const TableModelEventSource::IntervalAddedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectIntervalAdded( group );
+}
+
+void  TableModelBase::disconnectAllSlotsIntervalAdded(void)
+{
+    getEventSource()->disconnectAllSlotsIntervalAdded();
+}
+
+bool  TableModelBase::isEmptyIntervalAdded(void) const
+{
+    return getEventSource()->isEmptyIntervalAdded();
+}
+
+UInt32  TableModelBase::numSlotsIntervalAdded(void) const
+{
+    return getEventSource()->numSlotsIntervalAdded();
+}
+
+boost::signals2::connection  TableModelBase::connectIntervalRemoved(
+                                                    const TableModelEventSource::IntervalRemovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectIntervalRemoved( listener, at );
+}
+
+boost::signals2::connection  TableModelBase::connectIntervalRemoved(
+                                                    const TableModelEventSource::IntervalRemovedEventType::group_type &group,
+                                                    const TableModelEventSource::IntervalRemovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectIntervalRemoved( group, listener, at );
+}
+
+void  TableModelBase::disconnectIntervalRemoved(
+                                                    const TableModelEventSource::IntervalRemovedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectIntervalRemoved( group );
+}
+
+void  TableModelBase::disconnectAllSlotsIntervalRemoved(void)
+{
+    getEventSource()->disconnectAllSlotsIntervalRemoved();
+}
+
+bool  TableModelBase::isEmptyIntervalRemoved(void) const
+{
+    return getEventSource()->isEmptyIntervalRemoved();
+}
+
+UInt32  TableModelBase::numSlotsIntervalRemoved(void) const
+{
+    return getEventSource()->numSlotsIntervalRemoved();
+}
+
 OSG_END_NAMESPACE

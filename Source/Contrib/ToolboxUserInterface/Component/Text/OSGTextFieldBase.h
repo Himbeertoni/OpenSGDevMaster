@@ -71,6 +71,8 @@
 
 #include "OSGTextFieldFields.h"
 
+#include "OSGTextFieldEventSource.h"
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -225,6 +227,22 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextFieldBase : public Editable
     virtual FieldContainerTransitPtr shallowCopyDependent(
                                                       BitVector bFlags) const;
 
+    /*! \}                                                                 */    
+    /*! \}                                                                 */
+    /*! \name                Event Forwards to EventSource                 */
+    /*! \{                                                                 */
+    
+    //ActionPerformed
+    boost::signals2::connection connectActionPerformed(const TextFieldEventSource::ActionPerformedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectActionPerformed(const TextFieldEventSource::ActionPerformedEventType::group_type &group,
+                                                       const TextFieldEventSource::ActionPerformedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectActionPerformed        (const TextFieldEventSource::ActionPerformedEventType::group_type &group);
+    void   disconnectAllSlotsActionPerformed(void);
+    bool   isEmptyActionPerformed           (void) const;
+    UInt32 numSlotsActionPerformed          (void) const;
+    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

@@ -685,7 +685,7 @@ struct FieldTraits<ExampleTableModel *> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_CONTRIBUSERINTERFACE_DLLMAPPING DataType &getType(void);
+    static OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
@@ -785,17 +785,17 @@ int main(int argc, char **argv)
         TutorialWindow->initWindow();
 
         // Create the SimpleSceneManager helper
-        SimpleSceneManager sceneManager;
-        TutorialWindow->setDisplayCallback(boost::bind(display, &sceneManager));
-        TutorialWindow->setReshapeCallback(boost::bind(reshape, _1, &sceneManager));
+        SimpleSceneManagerRefPtr sceneManager = SimpleSceneManager::create();
+        TutorialWindow->setDisplayCallback(boost::bind(display, sceneManager));
+        TutorialWindow->setReshapeCallback(boost::bind(reshape, _1, sceneManager));
 
         // Tell the Manager what to manage
-        sceneManager.setWindow(TutorialWindow);
+        sceneManager->setWindow(TutorialWindow);
 
-        TutorialWindow->connectMousePressed(boost::bind(mousePressed, _1, &sceneManager));
-        TutorialWindow->connectMouseReleased(boost::bind(mouseReleased, _1, &sceneManager));
-        TutorialWindow->connectMouseDragged(boost::bind(mouseDragged, _1, &sceneManager));
-        TutorialWindow->connectMouseWheelMoved(boost::bind(mouseWheelMoved, _1, &sceneManager));
+        TutorialWindow->getEventSource()->connectMousePressed(boost::bind(mousePressed, _1, &sceneManager));
+        TutorialWindow->getEventSource()->connectMouseReleased(boost::bind(mouseReleased, _1, &sceneManager));
+        TutorialWindow->getEventSource()->connectMouseDragged(boost::bind(mouseDragged, _1, &sceneManager));
+        TutorialWindow->getEventSource()->connectMouseWheelMoved(boost::bind(mouseWheelMoved, _1, &sceneManager));
 
         // Make Torus Node
         NodeRecPtr SceneGeometryNode = makeTorus(150, 600, 32, 32);
@@ -970,21 +970,21 @@ int main(int argc, char **argv)
         TutorialUIForeground->setDrawingSurface(TutorialDrawingSurface);
 
         // Tell the Manager what to manage
-        sceneManager.setWindow(TutorialWindow);
-        sceneManager.setRoot(scene);
+        sceneManager->setWindow(TutorialWindow);
+        sceneManager->setRoot(scene);
 
         // Add the UI Foreground Object to the Scene
-        ViewportRecPtr TutorialViewport = sceneManager.getWindow()->getPort(0);
+        ViewportRecPtr TutorialViewport = sceneManager->getWindow()->getPort(0);
         TutorialViewport->addForeground(TutorialUIForeground);
 
         //Create the Documentation Foreground and add it to the viewport
-        SimpleScreenDoc TheSimpleScreenDoc(&sceneManager, TutorialWindow);
+        SimpleScreenDoc TheSimpleScreenDoc(sceneManager, TutorialWindow);
 
         // Show the whole Scene
-        sceneManager.showAll();
+        sceneManager->showAll();
 
-        TutorialWindow->connectKeyPressed(boost::bind(keyPressed, _1,
-                                                                  &sceneManager,
+        TutorialWindow->getEventSource()->connectKeyPressed(boost::bind(keyPressed, _1,
+                                                                  sceneManager,
                                                                   TutorialDrawingSurface.get(),
                                                                   ExampleUIRectangleNode.get(),
                                                                   ExampleUIRectangle.get(),
@@ -2442,7 +2442,7 @@ SimpleScreenDoc::SimpleScreenDoc(SimpleSceneManager*  SceneManager,
     //Animation
     _ShowDocFadeOutAnimation = FieldAnimation::create();
     _ShowDocFadeOutAnimation->setAnimator(TheAnimator);
-    _ShowDocFadeOutAnimation->setInterpolationType(Animator::LINEAR_INTERPOLATION);
+    _ShowDocFadeOutAnimation->setInterpolationType(TBAnimator::LINEAR_INTERPOLATION);
     _ShowDocFadeOutAnimation->setCycling(1);
     _ShowDocFadeOutAnimation->setAnimatedField(_DocShowForeground,
                                                SimpleTextForeground::ColorFieldId);

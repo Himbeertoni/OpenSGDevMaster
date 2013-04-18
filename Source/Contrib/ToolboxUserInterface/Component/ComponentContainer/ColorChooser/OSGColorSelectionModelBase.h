@@ -69,6 +69,8 @@
 
 #include "OSGColorSelectionModelFields.h"
 
+#include "OSGColorSelectionModelEventSource.h"
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -163,6 +165,22 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ColorSelectionModelBase : publi
                                ConstFieldMaskArg  whichField);
 
 
+    /*! \}                                                                 */
+    /*! \}                                                                 */
+    /*! \name                Event Forwards to EventSource                 */
+    /*! \{                                                                 */
+    
+    //StateChanged
+    boost::signals2::connection connectStateChanged   (const ColorSelectionModelEventSource::StateChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectStateChanged   (const ColorSelectionModelEventSource::StateChangedEventType::group_type &group,
+                                                       const ColorSelectionModelEventSource::StateChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectStateChanged           (const ColorSelectionModelEventSource::StateChangedEventType::group_type &group);
+    void   disconnectAllSlotsStateChanged   (void);
+    bool   isEmptyStateChanged              (void) const;
+    UInt32 numSlotsStateChanged             (void) const;
+    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

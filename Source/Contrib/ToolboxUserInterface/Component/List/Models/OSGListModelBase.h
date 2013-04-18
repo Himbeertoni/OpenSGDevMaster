@@ -69,6 +69,8 @@
 
 #include "OSGListModelFields.h"
 
+#include "OSGListModelEventSource.h"
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -163,6 +165,44 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ListModelBase : public Attachme
                                ConstFieldMaskArg  whichField);
 
 
+    /*! \}                                                                 */
+    /*! \}                                                                 */
+    /*! \name                Event Forwards to EventSource                 */
+    /*! \{                                                                 */
+    
+    //ListDataContentsChanged
+    boost::signals2::connection connectListDataContentsChanged(const ListModelEventSource::ListDataContentsChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectListDataContentsChanged(const ListModelEventSource::ListDataContentsChangedEventType::group_type &group,
+                                                       const ListModelEventSource::ListDataContentsChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectListDataContentsChanged(const ListModelEventSource::ListDataContentsChangedEventType::group_type &group);
+    void   disconnectAllSlotsListDataContentsChanged(void);
+    bool   isEmptyListDataContentsChanged   (void) const;
+    UInt32 numSlotsListDataContentsChanged  (void) const;
+    
+    //ListDataIntervalAdded
+    boost::signals2::connection connectListDataIntervalAdded(const ListModelEventSource::ListDataIntervalAddedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectListDataIntervalAdded(const ListModelEventSource::ListDataIntervalAddedEventType::group_type &group,
+                                                       const ListModelEventSource::ListDataIntervalAddedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectListDataIntervalAdded  (const ListModelEventSource::ListDataIntervalAddedEventType::group_type &group);
+    void   disconnectAllSlotsListDataIntervalAdded(void);
+    bool   isEmptyListDataIntervalAdded     (void) const;
+    UInt32 numSlotsListDataIntervalAdded    (void) const;
+    
+    //ListDataIntervalRemoved
+    boost::signals2::connection connectListDataIntervalRemoved(const ListModelEventSource::ListDataIntervalRemovedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectListDataIntervalRemoved(const ListModelEventSource::ListDataIntervalRemovedEventType::group_type &group,
+                                                       const ListModelEventSource::ListDataIntervalRemovedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectListDataIntervalRemoved(const ListModelEventSource::ListDataIntervalRemovedEventType::group_type &group);
+    void   disconnectAllSlotsListDataIntervalRemoved(void);
+    bool   isEmptyListDataIntervalRemoved   (void) const;
+    UInt32 numSlotsListDataIntervalRemoved  (void) const;
+    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

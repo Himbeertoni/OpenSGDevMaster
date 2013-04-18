@@ -72,6 +72,7 @@
 
 #include "OSGInternalWindowFields.h"
 
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -239,7 +240,7 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING InternalWindowBase : public Abs
     virtual FieldContainerTransitPtr shallowCopyDependent(
                                                       BitVector bFlags) const;
 
-    /*! \}                                                                 */
+    /*! \}                                                                 */    
     /*=========================  PROTECTED  ===============================*/
 
   protected:

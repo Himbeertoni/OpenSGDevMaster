@@ -72,6 +72,8 @@
 
 #include "OSGDialogWindowFields.h"
 
+#include "OSGDialogWindowEventSource.h"
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -233,6 +235,33 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DialogWindowBase : public Inter
     virtual FieldContainerTransitPtr shallowCopyDependent(
                                                       BitVector bFlags) const;
 
+    /*! \}                                                                 */    
+    /*! \}                                                                 */
+    /*! \name                Event Forwards to EventSource                 */
+    /*! \{                                                                 */
+    
+    //DialogWindowClosing
+    boost::signals2::connection connectDialogWindowClosing(const DialogWindowEventSource::DialogWindowClosingEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectDialogWindowClosing(const DialogWindowEventSource::DialogWindowClosingEventType::group_type &group,
+                                                       const DialogWindowEventSource::DialogWindowClosingEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectDialogWindowClosing    (const DialogWindowEventSource::DialogWindowClosingEventType::group_type &group);
+    void   disconnectAllSlotsDialogWindowClosing(void);
+    bool   isEmptyDialogWindowClosing       (void) const;
+    UInt32 numSlotsDialogWindowClosing      (void) const;
+    
+    //DialogWindowClosed
+    boost::signals2::connection connectDialogWindowClosed(const DialogWindowEventSource::DialogWindowClosedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectDialogWindowClosed(const DialogWindowEventSource::DialogWindowClosedEventType::group_type &group,
+                                                       const DialogWindowEventSource::DialogWindowClosedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectDialogWindowClosed     (const DialogWindowEventSource::DialogWindowClosedEventType::group_type &group);
+    void   disconnectAllSlotsDialogWindowClosed(void);
+    bool   isEmptyDialogWindowClosed        (void) const;
+    UInt32 numSlotsDialogWindowClosed       (void) const;
+    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

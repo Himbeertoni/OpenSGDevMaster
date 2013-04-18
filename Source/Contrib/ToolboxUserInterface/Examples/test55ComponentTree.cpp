@@ -288,7 +288,7 @@ public FieldTraitsFCPtrBase<ComponentTreeItemGenerator *>
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_CONTRIBUSERINTERFACE_DLLMAPPING DataType &getType(void);
+    static OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
         static const Char8    *getSName     (void);

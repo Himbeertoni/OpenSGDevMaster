@@ -354,4 +354,41 @@ void ColorSelectionModelBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  ColorSelectionModelBase::connectStateChanged(
+                                                    const ColorSelectionModelEventSource::StateChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectStateChanged( listener, at );
+}
+
+boost::signals2::connection  ColorSelectionModelBase::connectStateChanged(
+                                                    const ColorSelectionModelEventSource::StateChangedEventType::group_type &group,
+                                                    const ColorSelectionModelEventSource::StateChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectStateChanged( group, listener, at );
+}
+
+void  ColorSelectionModelBase::disconnectStateChanged(
+                                                    const ColorSelectionModelEventSource::StateChangedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectStateChanged( group );
+}
+
+void  ColorSelectionModelBase::disconnectAllSlotsStateChanged(void)
+{
+    getEventSource()->disconnectAllSlotsStateChanged();
+}
+
+bool  ColorSelectionModelBase::isEmptyStateChanged(void) const
+{
+    return getEventSource()->isEmptyStateChanged();
+}
+
+UInt32  ColorSelectionModelBase::numSlotsStateChanged(void) const
+{
+    return getEventSource()->numSlotsStateChanged();
+}
+
 OSG_END_NAMESPACE

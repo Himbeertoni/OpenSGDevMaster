@@ -660,4 +660,69 @@ void MenuButtonBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  MenuButtonBase::connectMenuActionPerformed(
+                                                    const MenuButtonEventSource::MenuActionPerformedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    MenuButtonEventSource* evSrc = dynamic_cast<MenuButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectMenuActionPerformed( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  MenuButtonBase::connectMenuActionPerformed(
+                                                    const MenuButtonEventSource::MenuActionPerformedEventType::group_type &group,
+                                                    const MenuButtonEventSource::MenuActionPerformedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    MenuButtonEventSource* evSrc = dynamic_cast<MenuButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectMenuActionPerformed( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  MenuButtonBase::disconnectMenuActionPerformed(
+                                                    const MenuButtonEventSource::MenuActionPerformedEventType::group_type &group
+)
+{
+    MenuButtonEventSource* evSrc = dynamic_cast<MenuButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectMenuActionPerformed( group );
+    }
+}
+
+void  MenuButtonBase::disconnectAllSlotsMenuActionPerformed(void)
+{
+    MenuButtonEventSource* evSrc = dynamic_cast<MenuButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsMenuActionPerformed();
+    }
+}
+
+bool  MenuButtonBase::isEmptyMenuActionPerformed(void) const
+{
+    MenuButtonEventSource* evSrc = dynamic_cast<MenuButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyMenuActionPerformed();
+    }
+    return true;
+}
+
+UInt32  MenuButtonBase::numSlotsMenuActionPerformed(void) const
+{
+    MenuButtonEventSource* evSrc = dynamic_cast<MenuButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsMenuActionPerformed();
+    }
+    return 0u;
+}
+
 OSG_END_NAMESPACE

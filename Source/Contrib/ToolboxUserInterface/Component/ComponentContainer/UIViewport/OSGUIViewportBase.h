@@ -70,6 +70,8 @@
 
 #include "OSGUIViewportFields.h"
 
+#include "OSGUIViewportEventSource.h"
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -213,6 +215,22 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING UIViewportBase : public Compone
     virtual FieldContainerTransitPtr shallowCopyDependent(
                                                       BitVector bFlags) const;
 
+    /*! \}                                                                 */    
+    /*! \}                                                                 */
+    /*! \name                Event Forwards to EventSource                 */
+    /*! \{                                                                 */
+    
+    //StateChanged
+    boost::signals2::connection connectStateChanged   (const UIViewportEventSource::StateChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectStateChanged   (const UIViewportEventSource::StateChangedEventType::group_type &group,
+                                                       const UIViewportEventSource::StateChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectStateChanged           (const UIViewportEventSource::StateChangedEventType::group_type &group);
+    void   disconnectAllSlotsStateChanged   (void);
+    bool   isEmptyStateChanged              (void) const;
+    UInt32 numSlotsStateChanged             (void) const;
+    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

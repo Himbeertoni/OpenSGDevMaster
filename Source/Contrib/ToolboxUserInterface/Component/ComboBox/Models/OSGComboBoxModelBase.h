@@ -68,6 +68,8 @@
 
 #include "OSGComboBoxModelFields.h"
 
+#include "OSGComboBoxModelEventSource.h"
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -122,6 +124,22 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ComboBoxModelBase : public List
                                ConstFieldMaskArg  whichField);
 
 
+    /*! \}                                                                 */
+    /*! \}                                                                 */
+    /*! \name                Event Forwards to EventSource                 */
+    /*! \{                                                                 */
+    
+    //SelectionChanged
+    boost::signals2::connection connectSelectionChanged(const ComboBoxModelEventSource::SelectionChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectSelectionChanged(const ComboBoxModelEventSource::SelectionChangedEventType::group_type &group,
+                                                       const ComboBoxModelEventSource::SelectionChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectSelectionChanged       (const ComboBoxModelEventSource::SelectionChangedEventType::group_type &group);
+    void   disconnectAllSlotsSelectionChanged(void);
+    bool   isEmptySelectionChanged          (void) const;
+    UInt32 numSlotsSelectionChanged         (void) const;
+    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

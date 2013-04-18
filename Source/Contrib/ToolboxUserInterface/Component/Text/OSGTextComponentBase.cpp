@@ -1066,4 +1066,134 @@ void TextComponentBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  TextComponentBase::connectTextValueChanged(
+                                                    const TextComponentEventSource::TextValueChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    TextComponentEventSource* evSrc = dynamic_cast<TextComponentEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectTextValueChanged( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  TextComponentBase::connectTextValueChanged(
+                                                    const TextComponentEventSource::TextValueChangedEventType::group_type &group,
+                                                    const TextComponentEventSource::TextValueChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    TextComponentEventSource* evSrc = dynamic_cast<TextComponentEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectTextValueChanged( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  TextComponentBase::disconnectTextValueChanged(
+                                                    const TextComponentEventSource::TextValueChangedEventType::group_type &group
+)
+{
+    TextComponentEventSource* evSrc = dynamic_cast<TextComponentEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectTextValueChanged( group );
+    }
+}
+
+void  TextComponentBase::disconnectAllSlotsTextValueChanged(void)
+{
+    TextComponentEventSource* evSrc = dynamic_cast<TextComponentEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsTextValueChanged();
+    }
+}
+
+bool  TextComponentBase::isEmptyTextValueChanged(void) const
+{
+    TextComponentEventSource* evSrc = dynamic_cast<TextComponentEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyTextValueChanged();
+    }
+    return true;
+}
+
+UInt32  TextComponentBase::numSlotsTextValueChanged(void) const
+{
+    TextComponentEventSource* evSrc = dynamic_cast<TextComponentEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsTextValueChanged();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  TextComponentBase::connectCaretChanged(
+                                                    const TextComponentEventSource::CaretChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    TextComponentEventSource* evSrc = dynamic_cast<TextComponentEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectCaretChanged( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  TextComponentBase::connectCaretChanged(
+                                                    const TextComponentEventSource::CaretChangedEventType::group_type &group,
+                                                    const TextComponentEventSource::CaretChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    TextComponentEventSource* evSrc = dynamic_cast<TextComponentEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectCaretChanged( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  TextComponentBase::disconnectCaretChanged(
+                                                    const TextComponentEventSource::CaretChangedEventType::group_type &group
+)
+{
+    TextComponentEventSource* evSrc = dynamic_cast<TextComponentEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectCaretChanged( group );
+    }
+}
+
+void  TextComponentBase::disconnectAllSlotsCaretChanged(void)
+{
+    TextComponentEventSource* evSrc = dynamic_cast<TextComponentEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsCaretChanged();
+    }
+}
+
+bool  TextComponentBase::isEmptyCaretChanged(void) const
+{
+    TextComponentEventSource* evSrc = dynamic_cast<TextComponentEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyCaretChanged();
+    }
+    return true;
+}
+
+UInt32  TextComponentBase::numSlotsCaretChanged(void) const
+{
+    TextComponentEventSource* evSrc = dynamic_cast<TextComponentEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsCaretChanged();
+    }
+    return 0u;
+}
+
 OSG_END_NAMESPACE

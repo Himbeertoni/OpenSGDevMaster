@@ -73,6 +73,8 @@
 
 #include "OSGAbstractWindowFields.h"
 
+#include "OSGAbstractWindowEventSource.h"
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -358,6 +360,110 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING AbstractWindowBase : public Com
                                ConstFieldMaskArg  whichField);
 
 
+    /*! \}                                                                 */
+    /*! \}                                                                 */
+    /*! \name                Event Forwards to EventSource                 */
+    /*! \{                                                                 */
+    
+    //WindowOpened
+    boost::signals2::connection connectWindowOpened   (const AbstractWindowEventSource::WindowOpenedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectWindowOpened   (const AbstractWindowEventSource::WindowOpenedEventType::group_type &group,
+                                                       const AbstractWindowEventSource::WindowOpenedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectWindowOpened           (const AbstractWindowEventSource::WindowOpenedEventType::group_type &group);
+    void   disconnectAllSlotsWindowOpened   (void);
+    bool   isEmptyWindowOpened              (void) const;
+    UInt32 numSlotsWindowOpened             (void) const;
+    
+    //WindowClosing
+    boost::signals2::connection connectWindowClosing  (const AbstractWindowEventSource::WindowClosingEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectWindowClosing  (const AbstractWindowEventSource::WindowClosingEventType::group_type &group,
+                                                       const AbstractWindowEventSource::WindowClosingEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectWindowClosing          (const AbstractWindowEventSource::WindowClosingEventType::group_type &group);
+    void   disconnectAllSlotsWindowClosing  (void);
+    bool   isEmptyWindowClosing             (void) const;
+    UInt32 numSlotsWindowClosing            (void) const;
+    
+    //WindowClosed
+    boost::signals2::connection connectWindowClosed   (const AbstractWindowEventSource::WindowClosedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectWindowClosed   (const AbstractWindowEventSource::WindowClosedEventType::group_type &group,
+                                                       const AbstractWindowEventSource::WindowClosedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectWindowClosed           (const AbstractWindowEventSource::WindowClosedEventType::group_type &group);
+    void   disconnectAllSlotsWindowClosed   (void);
+    bool   isEmptyWindowClosed              (void) const;
+    UInt32 numSlotsWindowClosed             (void) const;
+    
+    //WindowIconified
+    boost::signals2::connection connectWindowIconified(const AbstractWindowEventSource::WindowIconifiedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectWindowIconified(const AbstractWindowEventSource::WindowIconifiedEventType::group_type &group,
+                                                       const AbstractWindowEventSource::WindowIconifiedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectWindowIconified        (const AbstractWindowEventSource::WindowIconifiedEventType::group_type &group);
+    void   disconnectAllSlotsWindowIconified(void);
+    bool   isEmptyWindowIconified           (void) const;
+    UInt32 numSlotsWindowIconified          (void) const;
+    
+    //WindowDeiconified
+    boost::signals2::connection connectWindowDeiconified(const AbstractWindowEventSource::WindowDeiconifiedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectWindowDeiconified(const AbstractWindowEventSource::WindowDeiconifiedEventType::group_type &group,
+                                                       const AbstractWindowEventSource::WindowDeiconifiedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectWindowDeiconified      (const AbstractWindowEventSource::WindowDeiconifiedEventType::group_type &group);
+    void   disconnectAllSlotsWindowDeiconified(void);
+    bool   isEmptyWindowDeiconified         (void) const;
+    UInt32 numSlotsWindowDeiconified        (void) const;
+    
+    //WindowActivated
+    boost::signals2::connection connectWindowActivated(const AbstractWindowEventSource::WindowActivatedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectWindowActivated(const AbstractWindowEventSource::WindowActivatedEventType::group_type &group,
+                                                       const AbstractWindowEventSource::WindowActivatedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectWindowActivated        (const AbstractWindowEventSource::WindowActivatedEventType::group_type &group);
+    void   disconnectAllSlotsWindowActivated(void);
+    bool   isEmptyWindowActivated           (void) const;
+    UInt32 numSlotsWindowActivated          (void) const;
+    
+    //WindowDeactivated
+    boost::signals2::connection connectWindowDeactivated(const AbstractWindowEventSource::WindowDeactivatedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectWindowDeactivated(const AbstractWindowEventSource::WindowDeactivatedEventType::group_type &group,
+                                                       const AbstractWindowEventSource::WindowDeactivatedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectWindowDeactivated      (const AbstractWindowEventSource::WindowDeactivatedEventType::group_type &group);
+    void   disconnectAllSlotsWindowDeactivated(void);
+    bool   isEmptyWindowDeactivated         (void) const;
+    UInt32 numSlotsWindowDeactivated        (void) const;
+    
+    //WindowEntered
+    boost::signals2::connection connectWindowEntered  (const AbstractWindowEventSource::WindowEnteredEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectWindowEntered  (const AbstractWindowEventSource::WindowEnteredEventType::group_type &group,
+                                                       const AbstractWindowEventSource::WindowEnteredEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectWindowEntered          (const AbstractWindowEventSource::WindowEnteredEventType::group_type &group);
+    void   disconnectAllSlotsWindowEntered  (void);
+    bool   isEmptyWindowEntered             (void) const;
+    UInt32 numSlotsWindowEntered            (void) const;
+    
+    //WindowExited
+    boost::signals2::connection connectWindowExited   (const AbstractWindowEventSource::WindowExitedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectWindowExited   (const AbstractWindowEventSource::WindowExitedEventType::group_type &group,
+                                                       const AbstractWindowEventSource::WindowExitedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectWindowExited           (const AbstractWindowEventSource::WindowExitedEventType::group_type &group);
+    void   disconnectAllSlotsWindowExited   (void);
+    bool   isEmptyWindowExited              (void) const;
+    UInt32 numSlotsWindowExited             (void) const;
+    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

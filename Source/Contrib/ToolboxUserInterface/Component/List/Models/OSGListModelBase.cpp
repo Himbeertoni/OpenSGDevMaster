@@ -366,4 +366,115 @@ void ListModelBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  ListModelBase::connectListDataContentsChanged(
+                                                    const ListModelEventSource::ListDataContentsChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectListDataContentsChanged( listener, at );
+}
+
+boost::signals2::connection  ListModelBase::connectListDataContentsChanged(
+                                                    const ListModelEventSource::ListDataContentsChangedEventType::group_type &group,
+                                                    const ListModelEventSource::ListDataContentsChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectListDataContentsChanged( group, listener, at );
+}
+
+void  ListModelBase::disconnectListDataContentsChanged(
+                                                    const ListModelEventSource::ListDataContentsChangedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectListDataContentsChanged( group );
+}
+
+void  ListModelBase::disconnectAllSlotsListDataContentsChanged(void)
+{
+    getEventSource()->disconnectAllSlotsListDataContentsChanged();
+}
+
+bool  ListModelBase::isEmptyListDataContentsChanged(void) const
+{
+    return getEventSource()->isEmptyListDataContentsChanged();
+}
+
+UInt32  ListModelBase::numSlotsListDataContentsChanged(void) const
+{
+    return getEventSource()->numSlotsListDataContentsChanged();
+}
+
+boost::signals2::connection  ListModelBase::connectListDataIntervalAdded(
+                                                    const ListModelEventSource::ListDataIntervalAddedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectListDataIntervalAdded( listener, at );
+}
+
+boost::signals2::connection  ListModelBase::connectListDataIntervalAdded(
+                                                    const ListModelEventSource::ListDataIntervalAddedEventType::group_type &group,
+                                                    const ListModelEventSource::ListDataIntervalAddedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectListDataIntervalAdded( group, listener, at );
+}
+
+void  ListModelBase::disconnectListDataIntervalAdded(
+                                                    const ListModelEventSource::ListDataIntervalAddedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectListDataIntervalAdded( group );
+}
+
+void  ListModelBase::disconnectAllSlotsListDataIntervalAdded(void)
+{
+    getEventSource()->disconnectAllSlotsListDataIntervalAdded();
+}
+
+bool  ListModelBase::isEmptyListDataIntervalAdded(void) const
+{
+    return getEventSource()->isEmptyListDataIntervalAdded();
+}
+
+UInt32  ListModelBase::numSlotsListDataIntervalAdded(void) const
+{
+    return getEventSource()->numSlotsListDataIntervalAdded();
+}
+
+boost::signals2::connection  ListModelBase::connectListDataIntervalRemoved(
+                                                    const ListModelEventSource::ListDataIntervalRemovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectListDataIntervalRemoved( listener, at );
+}
+
+boost::signals2::connection  ListModelBase::connectListDataIntervalRemoved(
+                                                    const ListModelEventSource::ListDataIntervalRemovedEventType::group_type &group,
+                                                    const ListModelEventSource::ListDataIntervalRemovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectListDataIntervalRemoved( group, listener, at );
+}
+
+void  ListModelBase::disconnectListDataIntervalRemoved(
+                                                    const ListModelEventSource::ListDataIntervalRemovedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectListDataIntervalRemoved( group );
+}
+
+void  ListModelBase::disconnectAllSlotsListDataIntervalRemoved(void)
+{
+    getEventSource()->disconnectAllSlotsListDataIntervalRemoved();
+}
+
+bool  ListModelBase::isEmptyListDataIntervalRemoved(void) const
+{
+    return getEventSource()->isEmptyListDataIntervalRemoved();
+}
+
+UInt32  ListModelBase::numSlotsListDataIntervalRemoved(void) const
+{
+    return getEventSource()->numSlotsListDataIntervalRemoved();
+}
+
 OSG_END_NAMESPACE

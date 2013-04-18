@@ -360,4 +360,78 @@ void CellEditorBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  CellEditorBase::connectEditingCanceled(
+                                                    const CellEditorEventSource::EditingCanceledEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectEditingCanceled( listener, at );
+}
+
+boost::signals2::connection  CellEditorBase::connectEditingCanceled(
+                                                    const CellEditorEventSource::EditingCanceledEventType::group_type &group,
+                                                    const CellEditorEventSource::EditingCanceledEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectEditingCanceled( group, listener, at );
+}
+
+void  CellEditorBase::disconnectEditingCanceled(
+                                                    const CellEditorEventSource::EditingCanceledEventType::group_type &group
+)
+{
+    getEventSource()->disconnectEditingCanceled( group );
+}
+
+void  CellEditorBase::disconnectAllSlotsEditingCanceled(void)
+{
+    getEventSource()->disconnectAllSlotsEditingCanceled();
+}
+
+bool  CellEditorBase::isEmptyEditingCanceled(void) const
+{
+    return getEventSource()->isEmptyEditingCanceled();
+}
+
+UInt32  CellEditorBase::numSlotsEditingCanceled(void) const
+{
+    return getEventSource()->numSlotsEditingCanceled();
+}
+
+boost::signals2::connection  CellEditorBase::connectEditingStopped(
+                                                    const CellEditorEventSource::EditingStoppedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectEditingStopped( listener, at );
+}
+
+boost::signals2::connection  CellEditorBase::connectEditingStopped(
+                                                    const CellEditorEventSource::EditingStoppedEventType::group_type &group,
+                                                    const CellEditorEventSource::EditingStoppedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectEditingStopped( group, listener, at );
+}
+
+void  CellEditorBase::disconnectEditingStopped(
+                                                    const CellEditorEventSource::EditingStoppedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectEditingStopped( group );
+}
+
+void  CellEditorBase::disconnectAllSlotsEditingStopped(void)
+{
+    getEventSource()->disconnectAllSlotsEditingStopped();
+}
+
+bool  CellEditorBase::isEmptyEditingStopped(void) const
+{
+    return getEventSource()->isEmptyEditingStopped();
+}
+
+UInt32  CellEditorBase::numSlotsEditingStopped(void) const
+{
+    return getEventSource()->numSlotsEditingStopped();
+}
+
 OSG_END_NAMESPACE

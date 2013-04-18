@@ -642,4 +642,69 @@ void UIViewportBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  UIViewportBase::connectStateChanged(
+                                                    const UIViewportEventSource::StateChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    UIViewportEventSource* evSrc = dynamic_cast<UIViewportEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectStateChanged( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  UIViewportBase::connectStateChanged(
+                                                    const UIViewportEventSource::StateChangedEventType::group_type &group,
+                                                    const UIViewportEventSource::StateChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    UIViewportEventSource* evSrc = dynamic_cast<UIViewportEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectStateChanged( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  UIViewportBase::disconnectStateChanged(
+                                                    const UIViewportEventSource::StateChangedEventType::group_type &group
+)
+{
+    UIViewportEventSource* evSrc = dynamic_cast<UIViewportEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectStateChanged( group );
+    }
+}
+
+void  UIViewportBase::disconnectAllSlotsStateChanged(void)
+{
+    UIViewportEventSource* evSrc = dynamic_cast<UIViewportEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsStateChanged();
+    }
+}
+
+bool  UIViewportBase::isEmptyStateChanged(void) const
+{
+    UIViewportEventSource* evSrc = dynamic_cast<UIViewportEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyStateChanged();
+    }
+    return true;
+}
+
+UInt32  UIViewportBase::numSlotsStateChanged(void) const
+{
+    UIViewportEventSource* evSrc = dynamic_cast<UIViewportEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsStateChanged();
+    }
+    return 0u;
+}
+
 OSG_END_NAMESPACE

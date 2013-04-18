@@ -757,4 +757,264 @@ void PopupMenuBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  PopupMenuBase::connectPopupMenuWillBecomeVisible(
+                                                    const PopupMenuEventSource::PopupMenuWillBecomeVisibleEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectPopupMenuWillBecomeVisible( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  PopupMenuBase::connectPopupMenuWillBecomeVisible(
+                                                    const PopupMenuEventSource::PopupMenuWillBecomeVisibleEventType::group_type &group,
+                                                    const PopupMenuEventSource::PopupMenuWillBecomeVisibleEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectPopupMenuWillBecomeVisible( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  PopupMenuBase::disconnectPopupMenuWillBecomeVisible(
+                                                    const PopupMenuEventSource::PopupMenuWillBecomeVisibleEventType::group_type &group
+)
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectPopupMenuWillBecomeVisible( group );
+    }
+}
+
+void  PopupMenuBase::disconnectAllSlotsPopupMenuWillBecomeVisible(void)
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsPopupMenuWillBecomeVisible();
+    }
+}
+
+bool  PopupMenuBase::isEmptyPopupMenuWillBecomeVisible(void) const
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyPopupMenuWillBecomeVisible();
+    }
+    return true;
+}
+
+UInt32  PopupMenuBase::numSlotsPopupMenuWillBecomeVisible(void) const
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsPopupMenuWillBecomeVisible();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  PopupMenuBase::connectPopupMenuWillBecomeInvisible(
+                                                    const PopupMenuEventSource::PopupMenuWillBecomeInvisibleEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectPopupMenuWillBecomeInvisible( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  PopupMenuBase::connectPopupMenuWillBecomeInvisible(
+                                                    const PopupMenuEventSource::PopupMenuWillBecomeInvisibleEventType::group_type &group,
+                                                    const PopupMenuEventSource::PopupMenuWillBecomeInvisibleEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectPopupMenuWillBecomeInvisible( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  PopupMenuBase::disconnectPopupMenuWillBecomeInvisible(
+                                                    const PopupMenuEventSource::PopupMenuWillBecomeInvisibleEventType::group_type &group
+)
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectPopupMenuWillBecomeInvisible( group );
+    }
+}
+
+void  PopupMenuBase::disconnectAllSlotsPopupMenuWillBecomeInvisible(void)
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsPopupMenuWillBecomeInvisible();
+    }
+}
+
+bool  PopupMenuBase::isEmptyPopupMenuWillBecomeInvisible(void) const
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyPopupMenuWillBecomeInvisible();
+    }
+    return true;
+}
+
+UInt32  PopupMenuBase::numSlotsPopupMenuWillBecomeInvisible(void) const
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsPopupMenuWillBecomeInvisible();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  PopupMenuBase::connectPopupMenuCanceled(
+                                                    const PopupMenuEventSource::PopupMenuCanceledEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectPopupMenuCanceled( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  PopupMenuBase::connectPopupMenuCanceled(
+                                                    const PopupMenuEventSource::PopupMenuCanceledEventType::group_type &group,
+                                                    const PopupMenuEventSource::PopupMenuCanceledEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectPopupMenuCanceled( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  PopupMenuBase::disconnectPopupMenuCanceled(
+                                                    const PopupMenuEventSource::PopupMenuCanceledEventType::group_type &group
+)
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectPopupMenuCanceled( group );
+    }
+}
+
+void  PopupMenuBase::disconnectAllSlotsPopupMenuCanceled(void)
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsPopupMenuCanceled();
+    }
+}
+
+bool  PopupMenuBase::isEmptyPopupMenuCanceled(void) const
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyPopupMenuCanceled();
+    }
+    return true;
+}
+
+UInt32  PopupMenuBase::numSlotsPopupMenuCanceled(void) const
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsPopupMenuCanceled();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  PopupMenuBase::connectPopupMenuContentsChanged(
+                                                    const PopupMenuEventSource::PopupMenuContentsChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectPopupMenuContentsChanged( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  PopupMenuBase::connectPopupMenuContentsChanged(
+                                                    const PopupMenuEventSource::PopupMenuContentsChangedEventType::group_type &group,
+                                                    const PopupMenuEventSource::PopupMenuContentsChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectPopupMenuContentsChanged( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  PopupMenuBase::disconnectPopupMenuContentsChanged(
+                                                    const PopupMenuEventSource::PopupMenuContentsChangedEventType::group_type &group
+)
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectPopupMenuContentsChanged( group );
+    }
+}
+
+void  PopupMenuBase::disconnectAllSlotsPopupMenuContentsChanged(void)
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsPopupMenuContentsChanged();
+    }
+}
+
+bool  PopupMenuBase::isEmptyPopupMenuContentsChanged(void) const
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyPopupMenuContentsChanged();
+    }
+    return true;
+}
+
+UInt32  PopupMenuBase::numSlotsPopupMenuContentsChanged(void) const
+{
+    PopupMenuEventSource* evSrc = dynamic_cast<PopupMenuEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsPopupMenuContentsChanged();
+    }
+    return 0u;
+}
+
 OSG_END_NAMESPACE

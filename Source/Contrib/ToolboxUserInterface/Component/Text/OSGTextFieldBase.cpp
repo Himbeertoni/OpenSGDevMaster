@@ -720,4 +720,69 @@ void TextFieldBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  TextFieldBase::connectActionPerformed(
+                                                    const TextFieldEventSource::ActionPerformedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    TextFieldEventSource* evSrc = dynamic_cast<TextFieldEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectActionPerformed( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  TextFieldBase::connectActionPerformed(
+                                                    const TextFieldEventSource::ActionPerformedEventType::group_type &group,
+                                                    const TextFieldEventSource::ActionPerformedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    TextFieldEventSource* evSrc = dynamic_cast<TextFieldEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectActionPerformed( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  TextFieldBase::disconnectActionPerformed(
+                                                    const TextFieldEventSource::ActionPerformedEventType::group_type &group
+)
+{
+    TextFieldEventSource* evSrc = dynamic_cast<TextFieldEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectActionPerformed( group );
+    }
+}
+
+void  TextFieldBase::disconnectAllSlotsActionPerformed(void)
+{
+    TextFieldEventSource* evSrc = dynamic_cast<TextFieldEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsActionPerformed();
+    }
+}
+
+bool  TextFieldBase::isEmptyActionPerformed(void) const
+{
+    TextFieldEventSource* evSrc = dynamic_cast<TextFieldEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyActionPerformed();
+    }
+    return true;
+}
+
+UInt32  TextFieldBase::numSlotsActionPerformed(void) const
+{
+    TextFieldEventSource* evSrc = dynamic_cast<TextFieldEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsActionPerformed();
+    }
+    return 0u;
+}
+
 OSG_END_NAMESPACE

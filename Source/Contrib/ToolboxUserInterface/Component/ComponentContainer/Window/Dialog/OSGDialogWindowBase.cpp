@@ -822,4 +822,134 @@ void DialogWindowBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  DialogWindowBase::connectDialogWindowClosing(
+                                                    const DialogWindowEventSource::DialogWindowClosingEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    DialogWindowEventSource* evSrc = dynamic_cast<DialogWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectDialogWindowClosing( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  DialogWindowBase::connectDialogWindowClosing(
+                                                    const DialogWindowEventSource::DialogWindowClosingEventType::group_type &group,
+                                                    const DialogWindowEventSource::DialogWindowClosingEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    DialogWindowEventSource* evSrc = dynamic_cast<DialogWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectDialogWindowClosing( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  DialogWindowBase::disconnectDialogWindowClosing(
+                                                    const DialogWindowEventSource::DialogWindowClosingEventType::group_type &group
+)
+{
+    DialogWindowEventSource* evSrc = dynamic_cast<DialogWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectDialogWindowClosing( group );
+    }
+}
+
+void  DialogWindowBase::disconnectAllSlotsDialogWindowClosing(void)
+{
+    DialogWindowEventSource* evSrc = dynamic_cast<DialogWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsDialogWindowClosing();
+    }
+}
+
+bool  DialogWindowBase::isEmptyDialogWindowClosing(void) const
+{
+    DialogWindowEventSource* evSrc = dynamic_cast<DialogWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyDialogWindowClosing();
+    }
+    return true;
+}
+
+UInt32  DialogWindowBase::numSlotsDialogWindowClosing(void) const
+{
+    DialogWindowEventSource* evSrc = dynamic_cast<DialogWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsDialogWindowClosing();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  DialogWindowBase::connectDialogWindowClosed(
+                                                    const DialogWindowEventSource::DialogWindowClosedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    DialogWindowEventSource* evSrc = dynamic_cast<DialogWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectDialogWindowClosed( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  DialogWindowBase::connectDialogWindowClosed(
+                                                    const DialogWindowEventSource::DialogWindowClosedEventType::group_type &group,
+                                                    const DialogWindowEventSource::DialogWindowClosedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    DialogWindowEventSource* evSrc = dynamic_cast<DialogWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectDialogWindowClosed( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  DialogWindowBase::disconnectDialogWindowClosed(
+                                                    const DialogWindowEventSource::DialogWindowClosedEventType::group_type &group
+)
+{
+    DialogWindowEventSource* evSrc = dynamic_cast<DialogWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectDialogWindowClosed( group );
+    }
+}
+
+void  DialogWindowBase::disconnectAllSlotsDialogWindowClosed(void)
+{
+    DialogWindowEventSource* evSrc = dynamic_cast<DialogWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsDialogWindowClosed();
+    }
+}
+
+bool  DialogWindowBase::isEmptyDialogWindowClosed(void) const
+{
+    DialogWindowEventSource* evSrc = dynamic_cast<DialogWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyDialogWindowClosed();
+    }
+    return true;
+}
+
+UInt32  DialogWindowBase::numSlotsDialogWindowClosed(void) const
+{
+    DialogWindowEventSource* evSrc = dynamic_cast<DialogWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsDialogWindowClosed();
+    }
+    return 0u;
+}
+
 OSG_END_NAMESPACE

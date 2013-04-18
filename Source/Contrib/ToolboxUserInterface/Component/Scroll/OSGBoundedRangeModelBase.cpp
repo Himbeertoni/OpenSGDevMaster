@@ -354,4 +354,41 @@ void BoundedRangeModelBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  BoundedRangeModelBase::connectStateChanged(
+                                                    const BoundedRangeModelEventSource::StateChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectStateChanged( listener, at );
+}
+
+boost::signals2::connection  BoundedRangeModelBase::connectStateChanged(
+                                                    const BoundedRangeModelEventSource::StateChangedEventType::group_type &group,
+                                                    const BoundedRangeModelEventSource::StateChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectStateChanged( group, listener, at );
+}
+
+void  BoundedRangeModelBase::disconnectStateChanged(
+                                                    const BoundedRangeModelEventSource::StateChangedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectStateChanged( group );
+}
+
+void  BoundedRangeModelBase::disconnectAllSlotsStateChanged(void)
+{
+    getEventSource()->disconnectAllSlotsStateChanged();
+}
+
+bool  BoundedRangeModelBase::isEmptyStateChanged(void) const
+{
+    return getEventSource()->isEmptyStateChanged();
+}
+
+UInt32  BoundedRangeModelBase::numSlotsStateChanged(void) const
+{
+    return getEventSource()->numSlotsStateChanged();
+}
+
 OSG_END_NAMESPACE

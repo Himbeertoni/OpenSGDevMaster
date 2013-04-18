@@ -70,6 +70,8 @@
 
 #include "OSGTableColumnModelFields.h"
 
+#include "OSGTableColumnModelEventSource.h"
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -173,6 +175,66 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnModelBase : public F
                                ConstFieldMaskArg  whichField);
 
 
+    /*! \}                                                                 */
+    /*! \}                                                                 */
+    /*! \name                Event Forwards to EventSource                 */
+    /*! \{                                                                 */
+    
+    //ColumnAdded
+    boost::signals2::connection connectColumnAdded    (const TableColumnModelEventSource::ColumnAddedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectColumnAdded    (const TableColumnModelEventSource::ColumnAddedEventType::group_type &group,
+                                                       const TableColumnModelEventSource::ColumnAddedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectColumnAdded            (const TableColumnModelEventSource::ColumnAddedEventType::group_type &group);
+    void   disconnectAllSlotsColumnAdded    (void);
+    bool   isEmptyColumnAdded               (void) const;
+    UInt32 numSlotsColumnAdded              (void) const;
+    
+    //ColumnMoved
+    boost::signals2::connection connectColumnMoved    (const TableColumnModelEventSource::ColumnMovedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectColumnMoved    (const TableColumnModelEventSource::ColumnMovedEventType::group_type &group,
+                                                       const TableColumnModelEventSource::ColumnMovedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectColumnMoved            (const TableColumnModelEventSource::ColumnMovedEventType::group_type &group);
+    void   disconnectAllSlotsColumnMoved    (void);
+    bool   isEmptyColumnMoved               (void) const;
+    UInt32 numSlotsColumnMoved              (void) const;
+    
+    //ColumnRemoved
+    boost::signals2::connection connectColumnRemoved  (const TableColumnModelEventSource::ColumnRemovedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectColumnRemoved  (const TableColumnModelEventSource::ColumnRemovedEventType::group_type &group,
+                                                       const TableColumnModelEventSource::ColumnRemovedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectColumnRemoved          (const TableColumnModelEventSource::ColumnRemovedEventType::group_type &group);
+    void   disconnectAllSlotsColumnRemoved  (void);
+    bool   isEmptyColumnRemoved             (void) const;
+    UInt32 numSlotsColumnRemoved            (void) const;
+    
+    //ColumnMarginChanged
+    boost::signals2::connection connectColumnMarginChanged(const TableColumnModelEventSource::ColumnMarginChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectColumnMarginChanged(const TableColumnModelEventSource::ColumnMarginChangedEventType::group_type &group,
+                                                       const TableColumnModelEventSource::ColumnMarginChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectColumnMarginChanged    (const TableColumnModelEventSource::ColumnMarginChangedEventType::group_type &group);
+    void   disconnectAllSlotsColumnMarginChanged(void);
+    bool   isEmptyColumnMarginChanged       (void) const;
+    UInt32 numSlotsColumnMarginChanged      (void) const;
+    
+    //ColumnSelectionChanged
+    boost::signals2::connection connectColumnSelectionChanged(const TableColumnModelEventSource::ColumnSelectionChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectColumnSelectionChanged(const TableColumnModelEventSource::ColumnSelectionChangedEventType::group_type &group,
+                                                       const TableColumnModelEventSource::ColumnSelectionChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectColumnSelectionChanged (const TableColumnModelEventSource::ColumnSelectionChangedEventType::group_type &group);
+    void   disconnectAllSlotsColumnSelectionChanged(void);
+    bool   isEmptyColumnSelectionChanged    (void) const;
+    UInt32 numSlotsColumnSelectionChanged   (void) const;
+    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

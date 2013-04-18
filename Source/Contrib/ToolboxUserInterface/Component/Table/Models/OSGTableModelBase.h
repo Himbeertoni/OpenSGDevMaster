@@ -69,6 +69,8 @@
 
 #include "OSGTableModelFields.h"
 
+#include "OSGTableModelEventSource.h"
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -163,6 +165,55 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableModelBase : public FieldCo
                                ConstFieldMaskArg  whichField);
 
 
+    /*! \}                                                                 */
+    /*! \}                                                                 */
+    /*! \name                Event Forwards to EventSource                 */
+    /*! \{                                                                 */
+    
+    //ContentsHeaderRowChanged
+    boost::signals2::connection connectContentsHeaderRowChanged(const TableModelEventSource::ContentsHeaderRowChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectContentsHeaderRowChanged(const TableModelEventSource::ContentsHeaderRowChangedEventType::group_type &group,
+                                                       const TableModelEventSource::ContentsHeaderRowChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectContentsHeaderRowChanged(const TableModelEventSource::ContentsHeaderRowChangedEventType::group_type &group);
+    void   disconnectAllSlotsContentsHeaderRowChanged(void);
+    bool   isEmptyContentsHeaderRowChanged  (void) const;
+    UInt32 numSlotsContentsHeaderRowChanged (void) const;
+    
+    //ContentsChanged
+    boost::signals2::connection connectContentsChanged(const TableModelEventSource::ContentsChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectContentsChanged(const TableModelEventSource::ContentsChangedEventType::group_type &group,
+                                                       const TableModelEventSource::ContentsChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectContentsChanged        (const TableModelEventSource::ContentsChangedEventType::group_type &group);
+    void   disconnectAllSlotsContentsChanged(void);
+    bool   isEmptyContentsChanged           (void) const;
+    UInt32 numSlotsContentsChanged          (void) const;
+    
+    //IntervalAdded
+    boost::signals2::connection connectIntervalAdded  (const TableModelEventSource::IntervalAddedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectIntervalAdded  (const TableModelEventSource::IntervalAddedEventType::group_type &group,
+                                                       const TableModelEventSource::IntervalAddedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectIntervalAdded          (const TableModelEventSource::IntervalAddedEventType::group_type &group);
+    void   disconnectAllSlotsIntervalAdded  (void);
+    bool   isEmptyIntervalAdded             (void) const;
+    UInt32 numSlotsIntervalAdded            (void) const;
+    
+    //IntervalRemoved
+    boost::signals2::connection connectIntervalRemoved(const TableModelEventSource::IntervalRemovedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectIntervalRemoved(const TableModelEventSource::IntervalRemovedEventType::group_type &group,
+                                                       const TableModelEventSource::IntervalRemovedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectIntervalRemoved        (const TableModelEventSource::IntervalRemovedEventType::group_type &group);
+    void   disconnectAllSlotsIntervalRemoved(void);
+    bool   isEmptyIntervalRemoved           (void) const;
+    UInt32 numSlotsIntervalRemoved          (void) const;
+    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

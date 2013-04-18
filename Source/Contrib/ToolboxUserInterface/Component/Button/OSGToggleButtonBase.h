@@ -68,6 +68,8 @@
 
 #include "OSGToggleButtonFields.h"
 
+#include "OSGToggleButtonEventSource.h"
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -149,6 +151,33 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ToggleButtonBase : public Butto
     virtual FieldContainerTransitPtr shallowCopyDependent(
                                                       BitVector bFlags) const;
 
+    /*! \}                                                                 */    
+    /*! \}                                                                 */
+    /*! \name                Event Forwards to EventSource                 */
+    /*! \{                                                                 */
+    
+    //ButtonSelected
+    boost::signals2::connection connectButtonSelected (const ToggleButtonEventSource::ButtonSelectedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectButtonSelected (const ToggleButtonEventSource::ButtonSelectedEventType::group_type &group,
+                                                       const ToggleButtonEventSource::ButtonSelectedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectButtonSelected         (const ToggleButtonEventSource::ButtonSelectedEventType::group_type &group);
+    void   disconnectAllSlotsButtonSelected (void);
+    bool   isEmptyButtonSelected            (void) const;
+    UInt32 numSlotsButtonSelected           (void) const;
+    
+    //ButtonDeselected
+    boost::signals2::connection connectButtonDeselected(const ToggleButtonEventSource::ButtonDeselectedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectButtonDeselected(const ToggleButtonEventSource::ButtonDeselectedEventType::group_type &group,
+                                                       const ToggleButtonEventSource::ButtonDeselectedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectButtonDeselected       (const ToggleButtonEventSource::ButtonDeselectedEventType::group_type &group);
+    void   disconnectAllSlotsButtonDeselected(void);
+    bool   isEmptyButtonDeselected          (void) const;
+    UInt32 numSlotsButtonDeselected         (void) const;
+    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

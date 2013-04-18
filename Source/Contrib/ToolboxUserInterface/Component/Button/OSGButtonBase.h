@@ -75,6 +75,8 @@
 
 #include "OSGButtonFields.h"
 
+#include "OSGButtonEventSource.h"
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -400,6 +402,33 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ButtonBase : public Component
     virtual FieldContainerTransitPtr shallowCopyDependent(
                                                       BitVector bFlags) const;
 
+    /*! \}                                                                 */    
+    /*! \}                                                                 */
+    /*! \name                Event Forwards to EventSource                 */
+    /*! \{                                                                 */
+    
+    //ActionPerformed
+    boost::signals2::connection connectActionPerformed(const ButtonEventSource::ActionPerformedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectActionPerformed(const ButtonEventSource::ActionPerformedEventType::group_type &group,
+                                                       const ButtonEventSource::ActionPerformedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectActionPerformed        (const ButtonEventSource::ActionPerformedEventType::group_type &group);
+    void   disconnectAllSlotsActionPerformed(void);
+    bool   isEmptyActionPerformed           (void) const;
+    UInt32 numSlotsActionPerformed          (void) const;
+    
+    //MousePressedActionPerformed
+    boost::signals2::connection connectMousePressedActionPerformed(const ButtonEventSource::MousePressedActionPerformedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectMousePressedActionPerformed(const ButtonEventSource::MousePressedActionPerformedEventType::group_type &group,
+                                                       const ButtonEventSource::MousePressedActionPerformedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectMousePressedActionPerformed(const ButtonEventSource::MousePressedActionPerformedEventType::group_type &group);
+    void   disconnectAllSlotsMousePressedActionPerformed(void);
+    bool   isEmptyMousePressedActionPerformed(void) const;
+    UInt32 numSlotsMousePressedActionPerformed(void) const;
+    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

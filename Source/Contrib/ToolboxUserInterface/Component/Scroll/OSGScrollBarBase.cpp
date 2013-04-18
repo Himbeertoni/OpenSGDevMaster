@@ -1497,4 +1497,69 @@ void ScrollBarBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  ScrollBarBase::connectAdjustmentValueChanged(
+                                                    const ScrollBarEventSource::AdjustmentValueChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    ScrollBarEventSource* evSrc = dynamic_cast<ScrollBarEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectAdjustmentValueChanged( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ScrollBarBase::connectAdjustmentValueChanged(
+                                                    const ScrollBarEventSource::AdjustmentValueChangedEventType::group_type &group,
+                                                    const ScrollBarEventSource::AdjustmentValueChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    ScrollBarEventSource* evSrc = dynamic_cast<ScrollBarEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectAdjustmentValueChanged( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ScrollBarBase::disconnectAdjustmentValueChanged(
+                                                    const ScrollBarEventSource::AdjustmentValueChangedEventType::group_type &group
+)
+{
+    ScrollBarEventSource* evSrc = dynamic_cast<ScrollBarEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAdjustmentValueChanged( group );
+    }
+}
+
+void  ScrollBarBase::disconnectAllSlotsAdjustmentValueChanged(void)
+{
+    ScrollBarEventSource* evSrc = dynamic_cast<ScrollBarEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsAdjustmentValueChanged();
+    }
+}
+
+bool  ScrollBarBase::isEmptyAdjustmentValueChanged(void) const
+{
+    ScrollBarEventSource* evSrc = dynamic_cast<ScrollBarEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyAdjustmentValueChanged();
+    }
+    return true;
+}
+
+UInt32  ScrollBarBase::numSlotsAdjustmentValueChanged(void) const
+{
+    ScrollBarEventSource* evSrc = dynamic_cast<ScrollBarEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsAdjustmentValueChanged();
+    }
+    return 0u;
+}
+
 OSG_END_NAMESPACE

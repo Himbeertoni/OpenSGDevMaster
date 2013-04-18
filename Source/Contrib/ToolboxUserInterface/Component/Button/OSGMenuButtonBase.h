@@ -71,6 +71,8 @@
 
 #include "OSGMenuButtonFields.h"
 
+#include "OSGMenuButtonEventSource.h"
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -205,6 +207,22 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING MenuButtonBase : public ToggleB
     virtual FieldContainerTransitPtr shallowCopyDependent(
                                                       BitVector bFlags) const;
 
+    /*! \}                                                                 */    
+    /*! \}                                                                 */
+    /*! \name                Event Forwards to EventSource                 */
+    /*! \{                                                                 */
+    
+    //MenuActionPerformed
+    boost::signals2::connection connectMenuActionPerformed(const MenuButtonEventSource::MenuActionPerformedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectMenuActionPerformed(const MenuButtonEventSource::MenuActionPerformedEventType::group_type &group,
+                                                       const MenuButtonEventSource::MenuActionPerformedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectMenuActionPerformed    (const MenuButtonEventSource::MenuActionPerformedEventType::group_type &group);
+    void   disconnectAllSlotsMenuActionPerformed(void);
+    bool   isEmptyMenuActionPerformed       (void) const;
+    UInt32 numSlotsMenuActionPerformed      (void) const;
+    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

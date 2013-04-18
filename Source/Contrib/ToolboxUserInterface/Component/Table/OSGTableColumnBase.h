@@ -71,6 +71,8 @@
 
 #include "OSGTableColumnFields.h"
 
+#include "OSGTableColumnEventSource.h"
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -267,6 +269,22 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TableColumnBase : public FieldC
     virtual FieldContainerTransitPtr shallowCopyDependent(
                                                       BitVector bFlags) const;
 
+    /*! \}                                                                 */    
+    /*! \}                                                                 */
+    /*! \name                Event Forwards to EventSource                 */
+    /*! \{                                                                 */
+    
+    //FieldChanged
+    boost::signals2::connection connectFieldChanged   (const TableColumnEventSource::FieldChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectFieldChanged   (const TableColumnEventSource::FieldChangedEventType::group_type &group,
+                                                       const TableColumnEventSource::FieldChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectFieldChanged           (const TableColumnEventSource::FieldChangedEventType::group_type &group);
+    void   disconnectAllSlotsFieldChanged   (void);
+    bool   isEmptyFieldChanged              (void) const;
+    UInt32 numSlotsFieldChanged             (void) const;
+    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

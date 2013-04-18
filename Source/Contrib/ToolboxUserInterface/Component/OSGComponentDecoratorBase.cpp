@@ -3501,4 +3501,1243 @@ void ComponentDecoratorBase::setEventSource(ComponentEventSource * const value)
 }
 
 
+boost::signals2::connection  ComponentDecoratorBase::connectMouseMoved(
+                                                    const ComponentEventSource::MouseMovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectMouseMoved( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectMouseMoved(
+                                                    const ComponentEventSource::MouseMovedEventType::group_type &group,
+                                                    const ComponentEventSource::MouseMovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectMouseMoved( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComponentDecoratorBase::disconnectMouseMoved(
+                                                    const ComponentEventSource::MouseMovedEventType::group_type &group
+)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectMouseMoved( group );
+    }
+}
+
+void  ComponentDecoratorBase::disconnectAllSlotsMouseMoved(void)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectAllSlotsMouseMoved();
+    }
+}
+
+bool  ComponentDecoratorBase::isEmptyMouseMoved(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->isEmptyMouseMoved();
+    }
+    return true;
+}
+
+UInt32  ComponentDecoratorBase::numSlotsMouseMoved(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->numSlotsMouseMoved();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectMouseDragged(
+                                                    const ComponentEventSource::MouseDraggedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectMouseDragged( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectMouseDragged(
+                                                    const ComponentEventSource::MouseDraggedEventType::group_type &group,
+                                                    const ComponentEventSource::MouseDraggedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectMouseDragged( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComponentDecoratorBase::disconnectMouseDragged(
+                                                    const ComponentEventSource::MouseDraggedEventType::group_type &group
+)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectMouseDragged( group );
+    }
+}
+
+void  ComponentDecoratorBase::disconnectAllSlotsMouseDragged(void)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectAllSlotsMouseDragged();
+    }
+}
+
+bool  ComponentDecoratorBase::isEmptyMouseDragged(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->isEmptyMouseDragged();
+    }
+    return true;
+}
+
+UInt32  ComponentDecoratorBase::numSlotsMouseDragged(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->numSlotsMouseDragged();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectMouseClicked(
+                                                    const ComponentEventSource::MouseClickedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectMouseClicked( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectMouseClicked(
+                                                    const ComponentEventSource::MouseClickedEventType::group_type &group,
+                                                    const ComponentEventSource::MouseClickedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectMouseClicked( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComponentDecoratorBase::disconnectMouseClicked(
+                                                    const ComponentEventSource::MouseClickedEventType::group_type &group
+)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectMouseClicked( group );
+    }
+}
+
+void  ComponentDecoratorBase::disconnectAllSlotsMouseClicked(void)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectAllSlotsMouseClicked();
+    }
+}
+
+bool  ComponentDecoratorBase::isEmptyMouseClicked(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->isEmptyMouseClicked();
+    }
+    return true;
+}
+
+UInt32  ComponentDecoratorBase::numSlotsMouseClicked(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->numSlotsMouseClicked();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectMouseEntered(
+                                                    const ComponentEventSource::MouseEnteredEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectMouseEntered( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectMouseEntered(
+                                                    const ComponentEventSource::MouseEnteredEventType::group_type &group,
+                                                    const ComponentEventSource::MouseEnteredEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectMouseEntered( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComponentDecoratorBase::disconnectMouseEntered(
+                                                    const ComponentEventSource::MouseEnteredEventType::group_type &group
+)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectMouseEntered( group );
+    }
+}
+
+void  ComponentDecoratorBase::disconnectAllSlotsMouseEntered(void)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectAllSlotsMouseEntered();
+    }
+}
+
+bool  ComponentDecoratorBase::isEmptyMouseEntered(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->isEmptyMouseEntered();
+    }
+    return true;
+}
+
+UInt32  ComponentDecoratorBase::numSlotsMouseEntered(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->numSlotsMouseEntered();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectMouseExited(
+                                                    const ComponentEventSource::MouseExitedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectMouseExited( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectMouseExited(
+                                                    const ComponentEventSource::MouseExitedEventType::group_type &group,
+                                                    const ComponentEventSource::MouseExitedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectMouseExited( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComponentDecoratorBase::disconnectMouseExited(
+                                                    const ComponentEventSource::MouseExitedEventType::group_type &group
+)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectMouseExited( group );
+    }
+}
+
+void  ComponentDecoratorBase::disconnectAllSlotsMouseExited(void)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectAllSlotsMouseExited();
+    }
+}
+
+bool  ComponentDecoratorBase::isEmptyMouseExited(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->isEmptyMouseExited();
+    }
+    return true;
+}
+
+UInt32  ComponentDecoratorBase::numSlotsMouseExited(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->numSlotsMouseExited();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectMousePressed(
+                                                    const ComponentEventSource::MousePressedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectMousePressed( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectMousePressed(
+                                                    const ComponentEventSource::MousePressedEventType::group_type &group,
+                                                    const ComponentEventSource::MousePressedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectMousePressed( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComponentDecoratorBase::disconnectMousePressed(
+                                                    const ComponentEventSource::MousePressedEventType::group_type &group
+)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectMousePressed( group );
+    }
+}
+
+void  ComponentDecoratorBase::disconnectAllSlotsMousePressed(void)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectAllSlotsMousePressed();
+    }
+}
+
+bool  ComponentDecoratorBase::isEmptyMousePressed(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->isEmptyMousePressed();
+    }
+    return true;
+}
+
+UInt32  ComponentDecoratorBase::numSlotsMousePressed(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->numSlotsMousePressed();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectMouseReleased(
+                                                    const ComponentEventSource::MouseReleasedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectMouseReleased( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectMouseReleased(
+                                                    const ComponentEventSource::MouseReleasedEventType::group_type &group,
+                                                    const ComponentEventSource::MouseReleasedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectMouseReleased( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComponentDecoratorBase::disconnectMouseReleased(
+                                                    const ComponentEventSource::MouseReleasedEventType::group_type &group
+)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectMouseReleased( group );
+    }
+}
+
+void  ComponentDecoratorBase::disconnectAllSlotsMouseReleased(void)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectAllSlotsMouseReleased();
+    }
+}
+
+bool  ComponentDecoratorBase::isEmptyMouseReleased(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->isEmptyMouseReleased();
+    }
+    return true;
+}
+
+UInt32  ComponentDecoratorBase::numSlotsMouseReleased(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->numSlotsMouseReleased();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectMouseWheelMoved(
+                                                    const ComponentEventSource::MouseWheelMovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectMouseWheelMoved( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectMouseWheelMoved(
+                                                    const ComponentEventSource::MouseWheelMovedEventType::group_type &group,
+                                                    const ComponentEventSource::MouseWheelMovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectMouseWheelMoved( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComponentDecoratorBase::disconnectMouseWheelMoved(
+                                                    const ComponentEventSource::MouseWheelMovedEventType::group_type &group
+)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectMouseWheelMoved( group );
+    }
+}
+
+void  ComponentDecoratorBase::disconnectAllSlotsMouseWheelMoved(void)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectAllSlotsMouseWheelMoved();
+    }
+}
+
+bool  ComponentDecoratorBase::isEmptyMouseWheelMoved(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->isEmptyMouseWheelMoved();
+    }
+    return true;
+}
+
+UInt32  ComponentDecoratorBase::numSlotsMouseWheelMoved(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->numSlotsMouseWheelMoved();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectKeyPressed(
+                                                    const ComponentEventSource::KeyPressedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectKeyPressed( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectKeyPressed(
+                                                    const ComponentEventSource::KeyPressedEventType::group_type &group,
+                                                    const ComponentEventSource::KeyPressedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectKeyPressed( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComponentDecoratorBase::disconnectKeyPressed(
+                                                    const ComponentEventSource::KeyPressedEventType::group_type &group
+)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectKeyPressed( group );
+    }
+}
+
+void  ComponentDecoratorBase::disconnectAllSlotsKeyPressed(void)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectAllSlotsKeyPressed();
+    }
+}
+
+bool  ComponentDecoratorBase::isEmptyKeyPressed(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->isEmptyKeyPressed();
+    }
+    return true;
+}
+
+UInt32  ComponentDecoratorBase::numSlotsKeyPressed(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->numSlotsKeyPressed();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectKeyReleased(
+                                                    const ComponentEventSource::KeyReleasedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectKeyReleased( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectKeyReleased(
+                                                    const ComponentEventSource::KeyReleasedEventType::group_type &group,
+                                                    const ComponentEventSource::KeyReleasedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectKeyReleased( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComponentDecoratorBase::disconnectKeyReleased(
+                                                    const ComponentEventSource::KeyReleasedEventType::group_type &group
+)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectKeyReleased( group );
+    }
+}
+
+void  ComponentDecoratorBase::disconnectAllSlotsKeyReleased(void)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectAllSlotsKeyReleased();
+    }
+}
+
+bool  ComponentDecoratorBase::isEmptyKeyReleased(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->isEmptyKeyReleased();
+    }
+    return true;
+}
+
+UInt32  ComponentDecoratorBase::numSlotsKeyReleased(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->numSlotsKeyReleased();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectKeyTyped(
+                                                    const ComponentEventSource::KeyTypedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectKeyTyped( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectKeyTyped(
+                                                    const ComponentEventSource::KeyTypedEventType::group_type &group,
+                                                    const ComponentEventSource::KeyTypedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectKeyTyped( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComponentDecoratorBase::disconnectKeyTyped(
+                                                    const ComponentEventSource::KeyTypedEventType::group_type &group
+)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectKeyTyped( group );
+    }
+}
+
+void  ComponentDecoratorBase::disconnectAllSlotsKeyTyped(void)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectAllSlotsKeyTyped();
+    }
+}
+
+bool  ComponentDecoratorBase::isEmptyKeyTyped(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->isEmptyKeyTyped();
+    }
+    return true;
+}
+
+UInt32  ComponentDecoratorBase::numSlotsKeyTyped(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->numSlotsKeyTyped();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectFocusGained(
+                                                    const ComponentEventSource::FocusGainedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectFocusGained( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectFocusGained(
+                                                    const ComponentEventSource::FocusGainedEventType::group_type &group,
+                                                    const ComponentEventSource::FocusGainedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectFocusGained( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComponentDecoratorBase::disconnectFocusGained(
+                                                    const ComponentEventSource::FocusGainedEventType::group_type &group
+)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectFocusGained( group );
+    }
+}
+
+void  ComponentDecoratorBase::disconnectAllSlotsFocusGained(void)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectAllSlotsFocusGained();
+    }
+}
+
+bool  ComponentDecoratorBase::isEmptyFocusGained(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->isEmptyFocusGained();
+    }
+    return true;
+}
+
+UInt32  ComponentDecoratorBase::numSlotsFocusGained(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->numSlotsFocusGained();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectFocusLost(
+                                                    const ComponentEventSource::FocusLostEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectFocusLost( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectFocusLost(
+                                                    const ComponentEventSource::FocusLostEventType::group_type &group,
+                                                    const ComponentEventSource::FocusLostEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectFocusLost( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComponentDecoratorBase::disconnectFocusLost(
+                                                    const ComponentEventSource::FocusLostEventType::group_type &group
+)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectFocusLost( group );
+    }
+}
+
+void  ComponentDecoratorBase::disconnectAllSlotsFocusLost(void)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectAllSlotsFocusLost();
+    }
+}
+
+bool  ComponentDecoratorBase::isEmptyFocusLost(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->isEmptyFocusLost();
+    }
+    return true;
+}
+
+UInt32  ComponentDecoratorBase::numSlotsFocusLost(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->numSlotsFocusLost();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectComponentHidden(
+                                                    const ComponentEventSource::ComponentHiddenEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectComponentHidden( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectComponentHidden(
+                                                    const ComponentEventSource::ComponentHiddenEventType::group_type &group,
+                                                    const ComponentEventSource::ComponentHiddenEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectComponentHidden( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComponentDecoratorBase::disconnectComponentHidden(
+                                                    const ComponentEventSource::ComponentHiddenEventType::group_type &group
+)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectComponentHidden( group );
+    }
+}
+
+void  ComponentDecoratorBase::disconnectAllSlotsComponentHidden(void)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectAllSlotsComponentHidden();
+    }
+}
+
+bool  ComponentDecoratorBase::isEmptyComponentHidden(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->isEmptyComponentHidden();
+    }
+    return true;
+}
+
+UInt32  ComponentDecoratorBase::numSlotsComponentHidden(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->numSlotsComponentHidden();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectComponentVisible(
+                                                    const ComponentEventSource::ComponentVisibleEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectComponentVisible( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectComponentVisible(
+                                                    const ComponentEventSource::ComponentVisibleEventType::group_type &group,
+                                                    const ComponentEventSource::ComponentVisibleEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectComponentVisible( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComponentDecoratorBase::disconnectComponentVisible(
+                                                    const ComponentEventSource::ComponentVisibleEventType::group_type &group
+)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectComponentVisible( group );
+    }
+}
+
+void  ComponentDecoratorBase::disconnectAllSlotsComponentVisible(void)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectAllSlotsComponentVisible();
+    }
+}
+
+bool  ComponentDecoratorBase::isEmptyComponentVisible(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->isEmptyComponentVisible();
+    }
+    return true;
+}
+
+UInt32  ComponentDecoratorBase::numSlotsComponentVisible(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->numSlotsComponentVisible();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectComponentMoved(
+                                                    const ComponentEventSource::ComponentMovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectComponentMoved( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectComponentMoved(
+                                                    const ComponentEventSource::ComponentMovedEventType::group_type &group,
+                                                    const ComponentEventSource::ComponentMovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectComponentMoved( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComponentDecoratorBase::disconnectComponentMoved(
+                                                    const ComponentEventSource::ComponentMovedEventType::group_type &group
+)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectComponentMoved( group );
+    }
+}
+
+void  ComponentDecoratorBase::disconnectAllSlotsComponentMoved(void)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectAllSlotsComponentMoved();
+    }
+}
+
+bool  ComponentDecoratorBase::isEmptyComponentMoved(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->isEmptyComponentMoved();
+    }
+    return true;
+}
+
+UInt32  ComponentDecoratorBase::numSlotsComponentMoved(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->numSlotsComponentMoved();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectComponentResized(
+                                                    const ComponentEventSource::ComponentResizedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectComponentResized( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectComponentResized(
+                                                    const ComponentEventSource::ComponentResizedEventType::group_type &group,
+                                                    const ComponentEventSource::ComponentResizedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectComponentResized( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComponentDecoratorBase::disconnectComponentResized(
+                                                    const ComponentEventSource::ComponentResizedEventType::group_type &group
+)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectComponentResized( group );
+    }
+}
+
+void  ComponentDecoratorBase::disconnectAllSlotsComponentResized(void)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectAllSlotsComponentResized();
+    }
+}
+
+bool  ComponentDecoratorBase::isEmptyComponentResized(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->isEmptyComponentResized();
+    }
+    return true;
+}
+
+UInt32  ComponentDecoratorBase::numSlotsComponentResized(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->numSlotsComponentResized();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectComponentEnabled(
+                                                    const ComponentEventSource::ComponentEnabledEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectComponentEnabled( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectComponentEnabled(
+                                                    const ComponentEventSource::ComponentEnabledEventType::group_type &group,
+                                                    const ComponentEventSource::ComponentEnabledEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectComponentEnabled( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComponentDecoratorBase::disconnectComponentEnabled(
+                                                    const ComponentEventSource::ComponentEnabledEventType::group_type &group
+)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectComponentEnabled( group );
+    }
+}
+
+void  ComponentDecoratorBase::disconnectAllSlotsComponentEnabled(void)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectAllSlotsComponentEnabled();
+    }
+}
+
+bool  ComponentDecoratorBase::isEmptyComponentEnabled(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->isEmptyComponentEnabled();
+    }
+    return true;
+}
+
+UInt32  ComponentDecoratorBase::numSlotsComponentEnabled(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->numSlotsComponentEnabled();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectComponentDisabled(
+                                                    const ComponentEventSource::ComponentDisabledEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectComponentDisabled( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectComponentDisabled(
+                                                    const ComponentEventSource::ComponentDisabledEventType::group_type &group,
+                                                    const ComponentEventSource::ComponentDisabledEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectComponentDisabled( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComponentDecoratorBase::disconnectComponentDisabled(
+                                                    const ComponentEventSource::ComponentDisabledEventType::group_type &group
+)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectComponentDisabled( group );
+    }
+}
+
+void  ComponentDecoratorBase::disconnectAllSlotsComponentDisabled(void)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectAllSlotsComponentDisabled();
+    }
+}
+
+bool  ComponentDecoratorBase::isEmptyComponentDisabled(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->isEmptyComponentDisabled();
+    }
+    return true;
+}
+
+UInt32  ComponentDecoratorBase::numSlotsComponentDisabled(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->numSlotsComponentDisabled();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectToolTipActivated(
+                                                    const ComponentEventSource::ToolTipActivatedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectToolTipActivated( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectToolTipActivated(
+                                                    const ComponentEventSource::ToolTipActivatedEventType::group_type &group,
+                                                    const ComponentEventSource::ToolTipActivatedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectToolTipActivated( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComponentDecoratorBase::disconnectToolTipActivated(
+                                                    const ComponentEventSource::ToolTipActivatedEventType::group_type &group
+)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectToolTipActivated( group );
+    }
+}
+
+void  ComponentDecoratorBase::disconnectAllSlotsToolTipActivated(void)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectAllSlotsToolTipActivated();
+    }
+}
+
+bool  ComponentDecoratorBase::isEmptyToolTipActivated(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->isEmptyToolTipActivated();
+    }
+    return true;
+}
+
+UInt32  ComponentDecoratorBase::numSlotsToolTipActivated(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->numSlotsToolTipActivated();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectToolTipDeactivated(
+                                                    const ComponentEventSource::ToolTipDeactivatedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectToolTipDeactivated( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ComponentDecoratorBase::connectToolTipDeactivated(
+                                                    const ComponentEventSource::ToolTipDeactivatedEventType::group_type &group,
+                                                    const ComponentEventSource::ToolTipDeactivatedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->connectToolTipDeactivated( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ComponentDecoratorBase::disconnectToolTipDeactivated(
+                                                    const ComponentEventSource::ToolTipDeactivatedEventType::group_type &group
+)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectToolTipDeactivated( group );
+    }
+}
+
+void  ComponentDecoratorBase::disconnectAllSlotsToolTipDeactivated(void)
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        getDecoratee()->disconnectAllSlotsToolTipDeactivated();
+    }
+}
+
+bool  ComponentDecoratorBase::isEmptyToolTipDeactivated(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->isEmptyToolTipDeactivated();
+    }
+    return true;
+}
+
+UInt32  ComponentDecoratorBase::numSlotsToolTipDeactivated(void) const
+{
+    if(_sfDecoratee.getValue() != NULL)
+    {
+        return getDecoratee()->numSlotsToolTipDeactivated();
+    }
+    return 0u;
+}
+
 OSG_END_NAMESPACE

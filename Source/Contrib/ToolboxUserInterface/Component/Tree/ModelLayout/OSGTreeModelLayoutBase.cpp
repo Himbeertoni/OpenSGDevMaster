@@ -402,4 +402,337 @@ void TreeModelLayoutBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  TreeModelLayoutBase::connectTreeCollapsed(
+                                                    const TreeModelLayoutEventSource::TreeCollapsedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectTreeCollapsed( listener, at );
+}
+
+boost::signals2::connection  TreeModelLayoutBase::connectTreeCollapsed(
+                                                    const TreeModelLayoutEventSource::TreeCollapsedEventType::group_type &group,
+                                                    const TreeModelLayoutEventSource::TreeCollapsedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectTreeCollapsed( group, listener, at );
+}
+
+void  TreeModelLayoutBase::disconnectTreeCollapsed(
+                                                    const TreeModelLayoutEventSource::TreeCollapsedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectTreeCollapsed( group );
+}
+
+void  TreeModelLayoutBase::disconnectAllSlotsTreeCollapsed(void)
+{
+    getEventSource()->disconnectAllSlotsTreeCollapsed();
+}
+
+bool  TreeModelLayoutBase::isEmptyTreeCollapsed(void) const
+{
+    return getEventSource()->isEmptyTreeCollapsed();
+}
+
+UInt32  TreeModelLayoutBase::numSlotsTreeCollapsed(void) const
+{
+    return getEventSource()->numSlotsTreeCollapsed();
+}
+
+boost::signals2::connection  TreeModelLayoutBase::connectTreeExpanded(
+                                                    const TreeModelLayoutEventSource::TreeExpandedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectTreeExpanded( listener, at );
+}
+
+boost::signals2::connection  TreeModelLayoutBase::connectTreeExpanded(
+                                                    const TreeModelLayoutEventSource::TreeExpandedEventType::group_type &group,
+                                                    const TreeModelLayoutEventSource::TreeExpandedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectTreeExpanded( group, listener, at );
+}
+
+void  TreeModelLayoutBase::disconnectTreeExpanded(
+                                                    const TreeModelLayoutEventSource::TreeExpandedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectTreeExpanded( group );
+}
+
+void  TreeModelLayoutBase::disconnectAllSlotsTreeExpanded(void)
+{
+    getEventSource()->disconnectAllSlotsTreeExpanded();
+}
+
+bool  TreeModelLayoutBase::isEmptyTreeExpanded(void) const
+{
+    return getEventSource()->isEmptyTreeExpanded();
+}
+
+UInt32  TreeModelLayoutBase::numSlotsTreeExpanded(void) const
+{
+    return getEventSource()->numSlotsTreeExpanded();
+}
+
+boost::signals2::connection  TreeModelLayoutBase::connectTreeWillCollapse(
+                                                    const TreeModelLayoutEventSource::TreeWillCollapseEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectTreeWillCollapse( listener, at );
+}
+
+boost::signals2::connection  TreeModelLayoutBase::connectTreeWillCollapse(
+                                                    const TreeModelLayoutEventSource::TreeWillCollapseEventType::group_type &group,
+                                                    const TreeModelLayoutEventSource::TreeWillCollapseEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectTreeWillCollapse( group, listener, at );
+}
+
+void  TreeModelLayoutBase::disconnectTreeWillCollapse(
+                                                    const TreeModelLayoutEventSource::TreeWillCollapseEventType::group_type &group
+)
+{
+    getEventSource()->disconnectTreeWillCollapse( group );
+}
+
+void  TreeModelLayoutBase::disconnectAllSlotsTreeWillCollapse(void)
+{
+    getEventSource()->disconnectAllSlotsTreeWillCollapse();
+}
+
+bool  TreeModelLayoutBase::isEmptyTreeWillCollapse(void) const
+{
+    return getEventSource()->isEmptyTreeWillCollapse();
+}
+
+UInt32  TreeModelLayoutBase::numSlotsTreeWillCollapse(void) const
+{
+    return getEventSource()->numSlotsTreeWillCollapse();
+}
+
+boost::signals2::connection  TreeModelLayoutBase::connectTreeWillExpand(
+                                                    const TreeModelLayoutEventSource::TreeWillExpandEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectTreeWillExpand( listener, at );
+}
+
+boost::signals2::connection  TreeModelLayoutBase::connectTreeWillExpand(
+                                                    const TreeModelLayoutEventSource::TreeWillExpandEventType::group_type &group,
+                                                    const TreeModelLayoutEventSource::TreeWillExpandEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectTreeWillExpand( group, listener, at );
+}
+
+void  TreeModelLayoutBase::disconnectTreeWillExpand(
+                                                    const TreeModelLayoutEventSource::TreeWillExpandEventType::group_type &group
+)
+{
+    getEventSource()->disconnectTreeWillExpand( group );
+}
+
+void  TreeModelLayoutBase::disconnectAllSlotsTreeWillExpand(void)
+{
+    getEventSource()->disconnectAllSlotsTreeWillExpand();
+}
+
+bool  TreeModelLayoutBase::isEmptyTreeWillExpand(void) const
+{
+    return getEventSource()->isEmptyTreeWillExpand();
+}
+
+UInt32  TreeModelLayoutBase::numSlotsTreeWillExpand(void) const
+{
+    return getEventSource()->numSlotsTreeWillExpand();
+}
+
+boost::signals2::connection  TreeModelLayoutBase::connectTreeNodesChanged(
+                                                    const TreeModelLayoutEventSource::TreeNodesChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectTreeNodesChanged( listener, at );
+}
+
+boost::signals2::connection  TreeModelLayoutBase::connectTreeNodesChanged(
+                                                    const TreeModelLayoutEventSource::TreeNodesChangedEventType::group_type &group,
+                                                    const TreeModelLayoutEventSource::TreeNodesChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectTreeNodesChanged( group, listener, at );
+}
+
+void  TreeModelLayoutBase::disconnectTreeNodesChanged(
+                                                    const TreeModelLayoutEventSource::TreeNodesChangedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectTreeNodesChanged( group );
+}
+
+void  TreeModelLayoutBase::disconnectAllSlotsTreeNodesChanged(void)
+{
+    getEventSource()->disconnectAllSlotsTreeNodesChanged();
+}
+
+bool  TreeModelLayoutBase::isEmptyTreeNodesChanged(void) const
+{
+    return getEventSource()->isEmptyTreeNodesChanged();
+}
+
+UInt32  TreeModelLayoutBase::numSlotsTreeNodesChanged(void) const
+{
+    return getEventSource()->numSlotsTreeNodesChanged();
+}
+
+boost::signals2::connection  TreeModelLayoutBase::connectTreeNodesInserted(
+                                                    const TreeModelLayoutEventSource::TreeNodesInsertedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectTreeNodesInserted( listener, at );
+}
+
+boost::signals2::connection  TreeModelLayoutBase::connectTreeNodesInserted(
+                                                    const TreeModelLayoutEventSource::TreeNodesInsertedEventType::group_type &group,
+                                                    const TreeModelLayoutEventSource::TreeNodesInsertedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectTreeNodesInserted( group, listener, at );
+}
+
+void  TreeModelLayoutBase::disconnectTreeNodesInserted(
+                                                    const TreeModelLayoutEventSource::TreeNodesInsertedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectTreeNodesInserted( group );
+}
+
+void  TreeModelLayoutBase::disconnectAllSlotsTreeNodesInserted(void)
+{
+    getEventSource()->disconnectAllSlotsTreeNodesInserted();
+}
+
+bool  TreeModelLayoutBase::isEmptyTreeNodesInserted(void) const
+{
+    return getEventSource()->isEmptyTreeNodesInserted();
+}
+
+UInt32  TreeModelLayoutBase::numSlotsTreeNodesInserted(void) const
+{
+    return getEventSource()->numSlotsTreeNodesInserted();
+}
+
+boost::signals2::connection  TreeModelLayoutBase::connectTreeNodesRemoved(
+                                                    const TreeModelLayoutEventSource::TreeNodesRemovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectTreeNodesRemoved( listener, at );
+}
+
+boost::signals2::connection  TreeModelLayoutBase::connectTreeNodesRemoved(
+                                                    const TreeModelLayoutEventSource::TreeNodesRemovedEventType::group_type &group,
+                                                    const TreeModelLayoutEventSource::TreeNodesRemovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectTreeNodesRemoved( group, listener, at );
+}
+
+void  TreeModelLayoutBase::disconnectTreeNodesRemoved(
+                                                    const TreeModelLayoutEventSource::TreeNodesRemovedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectTreeNodesRemoved( group );
+}
+
+void  TreeModelLayoutBase::disconnectAllSlotsTreeNodesRemoved(void)
+{
+    getEventSource()->disconnectAllSlotsTreeNodesRemoved();
+}
+
+bool  TreeModelLayoutBase::isEmptyTreeNodesRemoved(void) const
+{
+    return getEventSource()->isEmptyTreeNodesRemoved();
+}
+
+UInt32  TreeModelLayoutBase::numSlotsTreeNodesRemoved(void) const
+{
+    return getEventSource()->numSlotsTreeNodesRemoved();
+}
+
+boost::signals2::connection  TreeModelLayoutBase::connectTreeNodesWillBeRemoved(
+                                                    const TreeModelLayoutEventSource::TreeNodesWillBeRemovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectTreeNodesWillBeRemoved( listener, at );
+}
+
+boost::signals2::connection  TreeModelLayoutBase::connectTreeNodesWillBeRemoved(
+                                                    const TreeModelLayoutEventSource::TreeNodesWillBeRemovedEventType::group_type &group,
+                                                    const TreeModelLayoutEventSource::TreeNodesWillBeRemovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectTreeNodesWillBeRemoved( group, listener, at );
+}
+
+void  TreeModelLayoutBase::disconnectTreeNodesWillBeRemoved(
+                                                    const TreeModelLayoutEventSource::TreeNodesWillBeRemovedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectTreeNodesWillBeRemoved( group );
+}
+
+void  TreeModelLayoutBase::disconnectAllSlotsTreeNodesWillBeRemoved(void)
+{
+    getEventSource()->disconnectAllSlotsTreeNodesWillBeRemoved();
+}
+
+bool  TreeModelLayoutBase::isEmptyTreeNodesWillBeRemoved(void) const
+{
+    return getEventSource()->isEmptyTreeNodesWillBeRemoved();
+}
+
+UInt32  TreeModelLayoutBase::numSlotsTreeNodesWillBeRemoved(void) const
+{
+    return getEventSource()->numSlotsTreeNodesWillBeRemoved();
+}
+
+boost::signals2::connection  TreeModelLayoutBase::connectTreeStructureChanged(
+                                                    const TreeModelLayoutEventSource::TreeStructureChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectTreeStructureChanged( listener, at );
+}
+
+boost::signals2::connection  TreeModelLayoutBase::connectTreeStructureChanged(
+                                                    const TreeModelLayoutEventSource::TreeStructureChangedEventType::group_type &group,
+                                                    const TreeModelLayoutEventSource::TreeStructureChangedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectTreeStructureChanged( group, listener, at );
+}
+
+void  TreeModelLayoutBase::disconnectTreeStructureChanged(
+                                                    const TreeModelLayoutEventSource::TreeStructureChangedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectTreeStructureChanged( group );
+}
+
+void  TreeModelLayoutBase::disconnectAllSlotsTreeStructureChanged(void)
+{
+    getEventSource()->disconnectAllSlotsTreeStructureChanged();
+}
+
+bool  TreeModelLayoutBase::isEmptyTreeStructureChanged(void) const
+{
+    return getEventSource()->isEmptyTreeStructureChanged();
+}
+
+UInt32  TreeModelLayoutBase::numSlotsTreeStructureChanged(void) const
+{
+    return getEventSource()->numSlotsTreeStructureChanged();
+}
+
 OSG_END_NAMESPACE

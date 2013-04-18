@@ -69,6 +69,8 @@
 
 #include "OSGTreeSelectionModelFields.h"
 
+#include "OSGTreeSelectionModelEventSource.h"
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -163,6 +165,33 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TreeSelectionModelBase : public
                                ConstFieldMaskArg  whichField);
 
 
+    /*! \}                                                                 */
+    /*! \}                                                                 */
+    /*! \name                Event Forwards to EventSource                 */
+    /*! \{                                                                 */
+    
+    //SelectionAdded
+    boost::signals2::connection connectSelectionAdded (const TreeSelectionModelEventSource::SelectionAddedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectSelectionAdded (const TreeSelectionModelEventSource::SelectionAddedEventType::group_type &group,
+                                                       const TreeSelectionModelEventSource::SelectionAddedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectSelectionAdded         (const TreeSelectionModelEventSource::SelectionAddedEventType::group_type &group);
+    void   disconnectAllSlotsSelectionAdded (void);
+    bool   isEmptySelectionAdded            (void) const;
+    UInt32 numSlotsSelectionAdded           (void) const;
+    
+    //SelectionRemoved
+    boost::signals2::connection connectSelectionRemoved(const TreeSelectionModelEventSource::SelectionRemovedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectSelectionRemoved(const TreeSelectionModelEventSource::SelectionRemovedEventType::group_type &group,
+                                                       const TreeSelectionModelEventSource::SelectionRemovedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectSelectionRemoved       (const TreeSelectionModelEventSource::SelectionRemovedEventType::group_type &group);
+    void   disconnectAllSlotsSelectionRemoved(void);
+    bool   isEmptySelectionRemoved          (void) const;
+    UInt32 numSlotsSelectionRemoved         (void) const;
+    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

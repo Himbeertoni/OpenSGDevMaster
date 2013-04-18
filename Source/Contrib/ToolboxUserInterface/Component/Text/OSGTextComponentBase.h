@@ -71,6 +71,8 @@
 
 #include "OSGTextComponentFields.h"
 
+#include "OSGTextComponentEventSource.h"
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -264,6 +266,33 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING TextComponentBase : public Comp
                                ConstFieldMaskArg  whichField);
 
 
+    /*! \}                                                                 */
+    /*! \}                                                                 */
+    /*! \name                Event Forwards to EventSource                 */
+    /*! \{                                                                 */
+    
+    //TextValueChanged
+    boost::signals2::connection connectTextValueChanged(const TextComponentEventSource::TextValueChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectTextValueChanged(const TextComponentEventSource::TextValueChangedEventType::group_type &group,
+                                                       const TextComponentEventSource::TextValueChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectTextValueChanged       (const TextComponentEventSource::TextValueChangedEventType::group_type &group);
+    void   disconnectAllSlotsTextValueChanged(void);
+    bool   isEmptyTextValueChanged          (void) const;
+    UInt32 numSlotsTextValueChanged         (void) const;
+    
+    //CaretChanged
+    boost::signals2::connection connectCaretChanged   (const TextComponentEventSource::CaretChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectCaretChanged   (const TextComponentEventSource::CaretChangedEventType::group_type &group,
+                                                       const TextComponentEventSource::CaretChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectCaretChanged           (const TextComponentEventSource::CaretChangedEventType::group_type &group);
+    void   disconnectAllSlotsCaretChanged   (void);
+    bool   isEmptyCaretChanged              (void) const;
+    UInt32 numSlotsCaretChanged             (void) const;
+    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

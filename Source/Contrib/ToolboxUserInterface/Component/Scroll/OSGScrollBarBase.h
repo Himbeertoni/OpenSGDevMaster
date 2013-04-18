@@ -71,6 +71,8 @@
 
 #include "OSGScrollBarFields.h"
 
+#include "OSGScrollBarEventSource.h"
+
 OSG_BEGIN_NAMESPACE
 
 
@@ -308,6 +310,22 @@ class OSG_CONTRIBTOOLBOXUSERINTERFACE_DLLMAPPING ScrollBarBase : public Componen
     virtual FieldContainerTransitPtr shallowCopyDependent(
                                                       BitVector bFlags) const;
 
+    /*! \}                                                                 */    
+    /*! \}                                                                 */
+    /*! \name                Event Forwards to EventSource                 */
+    /*! \{                                                                 */
+    
+    //AdjustmentValueChanged
+    boost::signals2::connection connectAdjustmentValueChanged(const ScrollBarEventSource::AdjustmentValueChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    boost::signals2::connection connectAdjustmentValueChanged(const ScrollBarEventSource::AdjustmentValueChangedEventType::group_type &group,
+                                                       const ScrollBarEventSource::AdjustmentValueChangedEventType::slot_type &listener,
+                                                       boost::signals2::connect_position at= boost::signals2::at_back);
+    void   disconnectAdjustmentValueChanged (const ScrollBarEventSource::AdjustmentValueChangedEventType::group_type &group);
+    void   disconnectAllSlotsAdjustmentValueChanged(void);
+    bool   isEmptyAdjustmentValueChanged    (void) const;
+    UInt32 numSlotsAdjustmentValueChanged   (void) const;
+    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 

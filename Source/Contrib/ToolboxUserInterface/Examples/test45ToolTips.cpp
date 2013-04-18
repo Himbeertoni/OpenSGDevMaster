@@ -133,7 +133,7 @@ void handleFadeInToolTipActivated(ComponentEventDetails* const details,
                                   WindowEventProducer* const TutorialWindow,
                                   TBAnimation* const FadeInAnimation)
 {
-    FadeInAnimation->attachUpdateProducer(TutorialWindow);
+    FadeInAnimation->getEventSource()->attachUpdateProducer( TutorialWindow->getEventSource() );
     FadeInAnimation->start();
 }
 

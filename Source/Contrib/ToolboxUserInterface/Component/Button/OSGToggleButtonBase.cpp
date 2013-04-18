@@ -396,4 +396,134 @@ void ToggleButtonBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  ToggleButtonBase::connectButtonSelected(
+                                                    const ToggleButtonEventSource::ButtonSelectedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    ToggleButtonEventSource* evSrc = dynamic_cast<ToggleButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectButtonSelected( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ToggleButtonBase::connectButtonSelected(
+                                                    const ToggleButtonEventSource::ButtonSelectedEventType::group_type &group,
+                                                    const ToggleButtonEventSource::ButtonSelectedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    ToggleButtonEventSource* evSrc = dynamic_cast<ToggleButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectButtonSelected( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ToggleButtonBase::disconnectButtonSelected(
+                                                    const ToggleButtonEventSource::ButtonSelectedEventType::group_type &group
+)
+{
+    ToggleButtonEventSource* evSrc = dynamic_cast<ToggleButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectButtonSelected( group );
+    }
+}
+
+void  ToggleButtonBase::disconnectAllSlotsButtonSelected(void)
+{
+    ToggleButtonEventSource* evSrc = dynamic_cast<ToggleButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsButtonSelected();
+    }
+}
+
+bool  ToggleButtonBase::isEmptyButtonSelected(void) const
+{
+    ToggleButtonEventSource* evSrc = dynamic_cast<ToggleButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyButtonSelected();
+    }
+    return true;
+}
+
+UInt32  ToggleButtonBase::numSlotsButtonSelected(void) const
+{
+    ToggleButtonEventSource* evSrc = dynamic_cast<ToggleButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsButtonSelected();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ToggleButtonBase::connectButtonDeselected(
+                                                    const ToggleButtonEventSource::ButtonDeselectedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    ToggleButtonEventSource* evSrc = dynamic_cast<ToggleButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectButtonDeselected( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ToggleButtonBase::connectButtonDeselected(
+                                                    const ToggleButtonEventSource::ButtonDeselectedEventType::group_type &group,
+                                                    const ToggleButtonEventSource::ButtonDeselectedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    ToggleButtonEventSource* evSrc = dynamic_cast<ToggleButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectButtonDeselected( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ToggleButtonBase::disconnectButtonDeselected(
+                                                    const ToggleButtonEventSource::ButtonDeselectedEventType::group_type &group
+)
+{
+    ToggleButtonEventSource* evSrc = dynamic_cast<ToggleButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectButtonDeselected( group );
+    }
+}
+
+void  ToggleButtonBase::disconnectAllSlotsButtonDeselected(void)
+{
+    ToggleButtonEventSource* evSrc = dynamic_cast<ToggleButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsButtonDeselected();
+    }
+}
+
+bool  ToggleButtonBase::isEmptyButtonDeselected(void) const
+{
+    ToggleButtonEventSource* evSrc = dynamic_cast<ToggleButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyButtonDeselected();
+    }
+    return true;
+}
+
+UInt32  ToggleButtonBase::numSlotsButtonDeselected(void) const
+{
+    ToggleButtonEventSource* evSrc = dynamic_cast<ToggleButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsButtonDeselected();
+    }
+    return 0u;
+}
+
 OSG_END_NAMESPACE

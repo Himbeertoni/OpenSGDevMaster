@@ -2125,4 +2125,134 @@ void ButtonBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  ButtonBase::connectActionPerformed(
+                                                    const ButtonEventSource::ActionPerformedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectActionPerformed( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ButtonBase::connectActionPerformed(
+                                                    const ButtonEventSource::ActionPerformedEventType::group_type &group,
+                                                    const ButtonEventSource::ActionPerformedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectActionPerformed( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ButtonBase::disconnectActionPerformed(
+                                                    const ButtonEventSource::ActionPerformedEventType::group_type &group
+)
+{
+    ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectActionPerformed( group );
+    }
+}
+
+void  ButtonBase::disconnectAllSlotsActionPerformed(void)
+{
+    ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsActionPerformed();
+    }
+}
+
+bool  ButtonBase::isEmptyActionPerformed(void) const
+{
+    ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyActionPerformed();
+    }
+    return true;
+}
+
+UInt32  ButtonBase::numSlotsActionPerformed(void) const
+{
+    ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsActionPerformed();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  ButtonBase::connectMousePressedActionPerformed(
+                                                    const ButtonEventSource::MousePressedActionPerformedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectMousePressedActionPerformed( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  ButtonBase::connectMousePressedActionPerformed(
+                                                    const ButtonEventSource::MousePressedActionPerformedEventType::group_type &group,
+                                                    const ButtonEventSource::MousePressedActionPerformedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectMousePressedActionPerformed( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  ButtonBase::disconnectMousePressedActionPerformed(
+                                                    const ButtonEventSource::MousePressedActionPerformedEventType::group_type &group
+)
+{
+    ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectMousePressedActionPerformed( group );
+    }
+}
+
+void  ButtonBase::disconnectAllSlotsMousePressedActionPerformed(void)
+{
+    ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsMousePressedActionPerformed();
+    }
+}
+
+bool  ButtonBase::isEmptyMousePressedActionPerformed(void) const
+{
+    ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyMousePressedActionPerformed();
+    }
+    return true;
+}
+
+UInt32  ButtonBase::numSlotsMousePressedActionPerformed(void) const
+{
+    ButtonEventSource* evSrc = dynamic_cast<ButtonEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsMousePressedActionPerformed();
+    }
+    return 0u;
+}
+
 OSG_END_NAMESPACE

@@ -163,6 +163,7 @@ void setTextColors(TextArea* const TextAreaToChange,
 {         
     TextAreaToChange->setTextColor(TheColor);
     TextAreaToChange->setRolloverTextColor(TheColor);
+    commitChanges();
 }
 
 void mousePressed(MouseEventDetails* const details,
@@ -399,6 +400,8 @@ int main(int argc, char **argv)
         TutorialWindow->openWindow(WinPos,
                                    WinSize,
                                    "21ExampleInterface");
+
+        commitChanges();
 
         //Enter main Loop
         TutorialWindow->mainLoop();
@@ -921,6 +924,8 @@ SimpleScreenDoc::SimpleScreenDoc(SimpleSceneManager*  SceneManager,
     
     //Animation
     _ShowDocFadeOutAnimation = FieldAnimation::create();
+    TBAnimationEventSourceUnrecPtr aev = TBAnimationEventSource::create();
+    _ShowDocFadeOutAnimation->setEventSource( aev );
     _ShowDocFadeOutAnimation->setAnimator(TheAnimator);
     _ShowDocFadeOutAnimation->setInterpolationType(TBAnimator::LINEAR_INTERPOLATION);
     _ShowDocFadeOutAnimation->setCycling(1);

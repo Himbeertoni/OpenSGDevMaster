@@ -3642,4 +3642,781 @@ void ComponentBase::setEventSource(ComponentEventSource * const value)
 }
 
 
+boost::signals2::connection  ComponentBase::connectMouseMoved(
+                                                    const ComponentEventSource::MouseMovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectMouseMoved( listener, at );
+}
+
+boost::signals2::connection  ComponentBase::connectMouseMoved(
+                                                    const ComponentEventSource::MouseMovedEventType::group_type &group,
+                                                    const ComponentEventSource::MouseMovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectMouseMoved( group, listener, at );
+}
+
+void  ComponentBase::disconnectMouseMoved(
+                                                    const ComponentEventSource::MouseMovedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectMouseMoved( group );
+}
+
+void  ComponentBase::disconnectAllSlotsMouseMoved(void)
+{
+    getEventSource()->disconnectAllSlotsMouseMoved();
+}
+
+bool  ComponentBase::isEmptyMouseMoved(void) const
+{
+    return getEventSource()->isEmptyMouseMoved();
+}
+
+UInt32  ComponentBase::numSlotsMouseMoved(void) const
+{
+    return getEventSource()->numSlotsMouseMoved();
+}
+
+boost::signals2::connection  ComponentBase::connectMouseDragged(
+                                                    const ComponentEventSource::MouseDraggedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectMouseDragged( listener, at );
+}
+
+boost::signals2::connection  ComponentBase::connectMouseDragged(
+                                                    const ComponentEventSource::MouseDraggedEventType::group_type &group,
+                                                    const ComponentEventSource::MouseDraggedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectMouseDragged( group, listener, at );
+}
+
+void  ComponentBase::disconnectMouseDragged(
+                                                    const ComponentEventSource::MouseDraggedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectMouseDragged( group );
+}
+
+void  ComponentBase::disconnectAllSlotsMouseDragged(void)
+{
+    getEventSource()->disconnectAllSlotsMouseDragged();
+}
+
+bool  ComponentBase::isEmptyMouseDragged(void) const
+{
+    return getEventSource()->isEmptyMouseDragged();
+}
+
+UInt32  ComponentBase::numSlotsMouseDragged(void) const
+{
+    return getEventSource()->numSlotsMouseDragged();
+}
+
+boost::signals2::connection  ComponentBase::connectMouseClicked(
+                                                    const ComponentEventSource::MouseClickedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectMouseClicked( listener, at );
+}
+
+boost::signals2::connection  ComponentBase::connectMouseClicked(
+                                                    const ComponentEventSource::MouseClickedEventType::group_type &group,
+                                                    const ComponentEventSource::MouseClickedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectMouseClicked( group, listener, at );
+}
+
+void  ComponentBase::disconnectMouseClicked(
+                                                    const ComponentEventSource::MouseClickedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectMouseClicked( group );
+}
+
+void  ComponentBase::disconnectAllSlotsMouseClicked(void)
+{
+    getEventSource()->disconnectAllSlotsMouseClicked();
+}
+
+bool  ComponentBase::isEmptyMouseClicked(void) const
+{
+    return getEventSource()->isEmptyMouseClicked();
+}
+
+UInt32  ComponentBase::numSlotsMouseClicked(void) const
+{
+    return getEventSource()->numSlotsMouseClicked();
+}
+
+boost::signals2::connection  ComponentBase::connectMouseEntered(
+                                                    const ComponentEventSource::MouseEnteredEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectMouseEntered( listener, at );
+}
+
+boost::signals2::connection  ComponentBase::connectMouseEntered(
+                                                    const ComponentEventSource::MouseEnteredEventType::group_type &group,
+                                                    const ComponentEventSource::MouseEnteredEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectMouseEntered( group, listener, at );
+}
+
+void  ComponentBase::disconnectMouseEntered(
+                                                    const ComponentEventSource::MouseEnteredEventType::group_type &group
+)
+{
+    getEventSource()->disconnectMouseEntered( group );
+}
+
+void  ComponentBase::disconnectAllSlotsMouseEntered(void)
+{
+    getEventSource()->disconnectAllSlotsMouseEntered();
+}
+
+bool  ComponentBase::isEmptyMouseEntered(void) const
+{
+    return getEventSource()->isEmptyMouseEntered();
+}
+
+UInt32  ComponentBase::numSlotsMouseEntered(void) const
+{
+    return getEventSource()->numSlotsMouseEntered();
+}
+
+boost::signals2::connection  ComponentBase::connectMouseExited(
+                                                    const ComponentEventSource::MouseExitedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectMouseExited( listener, at );
+}
+
+boost::signals2::connection  ComponentBase::connectMouseExited(
+                                                    const ComponentEventSource::MouseExitedEventType::group_type &group,
+                                                    const ComponentEventSource::MouseExitedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectMouseExited( group, listener, at );
+}
+
+void  ComponentBase::disconnectMouseExited(
+                                                    const ComponentEventSource::MouseExitedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectMouseExited( group );
+}
+
+void  ComponentBase::disconnectAllSlotsMouseExited(void)
+{
+    getEventSource()->disconnectAllSlotsMouseExited();
+}
+
+bool  ComponentBase::isEmptyMouseExited(void) const
+{
+    return getEventSource()->isEmptyMouseExited();
+}
+
+UInt32  ComponentBase::numSlotsMouseExited(void) const
+{
+    return getEventSource()->numSlotsMouseExited();
+}
+
+boost::signals2::connection  ComponentBase::connectMousePressed(
+                                                    const ComponentEventSource::MousePressedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectMousePressed( listener, at );
+}
+
+boost::signals2::connection  ComponentBase::connectMousePressed(
+                                                    const ComponentEventSource::MousePressedEventType::group_type &group,
+                                                    const ComponentEventSource::MousePressedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectMousePressed( group, listener, at );
+}
+
+void  ComponentBase::disconnectMousePressed(
+                                                    const ComponentEventSource::MousePressedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectMousePressed( group );
+}
+
+void  ComponentBase::disconnectAllSlotsMousePressed(void)
+{
+    getEventSource()->disconnectAllSlotsMousePressed();
+}
+
+bool  ComponentBase::isEmptyMousePressed(void) const
+{
+    return getEventSource()->isEmptyMousePressed();
+}
+
+UInt32  ComponentBase::numSlotsMousePressed(void) const
+{
+    return getEventSource()->numSlotsMousePressed();
+}
+
+boost::signals2::connection  ComponentBase::connectMouseReleased(
+                                                    const ComponentEventSource::MouseReleasedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectMouseReleased( listener, at );
+}
+
+boost::signals2::connection  ComponentBase::connectMouseReleased(
+                                                    const ComponentEventSource::MouseReleasedEventType::group_type &group,
+                                                    const ComponentEventSource::MouseReleasedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectMouseReleased( group, listener, at );
+}
+
+void  ComponentBase::disconnectMouseReleased(
+                                                    const ComponentEventSource::MouseReleasedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectMouseReleased( group );
+}
+
+void  ComponentBase::disconnectAllSlotsMouseReleased(void)
+{
+    getEventSource()->disconnectAllSlotsMouseReleased();
+}
+
+bool  ComponentBase::isEmptyMouseReleased(void) const
+{
+    return getEventSource()->isEmptyMouseReleased();
+}
+
+UInt32  ComponentBase::numSlotsMouseReleased(void) const
+{
+    return getEventSource()->numSlotsMouseReleased();
+}
+
+boost::signals2::connection  ComponentBase::connectMouseWheelMoved(
+                                                    const ComponentEventSource::MouseWheelMovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectMouseWheelMoved( listener, at );
+}
+
+boost::signals2::connection  ComponentBase::connectMouseWheelMoved(
+                                                    const ComponentEventSource::MouseWheelMovedEventType::group_type &group,
+                                                    const ComponentEventSource::MouseWheelMovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectMouseWheelMoved( group, listener, at );
+}
+
+void  ComponentBase::disconnectMouseWheelMoved(
+                                                    const ComponentEventSource::MouseWheelMovedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectMouseWheelMoved( group );
+}
+
+void  ComponentBase::disconnectAllSlotsMouseWheelMoved(void)
+{
+    getEventSource()->disconnectAllSlotsMouseWheelMoved();
+}
+
+bool  ComponentBase::isEmptyMouseWheelMoved(void) const
+{
+    return getEventSource()->isEmptyMouseWheelMoved();
+}
+
+UInt32  ComponentBase::numSlotsMouseWheelMoved(void) const
+{
+    return getEventSource()->numSlotsMouseWheelMoved();
+}
+
+boost::signals2::connection  ComponentBase::connectKeyPressed(
+                                                    const ComponentEventSource::KeyPressedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectKeyPressed( listener, at );
+}
+
+boost::signals2::connection  ComponentBase::connectKeyPressed(
+                                                    const ComponentEventSource::KeyPressedEventType::group_type &group,
+                                                    const ComponentEventSource::KeyPressedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectKeyPressed( group, listener, at );
+}
+
+void  ComponentBase::disconnectKeyPressed(
+                                                    const ComponentEventSource::KeyPressedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectKeyPressed( group );
+}
+
+void  ComponentBase::disconnectAllSlotsKeyPressed(void)
+{
+    getEventSource()->disconnectAllSlotsKeyPressed();
+}
+
+bool  ComponentBase::isEmptyKeyPressed(void) const
+{
+    return getEventSource()->isEmptyKeyPressed();
+}
+
+UInt32  ComponentBase::numSlotsKeyPressed(void) const
+{
+    return getEventSource()->numSlotsKeyPressed();
+}
+
+boost::signals2::connection  ComponentBase::connectKeyReleased(
+                                                    const ComponentEventSource::KeyReleasedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectKeyReleased( listener, at );
+}
+
+boost::signals2::connection  ComponentBase::connectKeyReleased(
+                                                    const ComponentEventSource::KeyReleasedEventType::group_type &group,
+                                                    const ComponentEventSource::KeyReleasedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectKeyReleased( group, listener, at );
+}
+
+void  ComponentBase::disconnectKeyReleased(
+                                                    const ComponentEventSource::KeyReleasedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectKeyReleased( group );
+}
+
+void  ComponentBase::disconnectAllSlotsKeyReleased(void)
+{
+    getEventSource()->disconnectAllSlotsKeyReleased();
+}
+
+bool  ComponentBase::isEmptyKeyReleased(void) const
+{
+    return getEventSource()->isEmptyKeyReleased();
+}
+
+UInt32  ComponentBase::numSlotsKeyReleased(void) const
+{
+    return getEventSource()->numSlotsKeyReleased();
+}
+
+boost::signals2::connection  ComponentBase::connectKeyTyped(
+                                                    const ComponentEventSource::KeyTypedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectKeyTyped( listener, at );
+}
+
+boost::signals2::connection  ComponentBase::connectKeyTyped(
+                                                    const ComponentEventSource::KeyTypedEventType::group_type &group,
+                                                    const ComponentEventSource::KeyTypedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectKeyTyped( group, listener, at );
+}
+
+void  ComponentBase::disconnectKeyTyped(
+                                                    const ComponentEventSource::KeyTypedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectKeyTyped( group );
+}
+
+void  ComponentBase::disconnectAllSlotsKeyTyped(void)
+{
+    getEventSource()->disconnectAllSlotsKeyTyped();
+}
+
+bool  ComponentBase::isEmptyKeyTyped(void) const
+{
+    return getEventSource()->isEmptyKeyTyped();
+}
+
+UInt32  ComponentBase::numSlotsKeyTyped(void) const
+{
+    return getEventSource()->numSlotsKeyTyped();
+}
+
+boost::signals2::connection  ComponentBase::connectFocusGained(
+                                                    const ComponentEventSource::FocusGainedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectFocusGained( listener, at );
+}
+
+boost::signals2::connection  ComponentBase::connectFocusGained(
+                                                    const ComponentEventSource::FocusGainedEventType::group_type &group,
+                                                    const ComponentEventSource::FocusGainedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectFocusGained( group, listener, at );
+}
+
+void  ComponentBase::disconnectFocusGained(
+                                                    const ComponentEventSource::FocusGainedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectFocusGained( group );
+}
+
+void  ComponentBase::disconnectAllSlotsFocusGained(void)
+{
+    getEventSource()->disconnectAllSlotsFocusGained();
+}
+
+bool  ComponentBase::isEmptyFocusGained(void) const
+{
+    return getEventSource()->isEmptyFocusGained();
+}
+
+UInt32  ComponentBase::numSlotsFocusGained(void) const
+{
+    return getEventSource()->numSlotsFocusGained();
+}
+
+boost::signals2::connection  ComponentBase::connectFocusLost(
+                                                    const ComponentEventSource::FocusLostEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectFocusLost( listener, at );
+}
+
+boost::signals2::connection  ComponentBase::connectFocusLost(
+                                                    const ComponentEventSource::FocusLostEventType::group_type &group,
+                                                    const ComponentEventSource::FocusLostEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectFocusLost( group, listener, at );
+}
+
+void  ComponentBase::disconnectFocusLost(
+                                                    const ComponentEventSource::FocusLostEventType::group_type &group
+)
+{
+    getEventSource()->disconnectFocusLost( group );
+}
+
+void  ComponentBase::disconnectAllSlotsFocusLost(void)
+{
+    getEventSource()->disconnectAllSlotsFocusLost();
+}
+
+bool  ComponentBase::isEmptyFocusLost(void) const
+{
+    return getEventSource()->isEmptyFocusLost();
+}
+
+UInt32  ComponentBase::numSlotsFocusLost(void) const
+{
+    return getEventSource()->numSlotsFocusLost();
+}
+
+boost::signals2::connection  ComponentBase::connectComponentHidden(
+                                                    const ComponentEventSource::ComponentHiddenEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectComponentHidden( listener, at );
+}
+
+boost::signals2::connection  ComponentBase::connectComponentHidden(
+                                                    const ComponentEventSource::ComponentHiddenEventType::group_type &group,
+                                                    const ComponentEventSource::ComponentHiddenEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectComponentHidden( group, listener, at );
+}
+
+void  ComponentBase::disconnectComponentHidden(
+                                                    const ComponentEventSource::ComponentHiddenEventType::group_type &group
+)
+{
+    getEventSource()->disconnectComponentHidden( group );
+}
+
+void  ComponentBase::disconnectAllSlotsComponentHidden(void)
+{
+    getEventSource()->disconnectAllSlotsComponentHidden();
+}
+
+bool  ComponentBase::isEmptyComponentHidden(void) const
+{
+    return getEventSource()->isEmptyComponentHidden();
+}
+
+UInt32  ComponentBase::numSlotsComponentHidden(void) const
+{
+    return getEventSource()->numSlotsComponentHidden();
+}
+
+boost::signals2::connection  ComponentBase::connectComponentVisible(
+                                                    const ComponentEventSource::ComponentVisibleEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectComponentVisible( listener, at );
+}
+
+boost::signals2::connection  ComponentBase::connectComponentVisible(
+                                                    const ComponentEventSource::ComponentVisibleEventType::group_type &group,
+                                                    const ComponentEventSource::ComponentVisibleEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectComponentVisible( group, listener, at );
+}
+
+void  ComponentBase::disconnectComponentVisible(
+                                                    const ComponentEventSource::ComponentVisibleEventType::group_type &group
+)
+{
+    getEventSource()->disconnectComponentVisible( group );
+}
+
+void  ComponentBase::disconnectAllSlotsComponentVisible(void)
+{
+    getEventSource()->disconnectAllSlotsComponentVisible();
+}
+
+bool  ComponentBase::isEmptyComponentVisible(void) const
+{
+    return getEventSource()->isEmptyComponentVisible();
+}
+
+UInt32  ComponentBase::numSlotsComponentVisible(void) const
+{
+    return getEventSource()->numSlotsComponentVisible();
+}
+
+boost::signals2::connection  ComponentBase::connectComponentMoved(
+                                                    const ComponentEventSource::ComponentMovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectComponentMoved( listener, at );
+}
+
+boost::signals2::connection  ComponentBase::connectComponentMoved(
+                                                    const ComponentEventSource::ComponentMovedEventType::group_type &group,
+                                                    const ComponentEventSource::ComponentMovedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectComponentMoved( group, listener, at );
+}
+
+void  ComponentBase::disconnectComponentMoved(
+                                                    const ComponentEventSource::ComponentMovedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectComponentMoved( group );
+}
+
+void  ComponentBase::disconnectAllSlotsComponentMoved(void)
+{
+    getEventSource()->disconnectAllSlotsComponentMoved();
+}
+
+bool  ComponentBase::isEmptyComponentMoved(void) const
+{
+    return getEventSource()->isEmptyComponentMoved();
+}
+
+UInt32  ComponentBase::numSlotsComponentMoved(void) const
+{
+    return getEventSource()->numSlotsComponentMoved();
+}
+
+boost::signals2::connection  ComponentBase::connectComponentResized(
+                                                    const ComponentEventSource::ComponentResizedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectComponentResized( listener, at );
+}
+
+boost::signals2::connection  ComponentBase::connectComponentResized(
+                                                    const ComponentEventSource::ComponentResizedEventType::group_type &group,
+                                                    const ComponentEventSource::ComponentResizedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectComponentResized( group, listener, at );
+}
+
+void  ComponentBase::disconnectComponentResized(
+                                                    const ComponentEventSource::ComponentResizedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectComponentResized( group );
+}
+
+void  ComponentBase::disconnectAllSlotsComponentResized(void)
+{
+    getEventSource()->disconnectAllSlotsComponentResized();
+}
+
+bool  ComponentBase::isEmptyComponentResized(void) const
+{
+    return getEventSource()->isEmptyComponentResized();
+}
+
+UInt32  ComponentBase::numSlotsComponentResized(void) const
+{
+    return getEventSource()->numSlotsComponentResized();
+}
+
+boost::signals2::connection  ComponentBase::connectComponentEnabled(
+                                                    const ComponentEventSource::ComponentEnabledEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectComponentEnabled( listener, at );
+}
+
+boost::signals2::connection  ComponentBase::connectComponentEnabled(
+                                                    const ComponentEventSource::ComponentEnabledEventType::group_type &group,
+                                                    const ComponentEventSource::ComponentEnabledEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectComponentEnabled( group, listener, at );
+}
+
+void  ComponentBase::disconnectComponentEnabled(
+                                                    const ComponentEventSource::ComponentEnabledEventType::group_type &group
+)
+{
+    getEventSource()->disconnectComponentEnabled( group );
+}
+
+void  ComponentBase::disconnectAllSlotsComponentEnabled(void)
+{
+    getEventSource()->disconnectAllSlotsComponentEnabled();
+}
+
+bool  ComponentBase::isEmptyComponentEnabled(void) const
+{
+    return getEventSource()->isEmptyComponentEnabled();
+}
+
+UInt32  ComponentBase::numSlotsComponentEnabled(void) const
+{
+    return getEventSource()->numSlotsComponentEnabled();
+}
+
+boost::signals2::connection  ComponentBase::connectComponentDisabled(
+                                                    const ComponentEventSource::ComponentDisabledEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectComponentDisabled( listener, at );
+}
+
+boost::signals2::connection  ComponentBase::connectComponentDisabled(
+                                                    const ComponentEventSource::ComponentDisabledEventType::group_type &group,
+                                                    const ComponentEventSource::ComponentDisabledEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectComponentDisabled( group, listener, at );
+}
+
+void  ComponentBase::disconnectComponentDisabled(
+                                                    const ComponentEventSource::ComponentDisabledEventType::group_type &group
+)
+{
+    getEventSource()->disconnectComponentDisabled( group );
+}
+
+void  ComponentBase::disconnectAllSlotsComponentDisabled(void)
+{
+    getEventSource()->disconnectAllSlotsComponentDisabled();
+}
+
+bool  ComponentBase::isEmptyComponentDisabled(void) const
+{
+    return getEventSource()->isEmptyComponentDisabled();
+}
+
+UInt32  ComponentBase::numSlotsComponentDisabled(void) const
+{
+    return getEventSource()->numSlotsComponentDisabled();
+}
+
+boost::signals2::connection  ComponentBase::connectToolTipActivated(
+                                                    const ComponentEventSource::ToolTipActivatedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectToolTipActivated( listener, at );
+}
+
+boost::signals2::connection  ComponentBase::connectToolTipActivated(
+                                                    const ComponentEventSource::ToolTipActivatedEventType::group_type &group,
+                                                    const ComponentEventSource::ToolTipActivatedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectToolTipActivated( group, listener, at );
+}
+
+void  ComponentBase::disconnectToolTipActivated(
+                                                    const ComponentEventSource::ToolTipActivatedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectToolTipActivated( group );
+}
+
+void  ComponentBase::disconnectAllSlotsToolTipActivated(void)
+{
+    getEventSource()->disconnectAllSlotsToolTipActivated();
+}
+
+bool  ComponentBase::isEmptyToolTipActivated(void) const
+{
+    return getEventSource()->isEmptyToolTipActivated();
+}
+
+UInt32  ComponentBase::numSlotsToolTipActivated(void) const
+{
+    return getEventSource()->numSlotsToolTipActivated();
+}
+
+boost::signals2::connection  ComponentBase::connectToolTipDeactivated(
+                                                    const ComponentEventSource::ToolTipDeactivatedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectToolTipDeactivated( listener, at );
+}
+
+boost::signals2::connection  ComponentBase::connectToolTipDeactivated(
+                                                    const ComponentEventSource::ToolTipDeactivatedEventType::group_type &group,
+                                                    const ComponentEventSource::ToolTipDeactivatedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    return getEventSource()->connectToolTipDeactivated( group, listener, at );
+}
+
+void  ComponentBase::disconnectToolTipDeactivated(
+                                                    const ComponentEventSource::ToolTipDeactivatedEventType::group_type &group
+)
+{
+    getEventSource()->disconnectToolTipDeactivated( group );
+}
+
+void  ComponentBase::disconnectAllSlotsToolTipDeactivated(void)
+{
+    getEventSource()->disconnectAllSlotsToolTipDeactivated();
+}
+
+bool  ComponentBase::isEmptyToolTipDeactivated(void) const
+{
+    return getEventSource()->isEmptyToolTipDeactivated();
+}
+
+UInt32  ComponentBase::numSlotsToolTipDeactivated(void) const
+{
+    return getEventSource()->numSlotsToolTipDeactivated();
+}
+
 OSG_END_NAMESPACE

@@ -1883,4 +1883,589 @@ void AbstractWindowBase::resolveLinks(void)
 }
 
 
+boost::signals2::connection  AbstractWindowBase::connectWindowOpened(
+                                                    const AbstractWindowEventSource::WindowOpenedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectWindowOpened( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  AbstractWindowBase::connectWindowOpened(
+                                                    const AbstractWindowEventSource::WindowOpenedEventType::group_type &group,
+                                                    const AbstractWindowEventSource::WindowOpenedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectWindowOpened( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  AbstractWindowBase::disconnectWindowOpened(
+                                                    const AbstractWindowEventSource::WindowOpenedEventType::group_type &group
+)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectWindowOpened( group );
+    }
+}
+
+void  AbstractWindowBase::disconnectAllSlotsWindowOpened(void)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsWindowOpened();
+    }
+}
+
+bool  AbstractWindowBase::isEmptyWindowOpened(void) const
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyWindowOpened();
+    }
+    return true;
+}
+
+UInt32  AbstractWindowBase::numSlotsWindowOpened(void) const
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsWindowOpened();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  AbstractWindowBase::connectWindowClosing(
+                                                    const AbstractWindowEventSource::WindowClosingEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectWindowClosing( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  AbstractWindowBase::connectWindowClosing(
+                                                    const AbstractWindowEventSource::WindowClosingEventType::group_type &group,
+                                                    const AbstractWindowEventSource::WindowClosingEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectWindowClosing( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  AbstractWindowBase::disconnectWindowClosing(
+                                                    const AbstractWindowEventSource::WindowClosingEventType::group_type &group
+)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectWindowClosing( group );
+    }
+}
+
+void  AbstractWindowBase::disconnectAllSlotsWindowClosing(void)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsWindowClosing();
+    }
+}
+
+bool  AbstractWindowBase::isEmptyWindowClosing(void) const
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyWindowClosing();
+    }
+    return true;
+}
+
+UInt32  AbstractWindowBase::numSlotsWindowClosing(void) const
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsWindowClosing();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  AbstractWindowBase::connectWindowClosed(
+                                                    const AbstractWindowEventSource::WindowClosedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectWindowClosed( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  AbstractWindowBase::connectWindowClosed(
+                                                    const AbstractWindowEventSource::WindowClosedEventType::group_type &group,
+                                                    const AbstractWindowEventSource::WindowClosedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectWindowClosed( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  AbstractWindowBase::disconnectWindowClosed(
+                                                    const AbstractWindowEventSource::WindowClosedEventType::group_type &group
+)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectWindowClosed( group );
+    }
+}
+
+void  AbstractWindowBase::disconnectAllSlotsWindowClosed(void)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsWindowClosed();
+    }
+}
+
+bool  AbstractWindowBase::isEmptyWindowClosed(void) const
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyWindowClosed();
+    }
+    return true;
+}
+
+UInt32  AbstractWindowBase::numSlotsWindowClosed(void) const
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsWindowClosed();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  AbstractWindowBase::connectWindowIconified(
+                                                    const AbstractWindowEventSource::WindowIconifiedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectWindowIconified( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  AbstractWindowBase::connectWindowIconified(
+                                                    const AbstractWindowEventSource::WindowIconifiedEventType::group_type &group,
+                                                    const AbstractWindowEventSource::WindowIconifiedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectWindowIconified( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  AbstractWindowBase::disconnectWindowIconified(
+                                                    const AbstractWindowEventSource::WindowIconifiedEventType::group_type &group
+)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectWindowIconified( group );
+    }
+}
+
+void  AbstractWindowBase::disconnectAllSlotsWindowIconified(void)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsWindowIconified();
+    }
+}
+
+bool  AbstractWindowBase::isEmptyWindowIconified(void) const
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyWindowIconified();
+    }
+    return true;
+}
+
+UInt32  AbstractWindowBase::numSlotsWindowIconified(void) const
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsWindowIconified();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  AbstractWindowBase::connectWindowDeiconified(
+                                                    const AbstractWindowEventSource::WindowDeiconifiedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectWindowDeiconified( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  AbstractWindowBase::connectWindowDeiconified(
+                                                    const AbstractWindowEventSource::WindowDeiconifiedEventType::group_type &group,
+                                                    const AbstractWindowEventSource::WindowDeiconifiedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectWindowDeiconified( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  AbstractWindowBase::disconnectWindowDeiconified(
+                                                    const AbstractWindowEventSource::WindowDeiconifiedEventType::group_type &group
+)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectWindowDeiconified( group );
+    }
+}
+
+void  AbstractWindowBase::disconnectAllSlotsWindowDeiconified(void)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsWindowDeiconified();
+    }
+}
+
+bool  AbstractWindowBase::isEmptyWindowDeiconified(void) const
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyWindowDeiconified();
+    }
+    return true;
+}
+
+UInt32  AbstractWindowBase::numSlotsWindowDeiconified(void) const
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsWindowDeiconified();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  AbstractWindowBase::connectWindowActivated(
+                                                    const AbstractWindowEventSource::WindowActivatedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectWindowActivated( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  AbstractWindowBase::connectWindowActivated(
+                                                    const AbstractWindowEventSource::WindowActivatedEventType::group_type &group,
+                                                    const AbstractWindowEventSource::WindowActivatedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectWindowActivated( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  AbstractWindowBase::disconnectWindowActivated(
+                                                    const AbstractWindowEventSource::WindowActivatedEventType::group_type &group
+)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectWindowActivated( group );
+    }
+}
+
+void  AbstractWindowBase::disconnectAllSlotsWindowActivated(void)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsWindowActivated();
+    }
+}
+
+bool  AbstractWindowBase::isEmptyWindowActivated(void) const
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyWindowActivated();
+    }
+    return true;
+}
+
+UInt32  AbstractWindowBase::numSlotsWindowActivated(void) const
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsWindowActivated();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  AbstractWindowBase::connectWindowDeactivated(
+                                                    const AbstractWindowEventSource::WindowDeactivatedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectWindowDeactivated( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  AbstractWindowBase::connectWindowDeactivated(
+                                                    const AbstractWindowEventSource::WindowDeactivatedEventType::group_type &group,
+                                                    const AbstractWindowEventSource::WindowDeactivatedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectWindowDeactivated( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  AbstractWindowBase::disconnectWindowDeactivated(
+                                                    const AbstractWindowEventSource::WindowDeactivatedEventType::group_type &group
+)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectWindowDeactivated( group );
+    }
+}
+
+void  AbstractWindowBase::disconnectAllSlotsWindowDeactivated(void)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsWindowDeactivated();
+    }
+}
+
+bool  AbstractWindowBase::isEmptyWindowDeactivated(void) const
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyWindowDeactivated();
+    }
+    return true;
+}
+
+UInt32  AbstractWindowBase::numSlotsWindowDeactivated(void) const
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsWindowDeactivated();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  AbstractWindowBase::connectWindowEntered(
+                                                    const AbstractWindowEventSource::WindowEnteredEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectWindowEntered( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  AbstractWindowBase::connectWindowEntered(
+                                                    const AbstractWindowEventSource::WindowEnteredEventType::group_type &group,
+                                                    const AbstractWindowEventSource::WindowEnteredEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectWindowEntered( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  AbstractWindowBase::disconnectWindowEntered(
+                                                    const AbstractWindowEventSource::WindowEnteredEventType::group_type &group
+)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectWindowEntered( group );
+    }
+}
+
+void  AbstractWindowBase::disconnectAllSlotsWindowEntered(void)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsWindowEntered();
+    }
+}
+
+bool  AbstractWindowBase::isEmptyWindowEntered(void) const
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyWindowEntered();
+    }
+    return true;
+}
+
+UInt32  AbstractWindowBase::numSlotsWindowEntered(void) const
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsWindowEntered();
+    }
+    return 0u;
+}
+
+boost::signals2::connection  AbstractWindowBase::connectWindowExited(
+                                                    const AbstractWindowEventSource::WindowExitedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectWindowExited( listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+boost::signals2::connection  AbstractWindowBase::connectWindowExited(
+                                                    const AbstractWindowEventSource::WindowExitedEventType::group_type &group,
+                                                    const AbstractWindowEventSource::WindowExitedEventType::slot_type &listener, 
+                                                    boost::signals2::connect_position at)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->connectWindowExited( group, listener, at );
+    }
+    return boost::signals2::connection();
+}
+
+void  AbstractWindowBase::disconnectWindowExited(
+                                                    const AbstractWindowEventSource::WindowExitedEventType::group_type &group
+)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectWindowExited( group );
+    }
+}
+
+void  AbstractWindowBase::disconnectAllSlotsWindowExited(void)
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        evSrc->disconnectAllSlotsWindowExited();
+    }
+}
+
+bool  AbstractWindowBase::isEmptyWindowExited(void) const
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->isEmptyWindowExited();
+    }
+    return true;
+}
+
+UInt32  AbstractWindowBase::numSlotsWindowExited(void) const
+{
+    AbstractWindowEventSource* evSrc = dynamic_cast<AbstractWindowEventSource*>( getEventSource() );
+    if ( evSrc )
+    {
+        return evSrc->numSlotsWindowExited();
+    }
+    return 0u;
+}
+
 OSG_END_NAMESPACE
